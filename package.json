@@ -1,5 +1,5 @@
 {
-  "name": "frontend-template",
+  "name": "sporenstreks-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -58,7 +58,7 @@
     "redux-thunk": "^2.3.0",
     "typescript": "^3.8.3"
   },
-  "homepage": "/min-side-refusjon",
+  "homepage": "/min-side-refusjoner",
   "scripts": {
     "start": "env-cmd -f .env.local react-app-rewired start",
     "build:local": "npm run lint && env-cmd -f .env.local react-app-rewired start",

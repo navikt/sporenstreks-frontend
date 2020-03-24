@@ -22,7 +22,7 @@ render(
     <Provider store={store}>
       <Router>
         <Switch>
-          <Route exact path="/min-side-refusjon/" render={() => <ArbeidsgiverPeriodeTabell/>}/>
+          <Route exact path="/min-side-refusjoner/" render={() => <ArbeidsgiverPeriodeTabell/>}/>
           <Route exact path="/" render={() => <Redirecter/>}/>
           {/*<Route render={() => <404/>}/> // Todo: 404 fallback */}
         </Switch>

@@ -62,13 +62,13 @@ server {
         default_type text/plain;
     }
 
-    location /min-side-refusjon/api/ {
+    location /min-side-refusjoner/api/ {
         proxy_set_header "x-nav-apiKey" $apigw_api_key;
         proxy_pass "${API_GATEWAY}/api/";
     }
 
     ## All static files will be served directly and cached
-    location ^~ /min-side-refusjon {
+    location ^~ /min-side-refusjoner {
         alias "${APP_DIR}";
     }
 
