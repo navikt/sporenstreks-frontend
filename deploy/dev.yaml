@@ -21,7 +21,7 @@ spec:
     periodSeconds: 3
     failureThreshold: 10
   ingresses:
-    - https://arbeidsgiver-q.nav.no/min-side-refusjoner/
+    - https://arbeidsgiver-q.nav.no/nettrefusjon/
   replicas:
     max: 1
     min: 1
@@ -41,4 +41,4 @@ spec:
   - name: API_GATEWAY
     value: https://api-gw-q1.oera.no/sporenstreks
   - name: LOGIN_URL
-    value: https://loginservice-q.nav.no/login?redirect=https://arbeidsgiver-q.nav.no/min-side-refusjoner/
+    value: https://loginservice-q.nav.no/login?redirect=https://arbeidsgiver-q.nav.no/nettrefusjon/

@@ -58,7 +58,7 @@
     "redux-thunk": "^2.3.0",
     "typescript": "^3.8.3"
   },
-  "homepage": "/min-side-refusjoner",
+  "homepage": "/nettrefusjon",
   "scripts": {
     "start": "env-cmd -f .env.local react-app-rewired start",
     "build:local": "npm run lint && env-cmd -f .env.local react-app-rewired start",

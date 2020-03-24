@@ -2,7 +2,7 @@ FROM openresty/openresty:alpine-fat
 
 # User env var is needed for luarocks to not complain.
 ENV APP_DIR="/app" \
-	APP_PATH_PREFIX="/min-side-refusjoner" \
+	APP_PATH_PREFIX="/nettrefusjon" \
 	USER="root"
 
 # Copying over the config-files.
