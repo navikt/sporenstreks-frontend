@@ -12,9 +12,9 @@ then
     done
 fi
 
-if test -d /apigw/helse-spion;
+if test -d /apigw/sporenstreks;
 then
-  export API_GW_API_KEY=$(cat /apigw/helse-spion/x-nav-apiKey)
+  export API_GW_API_KEY=$(cat /apigw/sporenstreks/x-nav-apiKey)
 fi
 
 # Setting default environment variables

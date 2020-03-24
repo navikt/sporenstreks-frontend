@@ -1,7 +1,7 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
-  name: helse-spion-frontend
+  name: sporenstreks-frontend
   namespace: default
   labels:
     team: {{team}}
@@ -32,4 +32,4 @@ spec:
       memory: 256Mi
   env:
     - name: API_GATEWAY
-      value: https://api-gw.oera.no/helse-spion
+      value: https://api-gw.oera.no/sporenstreks

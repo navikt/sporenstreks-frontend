@@ -1,7 +1,7 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
-  name: helse-spion-frontend
+  name: sporenstreks-frontend
   namespace: default
   labels:
     team: {{team}}
@@ -35,10 +35,10 @@ spec:
   vault:
     enabled: true
     paths:
-      - kvPath: apikey/apigw/dev/helse-spion/helse-spion-frontend_q1
-        mountPath: /apigw/helse-spion
+      - kvPath: apikey/apigw/dev/sporenstreks/sporenstreks-frontend_q1
+        mountPath: /apigw/sporenstreks
   env:
   - name: API_GATEWAY
-    value: https://api-gw-q1.oera.no/helse-spion
+    value: https://api-gw-q1.oera.no/sporenstreks
   - name: LOGIN_URL
     value: https://loginservice-q.nav.no/login?redirect=https://arbeidsgiver-q.nav.no/min-side-refusjon/
