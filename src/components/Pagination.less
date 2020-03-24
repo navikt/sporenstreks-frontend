@@ -1,0 +1,31 @@
+@import (reference) '~nav-frontend-core/less/_variabler';
+
+.pagination {
+  margin-top: 15px;
+}
+
+.pagination > li {
+  border: 1px solid @navBla;
+}
+
+.pagination > li:first-child {
+  padding-left: 1px;
+}
+
+.pagination > li > a,
+.pagination > li > span {
+  position: relative;
+  float: left;
+  padding: 6px 12px;
+  line-height: 1.42857143;
+  text-decoration: none;
+  color: @navBla;
+  background-color: white;
+  margin-left: -1px;
+}
+
+.pagination > li > a:hover,
+.pagination > li.active > a {
+  color: white;
+  background-color: @navBla;
+}

@@ -1,0 +1,35 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: helse-spion-frontend
+  namespace: default
+  labels:
+    team: {{team}}
+spec:
+  image: {{image}}:{{tag}}
+  port: 443
+  liveness:
+    path: /health/is-alive
+    initialDelay: 15
+    timeout: 1
+    periodSeconds: 3
+    failureThreshold: 10
+  readiness:
+    path: /health/is-ready
+    initialDelay: 15
+    timeout: 1
+    periodSeconds: 3
+    failureThreshold: 10
+  replicas:
+    max: 1
+    min: 1
+  resources:
+    limits:
+      cpu: 800m
+      memory: 1024Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+  env:
+    - name: API_GATEWAY
+      value: https://api-gw.oera.no/helse-spion
