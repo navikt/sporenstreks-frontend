@@ -1,4 +1,4 @@
-import { dateToString } from "./dateToString";
+import { dateToString } from './dateToString';
 
 describe('dateToString', () => {
 	it('converts Date to string', () => {

@@ -1,5 +1,5 @@
-import { HelseSpionActionTypes, HelseSpionState, HelseSpionTypes } from "../types/helseSpionTypes";
-import { Action } from "redux";
+import { HelseSpionActionTypes, HelseSpionState, HelseSpionTypes } from '../types/helseSpionTypes';
+import { Action } from 'redux';
 
 const initialHelseSpionState: HelseSpionState = {
   arbeidsgivere: [],

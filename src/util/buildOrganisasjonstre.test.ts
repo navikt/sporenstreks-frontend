@@ -1,5 +1,5 @@
-import { buildOrganisasjonstre } from "./buildOrganisasjonstre";
-import { mockOrganisasjon1, mockOrganisasjon2, mockOrganisasjoner } from "./mockData";
+import { buildOrganisasjonstre } from './buildOrganisasjonstre';
+import { mockOrganisasjon1, mockOrganisasjon2, mockOrganisasjoner } from './mockData';
 
 describe('buildOrganisasjonstre', () => {
 	it('builds tree and filters', () => {

@@ -1,7 +1,7 @@
-import { fetchPersonError, fetchPersonStarted, fetchPersonSuccess } from "../actions/helseSpionActions";
-import { ErrorType, Ytelsesperiode } from "../types/helseSpionTypes";
-import { stringToDate } from "../../util/stringToDate";
-import { Dispatch } from "redux";
+import { fetchPersonError, fetchPersonStarted, fetchPersonSuccess } from '../actions/helseSpionActions';
+import { ErrorType, Ytelsesperiode } from '../types/helseSpionTypes';
+import { stringToDate } from '../../util/stringToDate';
+import { Dispatch } from 'redux';
 
 export function fetchPerson(identityNumber?: string, arbeidsgiverId?: string): (dispatch: Dispatch) => Promise<void> {
   return async dispatch => {
