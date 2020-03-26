@@ -21,49 +21,12 @@
     margin-bottom: 0.7rem;
   }
 
-  .react-datepicker-wrapper {
-    margin-left: 15px;
-    margin-right: 15px;
-    width: 150px;
-  }
-
-  &--person-gruppe-container {
-    display: inline-flex;
-  }
-
-  &--person-gruppe {
-    display: inline-flex;
-    margin-left: auto;
-    text-align: left;
-  }
-
-  &--søke-input {
-    width: 240px;
-    margin-bottom: 0;
-    padding-right: 15px;
-
-    input {
-      border: 1px solid black;
-    }
-  }
-
   &--loading-spinner {
     margin: 20px;
   }
 
-  &--søke-knapp {
-    border-radius: 4px;
-  }
-
   .alertstripe {
     margin-top: 20px;
-  }
-
-  .react-datepicker__input-container {
-    input {
-      border-radius: 4px;
-      border: 1px solid black;
-    }
   }
 
   .bedriftsmeny__inner {
@@ -72,11 +35,16 @@
 
   .container {
     max-width: 50rem;
-    padding: 30px 0 15px;
     border-bottom: 1px solid @navMorkGra;
+    padding: 15px 1.4rem;
+
+    &:nth-child(4) {
+      border: 0;
+    }
 
     &:last-child {
       border: 0;
+      padding: 1.5rem 1.4rem 2rem;
     }
   }
 }
@@ -91,8 +59,22 @@
   }
 }
 
+@media (min-width: 769px) {
+  .sykepenger {
+    .container {
+      padding: 30px 0 15px;
+
+      &:last-child {
+        padding: 30px 0 15px;
+      }
+    }
+  }
+}
+
 @media (min-width: 992px) {
-  .bedriftsmeny .virksomhetsvelger__dropdownwrapper--apen {
-    top: -1rem;
+  .sykepenger {
+    .bedriftsmeny .virksomhetsvelger__dropdownwrapper--apen {
+      top: -1rem;
+    }
   }
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import useForceUpdate from 'use-force-update';
 import PeriodeKomp from './PeriodeKomp';
 import './Flatpickr.less';
-import './Perioder.less';
+import './Perioder-gml.less';
 
 interface PerioderProps {
   id: string;

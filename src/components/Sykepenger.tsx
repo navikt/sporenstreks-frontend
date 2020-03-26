@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import 'nav-frontend-tabell-style';
 import { Input } from 'nav-frontend-skjema';
+import { Knapp } from 'nav-frontend-knapper';
 import { withRouter } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
-import { Undertekst, Undertittel } from 'nav-frontend-typografi';
-import 'react-datepicker/dist/react-datepicker.css';
+import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
 import { Keys } from '../locales/keys';
+import NumberFormat from 'react-number-format';
 import { RootState } from '../store/rootState';
 import { fetchPerson } from '../store/thunks/fetchPerson';
 import { Ytelsesperiode } from '../store/types/helseSpionTypes';
@@ -15,21 +16,9 @@ import { fetchArbeidsgivere } from '../store/thunks/fetchArbeidsgivere';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
-import { Knapp } from 'nav-frontend-knapper';
 import Perioder from './Perioder';
 import FormKomp from './FormKomp';
 import './Sykepenger.less';
-
-const mockOrganisasjoner: Organisasjon[] = [
-  {
-    Name: 'Firmaet AS',
-    Type: 'Aksjeselskap',
-    OrganizationNumber: '123456789',
-    OrganizationForm: 'Aksjeselskap',
-    Status: 'PÅBEGYNT',
-    ParentOrganizationNumber: '987654321',
-  }
-];
 
 type OwnProps = {
   t: (str: string) => string
@@ -106,9 +95,14 @@ class Sykepenger extends Component<Props, State> {
               </Undertekst>
               <Perioder id="perioder" />
             </div>
+          </div>
 
+          <div className="container">
             <Undertittel className="sykepenger--undertittel">Hvor mye ønskes refundert?</Undertittel>
-            <Input label="Beløp" type="text" bredde="S" />
+            <label htmlFor="belop">
+              <Normaltekst tag="span">Beløp</Normaltekst>
+            </label>
+            <NumberFormat id="belop" customInput={Input} format={'### ### ### ###'} className="input--s" />
           </div>
 
           <div className="container">

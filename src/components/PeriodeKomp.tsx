@@ -26,37 +26,41 @@ const PeriodeKomp = (props: PeriodeProps) => {
 
   return (
     <li className='periode'>
-      <div className='periodelabel'>
-        <label htmlFor={htmlfor} className='fom'>
-          Fra og med første, til og med siste fraværsdag
-        </label>
+      <div className="periodefelt">
+        <div className='periodelabel'>
+          <label htmlFor={htmlfor} className='fom'>
+            Fra og med første, til og med siste fraværsdag
+          </label>
+        </div>
+        <Controller
+          as={Flatpickr}
+          rules={{
+            pattern: { value: /\d/, message: feilmelding }
+          }}
+          id={id}
+          name={id}
+          className='skjemaelement__input input--xl'
+          placeholder='dd.mm.yyyy til dd.mm.yyyy'
+          options={{
+            minDate: props.min,
+            maxDate: props.max,
+            mode: 'range',
+            enableTime: false,
+            dateFormat: 'F j, Y',
+            altInput: true,
+            altFormat: 'd.m.Y',
+            locale: Norwegian,
+            allowInput: true
+          }}
+        />
+      </div>
+
+      <div className="antallfelt">
         <label htmlFor={'antall_' + id} className="dager">
           Hvor mange dager ønskes refundert?
         </label>
+        <Input type="number" step={1} name={'antall_' + id} label="" bredde="S" />
       </div>
-      <Controller
-        as={Flatpickr}
-        rules={{
-          pattern: { value: /\d/, message: feilmelding }
-        }}
-        id={id}
-        name={id}
-        className='skjemaelement__input input--xl'
-        placeholder='dd.mm.yyyy til dd.mm.yyyy'
-        options={{
-          minDate: props.min,
-          maxDate: props.max,
-          mode: 'range',
-          enableTime: false,
-          dateFormat: 'F j, Y',
-          altInput: true,
-          altFormat: 'd.m.Y',
-          locale: Norwegian,
-          allowInput: true
-        }}
-      />
-
-      <Input type="number" step={1} name={'antall_' + id} label="" bredde="S" />
 
       <Vis hvis={props.index > 0}>
         <button role='link' id={'btn_' + id} className='periodeknapp lenke slett'
