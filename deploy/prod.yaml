@@ -20,6 +20,8 @@ spec:
     timeout: 1
     periodSeconds: 3
     failureThreshold: 10
+  ingresses:
+    - https://arbeidsgiver.nav.no/nettrefusjon/
   replicas:
     max: 1
     min: 1
