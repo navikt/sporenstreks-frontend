@@ -1,4 +1,4 @@
-import { ErrorType, Status } from '../store/types/helseSpionTypes';
+import { ErrorType, Status } from '../store/types/sporenstreksTypes';
 
 export enum Keys {
 	MY_PAGE = 'MY_PAGE',

@@ -9,16 +9,20 @@ import { Undertekst, Undertittel } from 'nav-frontend-typografi';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Keys } from '../locales/keys';
 import { RootState } from '../store/rootState';
-import { fetchPerson } from '../store/thunks/fetchPerson';
-import { Ytelsesperiode } from '../store/types/helseSpionTypes';
+import { ErrorObject, ErrorType, RefusjonsKrav, Ytelsesperiode } from '../store/types/sporenstreksTypes';
 import { fetchArbeidsgivere } from '../store/thunks/fetchArbeidsgivere';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
 import { Knapp } from 'nav-frontend-knapper';
+import { dateToString } from "../util/dateToString";
+import { submitRefusjon } from "../store/thunks/submitRefusjon";
+import AlertStripe from "nav-frontend-alertstriper";
 import Perioder from './Perioder';
 import FormKomp from './FormKomp';
 import './Sykepenger.less';
+import { filterStringToNumbersOnly } from "../util/filterStringToNumbersOnly";
+import { identityNumberSeparation } from "../util/identityNumberSeparation";
 
 const mockOrganisasjoner: Organisasjon[] = [
   {
@@ -39,11 +43,13 @@ type OwnProps = {
 type StateProps = {
   arbeidsgivere: Organisasjon[]
   ytelsesperioder: Ytelsesperiode[]
+  refusjonErrors?: ErrorObject[],
+  refusjonLoading: boolean,
 }
 
 type DispatchProps = {
-  fetchPerson: (identityNumber?: string, arbeidsgiverId?: string) => void
   fetchArbeidsgivere: () => void
+  submitRefusjon: (refusjonsKrav: RefusjonsKrav) => void
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
@@ -51,6 +57,8 @@ type Props = OwnProps & StateProps & DispatchProps;
 type State = {
   identityNumberInput: string
   arbeidsgiverId: string
+  daysInput: string
+  amountInput: string
   fom?: Date
   tom?: Date
 }
@@ -59,19 +67,42 @@ class Sykepenger extends Component<Props, State> {
   state: State = {
     identityNumberInput: '',
     arbeidsgiverId: '',
+    daysInput: '',
+    amountInput: '',
   };
-
+  
   componentDidMount = async(): Promise<void> => {
     this.props.fetchArbeidsgivere();
   };
 
+  setIdentityNumberInput = (input: string) =>
+    this.setState({ identityNumberInput: filterStringToNumbersOnly(input, 11) });
+  
+  submitRefusjon = (): void => {
+    
+    // todo: validering av inputs
+    const refusjonsKrav: RefusjonsKrav = {
+      identitetsnummer: this.state.identityNumberInput,
+      virksomhetsnummer: this.state.arbeidsgiverId,
+      perioder: [
+        {
+          fom: dateToString(this.state.fom!),
+          tom: dateToString(this.state.tom!),
+          antallDagerMedRefusjon: parseInt(this.state.daysInput),
+        }
+      ],
+      beløp: parseInt(this.state.amountInput)
+    };
+    this.props.submitRefusjon(refusjonsKrav);
+  };
+  
   render() {
     const {
-      t, history, arbeidsgivere, ytelsesperioder
+      t, history, arbeidsgivere, ytelsesperioder, refusjonErrors, refusjonLoading,
     } = this.props;
-    const { fom, tom } = this.state;
+    const { amountInput, daysInput, identityNumberInput, fom, tom } = this.state;
     const arbeidstaker = ytelsesperioder[0]?.arbeidsforhold.arbeidstaker;
-
+    
     if (arbeidstaker) {
       document.title = `${t(Keys.REFUNDS)}/${arbeidstaker.fornavn} ${arbeidstaker.etternavn} - www.nav.no`;
     } else {
@@ -88,11 +119,22 @@ class Sykepenger extends Component<Props, State> {
             organisasjoner={arbeidsgivere}
           />
           <div className="container">
+            {
+              refusjonErrors?.map(error => error.errorType in ErrorType
+                ? <AlertStripe type="feil">{t(error.errorType)}</AlertStripe>
+                : <AlertStripe type="feil">{error.errorMessage}</AlertStripe>
+              )
+            }
             <div className="sykepenger--arbeidstaker">
               <Undertittel className="sykepenger--undertittel">
                 Hvilken arbeidstaker gjelder søknaden?
               </Undertittel>
-              <Input label="Fødselsnummer til arbeidstaker" bredde="M" />
+              <Input
+                label="Fødselsnummer til arbeidstaker"
+                bredde="M"
+                onChange={e => this.setIdentityNumberInput(e.target.value)}
+                value={identityNumberSeparation(identityNumberInput)}
+              />
             </div>
           </div>
 
@@ -105,10 +147,35 @@ class Sykepenger extends Component<Props, State> {
                 NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
               </Undertekst>
               <Perioder id="perioder" />
+              {/*<DatePicker*/}
+              {/*  className="form-control"*/}
+              {/*  locale="nb"*/}
+              {/*  dateFormat="dd.MM.yy"*/}
+              {/*  selected={fom}*/}
+              {/*  onChange={e => this.setState({ fom: e })}*/}
+              {/*  showYearDropdown*/}
+              {/*  ariaLabelledBy="periode fra"*/}
+              {/*/>*/}
+              {/*<b>-</b>*/}
+              {/*<DatePicker*/}
+              {/*  className="form-control"*/}
+              {/*  locale="nb"*/}
+              {/*  dateFormat="dd.MM.yy"*/}
+              {/*  selected={tom}*/}
+              {/*  onChange={e => this.setState({ tom: e })}*/}
+              {/*  showYearDropdown*/}
+              {/*  ariaLabelledBy="periode til"*/}
+              {/*/>*/}
             </div>
 
             <Undertittel className="sykepenger--undertittel">Hvor mye ønskes refundert?</Undertittel>
-            <Input label="Beløp" type="text" bredde="S" />
+            <Input
+              label="Beløp"
+              type="number"
+              bredde="S"
+              value={amountInput}
+              onChange={e => this.setState({amountInput: e.target.value})}
+            />
           </div>
 
           <div className="container">
@@ -123,11 +190,13 @@ class Sykepenger extends Component<Props, State> {
 const mapStateToProps = (state: RootState): StateProps => ({
   arbeidsgivere: state.helseSpionState.arbeidsgivere,
   ytelsesperioder: state.helseSpionState.ytelsesperioder,
+  refusjonErrors: state.helseSpionState.refusjonErrors,
+  refusjonLoading: state.helseSpionState.refusjonSubmitting
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => bindActionCreators({
-  fetchPerson,
   fetchArbeidsgivere,
+  submitRefusjon,
 }, dispatch);
 
 export default withRouter(withTranslation()(connect(mapStateToProps, mapDispatchToProps)(Sykepenger)));
