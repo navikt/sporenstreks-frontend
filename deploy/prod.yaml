@@ -32,6 +32,13 @@ spec:
     requests:
       cpu: 200m
       memory: 256Mi
+  vault:
+    enabled: true
+    paths:
+      - kvPath: apikey/apigw/dev/sporenstreks/sporenstreks-frontend
+        mountPath: /apigw/sporenstreks
   env:
     - name: API_GATEWAY
       value: https://api-gw.oera.no/sporenstreks
+    - name: LOGIN_URL
+      value: https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/nettrefusjon/
