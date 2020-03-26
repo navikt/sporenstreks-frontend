@@ -1,0 +1,67 @@
+@import '../../node_modules/nav-frontend-core/less/_variabler';
+
+.periodeliste {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+
+  .periode {
+    padding-top: 0;
+
+    .periodelabel {
+      visibility: hidden;
+      font-size: 0;
+      line-height: 0;
+    }
+
+    .input {
+      display: inline-block;
+      border: 1px solid @navGra60;
+      padding-top: 1.1rem;
+      padding-bottom: 1.3rem;
+
+      &:focus {
+        outline: 0;
+        box-shadow: 0 0 0 3px @fokusFarge;
+      }
+    }
+
+    .skjemaelement {
+      display: inline-block;
+      margin: 0 0 0 1rem;
+    }
+
+    &:first-child {
+      padding: 1rem 0 0;
+
+      .periodelabel {
+        visibility: visible;
+        line-height: inherit;
+        font-size: inherit;
+
+        .fom {
+          width: 350px;
+          margin: 0 1rem 0 0;
+          cursor: pointer;
+        }
+
+        .dager {
+          cursor: pointer;
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+.periodeknapp {
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+  border: none;
+  color: @navBla;
+  text-decoration: underline;
+  margin-top: 1rem;
+
+  &.slett {
+    margin-left: 1rem;
+  }
+}

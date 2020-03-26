@@ -5,23 +5,35 @@ import 'nav-frontend-tabell-style';
 import { Input } from 'nav-frontend-skjema';
 import { withRouter } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
-import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
-import DatePicker from 'react-datepicker';
+import { Undertekst, Undertittel } from 'nav-frontend-typografi';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Keys } from '../locales/keys';
 import { RootState } from '../store/rootState';
 import { ErrorObject, ErrorType, RefusjonsKrav, Ytelsesperiode } from '../store/types/sporenstreksTypes';
-import { filterStringToNumbersOnly } from '../util/filterStringToNumbersOnly';
 import { fetchArbeidsgivere } from '../store/thunks/fetchArbeidsgivere';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
-import './Sykepenger.less';
 import { Knapp } from 'nav-frontend-knapper';
-import { identityNumberSeparation } from "../util/identityNumberSeparation";
 import { dateToString } from "../util/dateToString";
 import { submitRefusjon } from "../store/thunks/submitRefusjon";
 import AlertStripe from "nav-frontend-alertstriper";
+import Perioder from './Perioder';
+import FormKomp from './FormKomp';
+import './Sykepenger.less';
+import { filterStringToNumbersOnly } from "../util/filterStringToNumbersOnly";
+import { identityNumberSeparation } from "../util/identityNumberSeparation";
+
+const mockOrganisasjoner: Organisasjon[] = [
+  {
+    Name: 'Firmaet AS',
+    Type: 'Aksjeselskap',
+    OrganizationNumber: '123456789',
+    OrganizationForm: 'Aksjeselskap',
+    Status: 'PÅBEGYNT',
+    ParentOrganizationNumber: '987654321',
+  }
+];
 
 type OwnProps = {
   t: (str: string) => string
@@ -99,85 +111,77 @@ class Sykepenger extends Component<Props, State> {
 
     return (
       <div className="sykepenger">
-        <Bedriftsmeny
-          history={history}
-          onOrganisasjonChange={(org: Organisasjon) => this.setState({ arbeidsgiverId: org.OrganizationNumber })}
-          sidetittel={t(Keys.MY_PAGE)}
-          organisasjoner={arbeidsgivere}
-        />
-        <div className="container">
-          {
-            refusjonErrors?.map(error => error.errorType in ErrorType
-              ? <AlertStripe type="feil">{t(error.errorType)}</AlertStripe>
-              : <AlertStripe type="feil">{error.errorMessage}</AlertStripe>
-            )
-          }
-          <div className="sykepenger--arbeidstaker">
-            <Undertittel className="sykepenger--undertittel">Hvilken arbeidstaker gjelder søknaden?</Undertittel>
+        <FormKomp>
+          <Bedriftsmeny
+            history={history}
+            onOrganisasjonChange={(org: Organisasjon) => this.setState({ arbeidsgiverId: org.OrganizationNumber })}
+            sidetittel={t(Keys.MY_PAGE)}
+            organisasjoner={arbeidsgivere}
+          />
+          <div className="container">
+            {
+              refusjonErrors?.map(error => error.errorType in ErrorType
+                ? <AlertStripe type="feil">{t(error.errorType)}</AlertStripe>
+                : <AlertStripe type="feil">{error.errorMessage}</AlertStripe>
+              )
+            }
+            <div className="sykepenger--arbeidstaker">
+              <Undertittel className="sykepenger--undertittel">
+                Hvilken arbeidstaker gjelder søknaden?
+              </Undertittel>
+              <Input
+                label="Fødselsnummer til arbeidstaker"
+                bredde="M"
+                onChange={e => this.setIdentityNumberInput(e.target.value)}
+                value={identityNumberSeparation(identityNumberInput)}
+              />
+            </div>
+          </div>
+
+          <div className="container">
+            <div className="sykepenger--periode-velger form-group">
+              <Undertittel className="sykepenger--undertittel">
+                Hvilken periode har den ansatte vært fraværende?
+              </Undertittel>
+              <Undertekst className="sykepenger--undertekst">
+                NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
+              </Undertekst>
+              <Perioder id="perioder" />
+              {/*<DatePicker*/}
+              {/*  className="form-control"*/}
+              {/*  locale="nb"*/}
+              {/*  dateFormat="dd.MM.yy"*/}
+              {/*  selected={fom}*/}
+              {/*  onChange={e => this.setState({ fom: e })}*/}
+              {/*  showYearDropdown*/}
+              {/*  ariaLabelledBy="periode fra"*/}
+              {/*/>*/}
+              {/*<b>-</b>*/}
+              {/*<DatePicker*/}
+              {/*  className="form-control"*/}
+              {/*  locale="nb"*/}
+              {/*  dateFormat="dd.MM.yy"*/}
+              {/*  selected={tom}*/}
+              {/*  onChange={e => this.setState({ tom: e })}*/}
+              {/*  showYearDropdown*/}
+              {/*  ariaLabelledBy="periode til"*/}
+              {/*/>*/}
+            </div>
+
+            <Undertittel className="sykepenger--undertittel">Hvor mye ønskes refundert?</Undertittel>
             <Input
-              label="Fødselsnummer til arbeidstaker"
-              bredde="M"
-              onChange={e => this.setIdentityNumberInput(e.target.value)}
-              value={identityNumberSeparation(identityNumberInput)}
+              label="Beløp"
+              type="number"
+              bredde="S"
+              value={amountInput}
+              onChange={e => this.setState({amountInput: e.target.value})}
             />
           </div>
-        </div>
-        
-        <div className="container">
-          <div className="sykepenger--periode-velger form-group">
-            <Undertittel className="sykepenger--undertittel">
-              Hvilken periode har den ansatte vært fraværende?</Undertittel>
-            <Undertekst className="sykepenger--undertekst">Fra og med første, til og med siste fraværsdag
-            </Undertekst>
-            <Normaltekst tag="label" id="periode">{t(Keys.PERIOD)}:</Normaltekst>
-            <DatePicker
-              className="form-control"
-              locale="nb"
-              dateFormat="dd.MM.yy"
-              selected={fom}
-              onChange={e => this.setState({ fom: e })}
-              showYearDropdown
-              ariaLabelledBy="periode fra"
-            />
-            <b>-</b>
-            <DatePicker
-              className="form-control"
-              locale="nb"
-              dateFormat="dd.MM.yy"
-              selected={tom}
-              onChange={e => this.setState({ tom: e })}
-              showYearDropdown
-              ariaLabelledBy="periode til"
-            />
+
+          <div className="container">
+            <Knapp type="hoved">Send refusjonssøknad</Knapp>
           </div>
-          
-          <Undertittel className="sykepenger--undertittel">Hvor mange dager ønsker dere refundert?</Undertittel>
-          <Undertekst className="sykepenger--undertekst">
-            NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
-          </Undertekst>
-          <Input
-            label="Antall dager"
-            type="number"
-            bredde="XS"
-            value={daysInput}
-            onChange={e => this.setState({daysInput: e.target.value})}
-          />
-        </div>
-        
-        <div className="container">
-          <Undertittel className="sykepenger--undertittel">Hvor mye ønskes refundert?</Undertittel>
-          <Input
-            label="Beløp"
-            type="number"
-            bredde="S"
-            value={amountInput}
-            onChange={e => this.setState({amountInput: e.target.value})}
-          />
-        </div>
-        
-        <div className="container">
-          <Knapp type="hoved" onClick={() => this.submitRefusjon()}>Send refusjonssøknad</Knapp>
-        </div>
+        </FormKomp>
       </div>
     );
   }
