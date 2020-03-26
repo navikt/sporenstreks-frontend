@@ -42,3 +42,5 @@ spec:
       value: https://api-gw.oera.no/sporenstreks
     - name: LOGIN_URL
       value: https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/nettrefusjon/
+    - name: APP_BASE_URL
+      value: https://arbeidsgiver.nav.no/nettrefusjon
