@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { getClassnameFromStatus } from "../util/getClassnameFromStatus";
-import { Ytelsesperiode } from "../store/types/helseSpionTypes";
-import { Keys } from "../locales/keys";
-import { WithTranslation, withTranslation } from "react-i18next";
-import { filterYtelsesperioder } from "../util/filterYtelsesperioder";
-import { totalRefundInYtelsesperioder } from "../util/totalRefundInYtelsesperioder";
-import { sortYtelsesperioder } from "../util/sortYtelsesperioder";
-import { thousandSeparation } from "../util/thousandSeparation";
-import Pagination from "./Pagination";
+import { getClassnameFromStatus } from '../util/getClassnameFromStatus';
+import { Ytelsesperiode } from '../store/types/helseSpionTypes';
+import { Keys } from '../locales/keys';
+import { WithTranslation, withTranslation } from 'react-i18next';
+import { filterYtelsesperioder } from '../util/filterYtelsesperioder';
+import { totalRefundInYtelsesperioder } from '../util/totalRefundInYtelsesperioder';
+import { sortYtelsesperioder } from '../util/sortYtelsesperioder';
+import { thousandSeparation } from '../util/thousandSeparation';
+import Pagination from './Pagination';
 import './YtelsesperiodeTable.less';
-import { dateToString } from "../util/dateToString";
+import { dateToString } from '../util/dateToString';
 
 interface Props extends WithTranslation{
   ytelsesperioder: Ytelsesperiode[]
@@ -28,21 +28,21 @@ class YtelsesperiodeTable extends Component<Props, State> {
     sortColumn: -1,
     sortDescending: true,
   };
-  
+
   setSort = (index: number): void =>
     this.state.sortColumn === index
       ? this.setState({ sortDescending: !this.state.sortDescending })
       : this.setState({ sortColumn: index, sortDescending: true });
-  
+
   render() {
-    
+
     const { ytelsesperioder, fom, tom, t } = this.props;
     const { sortColumn, sortDescending } = this.state;
-    
+
     const filteredYtelsesperioder = filterYtelsesperioder(ytelsesperioder, fom, tom);
     const totalRefund = totalRefundInYtelsesperioder(filteredYtelsesperioder);
     const sortedYtelsesperioder = sortYtelsesperioder(filteredYtelsesperioder, sortColumn, sortDescending);
-    
+
     const columnHeaders: string[] = [
       t(Keys.PERIOD),
       t(Keys.STATUS),
@@ -51,7 +51,7 @@ class YtelsesperiodeTable extends Component<Props, State> {
       t(Keys.MARK),
       t(Keys.REFUND),
     ];
-    
+
     const items: JSX.Element[] = sortedYtelsesperioder.map((ytelsesperiode, index ) =>
       <tr key={index}>
         <td>{`${dateToString(ytelsesperiode.periode.fom)} - ${dateToString(ytelsesperiode.periode.tom)}`}</td>
@@ -67,7 +67,7 @@ class YtelsesperiodeTable extends Component<Props, State> {
         <td>{ytelsesperiode.merknad}</td>
         <td>{thousandSeparation(ytelsesperiode.refusjonsbeløp)}</td>
       </tr>);
-    
+
     const wrapperFunction = (items: JSX.Element[]): JSX.Element =>
       <table className="tabell tabell--stripet ytelsesperiode-tabell--tabell">
       <thead>
@@ -108,7 +108,7 @@ class YtelsesperiodeTable extends Component<Props, State> {
         {items}
       </tbody>
     </table>;
-  
+
     return <Pagination wrapperFunction={wrapperFunction} items={items}>
       <div className="ytelsesperiode-tabell--footer">
         <div className="ytelsesperiode-tabell--max-dato">

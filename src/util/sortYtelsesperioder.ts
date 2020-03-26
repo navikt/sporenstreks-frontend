@@ -1,4 +1,4 @@
-import {Status, Ytelsesperiode} from "../store/types/helseSpionTypes";
+import {Status, Ytelsesperiode} from '../store/types/helseSpionTypes';
 
 export const sortYtelsesperioder = (
 	ytelsesperioder: Ytelsesperiode[],

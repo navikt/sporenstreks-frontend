@@ -1,5 +1,5 @@
-import { HelseSpionActionTypes, HelseSpionTypes, Ytelsesperiode } from "../types/helseSpionTypes";
-import { Organisasjon } from "@navikt/bedriftsmeny/lib/Organisasjon";
+import { HelseSpionActionTypes, HelseSpionTypes, Ytelsesperiode } from '../types/helseSpionTypes';
+import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
 
 export const fetchPersonStarted = (): HelseSpionActionTypes => {
   return {

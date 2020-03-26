@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactPaginate from 'react-paginate';
 import './Pagination.less';
-import { Keys } from "../locales/keys";
-import { WithTranslation, withTranslation } from "react-i18next";
+import { Keys } from '../locales/keys';
+import { WithTranslation, withTranslation } from 'react-i18next';
 
 interface Props extends WithTranslation {
   items: JSX.Element[]
@@ -21,17 +21,17 @@ class Pagination extends Component<Props, State> {
   state: State = {
     currentPageIndex: 0
   };
-  
+
   componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>) {
     if (this.props.items !== prevProps.items) {
       this.setState({ currentPageIndex: 0 });
     }
   }
-  
+
   handlePageClick = (selectedIndex: number): void => {
     this.setState({ currentPageIndex: selectedIndex});
   };
-  
+
   render() {
     const {
       items,
@@ -43,13 +43,13 @@ class Pagination extends Component<Props, State> {
       t,
     } = this.props;
     const { currentPageIndex } = this.state;
-    
+
     const pageCount = Math.ceil(items.length / itemsPerPage);
     const startIndex = currentPageIndex * itemsPerPage;
     const endIndex = Math.min(startIndex + itemsPerPage, items.length);
-    
+
     const filteredItems = items.slice(startIndex, endIndex);
-    
+
     return <>
       {
         wrapperFunction

@@ -1,5 +1,5 @@
-import { JuridiskEnhetMedUnderEnheterArray, Organisasjon } from "@navikt/bedriftsmeny/lib/Organisasjon";
-import { OrganisationType } from "../store/types/helseSpionTypes";
+import { JuridiskEnhetMedUnderEnheterArray, Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
+import { OrganisationType } from '../store/types/helseSpionTypes';
 
 // Todo: Delete?
 export const buildOrganisasjonstre = (

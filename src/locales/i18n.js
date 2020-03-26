@@ -1,5 +1,5 @@
-import i18n from "i18next";
-import { Languages, translationsToJson } from "./keys";
+import i18n from 'i18next';
+import { Languages, translationsToJson } from './keys';
 
 i18n.init({
   resources: {

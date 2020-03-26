@@ -1,4 +1,4 @@
-import { stringToDate } from "./stringToDate";
+import { stringToDate } from './stringToDate';
 
 describe('stringToDate', () => {
 	it('converts string to Date', () => {

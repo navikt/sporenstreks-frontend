@@ -1,4 +1,4 @@
-import { Status } from "../store/types/helseSpionTypes";
+import { Status } from '../store/types/helseSpionTypes';
 
 export const getClassnameFromStatus = (status: Status): string => {
 	switch (status) {

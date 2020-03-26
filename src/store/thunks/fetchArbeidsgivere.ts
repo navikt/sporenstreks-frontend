@@ -2,10 +2,10 @@ import {
   fetchArbeidsgivereError,
   fetchArbeidsgivereStarted,
   fetchArbeidsgivereSuccess
-} from "../actions/helseSpionActions";
-import { Dispatch } from "redux";
-import { Organisasjon } from "@navikt/bedriftsmeny/lib/Organisasjon";
-import { ErrorType } from "../types/helseSpionTypes";
+} from '../actions/helseSpionActions';
+import { Dispatch } from 'redux';
+import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
+import { ErrorType } from '../types/helseSpionTypes';
 
 export function fetchArbeidsgivere(): (dispatch: Dispatch) => Promise<void> {
   return async dispatch => {
