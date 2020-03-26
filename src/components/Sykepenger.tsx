@@ -108,7 +108,7 @@ class Sykepenger extends Component<Props, State> {
             </div>
 
             <Undertittel className="sykepenger--undertittel">Hvor mye ønskes refundert?</Undertittel>
-            <Input label="Beløp" type="text" bredde="XS" />
+            <Input label="Beløp" type="text" bredde="S" />
           </div>
 
           <div className="container">
