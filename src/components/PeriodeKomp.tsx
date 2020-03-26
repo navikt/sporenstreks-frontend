@@ -56,7 +56,7 @@ const PeriodeKomp = (props: PeriodeProps) => {
         }}
       />
 
-      <Input name={'antall_' + id} label="" bredde="S" />
+      <Input type="number" step={1} name={'antall_' + id} label="" bredde="S" />
 
       <Vis hvis={props.index > 0}>
         <button role='link' id={'btn_' + id} className='periodeknapp lenke slett'

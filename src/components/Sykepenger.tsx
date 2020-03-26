@@ -89,14 +89,18 @@ class Sykepenger extends Component<Props, State> {
           />
           <div className="container">
             <div className="sykepenger--arbeidstaker">
-              <Undertittel className="sykepenger--undertittel">Hvilken arbeidstaker gjelder søknaden?</Undertittel>
+              <Undertittel className="sykepenger--undertittel">
+                Hvilken arbeidstaker gjelder søknaden?
+              </Undertittel>
               <Input label="Fødselsnummer til arbeidstaker" bredde="M" />
             </div>
           </div>
 
           <div className="container">
             <div className="sykepenger--periode-velger form-group">
-              <Undertittel className="sykepenger--undertittel">Hvilken periode har den ansatte vært fraværende?</Undertittel>
+              <Undertittel className="sykepenger--undertittel">
+                Hvilken periode har den ansatte vært fraværende?
+              </Undertittel>
               <Undertekst className="sykepenger--undertekst">
                 NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
               </Undertekst>
