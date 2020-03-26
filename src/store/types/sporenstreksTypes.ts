@@ -11,10 +11,10 @@ export interface HelseSpionState {
 }
 
 export interface RefusjonsKrav {
-  identitetsnummer: string
-  virksomhetsnummer: string
-  perioder: Periode[]
-  beløp: number
+  identitetsnummer: string;
+  virksomhetsnummer: string;
+  perioder: Periode[];
+  beloep: number;
 }
 
 export interface Periode {

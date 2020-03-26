@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useReducer } from 'react';
 import useForceUpdate from 'use-force-update';
 import PeriodeKomp from './PeriodeKomp';
-import './Flatpickr.less';
 import './Perioder-gml.less';
 
 interface PerioderProps {
@@ -27,8 +26,10 @@ const Perioder = (props: PerioderProps) => {
     console.log('perioder', perioder); // eslint-disable-line
     perioder.forEach((value, key) => {
       const input = value.querySelector('.input--xl[type=text]');
-      input!.setAttribute('id', props.id + '_t_' + key);
-      input!.setAttribute('autoComplete', 'off');
+      if (input) {
+        input!.setAttribute('id', props.id + '_t_' + key);
+        input!.setAttribute('autoComplete', 'off');
+      }
     });
   };
 
