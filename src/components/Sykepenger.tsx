@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import 'nav-frontend-tabell-style';
 import { Input } from 'nav-frontend-skjema';
+import { Knapp } from 'nav-frontend-knapper';
 import { withRouter } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
-import { Undertekst, Undertittel } from 'nav-frontend-typografi';
-import 'react-datepicker/dist/react-datepicker.css';
+import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
 import { Keys } from '../locales/keys';
+import NumberFormat from 'react-number-format';
 import { RootState } from '../store/rootState';
 import { ErrorObject, ErrorType, RefusjonsKrav, Ytelsesperiode } from '../store/types/sporenstreksTypes';
 import { fetchArbeidsgivere } from '../store/thunks/fetchArbeidsgivere';
@@ -23,17 +24,6 @@ import FormKomp from './FormKomp';
 import './Sykepenger.less';
 import { filterStringToNumbersOnly } from "../util/filterStringToNumbersOnly";
 import { identityNumberSeparation } from "../util/identityNumberSeparation";
-
-const mockOrganisasjoner: Organisasjon[] = [
-  {
-    Name: 'Firmaet AS',
-    Type: 'Aksjeselskap',
-    OrganizationNumber: '123456789',
-    OrganizationForm: 'Aksjeselskap',
-    Status: 'PÅBEGYNT',
-    ParentOrganizationNumber: '987654321',
-  }
-];
 
 type OwnProps = {
   t: (str: string) => string
@@ -70,16 +60,16 @@ class Sykepenger extends Component<Props, State> {
     daysInput: '',
     amountInput: '',
   };
-  
+
   componentDidMount = async(): Promise<void> => {
     this.props.fetchArbeidsgivere();
   };
 
   setIdentityNumberInput = (input: string) =>
     this.setState({ identityNumberInput: filterStringToNumbersOnly(input, 11) });
-  
+
   submitRefusjon = (): void => {
-    
+
     // todo: validering av inputs
     const refusjonsKrav: RefusjonsKrav = {
       identitetsnummer: this.state.identityNumberInput,
@@ -95,14 +85,14 @@ class Sykepenger extends Component<Props, State> {
     };
     this.props.submitRefusjon(refusjonsKrav);
   };
-  
+
   render() {
     const {
       t, history, arbeidsgivere, ytelsesperioder, refusjonErrors, refusjonLoading,
     } = this.props;
     const { amountInput, daysInput, identityNumberInput, fom, tom } = this.state;
     const arbeidstaker = ytelsesperioder[0]?.arbeidsforhold.arbeidstaker;
-    
+
     if (arbeidstaker) {
       document.title = `${t(Keys.REFUNDS)}/${arbeidstaker.fornavn} ${arbeidstaker.etternavn} - www.nav.no`;
     } else {
@@ -147,28 +137,15 @@ class Sykepenger extends Component<Props, State> {
                 NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
               </Undertekst>
               <Perioder id="perioder" />
-              {/*<DatePicker*/}
-              {/*  className="form-control"*/}
-              {/*  locale="nb"*/}
-              {/*  dateFormat="dd.MM.yy"*/}
-              {/*  selected={fom}*/}
-              {/*  onChange={e => this.setState({ fom: e })}*/}
-              {/*  showYearDropdown*/}
-              {/*  ariaLabelledBy="periode fra"*/}
-              {/*/>*/}
-              {/*<b>-</b>*/}
-              {/*<DatePicker*/}
-              {/*  className="form-control"*/}
-              {/*  locale="nb"*/}
-              {/*  dateFormat="dd.MM.yy"*/}
-              {/*  selected={tom}*/}
-              {/*  onChange={e => this.setState({ tom: e })}*/}
-              {/*  showYearDropdown*/}
-              {/*  ariaLabelledBy="periode til"*/}
-              {/*/>*/}
             </div>
+          </div>
 
+          <div className="container">
             <Undertittel className="sykepenger--undertittel">Hvor mye ønskes refundert?</Undertittel>
+            <label htmlFor="belop">
+              <Normaltekst tag="span">Beløp</Normaltekst>
+            </label>
+            <NumberFormat id="belop" customInput={Input} format={'### ### ### ###'} className="input--s" />
             <Input
               label="Beløp"
               type="number"
