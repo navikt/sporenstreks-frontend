@@ -1,5 +1,5 @@
 import { combineReducers, Reducer } from 'redux';
-import { HelseSpionState } from './types/helseSpionTypes';
+import { HelseSpionState } from './types/sporenstreksTypes';
 import { helseSpionReducer } from './reducers/helseSpionReducers';
 
 export interface RootState {

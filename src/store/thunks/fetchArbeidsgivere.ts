@@ -5,7 +5,7 @@ import {
 } from '../actions/helseSpionActions';
 import { Dispatch } from 'redux';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
-import { ErrorType } from '../types/helseSpionTypes';
+import { ErrorType } from '../types/sporenstreksTypes';
 
 export function fetchArbeidsgivere(): (dispatch: Dispatch) => Promise<void> {
   return async dispatch => {

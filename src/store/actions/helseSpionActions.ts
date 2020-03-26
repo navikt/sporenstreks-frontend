@@ -1,43 +1,41 @@
-import { HelseSpionActionTypes, HelseSpionTypes, Ytelsesperiode } from '../types/helseSpionTypes';
+import { ErrorObject, SporenstreksActionTypes, SporenstreksTypes } from '../types/sporenstreksTypes';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
 
-export const fetchPersonStarted = (): HelseSpionActionTypes => {
+export const submitRefusjonStarted = (): SporenstreksActionTypes => {
   return {
-    type: HelseSpionTypes.FETCH_PERSON_STARTED,
+    type: SporenstreksTypes.SUBMIT_REFUSJON_STARTED,
   }
 };
 
-export const fetchPersonSuccess = (ytelsesperioder: Ytelsesperiode[]): HelseSpionActionTypes => {
+export const submitRefusjonSuccess = (): SporenstreksActionTypes => {
   return {
-    type: HelseSpionTypes.FETCH_PERSON_SUCCESS,
-    ytelsesperioder: ytelsesperioder,
+    type: SporenstreksTypes.SUBMIT_REFUSJON_SUCCESS,
   }
 };
 
-export const fetchPersonError = (errorType: string, errorMessage?: string): HelseSpionActionTypes => {
+export const submitRefusjonError = (errors: ErrorObject[]): SporenstreksActionTypes => {
   return {
-    type: HelseSpionTypes.FETCH_PERSON_ERROR,
-    errorType: errorType,
-    errorMessage: errorMessage,
+    type: SporenstreksTypes.SUBMIT_REFUSJON_ERROR,
+    errors: errors,
   }
 };
 
-export const fetchArbeidsgivereStarted = (): HelseSpionActionTypes => {
+export const fetchArbeidsgivereStarted = (): SporenstreksActionTypes => {
   return {
-    type: HelseSpionTypes.FETCH_ARBEIDSGIVERE_STARTED,
+    type: SporenstreksTypes.FETCH_ARBEIDSGIVERE_STARTED,
   }
 };
 
-export const fetchArbeidsgivereSuccess = (arbeidsgivere: Organisasjon[]): HelseSpionActionTypes => {
+export const fetchArbeidsgivereSuccess = (arbeidsgivere: Organisasjon[]): SporenstreksActionTypes => {
   return {
-    type: HelseSpionTypes.FETCH_ARBEIDSGIVERE_SUCCESS,
+    type: SporenstreksTypes.FETCH_ARBEIDSGIVERE_SUCCESS,
     arbeidsgivere: arbeidsgivere,
   }
 };
 
-export const fetchArbeidsgivereError = (errorType: string, errorMessage?: string): HelseSpionActionTypes => {
+export const fetchArbeidsgivereError = (errorType: string, errorMessage?: string): SporenstreksActionTypes => {
   return {
-    type: HelseSpionTypes.FETCH_ARBEIDSGIVERE_ERROR,
+    type: SporenstreksTypes.FETCH_ARBEIDSGIVERE_ERROR,
     errorType: errorType,
     errorMessage: errorMessage,
   }

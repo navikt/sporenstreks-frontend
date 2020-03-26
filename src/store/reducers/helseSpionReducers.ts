@@ -1,12 +1,11 @@
-import { HelseSpionActionTypes, HelseSpionState, HelseSpionTypes } from '../types/helseSpionTypes';
+import { SporenstreksActionTypes, HelseSpionState, SporenstreksTypes } from '../types/sporenstreksTypes';
 import { Action } from 'redux';
 
 const initialHelseSpionState: HelseSpionState = {
   arbeidsgivere: [],
   ytelsesperioder: [],
-  personLoading: false,
-  personErrorType: undefined,
-  personErrorMessage: undefined,
+  refusjonSubmitting: false,
+  refusjonErrors: undefined,
   arbeidsgivereLoading: false,
   arbeidsgivereErrorType: undefined,
   arbeidsgivereErrorMessage: undefined,
@@ -16,10 +15,10 @@ export function helseSpionReducer (
   state = initialHelseSpionState,
   incomingAction: Action
 ): HelseSpionState {
-  const action = incomingAction as HelseSpionActionTypes;
+  const action = incomingAction as SporenstreksActionTypes;
   switch (action.type) {
 
-    case HelseSpionTypes.FETCH_ARBEIDSGIVERE_STARTED:
+    case SporenstreksTypes.FETCH_ARBEIDSGIVERE_STARTED:
       return {
         ...state,
         arbeidsgivereLoading: true,
@@ -27,14 +26,14 @@ export function helseSpionReducer (
         arbeidsgivereErrorMessage: undefined,
       };
   
-    case HelseSpionTypes.FETCH_ARBEIDSGIVERE_SUCCESS:
+    case SporenstreksTypes.FETCH_ARBEIDSGIVERE_SUCCESS:
       return {
         ...state,
         arbeidsgivere: action.arbeidsgivere,
         arbeidsgivereLoading: false,
       };
   
-    case HelseSpionTypes.FETCH_ARBEIDSGIVERE_ERROR:
+    case SporenstreksTypes.FETCH_ARBEIDSGIVERE_ERROR:
       return {
         ...state,
         arbeidsgivereLoading: false,
@@ -42,27 +41,24 @@ export function helseSpionReducer (
         arbeidsgivereErrorMessage: action.errorMessage,
       };
   
-    case HelseSpionTypes.FETCH_PERSON_STARTED:
+    case SporenstreksTypes.SUBMIT_REFUSJON_STARTED:
       return {
         ...state,
-        personLoading: true,
-        personErrorType: undefined,
-        personErrorMessage: undefined,
+        refusjonSubmitting: true,
+        refusjonErrors: undefined,
       };
   
-    case HelseSpionTypes.FETCH_PERSON_SUCCESS:
+    case SporenstreksTypes.SUBMIT_REFUSJON_SUCCESS:
       return {
         ...state,
-        ytelsesperioder: action.ytelsesperioder,
-        personLoading: false,
+        refusjonSubmitting: false,
       };
   
-    case HelseSpionTypes.FETCH_PERSON_ERROR:
+    case SporenstreksTypes.SUBMIT_REFUSJON_ERROR:
       return {
         ...state,
-        personLoading: false,
-        personErrorType: action.errorType,
-        personErrorMessage: action.errorMessage,
+        refusjonSubmitting: false,
+        refusjonErrors: action.errors,
       };
       
     default:
