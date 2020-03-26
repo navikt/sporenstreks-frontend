@@ -31,7 +31,7 @@ const PeriodeKomp = (props: PeriodeProps) => {
           Fra og med første, til og med siste fraværsdag
         </label>
         <label htmlFor={'antall_' + id} className="dager">
-          Hvor mange dager ønskes refundert
+          Hvor mange dager ønskes refundert?
         </label>
       </div>
       <Controller
