@@ -4,12 +4,11 @@ import Vis from './Vis';
 import { Norwegian } from 'flatpickr/dist/l10n/no.js';
 import { Input } from 'nav-frontend-skjema';
 import dayjs from 'dayjs';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Normaltekst } from 'nav-frontend-typografi';
 import './Flatpickr.less';
-import NumberFormat from "react-number-format";
+import NumberFormat from 'react-number-format';
 
 interface PeriodeProps {
-  id: string;
   index: number;
   min?: Date;
   max?: Date;
@@ -18,8 +17,7 @@ interface PeriodeProps {
 
 const PeriodeKomp = (props: PeriodeProps) => {
   const [ amountInput, setAmountInput ] = useState<string>('');
-  const id = props.id + '_' + props.index;
-  const htmlfor = props.id + '_t_' + props.index;
+  const htmlfor = 't_' + props.index;
 
   let min = props.min;
   let max = props.max;
@@ -39,8 +37,8 @@ const PeriodeKomp = (props: PeriodeProps) => {
           </Normaltekst>
         </label>
         <Flatpickr
-          id={id}
-          name={id}
+          id={'t_' + props.index}
+          name={'periode_' + props.index}
           className="skjemaelement__input input--m"
           placeholder="dd.mm.åååå til dd.mm.åååå"
           options={{
@@ -58,13 +56,13 @@ const PeriodeKomp = (props: PeriodeProps) => {
       </div>
 
       <div className="skjemaelement">
-        <label htmlFor={'antall_' + id} className="dager skjemaelement__label">
+        <label htmlFor={'antall_' + props.index} className="dager skjemaelement__label">
           <Normaltekst tag="span">
             Hvor mange dager ønskes refundert?
           </Normaltekst>
         </label>
         <Input
-          name={'antall_' + id}
+          name={'antall_' + props.index}
           type="number"
           step={1}
           label=""
@@ -77,20 +75,21 @@ const PeriodeKomp = (props: PeriodeProps) => {
           <Normaltekst tag="span">Hvor mye søkes refundert</Normaltekst>
         </label>
         <NumberFormat
-          name="belop"
+          name={'beloep_' + props.index}
           id="belop"
           label=""
           value={amountInput}
-          customInput={Input}
           thousandSeparator={' '}
           decimalSeparator={','}
-          className="input--s"
+          decimalScale={2}
+          fixedDecimalScale={true}
+          className={'skjemaelement__input input--m'}
           onChange={e => setAmountInput(e.target.value)}
         />
       </div>
 
       <Vis hvis={props.index > 0}>
-        <button role='link' id={'btn_' + id} className='periodeknapp lenke slett'
+        <button role='link' id={'btn_' + props.index} className='periodeknapp lenke slett'
           onClick={(e) => props.slettPeriode(e, props.index)}
         >
           <Normaltekst tag="span">
