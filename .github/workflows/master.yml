@@ -22,7 +22,12 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - run: npm install
+      - name: Bygg med npm install
+        run: npm install
+        env:
+          NODE_ENV: production
+          REACT_APP_BASE_URL: https://arbeidsgiver.nav.no/nettrefusjon
+          REACT_APP_LOGIN_SERVICE_URL: https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/nettrefusjon/
       - run: npm test
       - name: create docker tag
         env:
@@ -38,15 +43,6 @@ jobs:
           docker push $(cat .docker_image):$(cat .docker_tag)
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
-      - name: deploy to dev
-        uses: navikt/deployment-cli/action@0.4.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
-          AWAIT_SECONDS: 0
-        with:
-          cluster: dev-sbs
-          team: helsearbeidsgiver
-          resources: deploy/dev.yaml
       - name: deploy to prod
         uses: navikt/deployment-cli/action@0.4.1
         env:
