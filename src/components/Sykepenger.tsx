@@ -128,7 +128,8 @@ const Sykepenger = () => {
               label=""
               value={amountInput}
               customInput={Input}
-              format={'### ### ### ###'}
+              thousandSeparator={' '}
+              decimalSeparator={','}
               className="input--s"
               onChange={e => setAmountInput(e.target.value)}
             />

@@ -21,8 +21,6 @@ const PeriodeKomp = (props: PeriodeProps) => {
   const htmlfor = props.id + '_t_' + props.index;
   const [ state, dispatch ] = useReducer(helseSpionReducer, initialHelseSpionState);
 
-  console.log('state', state); // eslint-disable-line
-
   let min = props.min;
   let max = props.max;
   if (!min) min = dayjs('2020-03-03').toDate();
