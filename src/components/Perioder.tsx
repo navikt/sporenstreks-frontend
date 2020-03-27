@@ -66,7 +66,7 @@ const Perioder = (props: PerioderProps) => {
         })}
       </div>
 
-      <button role='link' className='periodeknapp lenke' onClick={leggTilPeriode}>
+      <button role="link" className="periodeknapp lenke" onClick={leggTilPeriode}>
         Legg til periode
       </button>
     </>

@@ -5,8 +5,8 @@ import { Norwegian } from 'flatpickr/dist/l10n/no.js';
 import { Input } from 'nav-frontend-skjema';
 import dayjs from 'dayjs';
 import { helseSpionReducer, initialHelseSpionState } from '../store/reducers/helseSpionReducers';
-import './Flatpickr.less';
 import { Normaltekst } from 'nav-frontend-typografi';
+import './Flatpickr.less';
 
 interface PeriodeProps {
   id: string;
@@ -19,7 +19,6 @@ interface PeriodeProps {
 const PeriodeKomp = (props: PeriodeProps) => {
   const id = props.id + '_' + props.index;
   const htmlfor = props.id + '_t_' + props.index;
-  const feilmelding = 'FEIL!!!';
   const [ state, dispatch ] = useReducer(helseSpionReducer, initialHelseSpionState);
 
   console.log('state', state); // eslint-disable-line
@@ -34,9 +33,9 @@ const PeriodeKomp = (props: PeriodeProps) => {
   }, []);
 
   return (
-    <div className='periode'>
+    <div className="periode" role="group">
       <div className="skjemaelement">
-        <label htmlFor={htmlfor} className='fom skjemaelement__label'>
+        <label htmlFor={htmlfor} className="fom skjemaelement__label">
           <Normaltekst tag="span">
             Fra og med første, til og med siste fraværsdag
           </Normaltekst>
@@ -44,8 +43,8 @@ const PeriodeKomp = (props: PeriodeProps) => {
         <Flatpickr
           id={id}
           name={id}
-          className='skjemaelement__input input--xl'
-          placeholder='dd.mm.yyyy til dd.mm.yyyy'
+          className="skjemaelement__input input--xl"
+          placeholder="dd.mm.yyyy til dd.mm.yyyy"
           options={{
             minDate: min,
             maxDate: max,
