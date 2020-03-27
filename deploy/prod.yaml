@@ -44,3 +44,5 @@ spec:
       value: https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/nettrefusjon/
     - name: REACT_APP_BASE_URL
       value: https://arbeidsgiver.nav.no/nettrefusjon
+    - name: REACT_APP_ENVIRONMENT
+      value: prod
