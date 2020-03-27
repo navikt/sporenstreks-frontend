@@ -1,7 +1,7 @@
 import { SporenstreksActionTypes, HelseSpionState, SporenstreksTypes } from '../types/sporenstreksTypes';
 import { Action } from 'redux';
 
-const initialHelseSpionState: HelseSpionState = {
+export const initialHelseSpionState: HelseSpionState = {
   arbeidsgivere: [],
   ytelsesperioder: [],
   refusjonSubmitting: false,
@@ -25,14 +25,14 @@ export function helseSpionReducer (
         arbeidsgivereErrorType: undefined,
         arbeidsgivereErrorMessage: undefined,
       };
-  
+
     case SporenstreksTypes.FETCH_ARBEIDSGIVERE_SUCCESS:
       return {
         ...state,
         arbeidsgivere: action.arbeidsgivere,
         arbeidsgivereLoading: false,
       };
-  
+
     case SporenstreksTypes.FETCH_ARBEIDSGIVERE_ERROR:
       return {
         ...state,
@@ -40,27 +40,27 @@ export function helseSpionReducer (
         arbeidsgivereErrorType: action.errorType,
         arbeidsgivereErrorMessage: action.errorMessage,
       };
-  
+
     case SporenstreksTypes.SUBMIT_REFUSJON_STARTED:
       return {
         ...state,
         refusjonSubmitting: true,
         refusjonErrors: undefined,
       };
-  
+
     case SporenstreksTypes.SUBMIT_REFUSJON_SUCCESS:
       return {
         ...state,
         refusjonSubmitting: false,
       };
-  
+
     case SporenstreksTypes.SUBMIT_REFUSJON_ERROR:
       return {
         ...state,
         refusjonSubmitting: false,
         refusjonErrors: action.errors,
       };
-      
+
     default:
       return state
   }

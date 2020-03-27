@@ -1,16 +1,13 @@
-@import (reference) '~nav-frontend-core/less/_variabler';
+@import '../../node_modules/nav-frontend-core/less/core';
+@import '../basic';
 
 .sykepenger {
   &--alertstripe {
-    padding: 10px;
+    padding: 0.7rem;
   }
 
   &--header {
-    margin-top: 15px;
-  }
-
-  &--periode-velger {
-    padding: 0 0 30px;
+    margin-top: 1rem;
   }
 
   &--undertittel {
@@ -21,78 +18,56 @@
     margin-bottom: 0.7rem;
   }
 
-  .react-datepicker-wrapper {
-    margin-left: 15px;
-    margin-right: 15px;
-    width: 150px;
-  }
-
-  &--person-gruppe-container {
-    display: inline-flex;
-  }
-
-  &--person-gruppe {
-    display: inline-flex;
-    margin-left: auto;
-    text-align: left;
-  }
-
-  &--søke-input {
-    width: 240px;
-    margin-bottom: 0;
-    padding-right: 15px;
-
-    input {
-      border: 1px solid black;
-    }
-  }
-
   &--loading-spinner {
-    margin: 20px;
+    margin: 1.4rem;
   }
 
-  &--søke-knapp {
-    border-radius: 4px;
+  &--arbeidstaker {
+    label {
+      font-weight: 400;
+    }
   }
 
   .alertstripe {
-    margin-top: 20px;
-  }
-
-  .react-datepicker__input-container {
-    input {
-      border-radius: 4px;
-      border: 1px solid black;
-    }
+    margin-top: 1.4rem;
   }
 
   .bedriftsmeny__inner {
-    max-width: 50rem;
+    max-width: @desktopLimitWidth;
   }
 
   .container {
     max-width: 50rem;
-    padding: 30px 0 15px;
     border-bottom: 1px solid @navMorkGra;
+    padding: 1rem 0 2rem;
+
+    &:nth-child(4) {
+      border: 0;
+    }
 
     &:last-child {
       border: 0;
+      padding: 1.5rem 0 4rem;
     }
   }
 }
 
-#sykepenger {
-  &--tittel {
-    margin-top: 15px;
-  }
+@media (min-width: 769px) {
+  .sykepenger {
+    .container {
+      padding: 1rem 0 2rem;
 
-  &--person-navn {
-    font-weight: 400;
+      &:last-child {
+        padding: 1rem 0 4rem;
+      }
+    }
   }
 }
 
 @media (min-width: 992px) {
-  .bedriftsmeny .virksomhetsvelger__dropdownwrapper--apen {
-    top: -1rem;
+  .sykepenger {
+    .bedriftsmeny .virksomhetsvelger__dropdownwrapper--apen {
+      top: -1rem;
+    }
   }
 }

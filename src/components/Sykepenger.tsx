@@ -1,126 +1,93 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
+import React, { useEffect, useReducer, useState } from 'react';
 import 'nav-frontend-tabell-style';
 import { Input } from 'nav-frontend-skjema';
-import { withRouter } from 'react-router-dom';
-import { withTranslation } from 'react-i18next';
-import { Undertekst, Undertittel } from 'nav-frontend-typografi';
-import 'react-datepicker/dist/react-datepicker.css';
+import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
 import { Keys } from '../locales/keys';
-import { RootState } from '../store/rootState';
-import { ErrorObject, ErrorType, RefusjonsKrav, Ytelsesperiode } from '../store/types/sporenstreksTypes';
-import { fetchArbeidsgivere } from '../store/thunks/fetchArbeidsgivere';
+import NumberFormat from 'react-number-format';
+import { ErrorType, RefusjonsKrav } from '../store/types/sporenstreksTypes';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
 import { Knapp } from 'nav-frontend-knapper';
 import { dateToString } from "../util/dateToString";
-import { submitRefusjon } from "../store/thunks/submitRefusjon";
 import AlertStripe from "nav-frontend-alertstriper";
 import Perioder from './Perioder';
-import FormKomp from './FormKomp';
+import { filterStringToNumbersOnly } from '../util/filterStringToNumbersOnly';
+import { identityNumberSeparation } from '../util/identityNumberSeparation';
+import { helseSpionReducer, initialHelseSpionState } from '../store/reducers/helseSpionReducers';
+import dayjs from 'dayjs';
+import { fetchArbeidsgivere } from '../store/thunks/fetchArbeidsgivere';
+import { submitRefusjon } from '../store/thunks/submitRefusjon';
 import './Sykepenger.less';
-import { filterStringToNumbersOnly } from "../util/filterStringToNumbersOnly";
-import { identityNumberSeparation } from "../util/identityNumberSeparation";
 
-const mockOrganisasjoner: Organisasjon[] = [
-  {
-    Name: 'Firmaet AS',
-    Type: 'Aksjeselskap',
-    OrganizationNumber: '123456789',
-    OrganizationForm: 'Aksjeselskap',
-    Status: 'PÅBEGYNT',
-    ParentOrganizationNumber: '987654321',
-  }
-];
+const Sykepenger = () => {
+  const [ state ] = useReducer(helseSpionReducer, initialHelseSpionState);
+  const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
+  const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
+  const [ amountInput, setAmountInput ] = useState<string>('');
 
-type OwnProps = {
-  t: (str: string) => string
-  history: History
-}
+  const { t } = useTranslation();
+  const { history } = useHistory();
 
-type StateProps = {
-  arbeidsgivere: Organisasjon[]
-  ytelsesperioder: Ytelsesperiode[]
-  refusjonErrors?: ErrorObject[],
-  refusjonLoading: boolean,
-}
+  useEffect(() => {
+    fetchArbeidsgivere();
+  }, []);
 
-type DispatchProps = {
-  fetchArbeidsgivere: () => void
-  submitRefusjon: (refusjonsKrav: RefusjonsKrav) => void
-}
-
-type Props = OwnProps & StateProps & DispatchProps;
-
-type State = {
-  identityNumberInput: string
-  arbeidsgiverId: string
-  daysInput: string
-  amountInput: string
-  fom?: Date
-  tom?: Date
-}
-
-class Sykepenger extends Component<Props, State> {
-  state: State = {
-    identityNumberInput: '',
-    arbeidsgiverId: '',
-    daysInput: '',
-    amountInput: '',
-  };
-  
-  componentDidMount = async(): Promise<void> => {
-    this.props.fetchArbeidsgivere();
+  const filterIdentityNumberInput = (input: string) => {
+    setIdentityNumberInput(filterStringToNumbersOnly(input, 11));
   };
 
-  setIdentityNumberInput = (input: string) =>
-    this.setState({ identityNumberInput: filterStringToNumbersOnly(input, 11) });
-  
-  submitRefusjon = (): void => {
-    
+  const formToJSON = elms =>
+    [].reduce.call(elms, (data: any, elm: any) => {
+      data[elm.name] = elm.value;
+      return data;
+    }, {});
+
+  const onSubmit = (e: any): void => {
+    e.preventDefault();
+    const form: HTMLFormElement = e.target;
+    const data = formToJSON(form.elements);
+    console.log('data', data); // eslint-disable-line
+
     // todo: validering av inputs
     const refusjonsKrav: RefusjonsKrav = {
-      identitetsnummer: this.state.identityNumberInput,
-      virksomhetsnummer: this.state.arbeidsgiverId,
+      identitetsnummer: identityNumberInput,
+      virksomhetsnummer: arbeidsgiverId,
       perioder: [
         {
-          fom: dateToString(this.state.fom!),
-          tom: dateToString(this.state.tom!),
-          antallDagerMedRefusjon: parseInt(this.state.daysInput),
+          fom: dateToString(dayjs('2020-03-03').toDate()),
+          tom: dateToString(dayjs('2020-03-18').toDate()),
+          antallDagerMedRefusjon: parseInt('5'),
         }
       ],
-      beløp: parseInt(this.state.amountInput)
+      beloep: parseInt(amountInput)
     };
-    this.props.submitRefusjon(refusjonsKrav);
+    submitRefusjon(refusjonsKrav);
   };
-  
-  render() {
-    const {
-      t, history, arbeidsgivere, ytelsesperioder, refusjonErrors, refusjonLoading,
-    } = this.props;
-    const { amountInput, daysInput, identityNumberInput, fom, tom } = this.state;
-    const arbeidstaker = ytelsesperioder[0]?.arbeidsforhold.arbeidstaker;
-    
-    if (arbeidstaker) {
-      document.title = `${t(Keys.REFUNDS)}/${arbeidstaker.fornavn} ${arbeidstaker.etternavn} - www.nav.no`;
-    } else {
-      document.title = `${t(Keys.DOCUMENT_TITLE)}/${t(Keys.REFUNDS)} - www.nav.no`;
-    }
 
-    return (
-      <div className="sykepenger">
-        <FormKomp>
-          <Bedriftsmeny
-            history={history}
-            onOrganisasjonChange={(org: Organisasjon) => this.setState({ arbeidsgiverId: org.OrganizationNumber })}
-            sidetittel={t(Keys.MY_PAGE)}
-            organisasjoner={arbeidsgivere}
-          />
+  const arbeidstaker = state.ytelsesperioder[0]?.arbeidsforhold.arbeidstaker;
+
+  if (arbeidstaker) {
+    document.title = `${t(Keys.REFUNDS)}/${arbeidstaker.fornavn} ${arbeidstaker.etternavn} - www.nav.no`;
+  } else {
+    document.title = `${t(Keys.DOCUMENT_TITLE)}/${t(Keys.REFUNDS)} - www.nav.no`;
+  }
+
+  return (
+    <div className="sykepenger">
+      <Bedriftsmeny
+        history={history}
+        onOrganisasjonChange={(org: Organisasjon) => setArbeidsgiverId(org.OrganizationNumber)}
+        sidetittel={t(Keys.MY_PAGE)}
+        organisasjoner={state.arbeidsgivere}
+      />
+      <div className="limit">
+        <form className="sporsmal__form" onSubmit={(e) => onSubmit(e)}>
           <div className="container">
             {
-              refusjonErrors?.map(error => error.errorType in ErrorType
+              state.refusjonErrors?.map(error => error.errorType in ErrorType
                 ? <AlertStripe type="feil">{t(error.errorType)}</AlertStripe>
                 : <AlertStripe type="feil">{error.errorMessage}</AlertStripe>
               )
@@ -129,10 +96,10 @@ class Sykepenger extends Component<Props, State> {
               <Undertittel className="sykepenger--undertittel">
                 Hvilken arbeidstaker gjelder søknaden?
               </Undertittel>
-              <Input
+              <Input name="fnr"
                 label="Fødselsnummer til arbeidstaker"
                 bredde="M"
-                onChange={e => this.setIdentityNumberInput(e.target.value)}
+                onChange={e => filterIdentityNumberInput(e.target.value)}
                 value={identityNumberSeparation(identityNumberInput)}
               />
             </div>
@@ -147,56 +114,34 @@ class Sykepenger extends Component<Props, State> {
                 NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
               </Undertekst>
               <Perioder id="perioder" />
-              {/*<DatePicker*/}
-              {/*  className="form-control"*/}
-              {/*  locale="nb"*/}
-              {/*  dateFormat="dd.MM.yy"*/}
-              {/*  selected={fom}*/}
-              {/*  onChange={e => this.setState({ fom: e })}*/}
-              {/*  showYearDropdown*/}
-              {/*  ariaLabelledBy="periode fra"*/}
-              {/*/>*/}
-              {/*<b>-</b>*/}
-              {/*<DatePicker*/}
-              {/*  className="form-control"*/}
-              {/*  locale="nb"*/}
-              {/*  dateFormat="dd.MM.yy"*/}
-              {/*  selected={tom}*/}
-              {/*  onChange={e => this.setState({ tom: e })}*/}
-              {/*  showYearDropdown*/}
-              {/*  ariaLabelledBy="periode til"*/}
-              {/*/>*/}
             </div>
+          </div>
 
+          <div className="container">
             <Undertittel className="sykepenger--undertittel">Hvor mye ønskes refundert?</Undertittel>
-            <Input
-              label="Beløp"
-              type="number"
-              bredde="S"
+            <label htmlFor="belop" className="skjemaelement__label">
+              <Normaltekst tag="span">Beløp</Normaltekst>
+            </label>
+            <NumberFormat
+              name="belop"
+              id="belop"
+              label=""
               value={amountInput}
-              onChange={e => this.setState({amountInput: e.target.value})}
+              customInput={Input}
+              thousandSeparator={' '}
+              decimalSeparator={','}
+              className="input--s"
+              onChange={e => setAmountInput(e.target.value)}
             />
           </div>
 
           <div className="container">
-            <Knapp type="hoved">Send refusjonssøknad</Knapp>
+            <Knapp type="hoved"> Send refusjonssøknad </Knapp>
           </div>
-        </FormKomp>
+        </form>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
-const mapStateToProps = (state: RootState): StateProps => ({
-  arbeidsgivere: state.helseSpionState.arbeidsgivere,
-  ytelsesperioder: state.helseSpionState.ytelsesperioder,
-  refusjonErrors: state.helseSpionState.refusjonErrors,
-  refusjonLoading: state.helseSpionState.refusjonSubmitting
-});
-
-const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => bindActionCreators({
-  fetchArbeidsgivere,
-  submitRefusjon,
-}, dispatch);
-
-export default withRouter(withTranslation()(connect(mapStateToProps, mapDispatchToProps)(Sykepenger)));
+export default Sykepenger;

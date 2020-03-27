@@ -40,4 +40,3 @@ export const fetchArbeidsgivereError = (errorType: string, errorMessage?: string
     errorMessage: errorMessage,
   }
 };
-

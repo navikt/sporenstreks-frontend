@@ -1,0 +1,31 @@
+@import '../node_modules/nav-frontend-core/less/core';
+@import './basic';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+html, body, #app-root {
+  height: 100%;
+}
+
+.limit {
+  position: relative;
+  padding: 1rem 1.4rem 2rem;
+}
+
+a {
+  color: @navBla;
+}
+
+@media (min-width: @screen-sm) {
+  .limit {
+    width: @desktopLimitWidth;
+    margin: 0 auto;
+    padding: 1rem 0 2rem;
+  }
+}
