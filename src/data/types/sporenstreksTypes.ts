@@ -14,13 +14,13 @@ export interface RefusjonsKrav {
   identitetsnummer: string;
   virksomhetsnummer: string;
   perioder: Periode[];
-  beloep: number;
 }
 
 export interface Periode {
   fom: string
   tom: string
   antallDagerMedRefusjon: number
+  beloep: number;
 }
 
 export enum OrganisationType {
