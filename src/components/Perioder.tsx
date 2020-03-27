@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState, useReducer } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import useForceUpdate from 'use-force-update';
 import PeriodeKomp from './PeriodeKomp';
-import './Perioder-gml.less';
+import './Perioder.less';
 
 interface PerioderProps {
   id: string;
@@ -11,7 +11,7 @@ interface PerioderProps {
 
 const Perioder = (props: PerioderProps) => {
   const [ lokal, setLokal ] = useState<number[]>([ 0 ]);
-  const periodeliste = useRef<HTMLUListElement>(null);
+  const periodeliste = useRef<HTMLDivElement>(null);
   const forceUpdate = useForceUpdate();
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const Perioder = (props: PerioderProps) => {
 
   return (
     <>
-      <ul className="periodeliste" ref={periodeliste}>
+      <div className="periodeliste" ref={periodeliste}>
         {lokal.map((idx) => {
           return (
             <PeriodeKomp id={props.id} index={idx}
@@ -64,7 +64,7 @@ const Perioder = (props: PerioderProps) => {
             />
           )
         })}
-      </ul>
+      </div>
 
       <button role='link' className='periodeknapp lenke' onClick={leggTilPeriode}>
         Legg til periode

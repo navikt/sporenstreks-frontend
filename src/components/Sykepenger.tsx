@@ -39,7 +39,18 @@ const Sykepenger = () => {
     setIdentityNumberInput(filterStringToNumbersOnly(input, 11));
   };
 
-  const submit = (): void => {
+  const formToJSON = elms =>
+    [].reduce.call(elms, (data: any, elm: any) => {
+      data[elm.name] = elm.value;
+      return data;
+    }, {});
+
+  const onSubmit = (e: any): void => {
+    e.preventDefault();
+    const form: HTMLFormElement = e.target;
+    const data = formToJSON(form.elements);
+    console.log('data', data); // eslint-disable-line
+
     // todo: validering av inputs
     const refusjonsKrav: RefusjonsKrav = {
       identitetsnummer: identityNumberInput,
@@ -72,61 +83,61 @@ const Sykepenger = () => {
         sidetittel={t(Keys.MY_PAGE)}
         organisasjoner={state.arbeidsgivere}
       />
-      <div className="container">
-        {
-          state.refusjonErrors?.map(error => error.errorType in ErrorType
-            ? <AlertStripe type="feil">{t(error.errorType)}</AlertStripe>
-            : <AlertStripe type="feil">{error.errorMessage}</AlertStripe>
-          )
-        }
-        <div className="sykepenger--arbeidstaker">
-          <Undertittel className="sykepenger--undertittel">
-            Hvilken arbeidstaker gjelder søknaden?
-          </Undertittel>
-          <Input
-            label="Fødselsnummer til arbeidstaker"
-            bredde="M"
-            onChange={e => filterIdentityNumberInput(e.target.value)}
-            value={identityNumberSeparation(identityNumberInput)}
-          />
-        </div>
-      </div>
+      <div className="limit">
+        <form className="sporsmal__form" onSubmit={(e) => onSubmit(e)}>
+          <div className="container">
+            {
+              state.refusjonErrors?.map(error => error.errorType in ErrorType
+                ? <AlertStripe type="feil">{t(error.errorType)}</AlertStripe>
+                : <AlertStripe type="feil">{error.errorMessage}</AlertStripe>
+              )
+            }
+            <div className="sykepenger--arbeidstaker">
+              <Undertittel className="sykepenger--undertittel">
+                Hvilken arbeidstaker gjelder søknaden?
+              </Undertittel>
+              <Input name="fnr"
+                label="Fødselsnummer til arbeidstaker"
+                bredde="M"
+                onChange={e => filterIdentityNumberInput(e.target.value)}
+                value={identityNumberSeparation(identityNumberInput)}
+              />
+            </div>
+          </div>
 
-      <div className="container">
-        <div className="sykepenger--periode-velger form-group">
-          <Undertittel className="sykepenger--undertittel">
-            Hvilken periode har den ansatte vært fraværende?
-          </Undertittel>
-          <Undertekst className="sykepenger--undertekst">
-            NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
-          </Undertekst>
-          <Perioder id="perioder" />
-        </div>
-      </div>
+          <div className="container">
+            <div className="sykepenger--periode-velger form-group">
+              <Undertittel className="sykepenger--undertittel">
+                Hvilken periode har den ansatte vært fraværende?
+              </Undertittel>
+              <Undertekst className="sykepenger--undertekst">
+                NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
+              </Undertekst>
+              <Perioder id="perioder" />
+            </div>
+          </div>
 
-      <div className="container">
-        <Undertittel className="sykepenger--undertittel">Hvor mye ønskes refundert?</Undertittel>
-        <label htmlFor="belop">
-          <Normaltekst tag="span">Beløp</Normaltekst>
-        </label>
-        <NumberFormat
-          id="belop"
-          label=""
-          value={amountInput}
-          customInput={Input}
-          format={'### ### ### ###'}
-          className="input--s"
-          onChange={e => setAmountInput(e.target.value)}
-        />
-      </div>
+          <div className="container">
+            <Undertittel className="sykepenger--undertittel">Hvor mye ønskes refundert?</Undertittel>
+            <label htmlFor="belop" className="skjemaelement__label">
+              <Normaltekst tag="span">Beløp</Normaltekst>
+            </label>
+            <NumberFormat
+              name="belop"
+              id="belop"
+              label=""
+              value={amountInput}
+              customInput={Input}
+              format={'### ### ### ###'}
+              className="input--s"
+              onChange={e => setAmountInput(e.target.value)}
+            />
+          </div>
 
-      <div className="container">
-        <Knapp
-          type="hoved"
-          onSubmit={submit}
-        >
-          Send refusjonssøknad
-        </Knapp>
+          <div className="container">
+            <Knapp type="hoved"> Send refusjonssøknad </Knapp>
+          </div>
+        </form>
       </div>
     </div>
   );

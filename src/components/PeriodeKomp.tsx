@@ -6,6 +6,7 @@ import { Input } from 'nav-frontend-skjema';
 import dayjs from 'dayjs';
 import { helseSpionReducer, initialHelseSpionState } from '../store/reducers/helseSpionReducers';
 import './Flatpickr.less';
+import { Normaltekst } from 'nav-frontend-typografi';
 
 interface PeriodeProps {
   id: string;
@@ -33,13 +34,13 @@ const PeriodeKomp = (props: PeriodeProps) => {
   }, []);
 
   return (
-    <li className='periode'>
-      <div className="periodefelt">
-        <div className='periodelabel'>
-          <label htmlFor={htmlfor} className='fom'>
+    <div className='periode'>
+      <div className="skjemaelement">
+        <label htmlFor={htmlfor} className='fom skjemaelement__label'>
+          <Normaltekst tag="span">
             Fra og med første, til og med siste fraværsdag
-          </label>
-        </div>
+          </Normaltekst>
+        </label>
         <Flatpickr
           id={id}
           name={id}
@@ -59,14 +60,16 @@ const PeriodeKomp = (props: PeriodeProps) => {
         />
       </div>
 
-      <div className="antallfelt">
-        <label htmlFor={'antall_' + id} className="dager">
-          Hvor mange dager ønskes refundert?
+      <div className="skjemaelement">
+        <label htmlFor={'antall_' + id} className="dager skjemaelement__label">
+          <Normaltekst tag="span">
+            Hvor mange dager ønskes refundert?
+          </Normaltekst>
         </label>
         <Input
+          name={'antall_' + id}
           type="number"
           step={1}
-          name={'antall_' + id}
           label=""
           bredde="S"
         />
@@ -76,10 +79,12 @@ const PeriodeKomp = (props: PeriodeProps) => {
         <button role='link' id={'btn_' + id} className='periodeknapp lenke slett'
           onClick={(e) => props.slettPeriode(e, props.index)}
         >
-          Slett periode
+          <Normaltekst tag="span">
+            Slett periode
+          </Normaltekst>
         </button>
       </Vis>
-    </li>
+    </div>
   )
 };
 
