@@ -5,12 +5,11 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Undertekst, Undertittel } from 'nav-frontend-typografi';
 import { Keys } from '../locales/keys';
-import { ErrorType, RefusjonsKrav } from '../data/types/sporenstreksTypes';
+import { Periode, RefusjonsKrav } from '../data/types/sporenstreksTypes';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
 import { Knapp } from 'nav-frontend-knapper';
-import AlertStripe from "nav-frontend-alertstriper";
 import Perioder from './Perioder';
 import { filterStringToNumbersOnly } from '../util/filterStringToNumbersOnly';
 import { identityNumberSeparation } from '../util/identityNumberSeparation';
@@ -19,6 +18,7 @@ import { submitRefusjon } from '../store/thunks/submitRefusjon';
 import { useAppStore } from '../data/store/AppStore';
 import { History } from 'history';
 import './Sykepenger.less';
+import dayjs from "dayjs";
 
 const Sykepenger = () => {
   const { arbeidsgivere } = useAppStore();
@@ -41,27 +41,39 @@ const Sykepenger = () => {
       data[elm.name] = elm.value;
       return data;
     }, {});
+  
+  const convertSkjemaToRefusjonsKrav = (data): RefusjonsKrav => {
+    
+    const antallPerioder = (Object.keys(data).length-2)/3;
+    let perioder: Periode[] = [];
+    
+    for (let i = 0; i < antallPerioder; i++) {
+      const days = data['periode_'+i].split(' til ');
+      const periode: Periode = {
+        fom: dayjs(days[0]).format('YYYY-MM-DD'),
+        tom: dayjs(days[1]).format('YYYY-MM-DD'),
+        antallDagerMedRefusjon: data['antall_'+i],
+        beloep: data['beloep_'+i],
+      };
+      perioder.push(periode)
+    }
+  
+    const refusjonsKrav: RefusjonsKrav = {
+      identitetsnummer: identityNumberInput,
+      virksomhetsnummer: arbeidsgiverId,
+      perioder: perioder
+    };
+    
+    return refusjonsKrav;
+  };
 
   const onSubmit = (e: any): void => {
     e.preventDefault();
     const form: HTMLFormElement = e.target;
     const data = formToJSON(form.elements);
     console.log('data', data); // eslint-disable-line
-
-    // todo: validering av inputs
-    const refusjonsKrav: RefusjonsKrav = {
-      identitetsnummer: identityNumberInput,
-      virksomhetsnummer: arbeidsgiverId,
-      perioder: [
-        {
-          fom: '2020-03-03',
-          tom: '2020-03-18',
-          antallDagerMedRefusjon: parseInt('5'),
-          beloep: parseInt(amountInput)
-        }
-      ],
-    };
-    submitRefusjon(refusjonsKrav);
+  
+    submitRefusjon(convertSkjemaToRefusjonsKrav((data)));
   };
 
   document.title = `${t(Keys.DOCUMENT_TITLE)}/${t(Keys.REFUNDS)} - www.nav.no`;
