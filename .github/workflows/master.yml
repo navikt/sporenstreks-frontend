@@ -23,7 +23,6 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       - run: npm install
-      - run: npm run build:dev
       - run: npm test
       - name: create docker tag
         env:
