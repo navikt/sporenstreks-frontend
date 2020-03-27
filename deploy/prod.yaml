@@ -48,3 +48,5 @@ spec:
       value: prod
     - name: NODE_ENV
       value: prod
+    - name: HOSTNAME
+      value: https://arbeidsgiver.nav.no/nettrefusjon
