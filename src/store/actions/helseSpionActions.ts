@@ -1,4 +1,4 @@
-import { ErrorObject, SporenstreksActionTypes, SporenstreksTypes } from '../types/sporenstreksTypes';
+import { ErrorObject, SporenstreksActionTypes, SporenstreksTypes } from '../../data/types/sporenstreksTypes';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
 
 export const submitRefusjonStarted = (): SporenstreksActionTypes => {

@@ -1,10 +1,9 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect } from 'react';
 import Flatpickr from 'react-flatpickr';
 import Vis from './Vis';
 import { Norwegian } from 'flatpickr/dist/l10n/no.js';
 import { Input } from 'nav-frontend-skjema';
 import dayjs from 'dayjs';
-import { helseSpionReducer, initialHelseSpionState } from '../store/reducers/helseSpionReducers';
 import { Normaltekst } from 'nav-frontend-typografi';
 import './Flatpickr.less';
 
@@ -19,7 +18,6 @@ interface PeriodeProps {
 const PeriodeKomp = (props: PeriodeProps) => {
   const id = props.id + '_' + props.index;
   const htmlfor = props.id + '_t_' + props.index;
-  const [ state, dispatch ] = useReducer(helseSpionReducer, initialHelseSpionState);
 
   let min = props.min;
   let max = props.max;

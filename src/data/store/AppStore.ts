@@ -1,6 +1,6 @@
 import constate from 'constate';
 import { useState } from 'react';
-import { UnleashToggles } from '../../store/types/sporenstreksTypes';
+import { UnleashToggles } from '../types/sporenstreksTypes';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
 
 export const [ AppStoreProvider, useAppStore ] = constate(() => {

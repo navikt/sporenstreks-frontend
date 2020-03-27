@@ -1,5 +1,5 @@
 import { submitRefusjonError, submitRefusjonStarted, submitRefusjonSuccess } from '../actions/helseSpionActions';
-import { ErrorType, RefusjonsKrav } from '../types/sporenstreksTypes';
+import { ErrorType, RefusjonsKrav } from '../../data/types/sporenstreksTypes';
 import { Dispatch } from 'redux';
 
 export function submitRefusjon(refusjonsKrav: RefusjonsKrav): (dispatch: Dispatch) => Promise<void> {

@@ -5,7 +5,7 @@ import {
 } from '../actions/helseSpionActions';
 import { Dispatch } from 'redux';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
-import { ErrorType } from '../types/sporenstreksTypes';
+import { ErrorType } from '../../data/types/sporenstreksTypes';
 
 export function fetchArbeidsgivere(): (dispatch: Dispatch) => Promise<void> {
   return async dispatch => {
@@ -31,7 +31,7 @@ export function fetchArbeidsgivere(): (dispatch: Dispatch) => Promise<void> {
 }
 
 // todo: type safety
-const convertResponseDataToOrganisasjon = (data): Organisasjon[] => data.map(organisasjon => ({
+export const convertResponseDataToOrganisasjon = (data): Organisasjon[] => data.map(organisasjon => ({
   Name: organisasjon.name,
   Type: organisasjon.type,
   OrganizationNumber: organisasjon.organizationNumber,

@@ -1,4 +1,4 @@
-import { SporenstreksActionTypes, HelseSpionState, SporenstreksTypes } from '../types/sporenstreksTypes';
+import { SporenstreksActionTypes, HelseSpionState, SporenstreksTypes } from '../../data/types/sporenstreksTypes';
 import { Action } from 'redux';
 
 export const initialHelseSpionState: HelseSpionState = {

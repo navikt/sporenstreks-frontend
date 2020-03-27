@@ -11,6 +11,6 @@ const mock = FetchMock.configure({
   )
 });
 
-mock.get('/login', '/contextroot');
+mock.get('/login', '/nettrefusjon');
 mock.post(env.unleashUrl, unleashToggles);
 mock.get(process.env.REACT_APP_BASE_URL + '/api/v1/arbeidsgivere', arbeidsgivere);

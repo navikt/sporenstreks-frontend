@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'nav-frontend-tabell-style';
 import { Input } from 'nav-frontend-skjema';
 import { useHistory } from 'react-router-dom';
@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
 import { Keys } from '../locales/keys';
 import NumberFormat from 'react-number-format';
-import { ErrorType, RefusjonsKrav } from '../store/types/sporenstreksTypes';
+import { ErrorType, RefusjonsKrav } from '../data/types/sporenstreksTypes';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
@@ -15,13 +15,13 @@ import AlertStripe from "nav-frontend-alertstriper";
 import Perioder from './Perioder';
 import { filterStringToNumbersOnly } from '../util/filterStringToNumbersOnly';
 import { identityNumberSeparation } from '../util/identityNumberSeparation';
-import { helseSpionReducer, initialHelseSpionState } from '../store/reducers/helseSpionReducers';
 import { fetchArbeidsgivere } from '../store/thunks/fetchArbeidsgivere';
 import { submitRefusjon } from '../store/thunks/submitRefusjon';
+import { useAppStore } from '../data/store/AppStore';
 import './Sykepenger.less';
 
 const Sykepenger = () => {
-  const [ state ] = useReducer(helseSpionReducer, initialHelseSpionState);
+  const { arbeidsgivere } = useAppStore();
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
   const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
   const [ amountInput, setAmountInput ] = useState<string>('');
@@ -65,13 +65,7 @@ const Sykepenger = () => {
     submitRefusjon(refusjonsKrav);
   };
 
-  const arbeidstaker = state.ytelsesperioder[0]?.arbeidsforhold.arbeidstaker;
-
-  if (arbeidstaker) {
-    document.title = `${t(Keys.REFUNDS)}/${arbeidstaker.fornavn} ${arbeidstaker.etternavn} - www.nav.no`;
-  } else {
-    document.title = `${t(Keys.DOCUMENT_TITLE)}/${t(Keys.REFUNDS)} - www.nav.no`;
-  }
+  document.title = `${t(Keys.DOCUMENT_TITLE)}/${t(Keys.REFUNDS)} - www.nav.no`;
 
   return (
     <div className="sykepenger">
@@ -79,17 +73,19 @@ const Sykepenger = () => {
         history={history}
         onOrganisasjonChange={(org: Organisasjon) => setArbeidsgiverId(org.OrganizationNumber)}
         sidetittel={t(Keys.MY_PAGE)}
-        organisasjoner={state.arbeidsgivere}
+        organisasjoner={arbeidsgivere}
       />
       <div className="limit">
         <form className="sporsmal__form" onSubmit={(e) => onSubmit(e)}>
           <div className="container">
+{/*
             {
               state.refusjonErrors?.map(error => error.errorType in ErrorType
                 ? <AlertStripe type="feil">{t(error.errorType)}</AlertStripe>
                 : <AlertStripe type="feil">{error.errorMessage}</AlertStripe>
               )
             }
+*/}
             <div className="sykepenger--arbeidstaker">
               <Undertittel className="sykepenger--undertittel">
                 Hvilken arbeidstaker gjelder søknaden?
