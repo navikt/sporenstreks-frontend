@@ -15,9 +15,8 @@ const App = () => {
         <Amplitude>
           <I18nextProvider i18n={i18n}>
             <Switch>
-              <Route exact path="/nettrefusjon/" render={() => <Sykepenger />} />
-              <Route exact path="/" render={() => <Redirecter />} />
-              {/*<Route render={() => <404/>}/> // Todo: 404 fallback */}
+              <Route exact path="/nettrefusjon" render={() => <Sykepenger />} />
+              <Route path="/" render={() => <Redirecter />} />
             </Switch>
           </I18nextProvider>
         </Amplitude>

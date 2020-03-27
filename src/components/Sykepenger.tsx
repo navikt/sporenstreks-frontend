@@ -18,6 +18,7 @@ import { identityNumberSeparation } from '../util/identityNumberSeparation';
 import { fetchArbeidsgivere } from '../store/thunks/fetchArbeidsgivere';
 import { submitRefusjon } from '../store/thunks/submitRefusjon';
 import { useAppStore } from '../data/store/AppStore';
+import { History } from 'history';
 import './Sykepenger.less';
 
 const Sykepenger = () => {
@@ -25,9 +26,8 @@ const Sykepenger = () => {
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
   const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
   const [ amountInput, setAmountInput ] = useState<string>('');
-
   const { t } = useTranslation();
-  const { history } = useHistory();
+  const history: History = useHistory();
 
   useEffect(() => {
     fetchArbeidsgivere();

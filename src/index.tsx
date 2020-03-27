@@ -8,7 +8,7 @@ import App from './App';
 import './app.less';
 
 ReactDOM.render(
-  <BrowserRouter basename="/nettrefusjon">
+  <BrowserRouter>
     <App />
   </BrowserRouter>,
   document.getElementById('root') as HTMLElement
