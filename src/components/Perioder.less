@@ -55,11 +55,17 @@
   .periodeliste {
     .periode {
       display: flex;
-      align-items: center;
+      align-items: flex-end;
 
       .skjemaelement {
+        width: 28%;
+
         &:first-child {
-          width: calc(350px + 1rem);
+          width: 38%;
+        }
+
+        &:nth-child(3) {
+          width: 18%;
         }
 
         label {
@@ -72,7 +78,7 @@
         }
 
         & + .periodeknapp {
-          margin-top: 1.5rem;
+          margin-bottom: 0.5rem;
         }
       }
     }

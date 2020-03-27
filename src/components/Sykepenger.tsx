@@ -3,9 +3,8 @@ import 'nav-frontend-tabell-style';
 import { Input } from 'nav-frontend-skjema';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
+import { Undertekst, Undertittel } from 'nav-frontend-typografi';
 import { Keys } from '../locales/keys';
-import NumberFormat from 'react-number-format';
 import { ErrorType, RefusjonsKrav } from '../data/types/sporenstreksTypes';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
@@ -24,8 +23,8 @@ import './Sykepenger.less';
 const Sykepenger = () => {
   const { arbeidsgivere } = useAppStore();
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
-  const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
   const [ amountInput, setAmountInput ] = useState<string>('');
+  const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
   const { t } = useTranslation();
   const history: History = useHistory();
 
@@ -109,24 +108,6 @@ const Sykepenger = () => {
               </Undertekst>
               <Perioder id="perioder" />
             </div>
-          </div>
-
-          <div className="container">
-            <Undertittel className="sykepenger--undertittel">Hvor mye ønskes refundert?</Undertittel>
-            <label htmlFor="belop" className="skjemaelement__label">
-              <Normaltekst tag="span">Beløp</Normaltekst>
-            </label>
-            <NumberFormat
-              name="belop"
-              id="belop"
-              label=""
-              value={amountInput}
-              customInput={Input}
-              thousandSeparator={' '}
-              decimalSeparator={','}
-              className="input--s"
-              onChange={e => setAmountInput(e.target.value)}
-            />
           </div>
 
           <div className="container">
