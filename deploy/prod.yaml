@@ -46,3 +46,5 @@ spec:
       value: https://arbeidsgiver.nav.no/nettrefusjon
     - name: REACT_APP_ENVIRONMENT
       value: prod
+    - name: NODE_ENV
+      value: prod
