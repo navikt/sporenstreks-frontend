@@ -42,7 +42,7 @@ const PeriodeKomp = (props: PeriodeProps) => {
           id={id}
           name={id}
           className="skjemaelement__input input--xl"
-          placeholder="dd.mm.yyyy til dd.mm.yyyy"
+          placeholder="dd.mm.åååå til dd.mm.åååå"
           options={{
             minDate: min,
             maxDate: max,

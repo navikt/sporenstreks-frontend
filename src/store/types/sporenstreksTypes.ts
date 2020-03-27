@@ -101,3 +101,6 @@ export type SporenstreksActionTypes =
   | { type: SporenstreksTypes.SUBMIT_REFUSJON_SUCCESS}
   | { type: SporenstreksTypes.SUBMIT_REFUSJON_ERROR, errors: ErrorObject[] };
 
+export interface UnleashToggles {
+  [index: string]: boolean;
+}
