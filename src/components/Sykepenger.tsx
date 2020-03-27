@@ -11,13 +11,11 @@ import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
 import { Knapp } from 'nav-frontend-knapper';
-import { dateToString } from "../util/dateToString";
 import AlertStripe from "nav-frontend-alertstriper";
 import Perioder from './Perioder';
 import { filterStringToNumbersOnly } from '../util/filterStringToNumbersOnly';
 import { identityNumberSeparation } from '../util/identityNumberSeparation';
 import { helseSpionReducer, initialHelseSpionState } from '../store/reducers/helseSpionReducers';
-import dayjs from 'dayjs';
 import { fetchArbeidsgivere } from '../store/thunks/fetchArbeidsgivere';
 import { submitRefusjon } from '../store/thunks/submitRefusjon';
 import './Sykepenger.less';
@@ -57,8 +55,8 @@ const Sykepenger = () => {
       virksomhetsnummer: arbeidsgiverId,
       perioder: [
         {
-          fom: dateToString(dayjs('2020-03-03').toDate()),
-          tom: dateToString(dayjs('2020-03-18').toDate()),
+          fom: '2020-03-03',
+          tom: '2020-03-18',
           antallDagerMedRefusjon: parseInt('5'),
         }
       ],
