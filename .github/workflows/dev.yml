@@ -1,4 +1,4 @@
-name: Bygg og deploy master til prod
+name: Bygg og deploy master til dev
 
 on:
   push:
@@ -26,8 +26,8 @@ jobs:
         run: npm install
         env:
           NODE_ENV: production
-          REACT_APP_BASE_URL: https://arbeidsgiver.nav.no/nettrefusjon
-          REACT_APP_LOGIN_SERVICE_URL: https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/nettrefusjon/
+          REACT_APP_BASE_URL: https://arbeidsgiver-q.nav.no/nettrefusjon
+          REACT_APP_LOGIN_SERVICE_URL: https://loginservice-q.nav.no/login?redirect=https://arbeidsgiver-q.nav.no/nettrefusjon/
       - run: npm test
       - name: create docker tag
         env:
@@ -43,12 +43,12 @@ jobs:
           docker push $(cat .docker_image):$(cat .docker_tag)
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
-      - name: deploy to prod
+      - name: deploy to dev
         uses: navikt/deployment-cli/action@0.4.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
           AWAIT_SECONDS: 0
         with:
-          cluster: prod-sbs
+          cluster: dev-sbs
           team: helsearbeidsgiver
-          resources: deploy/prod.yaml
+          resources: deploy/dev.yaml
