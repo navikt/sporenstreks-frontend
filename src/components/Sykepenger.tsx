@@ -57,9 +57,9 @@ const Sykepenger = () => {
           fom: '2020-03-03',
           tom: '2020-03-18',
           antallDagerMedRefusjon: parseInt('5'),
+          beloep: parseInt(amountInput)
         }
       ],
-      beloep: parseInt(amountInput)
     };
     submitRefusjon(refusjonsKrav);
   };
