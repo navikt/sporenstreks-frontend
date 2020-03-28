@@ -18,19 +18,28 @@ import { submitRefusjon } from '../data/submitRefusjon';
 import { useAppStore } from '../data/store/AppStore';
 import { History } from 'history';
 import dayjs from 'dayjs';
-import './Sykepenger.less';
 import Vis from './Vis';
+import './Sykepenger.less';
+
+export interface FeltFeil {
+  felt: string;
+  melding: string;
+}
 
 const Sykepenger = () => {
-  const { arbeidsgivere } = useAppStore();
+  const { arbeidsgivere, lokaleFeil, setLokaleFeil } = useAppStore();
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
   const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
-  const [ idnrFeil, setIdnrFeil ] = useState<string>('');
   const { t } = useTranslation();
   const history: History = useHistory();
 
   const filterIdentityNumberInput = (input: string) => {
     setIdentityNumberInput(filterStringToNumbersOnly(input, 11));
+  };
+
+  const finnLokalFeil = (felt: string) => {
+    const err = lokaleFeil.filter(feil => feil.felt === felt)[0];
+    return err ?? {felt: felt, melding: ''};
   };
 
   const formToJSON = elms =>
@@ -50,7 +59,7 @@ const Sykepenger = () => {
         tom: dayjs(days[1]).format('YYYY-MM-DD'),
         antallDagerMedRefusjon: data['antall_' + i],
         beloep: data['beloep_' + i]
-          .replace(/\s/g,'')
+          .replace(/\s/g, '')
           .replace(',', '.'),
       };
       perioder.push(periode)
@@ -67,24 +76,20 @@ const Sykepenger = () => {
     e.preventDefault();
     const form: HTMLFormElement = document.querySelector('.refusjonsform') ?? e.target;
     const data = formToJSON(form.elements);
-    console.log('form', form); // eslint-disable-line
-    console.log('data', data); // eslint-disable-line
-    const result: Promise<any> = submitRefusjon(convertSkjemaToRefusjonsKrav(data))
+    submitRefusjon(convertSkjemaToRefusjonsKrav(data))
       .then(response => {
         console.log('response', response); // eslint-disable-line
       });
-    console.log('result', result); // eslint-disable-line
   };
-
-  document.title = `${t(Keys.DOCUMENT_TITLE)}/${t(Keys.REFUNDS)} - www.nav.no`;
 
   const validateFnr = (value: string) => {
     value = value.replace(/-/g, '');
     const res: any = fnrvalidator.fnr(value);
-    console.log('res', res); // eslint-disable-line
-    if (res.status !== 'valid') {
-      setIdnrFeil(res.status === 'invalid' ? 'Ugyldig fødselsnummer': 'Noe annet');
-    }
+    const feil: FeltFeil = finnLokalFeil('fnr');
+    feil.melding = res.status === 'invalid' ? 'Ugyldig fødselsnummer' : '';
+    lokaleFeil.push(feil);
+    setLokaleFeil(lokaleFeil);
+    console.log('lokaleFeil', lokaleFeil); // eslint-disable-line
   };
 
   return (
@@ -120,8 +125,8 @@ const Sykepenger = () => {
               />
             </div>
             <Normaltekst tag='div' role='alert' aria-live='assertive' className='skjemaelement__feilmelding'>
-              <Vis hvis={idnrFeil}>
-                {idnrFeil}
+              <Vis hvis={lokaleFeil}>
+                {lokaleFeil}
               </Vis>
             </Normaltekst>
           </div>
