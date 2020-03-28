@@ -3,7 +3,6 @@ import Flatpickr from 'react-flatpickr';
 import Vis from './Vis';
 import { Norwegian } from 'flatpickr/dist/l10n/no.js';
 import { Input } from 'nav-frontend-skjema';
-import dayjs from 'dayjs';
 import { Normaltekst } from 'nav-frontend-typografi';
 import './Flatpickr.less';
 import NumberFormat from 'react-number-format';
@@ -21,8 +20,6 @@ const PeriodeKomp = (props: PeriodeProps) => {
 
   let min = props.min;
   let max = props.max;
-  if (!min) min = dayjs('2020-03-03').toDate();
-  if (!max) max = dayjs('2020-03-18').toDate();
 
   useEffect(() => {
     // eslint-disable-next-line
