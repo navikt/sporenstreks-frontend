@@ -40,5 +40,3 @@ spec:
   env:
   - name: API_GATEWAY
     value: https://api-gw-q1.oera.no/sporenstreks
-  - name: LOGIN_URL
-    value: https://loginservice-q.nav.no/login?redirect=https://arbeidsgiver-q.nav.no/nettrefusjon/

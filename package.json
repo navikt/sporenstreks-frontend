@@ -21,6 +21,7 @@
     "env-cmd": "^10.1.0",
     "i18next": "^19.3.3",
     "less": "^3.11.1",
+    "less-loader": "^5.0.0",
     "lodash.throttle": "^4.1.1",
     "nav-frontend-alertstriper": "^3.0.13",
     "nav-frontend-alertstriper-style": "^2.0.11",
@@ -59,10 +60,8 @@
   },
   "homepage": "/nettrefusjon",
   "scripts": {
-    "start": "env-cmd -f .env.local react-app-rewired start",
-    "build:local": "npm run lint && env-cmd -f .env.local react-app-rewired start",
-    "build:dev": "npm run lint && env-cmd -f .env.dev react-app-rewired build",
-    "build:prod": "env-cmd -f .env.prod react-app-rewired build",
+    "start": "react-app-rewired start --development",
+    "build": "npm run lint && react-app-rewired start --development",
     "install": "react-app-rewired build",
     "test": "react-app-rewired test --color --watchAll=false",
     "eject": "react-scripts eject",
@@ -89,7 +88,6 @@
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
     "eslint": "^6.8.0",
-    "eslint-plugin-react": "^7.19.0",
-    "less-loader": "^5.0.0"
+    "eslint-plugin-react": "^7.19.0"
   }
 }
