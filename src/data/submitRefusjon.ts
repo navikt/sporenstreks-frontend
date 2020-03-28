@@ -12,7 +12,7 @@ export function submitRefusjon(refusjonsKrav: RefusjonsKrav): (any) {
     if (response.status === 401) {
       window.location.href = process.env.REACT_APP_LOGIN_SERVICE_URL ?? '';
     } else if (response.status === 200) {
-      return 200
+      return response.body;
     } else if (response.status === 422) {
       return response.json().then(data =>
         data.violations.map(violation => ({
