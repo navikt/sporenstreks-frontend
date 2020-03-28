@@ -17,12 +17,17 @@ import { identityNumberSeparation } from '../util/identityNumberSeparation';
 import { useAppStore } from '../data/store/AppStore';
 import { History } from 'history';
 import dayjs from 'dayjs';
-import './Sykepenger.less';
 import Vis from './Vis';
 import AlertStripe from 'nav-frontend-alertstriper';
+import './Sykepenger.less';
+
+export interface FeltFeil {
+  felt: string;
+  melding: string;
+}
 
 const Sykepenger = () => {
-  const { arbeidsgivere } = useAppStore();
+  const { arbeidsgivere, lokaleFeil, setLokaleFeil } = useAppStore();
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
   const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
   const [ idnrFeil, setIdnrFeil ] = useState<string>('');
@@ -32,6 +37,11 @@ const Sykepenger = () => {
 
   const filterIdentityNumberInput = (input: string) => {
     setIdentityNumberInput(filterStringToNumbersOnly(input, 11));
+  };
+
+  const finnLokalFeil = (felt: string) => {
+    const err = lokaleFeil.filter(feil => feil.felt === felt)[0];
+    return err ?? {felt: felt, melding: ''};
   };
 
   const formToJSON = elms =>
@@ -64,7 +74,7 @@ const Sykepenger = () => {
     };
   };
 
-  const onSubmit = async(e: any): Promise<void> => {
+  const onSubmit = async (e: any): Promise<void> => {
     e.preventDefault();
     const form: HTMLFormElement = document.querySelector('.refusjonsform') ?? e.target;
     const data = formToJSON(form.elements);
@@ -92,7 +102,7 @@ const Sykepenger = () => {
           })))
         });
       } else { // todo: error 400
-        setErrors([ { errorType: ErrorType.UNKNOWN, errorMessage: '' } ])
+        setErrors([{errorType: ErrorType.UNKNOWN, errorMessage: ''}])
       }
     });
   };
@@ -102,10 +112,11 @@ const Sykepenger = () => {
   const validateFnr = (value: string) => {
     value = value.replace(/-/g, '');
     const res: any = fnrvalidator.fnr(value);
-    console.log('res', res); // eslint-disable-line
-    if (res.status !== 'valid') {
-      setIdnrFeil(res.status === 'invalid' ? 'Ugyldig fødselsnummer' : 'Noe annet');
-    }
+    const feil: FeltFeil = finnLokalFeil('fnr');
+    feil.melding = res.status === 'invalid' ? 'Ugyldig fødselsnummer' : '';
+    lokaleFeil.push(feil);
+    setLokaleFeil(lokaleFeil);
+    console.log('lokaleFeil', lokaleFeil); // eslint-disable-line
   };
 
   return (
@@ -131,12 +142,12 @@ const Sykepenger = () => {
                 Hvilken arbeidstaker gjelder søknaden?
               </Undertittel>
               <Input name="fnr"
-                label="Fødselsnummer til arbeidstaker"
-                bredde="M"
-                autoComplete={'off'}
-                onChange={e => filterIdentityNumberInput(e.target.value)}
-                onBlur={e => validateFnr(e.target.value)}
-                value={identityNumberSeparation(identityNumberInput)}
+                     label="Fødselsnummer til arbeidstaker"
+                     bredde="M"
+                     autoComplete={'off'}
+                     onChange={e => filterIdentityNumberInput(e.target.value)}
+                     onBlur={e => validateFnr(e.target.value)}
+                     value={identityNumberSeparation(identityNumberInput)}
               />
             </div>
             <Normaltekst tag='div' role='alert' aria-live='assertive' className='skjemaelement__feilmelding'>
