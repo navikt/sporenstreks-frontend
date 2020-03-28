@@ -17,7 +17,6 @@ interface PeriodeProps {
 
 const PeriodeKomp = (props: PeriodeProps) => {
   const [ amountInput, setAmountInput ] = useState<string>('');
-  const htmlfor = 't_' + props.index;
 
   let min = props.min ?? dayjs('1970-01-01').toDate();
   let max = props.max ?? dayjs(new Date()).add(1, 'year').toDate();
@@ -29,13 +28,13 @@ const PeriodeKomp = (props: PeriodeProps) => {
   return (
     <div className="periode" role="group">
       <div className="skjemaelement">
-        <label htmlFor={htmlfor} className="fom skjemaelement__label">
+        <label htmlFor={'periode_' + props.index} className="fom skjemaelement__label">
           <Normaltekst tag="span">
             Fra og med første, til og med siste fraværsdag
           </Normaltekst>
         </label>
         <Flatpickr
-          id={'t_' + props.index}
+          id={'periode_' + props.index}
           name={'periode_' + props.index}
           className="skjemaelement__input input--m"
           placeholder="dd.mm.åååå til dd.mm.åååå"
@@ -69,12 +68,12 @@ const PeriodeKomp = (props: PeriodeProps) => {
       </div>
 
       <div className="skjemaelement">
-        <label htmlFor="belop" className="skjemaelement__label">
+        <label htmlFor={'beloep_' + props.index} className="skjemaelement__label">
           <Normaltekst tag="span">Hvor mye søkes refundert</Normaltekst>
         </label>
         <NumberFormat
           name={'beloep_' + props.index}
-          id="belop"
+          id={'beloep_' + props.index}
           label=""
           value={amountInput}
           thousandSeparator={' '}

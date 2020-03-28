@@ -46,7 +46,7 @@ const Sykepenger = () => {
         fom: dayjs(days[0]).format('YYYY-MM-DD'),
         tom: dayjs(days[1]).format('YYYY-MM-DD'),
         antallDagerMedRefusjon: data['antall_' + i],
-        beloep: data['beloep_' + i].replace(',', '.'),
+        beloep: data['beloep_' + i].replace(/\s/g,'').replace(',', '.'),
       };
       perioder.push(periode)
     }
