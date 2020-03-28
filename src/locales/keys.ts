@@ -1,4 +1,4 @@
-import { ErrorType, Status } from '../store/types/sporenstreksTypes';
+import { ErrorType, Status } from '../data/types/sporenstreksTypes';
 
 export enum Keys {
 	MY_PAGE = 'MY_PAGE',

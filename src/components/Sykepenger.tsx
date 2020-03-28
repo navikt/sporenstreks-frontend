@@ -1,39 +1,30 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useState } from 'react';
 import 'nav-frontend-tabell-style';
 import { Input } from 'nav-frontend-skjema';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
+import { Undertekst, Undertittel } from 'nav-frontend-typografi';
 import { Keys } from '../locales/keys';
-import NumberFormat from 'react-number-format';
-import { ErrorType, RefusjonsKrav } from '../store/types/sporenstreksTypes';
+import { Periode, RefusjonsKrav } from '../data/types/sporenstreksTypes';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
 import { Knapp } from 'nav-frontend-knapper';
-import { dateToString } from "../util/dateToString";
-import AlertStripe from "nav-frontend-alertstriper";
 import Perioder from './Perioder';
 import { filterStringToNumbersOnly } from '../util/filterStringToNumbersOnly';
 import { identityNumberSeparation } from '../util/identityNumberSeparation';
-import { helseSpionReducer, initialHelseSpionState } from '../store/reducers/helseSpionReducers';
+import { submitRefusjon } from '../data/submitRefusjon';
+import { useAppStore } from '../data/store/AppStore';
+import { History } from 'history';
 import dayjs from 'dayjs';
-import { fetchArbeidsgivere } from '../store/thunks/fetchArbeidsgivere';
-import { submitRefusjon } from '../store/thunks/submitRefusjon';
 import './Sykepenger.less';
 
 const Sykepenger = () => {
-  const [ state ] = useReducer(helseSpionReducer, initialHelseSpionState);
+  const { arbeidsgivere } = useAppStore();
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
   const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
-  const [ amountInput, setAmountInput ] = useState<string>('');
-
   const { t } = useTranslation();
-  const { history } = useHistory();
-
-  useEffect(() => {
-    fetchArbeidsgivere();
-  }, []);
+  const history: History = useHistory();
 
   const filterIdentityNumberInput = (input: string) => {
     setIdentityNumberInput(filterStringToNumbersOnly(input, 11));
@@ -45,35 +36,36 @@ const Sykepenger = () => {
       return data;
     }, {});
 
+  const convertSkjemaToRefusjonsKrav = (data): RefusjonsKrav => {
+    const antallPerioder = (Object.keys(data).length - 2) / 3;
+    let perioder: Periode[] = [];
+
+    for (let i = 0; i < antallPerioder; i++) {
+      const days = data['periode_' + i].split(' til ');
+      const periode: Periode = {
+        fom: dayjs(days[0]).format('YYYY-MM-DD'),
+        tom: dayjs(days[1]).format('YYYY-MM-DD'),
+        antallDagerMedRefusjon: data['antall_' + i],
+        beloep: data['beloep_' + i].replace(',', '.'),
+      };
+      perioder.push(periode)
+    }
+
+    return {
+      identitetsnummer: identityNumberInput,
+      virksomhetsnummer: arbeidsgiverId,
+      perioder: perioder
+    };
+  };
+
   const onSubmit = (e: any): void => {
     e.preventDefault();
     const form: HTMLFormElement = e.target;
     const data = formToJSON(form.elements);
-    console.log('data', data); // eslint-disable-line
-
-    // todo: validering av inputs
-    const refusjonsKrav: RefusjonsKrav = {
-      identitetsnummer: identityNumberInput,
-      virksomhetsnummer: arbeidsgiverId,
-      perioder: [
-        {
-          fom: dateToString(dayjs('2020-03-03').toDate()),
-          tom: dateToString(dayjs('2020-03-18').toDate()),
-          antallDagerMedRefusjon: parseInt('5'),
-        }
-      ],
-      beloep: parseInt(amountInput)
-    };
-    submitRefusjon(refusjonsKrav);
+    submitRefusjon(convertSkjemaToRefusjonsKrav((data)));
   };
 
-  const arbeidstaker = state.ytelsesperioder[0]?.arbeidsforhold.arbeidstaker;
-
-  if (arbeidstaker) {
-    document.title = `${t(Keys.REFUNDS)}/${arbeidstaker.fornavn} ${arbeidstaker.etternavn} - www.nav.no`;
-  } else {
-    document.title = `${t(Keys.DOCUMENT_TITLE)}/${t(Keys.REFUNDS)} - www.nav.no`;
-  }
+  document.title = `${t(Keys.DOCUMENT_TITLE)}/${t(Keys.REFUNDS)} - www.nav.no`;
 
   return (
     <div className="sykepenger">
@@ -81,17 +73,19 @@ const Sykepenger = () => {
         history={history}
         onOrganisasjonChange={(org: Organisasjon) => setArbeidsgiverId(org.OrganizationNumber)}
         sidetittel={t(Keys.MY_PAGE)}
-        organisasjoner={state.arbeidsgivere}
+        organisasjoner={arbeidsgivere}
       />
       <div className="limit">
         <form className="sporsmal__form" onSubmit={(e) => onSubmit(e)}>
           <div className="container">
+            {/*
             {
               state.refusjonErrors?.map(error => error.errorType in ErrorType
                 ? <AlertStripe type="feil">{t(error.errorType)}</AlertStripe>
                 : <AlertStripe type="feil">{error.errorMessage}</AlertStripe>
               )
             }
+*/}
             <div className="sykepenger--arbeidstaker">
               <Undertittel className="sykepenger--undertittel">
                 Hvilken arbeidstaker gjelder søknaden?
@@ -99,6 +93,7 @@ const Sykepenger = () => {
               <Input name="fnr"
                 label="Fødselsnummer til arbeidstaker"
                 bredde="M"
+                autoComplete={'off'}
                 onChange={e => filterIdentityNumberInput(e.target.value)}
                 value={identityNumberSeparation(identityNumberInput)}
               />
@@ -113,26 +108,8 @@ const Sykepenger = () => {
               <Undertekst className="sykepenger--undertekst">
                 NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
               </Undertekst>
-              <Perioder id="perioder" />
+              <Perioder />
             </div>
-          </div>
-
-          <div className="container">
-            <Undertittel className="sykepenger--undertittel">Hvor mye ønskes refundert?</Undertittel>
-            <label htmlFor="belop" className="skjemaelement__label">
-              <Normaltekst tag="span">Beløp</Normaltekst>
-            </label>
-            <NumberFormat
-              name="belop"
-              id="belop"
-              label=""
-              value={amountInput}
-              customInput={Input}
-              thousandSeparator={' '}
-              decimalSeparator={','}
-              className="input--s"
-              onChange={e => setAmountInput(e.target.value)}
-            />
           </div>
 
           <div className="container">

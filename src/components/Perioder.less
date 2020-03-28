@@ -44,22 +44,30 @@
 }
 
 .periodeknapp {
-  font-family: 'Source Sans Pro', Arial, sans-serif;
+  display: inline;
+  padding: 0 0 0 0.7rem;
   background: none;
   border: none;
-  color: @navBla;
+  font-family: 'Source Sans Pro', Arial, sans-serif;
   text-decoration: underline;
+  color: @navBla;
 }
 
 @media (min-width: 769px) {
   .periodeliste {
     .periode {
       display: flex;
-      align-items: center;
+      align-items: flex-end;
 
       .skjemaelement {
+        width: 28%;
+
         &:first-child {
-          width: calc(350px + 1rem);
+          width: 38%;
+        }
+
+        &:nth-child(3) {
+          width: 18%;
         }
 
         label {
@@ -72,7 +80,7 @@
         }
 
         & + .periodeknapp {
-          margin-top: 1.5rem;
+          margin-bottom: 0.5rem;
         }
       }
     }

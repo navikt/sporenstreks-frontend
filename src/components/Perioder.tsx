@@ -4,7 +4,6 @@ import PeriodeKomp from './PeriodeKomp';
 import './Perioder.less';
 
 interface PerioderProps {
-  id: string;
   min?: Date;
   max?: Date;
 }
@@ -23,11 +22,10 @@ const Perioder = (props: PerioderProps) => {
 
   const lagIdForPerioder = () => {
     const perioder = periodeliste.current!.querySelectorAll('.periode');
-    console.log('perioder', perioder); // eslint-disable-line
     perioder.forEach((value, key) => {
       const input = value.querySelector('.input--xl[type=text]');
       if (input) {
-        input!.setAttribute('id', props.id + '_t_' + key);
+        input!.setAttribute('id', 't_' + key);
         input!.setAttribute('autoComplete', 'off');
       }
     });
@@ -59,7 +57,7 @@ const Perioder = (props: PerioderProps) => {
       <div className="periodeliste" ref={periodeliste}>
         {lokal.map((idx) => {
           return (
-            <PeriodeKomp id={props.id} index={idx}
+            <PeriodeKomp index={idx}
               slettPeriode={slettPeriode} min={props.min} max={props.max} key={idx}
             />
           )

@@ -14,13 +14,13 @@ export interface RefusjonsKrav {
   identitetsnummer: string;
   virksomhetsnummer: string;
   perioder: Periode[];
-  beloep: number;
 }
 
 export interface Periode {
   fom: string
   tom: string
   antallDagerMedRefusjon: number
+  beloep: number;
 }
 
 export enum OrganisationType {
@@ -101,3 +101,6 @@ export type SporenstreksActionTypes =
   | { type: SporenstreksTypes.SUBMIT_REFUSJON_SUCCESS}
   | { type: SporenstreksTypes.SUBMIT_REFUSJON_ERROR, errors: ErrorObject[] };
 
+export interface UnleashToggles {
+  [index: string]: boolean;
+}
