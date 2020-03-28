@@ -14,16 +14,15 @@ import Perioder from './Perioder';
 import { filterStringToNumbersOnly } from '../util/filterStringToNumbersOnly';
 import { identityNumberSeparation } from '../util/identityNumberSeparation';
 import { fetchArbeidsgivere } from '../store/thunks/fetchArbeidsgivere';
-import { submitRefusjon } from '../store/thunks/submitRefusjon';
+import { submitRefusjon } from '../data/submitRefusjon';
 import { useAppStore } from '../data/store/AppStore';
 import { History } from 'history';
+import dayjs from 'dayjs';
 import './Sykepenger.less';
-import dayjs from "dayjs";
 
 const Sykepenger = () => {
   const { arbeidsgivere } = useAppStore();
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
-  const [ amountInput, setAmountInput ] = useState<string>('');
   const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
   const { t } = useTranslation();
   const history: History = useHistory();
@@ -41,38 +40,33 @@ const Sykepenger = () => {
       data[elm.name] = elm.value;
       return data;
     }, {});
-  
+
   const convertSkjemaToRefusjonsKrav = (data): RefusjonsKrav => {
-    
-    const antallPerioder = (Object.keys(data).length-2)/3;
+    const antallPerioder = (Object.keys(data).length - 2) / 3;
     let perioder: Periode[] = [];
-    
+
     for (let i = 0; i < antallPerioder; i++) {
-      const days = data['periode_'+i].split(' til ');
+      const days = data['periode_' + i].split(' til ');
       const periode: Periode = {
         fom: dayjs(days[0]).format('YYYY-MM-DD'),
         tom: dayjs(days[1]).format('YYYY-MM-DD'),
-        antallDagerMedRefusjon: data['antall_'+i],
-        beloep: data['beloep_'+i],
+        antallDagerMedRefusjon: data['antall_' + i],
+        beloep: data['beloep_' + i],
       };
       perioder.push(periode)
     }
-  
-    const refusjonsKrav: RefusjonsKrav = {
+
+    return {
       identitetsnummer: identityNumberInput,
       virksomhetsnummer: arbeidsgiverId,
       perioder: perioder
     };
-    
-    return refusjonsKrav;
   };
 
   const onSubmit = (e: any): void => {
     e.preventDefault();
     const form: HTMLFormElement = e.target;
     const data = formToJSON(form.elements);
-    console.log('data', data); // eslint-disable-line
-  
     submitRefusjon(convertSkjemaToRefusjonsKrav((data)));
   };
 
@@ -89,7 +83,7 @@ const Sykepenger = () => {
       <div className="limit">
         <form className="sporsmal__form" onSubmit={(e) => onSubmit(e)}>
           <div className="container">
-{/*
+            {/*
             {
               state.refusjonErrors?.map(error => error.errorType in ErrorType
                 ? <AlertStripe type="feil">{t(error.errorType)}</AlertStripe>
