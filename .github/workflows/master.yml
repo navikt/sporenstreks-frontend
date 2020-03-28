@@ -26,6 +26,8 @@ jobs:
         run: npm install
         env:
           NODE_ENV: production
+          PUBLIC_URL: https://arbeidsgiver.nav.no/nettrefusjon
+          PROXY: https://arbeidsgiver.nav.no/nettrefusjon
           REACT_APP_BASE_URL: https://arbeidsgiver.nav.no/nettrefusjon
           REACT_APP_LOGIN_SERVICE_URL: https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/nettrefusjon/
       - run: npm test
