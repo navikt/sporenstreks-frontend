@@ -4,7 +4,7 @@ import useFetch from './rest/use-fetch';
 import { FetchState, hasAny401, hasAnyFailed, hasData, isAnyNotStartedOrPending, isNotStarted } from './rest/utils';
 import { useAppStore } from './store/AppStore';
 import { useHistory } from 'react-router-dom';
-import { ErrorType, UnleashToggles } from './types/sporenstreksTypes';
+import { UnleashToggles } from './types/sporenstreksTypes';
 import IngenData from '../pages/IngenData';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
 import { unleashKeys } from './mock/data/toggles';

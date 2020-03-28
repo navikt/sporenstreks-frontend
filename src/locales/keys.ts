@@ -19,6 +19,8 @@ export enum Keys {
 	REFUND = 'REFUND',
 	NEXT = 'NEXT',
 	PREVIOUS = 'PREVIOUS',
+  TOOLOWAMOUNT = 'TOOLOWAMOUNT',
+  TOOHIGHAMOUNT = 'TOOHIGHAMOUNT',
 }
 
 const translatedKeys: IncludedKeys = {
@@ -129,6 +131,18 @@ const translatedKeys: IncludedKeys = {
 		nn: 'førre',
 		en: 'previous',
 	},
+
+  [Keys.TOOLOWAMOUNT]: {
+    nb: 'Beløpet er for lavt.',
+    nn: 'Beløpet er for lågt',
+    en: 'Amount is too low.',
+  },
+
+  [Keys.TOOHIGHAMOUNT]: {
+    nb: 'Beløpet er for høyt.',
+    nn: 'Beløpet er for høgt',
+    en: 'Amount is too hight.',
+  },
 };
 
 const translatedStatus: IncludedStatus = {
@@ -159,6 +173,18 @@ const translatedStatus: IncludedStatus = {
 
 // Todo: proper texts
 const translatedErrors: IncludedErrors = {
+	[ErrorType.TOOLOWAMOUNT]: {
+    nb: 'Beløpet er for lavt.',
+    nn: 'Beløpet er for lågt',
+    en: 'Amount is too low.',
+	},
+
+	[ErrorType.TOOHIGHAMOUNT]: {
+    nb: 'Beløpet er for høyt.',
+    nn: 'Beløpet er for høgt',
+    en: 'Amount is too high.',
+	},
+
 	[ErrorType.NOTNULL]: {
 		nb: 'En feil har skjedd. Prøv igjen senere.',
 		nn: 'Ein feil har skjedd. Prøv igjen seinare',
