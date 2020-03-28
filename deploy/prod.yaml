@@ -35,7 +35,7 @@ spec:
   vault:
     enabled: true
     paths:
-      - kvPath: apikey/apigw/dev/sporenstreks/sporenstreks-frontend
+      - kvPath: apikey/apigw/prod/sporenstreks/sporenstreks-frontend
         mountPath: /apigw/sporenstreks
   env:
     - name: API_GATEWAY
