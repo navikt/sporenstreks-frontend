@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
 import { Keys } from '../locales/keys';
-import { Periode, RefusjonsKrav } from '../data/types/sporenstreksTypes';
+import { ErrorObject, ErrorType, Periode, RefusjonsKrav } from '../data/types/sporenstreksTypes';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import fnrvalidator from '@navikt/fnrvalidator';
@@ -14,32 +14,24 @@ import { Knapp } from 'nav-frontend-knapper';
 import Perioder from './Perioder';
 import { filterStringToNumbersOnly } from '../util/filterStringToNumbersOnly';
 import { identityNumberSeparation } from '../util/identityNumberSeparation';
-import { submitRefusjon } from '../data/submitRefusjon';
 import { useAppStore } from '../data/store/AppStore';
 import { History } from 'history';
 import dayjs from 'dayjs';
-import Vis from './Vis';
 import './Sykepenger.less';
-
-export interface FeltFeil {
-  felt: string;
-  melding: string;
-}
+import Vis from './Vis';
+import AlertStripe from 'nav-frontend-alertstriper';
 
 const Sykepenger = () => {
-  const { arbeidsgivere, lokaleFeil, setLokaleFeil } = useAppStore();
+  const { arbeidsgivere } = useAppStore();
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
   const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
+  const [ idnrFeil, setIdnrFeil ] = useState<string>('');
+  const [ errors, setErrors ] = useState<ErrorObject[]>([]);
   const { t } = useTranslation();
   const history: History = useHistory();
 
   const filterIdentityNumberInput = (input: string) => {
     setIdentityNumberInput(filterStringToNumbersOnly(input, 11));
-  };
-
-  const finnLokalFeil = (felt: string) => {
-    const err = lokaleFeil.filter(feil => feil.felt === felt)[0];
-    return err ?? {felt: felt, melding: ''};
   };
 
   const formToJSON = elms =>
@@ -72,24 +64,48 @@ const Sykepenger = () => {
     };
   };
 
-  const onSubmit = (e: any): void => {
+  const onSubmit = async(e: any): Promise<void> => {
     e.preventDefault();
     const form: HTMLFormElement = document.querySelector('.refusjonsform') ?? e.target;
     const data = formToJSON(form.elements);
-    submitRefusjon(convertSkjemaToRefusjonsKrav(data))
-      .then(response => {
-        console.log('response', response); // eslint-disable-line
-      });
+    console.log('form', form); // eslint-disable-line
+    console.log('data', data); // eslint-disable-line
+    const refusjonsKrav = convertSkjemaToRefusjonsKrav(data);
+    await fetch(process.env.REACT_APP_BASE_URL + '/api/v1/refusjonskrav', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify(refusjonsKrav),
+    }).then(response => {
+      console.log('response', response); // eslint-disable-line
+      if (response.status === 401) {
+        window.location.href = process.env.REACT_APP_LOGIN_SERVICE_URL ?? '';
+      } else if (response.status === 200) {
+        console.log('mottatt'); // todo: vis kvittering
+      } else if (response.status === 422) {
+        response.json().then(data => {
+          setErrors(data.violations.map(violation => ({
+            errorType: violation.validationType,
+            errorMessage: violation.message,
+          })))
+        });
+      } else { // todo: error 400
+        setErrors([ { errorType: ErrorType.UNKNOWN, errorMessage: '' } ])
+      }
+    });
   };
+
+  document.title = `${t(Keys.DOCUMENT_TITLE)}/${t(Keys.REFUNDS)} - www.nav.no`;
 
   const validateFnr = (value: string) => {
     value = value.replace(/-/g, '');
     const res: any = fnrvalidator.fnr(value);
-    const feil: FeltFeil = finnLokalFeil('fnr');
-    feil.melding = res.status === 'invalid' ? 'Ugyldig fødselsnummer' : '';
-    lokaleFeil.push(feil);
-    setLokaleFeil(lokaleFeil);
-    console.log('lokaleFeil', lokaleFeil); // eslint-disable-line
+    console.log('res', res); // eslint-disable-line
+    if (res.status !== 'valid') {
+      setIdnrFeil(res.status === 'invalid' ? 'Ugyldig fødselsnummer' : 'Noe annet');
+    }
   };
 
   return (
@@ -103,14 +119,13 @@ const Sykepenger = () => {
       <div className="limit">
         <form className="refusjonsform" onSubmit={(e) => onSubmit(e)}>
           <div className="container">
-            {/*
             {
-              state.refusjonErrors?.map(error => error.errorType in ErrorType
-                ? <AlertStripe type="feil">{t(error.errorType)}</AlertStripe>
-                : <AlertStripe type="feil">{error.errorMessage}</AlertStripe>
+              errors?.map(error =>
+                <AlertStripe type="feil" key={error.errorType}>
+                  {error.errorType in ErrorType ? t(error.errorType) : error.errorMessage}
+                </AlertStripe>
               )
             }
-*/}
             <div className="sykepenger--arbeidstaker">
               <Undertittel className="sykepenger--undertittel">
                 Hvilken arbeidstaker gjelder søknaden?
@@ -125,8 +140,8 @@ const Sykepenger = () => {
               />
             </div>
             <Normaltekst tag='div' role='alert' aria-live='assertive' className='skjemaelement__feilmelding'>
-              <Vis hvis={lokaleFeil}>
-                {lokaleFeil}
+              <Vis hvis={idnrFeil}>
+                {idnrFeil}
               </Vis>
             </Normaltekst>
           </div>
