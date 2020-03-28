@@ -9,7 +9,7 @@ import IngenData from '../pages/IngenData';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
 import { unleashKeys } from './mock/data/toggles';
 import env from '../util/environment';
-import { convertResponseDataToOrganisasjon } from '../store/thunks/fetchArbeidsgivere';
+import { convertResponseDataToOrganisasjon } from './convertResponse';
 
 export function DataFetcher(props: { children: any }) {
   const { setArbeidsgivere } = useAppStore();

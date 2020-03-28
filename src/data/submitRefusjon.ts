@@ -1,4 +1,5 @@
 import { RefusjonsKrav } from './types/sporenstreksTypes';
+import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
 
 export function submitRefusjon(refusjonsKrav: RefusjonsKrav): (any) {
   fetch(process.env.REACT_APP_BASE_URL + '/api/v1/refusjonskrav', {
@@ -24,5 +25,3 @@ export function submitRefusjon(refusjonsKrav: RefusjonsKrav): (any) {
     }
   });
 }
-
-

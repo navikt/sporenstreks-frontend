@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import 'nav-frontend-tabell-style';
 import { Input } from 'nav-frontend-skjema';
 import { useHistory } from 'react-router-dom';
@@ -13,7 +13,6 @@ import { Knapp } from 'nav-frontend-knapper';
 import Perioder from './Perioder';
 import { filterStringToNumbersOnly } from '../util/filterStringToNumbersOnly';
 import { identityNumberSeparation } from '../util/identityNumberSeparation';
-import { fetchArbeidsgivere } from '../store/thunks/fetchArbeidsgivere';
 import { submitRefusjon } from '../data/submitRefusjon';
 import { useAppStore } from '../data/store/AppStore';
 import { History } from 'history';
@@ -26,10 +25,6 @@ const Sykepenger = () => {
   const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
   const { t } = useTranslation();
   const history: History = useHistory();
-
-  useEffect(() => {
-    fetchArbeidsgivere();
-  }, []);
 
   const filterIdentityNumberInput = (input: string) => {
     setIdentityNumberInput(filterStringToNumbersOnly(input, 11));
