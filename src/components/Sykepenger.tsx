@@ -93,6 +93,7 @@ const Sykepenger = () => {
               <Input name="fnr"
                 label="Fødselsnummer til arbeidstaker"
                 bredde="M"
+                autoComplete={'off'}
                 onChange={e => filterIdentityNumberInput(e.target.value)}
                 value={identityNumberSeparation(identityNumberInput)}
               />
