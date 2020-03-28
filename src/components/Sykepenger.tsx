@@ -69,7 +69,11 @@ const Sykepenger = () => {
     const data = formToJSON(form.elements);
     console.log('form', form); // eslint-disable-line
     console.log('data', data); // eslint-disable-line
-    submitRefusjon(convertSkjemaToRefusjonsKrav((data)));
+    const result: Promise<any> = submitRefusjon(convertSkjemaToRefusjonsKrav(data))
+      .then(response => {
+        console.log('response', response); // eslint-disable-line
+      });
+    console.log('result', result); // eslint-disable-line
   };
 
   document.title = `${t(Keys.DOCUMENT_TITLE)}/${t(Keys.REFUNDS)} - www.nav.no`;
