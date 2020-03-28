@@ -6,6 +6,7 @@ import { Input } from 'nav-frontend-skjema';
 import { Normaltekst } from 'nav-frontend-typografi';
 import './Flatpickr.less';
 import NumberFormat from 'react-number-format';
+import dayjs from 'dayjs';
 
 interface PeriodeProps {
   index: number;
@@ -18,8 +19,8 @@ const PeriodeKomp = (props: PeriodeProps) => {
   const [ amountInput, setAmountInput ] = useState<string>('');
   const htmlfor = 't_' + props.index;
 
-  let min = props.min;
-  let max = props.max;
+  let min = props.min ?? dayjs('1970-01-01').toDate();
+  let max = props.max ?? dayjs(new Date()).add(1, 'year').toDate();
 
   useEffect(() => {
     // eslint-disable-next-line
@@ -80,6 +81,7 @@ const PeriodeKomp = (props: PeriodeProps) => {
           decimalSeparator={','}
           decimalScale={2}
           fixedDecimalScale={true}
+          autoComplete={'off'}
           className={'skjemaelement__input input--m'}
           onChange={e => setAmountInput(e.target.value)}
         />

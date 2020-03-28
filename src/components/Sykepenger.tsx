@@ -60,8 +60,10 @@ const Sykepenger = () => {
 
   const onSubmit = (e: any): void => {
     e.preventDefault();
-    const form: HTMLFormElement = e.target;
+    const form: HTMLFormElement = document.querySelector('.refusjonsform') ?? e.target;
     const data = formToJSON(form.elements);
+    console.log('form', form); // eslint-disable-line
+    console.log('data', data); // eslint-disable-line
     submitRefusjon(convertSkjemaToRefusjonsKrav((data)));
   };
 
@@ -76,7 +78,7 @@ const Sykepenger = () => {
         organisasjoner={arbeidsgivere}
       />
       <div className="limit">
-        <form className="sporsmal__form" onSubmit={(e) => onSubmit(e)}>
+        <form className="refusjonsform" onSubmit={(e) => onSubmit(e)}>
           <div className="container">
             {/*
             {
