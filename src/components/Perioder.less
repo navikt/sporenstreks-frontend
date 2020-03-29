@@ -20,7 +20,9 @@
       }
 
       & + .periodeknapp {
-        margin-top: 0.7rem;
+        display: inline;
+        padding-left: 0.7rem;
+        margin-top: 3.7rem;
       }
     }
 
@@ -44,20 +46,22 @@
 }
 
 .periodeknapp {
-  display: inline;
-  padding: 0 0 0 0.7rem;
-  background: none;
-  border: none;
   font-family: 'Source Sans Pro', Arial, sans-serif;
   text-decoration: underline;
+  background: none;
+  border: none;
   color: @navBla;
+
+  &:focus {
+    color: @white;
+  }
 }
 
 @media (min-width: 769px) {
   .periodeliste {
     .periode {
       display: flex;
-      align-items: flex-end;
+      align-items: flex-start;
 
       .skjemaelement {
         width: 28%;
@@ -77,10 +81,6 @@
 
         & + .skjemaelement {
           margin-top: 0;
-        }
-
-        & + .periodeknapp {
-          margin-bottom: 0.5rem;
         }
       }
     }

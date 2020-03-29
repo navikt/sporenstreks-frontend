@@ -2,20 +2,21 @@ import React, { useEffect, useRef } from 'react';
 import Vis from '../Vis';
 import { erSynligIViewport } from '../../util/browser-utils';
 import { Undertittel } from 'nav-frontend-typografi';
-import { ErrorObject } from '../../data/types/sporenstreksTypes';
 import './FeilOppsummering.less';
+import { useAppStore } from '../../data/store/AppStore';
+import { ErrorObject } from '../../data/types/sporenstreksTypes';
 
 interface FeiloppsummeringProps {
   settFokus?: boolean;
-  errors: ErrorObject[];
 }
 
 type FeilProps = FeiloppsummeringProps;
 
 const FeilOppsummering = (props: FeilProps) => {
+  const { errors } = useAppStore();
   const oppsummering = useRef<HTMLDivElement>(null);
-  const { settFokus, errors } = props;
-  const entries: any[] = Object.entries(errors);
+  const { settFokus } = props;
+
   useEffect(() => {
     let fokuser = settFokus;
     if (fokuser === undefined) {
@@ -34,7 +35,6 @@ const FeilOppsummering = (props: FeilProps) => {
 
   const handleClick = (list: any) => {
     const id = `${list[0]}`;
-
     const element = document.getElementById(id);
     if (element) {
       element.focus();
@@ -50,17 +50,17 @@ const FeilOppsummering = (props: FeilProps) => {
 
   return (
     <div aria-live='polite' role='alert'>
-      <Vis hvis={entries.length > 0}>
+      <Vis hvis={errors.length > 0}>
         <div ref={oppsummering} tabIndex={0} role='region' className='feiloppsummering'>
-          <Undertittel>{'Det er ' + entries.length + ' feil i skjemaet'}</Undertittel>
+          <Undertittel>{'Det er ' + errors.length + ' feil i skjemaet'}</Undertittel>
           <ul className='feiloppsummering__liste'>
-            {entries.sort(list => list[0][0]).map((list, index) => (
+            {errors.map((error: ErrorObject, index) => (
               <li key={index}>
                 <div role='link' className='lenke' tabIndex={0}
-                  onKeyDown={(e) => handleKeyDown(e, list)}
-                  onClick={() => handleClick(list)}
+                  onKeyDown={(e) => handleKeyDown(e, error)}
+                  onClick={() => handleClick(error)}
                 >
-                  {list[1].errorMessage}
+                  {error.errorMessage}
                 </div>
               </li>
             ))}

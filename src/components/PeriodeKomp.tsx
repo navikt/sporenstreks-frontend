@@ -6,8 +6,6 @@ import { Input } from 'nav-frontend-skjema';
 import { Normaltekst } from 'nav-frontend-typografi';
 import NumberFormat from 'react-number-format';
 import dayjs from 'dayjs';
-import FeilEnkeltfelt from './feilvisning/FeilEnkeltfelt';
-import { ErrorObject, ErrorType } from '../data/types/sporenstreksTypes';
 import { useAppStore } from '../data/store/AppStore';
 import { Keys } from '../locales/keys';
 import { useTranslation } from 'react-i18next';
@@ -22,60 +20,53 @@ interface PeriodeProps {
 
 const PeriodeKomp = (props: PeriodeProps) => {
   const { errors, setErrors, perioder } = useAppStore();
+  const [ antallFeil, setAntallFeil ] = useState<string>('');
+  const [ beloepFeil, setBeloepFeil ] = useState<string>('');
+  const [ periodeFeil, setPeriodeFeil ] = useState<string>('');
   const [ amountInput, setAmountInput ] = useState<string>('');
   const { t } = useTranslation();
 
   let min = props.min ?? dayjs('1970-01-01').toDate();
   let max = props.max ?? dayjs(new Date()).add(1, 'year').toDate();
 
-  const findError = (felt: string): ErrorObject => {
-    const err = errors.filter(feil => feil.fieldName === felt)[0];
-    return err ?? { fieldName: felt, errorType: ErrorType.UNKNOWN, errorMessage: '' };
-  };
-
   const validatePeriode = (value: string) => {
     value = value.replace(/-/g, '');
     const res: any = value;
-    const feil: ErrorObject = findError('fnr');
-    feil.errorMessage = res.status === 'invalid' ? 'Ugyldig fødsels- eller D-nummer' : '';
-    errors.push(feil);
-    setErrors(errors);
+    const msg = res.status === 'invalid' ? 'Feil periode' : '';
+    setPeriodeFeil(msg);
   };
 
   const validateAntall = (value: string) => {
     value = value.replace(/-/g, '');
     const res: any = value;
-    const feil: ErrorObject = findError('fnr');
-    feil.errorMessage = res.status === 'invalid' ? 'Ugyldig fødsels- eller D-nummer' : '';
-    errors.push(feil);
+    const msg = res.status === 'invalid' ? 'Feil antall' : '';
+    setAntallFeil(msg);
     setErrors(errors);
   };
 
   const validateBeloep = (value: string) => {
-    const field = 'beloep_' + props.index;
     value = value
       .replace(/\s/g, '')
       .replace(',', '.');
     const numval = Number(value);
 
-    let feil: ErrorObject = findError(field);
-    if (!feil) {
-      feil = {
-        fieldName: field,
-        errorType: ErrorType.UNKNOWN,
-        errorMessage: '',
-      }
+    const errbox = document.querySelector('.beloep_' + props.index)!;
+
+    let msg = '';
+    if (value === '') {
+      msg = 'Beløp må fylles ut.';
+    } else if (numval <= 0) {
+      msg = t(Keys.TOOLOWAMOUNT);
+    } else if (perioder && numval > perioder![props.index].antallDagerMedRefusjon * 260) {
+      msg = t(Keys.TOOHIGHAMOUNT);
     }
 
-    if (numval <= 0) {
-      feil.errorType = ErrorType.TOOLOWAMOUNT;
-      feil.errorMessage = t(Keys.TOOLOWAMOUNT);
-    } else if (numval > perioder![props.index].antallDagerMedRefusjon * 260) {
-      feil.errorType = ErrorType.TOOHIGHAMOUNT;
-      feil.errorMessage = t(Keys.TOOHIGHAMOUNT)
+    if (msg !== '') {
+      errbox.classList.remove('tom');
+    } else {
+      errbox.classList.add('tom');
     }
-    errors.push(feil);
-    setErrors(errors);
+    setBeloepFeil(msg);
   };
 
   return (
@@ -91,6 +82,7 @@ const PeriodeKomp = (props: PeriodeProps) => {
           name={'periode_' + props.index}
           className="skjemaelement__input input--m"
           placeholder="dd.mm.åååå til dd.mm.åååå"
+          onBlur={e => validatePeriode(e.target.value)}
           options={{
             minDate: min,
             maxDate: max,
@@ -100,10 +92,17 @@ const PeriodeKomp = (props: PeriodeProps) => {
             altInput: true,
             altFormat: 'd.m.Y',
             locale: Norwegian,
-            allowInput: true
+            allowInput: true,
+            clickOpens: true
           }}
         />
-        <FeilEnkeltfelt feltnavn={'periode_' + props.index} />
+        <div role="alert" aria-live="assertive"
+          className="skjemaelement__feilmelding"
+        >
+          <Normaltekst tag="span">
+            {periodeFeil}
+          </Normaltekst>
+        </div>
       </div>
 
       <div className="skjemaelement">
@@ -118,8 +117,13 @@ const PeriodeKomp = (props: PeriodeProps) => {
           step={1}
           label=""
           bredde="S"
+          onBlur={e => validateAntall(e.target.value)}
         />
-        <FeilEnkeltfelt feltnavn={'antall_' + props.index} />
+        <div className="skjemaelement__feilmelding" role="alert" aria-live="assertive">
+          <Normaltekst tag="span">
+            {antallFeil}
+          </Normaltekst>
+        </div>
       </div>
 
       <div className="skjemaelement">
@@ -140,7 +144,13 @@ const PeriodeKomp = (props: PeriodeProps) => {
           onBlur={e => validateBeloep(e.target.value)}
           onChange={e => setAmountInput(e.target.value)}
         />
-        <FeilEnkeltfelt feltnavn={'beloep_' + props.index} />
+        <div role="alert" aria-live="assertive"
+          className={'skjemaelement__feilmelding tom beloep_' + props.index}
+        >
+          <Normaltekst tag="span">
+            {beloepFeil}
+          </Normaltekst>
+        </div>
       </div>
 
       <Vis hvis={props.index > 0}>

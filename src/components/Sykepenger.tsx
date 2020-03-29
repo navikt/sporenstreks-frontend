@@ -4,7 +4,7 @@ import { Input } from 'nav-frontend-skjema';
 import { Knapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Undertekst, Undertittel } from 'nav-frontend-typografi';
+import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
 import { Keys } from '../locales/keys';
 import { ErrorObject, ErrorType, Periode, RefusjonsKrav } from '../data/types/sporenstreksTypes';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
@@ -18,11 +18,11 @@ import FeilOppsummering from './feilvisning/FeilOppsummering';
 import { useAppStore } from '../data/store/AppStore';
 import { History } from 'history';
 import dayjs from 'dayjs';
-import FeilEnkeltfelt from './feilvisning/FeilEnkeltfelt';
 import './Sykepenger.less';
 
 const Sykepenger = () => {
   const { arbeidsgivere, errors, setErrors } = useAppStore();
+  const [ fnrFeil, setFnrFeil ] = useState<string>('');
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
   const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
   const { t } = useTranslation();
@@ -101,10 +101,8 @@ const Sykepenger = () => {
   const validateFnr = (value: string) => {
     value = value.replace(/-/g, '');
     const res: any = fnrvalidator.fnr(value);
-    const feil: ErrorObject = findError('fnr');
-    feil.errorMessage = res.status === 'invalid' ? 'Ugyldig fødsels- eller D-nummer' : '';
-    errors.push(feil);
-    setErrors(errors);
+    const msg = res.status === 'invalid' && value !== '' ? 'Ugyldig fødsels- eller D-nummer' : '';
+    setFnrFeil(msg);
   };
 
   return (
@@ -131,7 +129,11 @@ const Sykepenger = () => {
                 value={identityNumberSeparation(identityNumberInput)}
               />
             </div>
-            <FeilEnkeltfelt feltnavn="fnr" />
+            <div className="skjemaelement__feilmelding" role="alert" aria-live="assertive">
+              <Normaltekst tag="span">
+                {fnrFeil}
+              </Normaltekst>
+            </div>
           </div>
 
           <div className="container">
@@ -146,7 +148,7 @@ const Sykepenger = () => {
             </div>
           </div>
 
-          <FeilOppsummering errors={errors} />
+          <FeilOppsummering />
 
           <div className="container">
             <Knapp type="hoved"> Send refusjonssøknad </Knapp>
