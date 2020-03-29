@@ -114,7 +114,7 @@ const Sykepenger = () => {
 			{
 				arbeidsgivere.length === 0
 					? <AlertStripeInfo>
-						<div>Du har ikke rettigheter til å søke om refusjon for noe bedrifter</div>
+						<div>Du har ikke rettigheter til å søke om refusjon for noen bedrifter</div>
 						<div>Tildeling av roller foregår i Altinn</div>
 						<a
 							href="/min-side-arbeidsgiver/informasjon-om-tilgangsstyring"
