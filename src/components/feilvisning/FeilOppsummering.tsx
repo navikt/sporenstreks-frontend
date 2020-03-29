@@ -49,9 +49,9 @@ const FeilOppsummering = (props: FeilProps) => {
 
   return (
     <div aria-live='polite' role='alert'>
-      <Vis hvis={errors.length > 0}>
+      <Vis hvis={entries.length > 0}>
         <div ref={oppsummering} tabIndex={0} role='region' className='feiloppsummering'>
-          <Undertittel>{'Det er ' + errors.length + ' feil i skjemaet'}</Undertittel>
+          <Undertittel>{'Det er ' + entries.length + ' feil i skjemaet'}</Undertittel>
           <ul className='feiloppsummering__liste'>
             {entries.sort(list => list[0][0]).map((list, index) => (
               <li key={index}>
@@ -59,7 +59,7 @@ const FeilOppsummering = (props: FeilProps) => {
                   onKeyDown={(e) => handleKeyDown(e, list)}
                   onClick={() => handleClick(list)}
                 >
-                  {list[1].message}
+                  {list[1].type}
                 </div>
               </li>
             ))}

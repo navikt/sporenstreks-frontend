@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Flatpickr from 'react-flatpickr';
 import Vis from '../Vis';
 import { Norwegian } from 'flatpickr/dist/l10n/no.js';
-import { Input } from 'nav-frontend-skjema';
 import { Normaltekst } from 'nav-frontend-typografi';
 import NumberFormat from 'react-number-format';
 import dayjs from 'dayjs';
@@ -132,11 +131,13 @@ const PeriodeKomp = (props: PeriodeProps) => {
           id={antId}
           name={antId}
           as={
-            <Input
-              type="number"
-              step={1}
+            <NumberFormat
               label=""
-              bredde="S"
+              thousandSeparator={' '}
+              decimalScale={0}
+              fixedDecimalScale={true}
+              autoComplete={'off'}
+              className={'skjemaelement__input input--s'}
               onBlur={e => validateAntall(e.target.value)}
             />
           }

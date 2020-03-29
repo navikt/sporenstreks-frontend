@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
 import { Keys } from '../locales/keys';
-import { ErrorType, Periode, RefusjonsKrav } from '../data/types/sporenstreksTypes';
+import { Periode, RefusjonsKrav } from '../data/types/sporenstreksTypes';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import fnrvalidator from '@navikt/fnrvalidator';
@@ -23,7 +23,7 @@ import './Sykepenger.less';
 import Vis from './Vis';
 
 const Sykepenger = () => {
-  const { arbeidsgivere, backendErrors, setBackendErrors } = useAppStore();
+  const { arbeidsgivere } = useAppStore();
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
   const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
   const methods = useForm();
@@ -31,12 +31,7 @@ const Sykepenger = () => {
   const history: History = useHistory();
 
   const backendErrorsToErrors = () => {
-    backendErrors.map(backerr => {
-      if (backerr.fieldName) {
-        methods.setError(backerr.fieldName, backerr.errorMessage);
-      }
-      return true;
-    })
+    methods.setError('fieldName', 'errorMessage');
   };
 
   const filterIdentityNumberInput = (input: string) => {
@@ -74,7 +69,6 @@ const Sykepenger = () => {
   };
 
   const onSubmit = async(e: any): Promise<void> => {
-    e.preventDefault();
     const form: HTMLFormElement = document.querySelector('.refusjonsform') ?? e.target;
     const data = formToJSON(form.elements);
     const refusjonsKrav = convertSkjemaToRefusjonsKrav(data);
@@ -92,16 +86,18 @@ const Sykepenger = () => {
         console.log('mottatt'); // todo: vis kvittering
       } else if (response.status === 422) {
         response.json().then(data => {
-          setBackendErrors(data.violations.map(violation => ({
+          data.violations.map(violation => {
+            methods.setError('backend', violation.message);
+          });
+          data.violations.map(violation => ({
             errorType: violation.validationType,
             errorMessage: violation.message,
-          })))
+          }));
         });
       } else { // todo: error 400
-        setBackendErrors([ { errorType: ErrorType.UNKNOWN, errorMessage: 'Feil ved innsending av skjema' } ])
+        methods.setError('backend', 'Feil ved innsending av skjema');
       }
     });
-    backendErrorsToErrors();
   };
 
   const validateFnr = (value: string) => {
