@@ -35,6 +35,7 @@ const Sykepenger = () => {
       if (backerr.fieldName) {
         methods.setError(backerr.fieldName, backerr.errorMessage);
       }
+      return true;
     })
   };
 
@@ -106,12 +107,14 @@ const Sykepenger = () => {
   const validateFnr = (value: string) => {
     const errbox = document.querySelector('.fnr')!;
     value = value.replace(/-/g, '');
-    const numval = Number(value);
+    const notValid = fnrvalidator.fnr(value).status === 'invalid';
     let msg = '';
     if (value === '') {
       msg = 'Fødselsnummer må fylles ut'
-    } else if (numval.toString().length < 11) {
+    } else if (value.length < 11) {
       msg = 'Fødselsnummer må ha 11 siffer';
+    } else if (notValid) {
+      msg = 'Fødselsnummer er ugyldig'
     }
     methods.setError('fnr', msg);
     if (msg !== '') {

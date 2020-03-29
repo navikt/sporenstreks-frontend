@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import useForceUpdate from 'use-force-update';
 import PeriodeKomp from './PeriodeKomp';
-import { useAppStore } from '../../data/store/AppStore';
-import { Periode } from '../../data/types/sporenstreksTypes';
 import './Perioder.less';
 
 interface PerioderProps {
@@ -11,7 +9,6 @@ interface PerioderProps {
 }
 
 const Perioder = (props: PerioderProps) => {
-  const { perioder, setPerioder } = useAppStore();
   const [ lokal, setLokal ] = useState<number[]>([ 0 ]);
   const periodeliste = useRef<HTMLDivElement>(null);
   const forceUpdate = useForceUpdate();

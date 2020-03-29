@@ -3,7 +3,6 @@ import Vis from '../Vis';
 import { erSynligIViewport } from '../../util/browser-utils';
 import { Undertittel } from 'nav-frontend-typografi';
 import './FeilOppsummering.less';
-import { ErrorObject } from '../../data/types/sporenstreksTypes';
 
 interface FeiloppsummeringProps {
   settFokus?: boolean;

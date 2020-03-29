@@ -6,7 +6,6 @@ import { Input } from 'nav-frontend-skjema';
 import { Normaltekst } from 'nav-frontend-typografi';
 import NumberFormat from 'react-number-format';
 import dayjs from 'dayjs';
-import { useAppStore } from '../../data/store/AppStore';
 import { Keys } from '../../locales/keys';
 import { useTranslation } from 'react-i18next';
 import './Flatpickr.less';
@@ -20,8 +19,7 @@ interface PeriodeProps {
 }
 
 const PeriodeKomp = (props: PeriodeProps) => {
-  const { errors, setError, getValues } = useFormContext();
-  const { perioder } = useAppStore();
+  const { errors, setError } = useFormContext();
   const [ amountInput, setAmountInput ] = useState<string>('');
   const { t } = useTranslation();
 
@@ -34,7 +32,7 @@ const PeriodeKomp = (props: PeriodeProps) => {
 
   const validatePeriode = (selectedDates): boolean => {
     const errbox = document.querySelector('.' + perId)!;
-    const msg = selectedDates.length < 2 ? 'Perioden må være to gyldige datoer' : '';
+    const msg = selectedDates.length < 2 ? 'Perioden må ha to gyldige datoer' : '';
     setError(perId, msg);
     if (msg !== '') {
       errbox.classList.remove('tom');
@@ -72,8 +70,6 @@ const PeriodeKomp = (props: PeriodeProps) => {
       msg = 'Beløp må fylles ut.';
     } else if (numval <= 0) {
       msg = t(Keys.TOOLOWAMOUNT);
-    } else if (perioder && numval > perioder![props.index].antallDagerMedRefusjon * 260) {
-      msg = t(Keys.TOOHIGHAMOUNT);
     }
     setError(belId, msg);
     if (msg !== '') {
