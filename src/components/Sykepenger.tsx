@@ -3,7 +3,7 @@ import 'nav-frontend-tabell-style';
 import { Input } from 'nav-frontend-skjema';
 import { FormContext, useForm } from 'react-hook-form';
 import { Knapp } from 'nav-frontend-knapper';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
 import { Keys } from '../locales/keys';
@@ -21,6 +21,7 @@ import { History } from 'history';
 import dayjs from 'dayjs';
 import './Sykepenger.less';
 import Vis from './Vis';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 
 const Sykepenger = () => {
   const { arbeidsgivere } = useAppStore();
@@ -29,10 +30,6 @@ const Sykepenger = () => {
   const methods = useForm();
   const { t } = useTranslation();
   const history: History = useHistory();
-
-  const backendErrorsToErrors = () => {
-    methods.setError('fieldName', 'errorMessage');
-  };
 
   const filterIdentityNumberInput = (input: string) => {
     setIdentityNumberInput(filterStringToNumbersOnly(input, 11));
@@ -83,7 +80,8 @@ const Sykepenger = () => {
       if (response.status === 401) {
         history.push(process.env.REACT_APP_LOGIN_SERVICE_URL ?? '');
       } else if (response.status === 200) {
-        console.log('mottatt'); // todo: vis kvittering
+        console.log('mottatt'); // eslint-disable-line
+        // todo: vis kvittering
       } else if (response.status === 422) {
         response.json().then(data => {
           data.violations.map(violation => {
@@ -124,61 +122,77 @@ const Sykepenger = () => {
 
   return (
     <div className="sykepenger">
-      <Bedriftsmeny
-        history={history}
-        onOrganisasjonChange={(org: Organisasjon) => setArbeidsgiverId(org.OrganizationNumber)}
-        sidetittel={t(Keys.MY_PAGE)}
-        organisasjoner={arbeidsgivere}
-      />
-      <div className="limit">
-        <FormContext {...methods}>
-          <form onSubmit={methods.handleSubmit(onSubmit)} className="refusjonsform">
-            <div className="container">
-              <div className="sykepenger--arbeidstaker">
-                <Undertittel className="sykepenger--undertittel">
-                  Hvilken arbeidstaker gjelder søknaden?
-                </Undertittel>
-                <Input
-                  id="fnr"
-                  name="fnr"
-                  label="Fødselsnummer til arbeidstaker"
-                  bredde="M"
-                  autoComplete={'off'}
-                  onChange={e => filterIdentityNumberInput(e.target.value)}
-                  onBlur={e => validateFnr(e.target.value)}
-                  value={identityNumberSeparation(identityNumberInput)}
-                />
+      <Vis hvis={arbeidsgivere.length === 0}>
+        <div className="limit">
+          <AlertStripeInfo>
+            <div>Du har ikke rettigheter til å søke om refusjon for noen bedrifter</div>
+            <div>Tildeling av roller foregår i Altinn</div>
+            <Link to="/min-side-arbeidsgiver/informasjon-om-tilgangsstyring"
+              className="lenke informasjonsboks__lenke"
+            >
+              Les mer om roller og tilganger.
+            </Link>
+          </AlertStripeInfo>
+        </div>
+      </Vis>
+
+      <Vis hvis={arbeidsgivere.length > 0}>
+        <Bedriftsmeny
+          history={history}
+          onOrganisasjonChange={(org: Organisasjon) => setArbeidsgiverId(org.OrganizationNumber)}
+          sidetittel={t(Keys.MY_PAGE)}
+          organisasjoner={arbeidsgivere}
+        />
+        <div className="limit">
+          <FormContext {...methods}>
+            <form onSubmit={methods.handleSubmit(onSubmit)} className="refusjonsform">
+              <div className="container">
+                <div className="sykepenger--arbeidstaker">
+                  <Undertittel className="sykepenger--undertittel">
+                    Hvilken arbeidstaker gjelder søknaden?
+                  </Undertittel>
+                  <Input
+                    id="fnr"
+                    name="fnr"
+                    label="Fødselsnummer til arbeidstaker"
+                    bredde="M"
+                    autoComplete={'off'}
+                    onChange={e => filterIdentityNumberInput(e.target.value)}
+                    onBlur={e => validateFnr(e.target.value)}
+                    value={identityNumberSeparation(identityNumberInput)}
+                  />
+                </div>
+
+                <Normaltekst tag='div' role='alert' aria-live='assertive'
+                  className={'skjemaelement__feilmelding tom fnr'}
+                >
+                  <Vis hvis={methods.errors['fnr']}>
+                    <span>{methods.errors['fnr'] && methods.errors['fnr'].type}</span>
+                  </Vis>
+                </Normaltekst>
               </div>
 
-              <Normaltekst tag='div' role='alert' aria-live='assertive'
-                className={'skjemaelement__feilmelding tom fnr'}
-              >
-                <Vis hvis={methods.errors['fnr']}>
-                  <span>{methods.errors['fnr'] && methods.errors['fnr'].type}</span>
-                </Vis>
-              </Normaltekst>
-            </div>
-
-            <div className="container">
-              <div className="sykepenger--periode-velger form-group">
-                <Undertittel className="sykepenger--undertittel">
-                  Hvilken periode har den ansatte vært fraværende?
-                </Undertittel>
-                <Undertekst className="sykepenger--undertekst">
-                  NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
-                </Undertekst>
-                <Perioder />
+              <div className="container">
+                <div className="sykepenger--periode-velger form-group">
+                  <Undertittel className="sykepenger--undertittel">
+                    Hvilken periode har den ansatte vært fraværende?
+                  </Undertittel>
+                  <Undertekst className="sykepenger--undertekst">
+                    NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
+                  </Undertekst>
+                  <Perioder />
+                </div>
               </div>
-            </div>
 
-            <FeilOppsummering errors={methods.errors} />
+              <FeilOppsummering errors={methods.errors} />
 
-            <div className="container">
-              <Knapp type="hoved"> Send refusjonssøknad </Knapp>
-            </div>
-          </form>
-        </FormContext>
-      </div>
+              <div className="container">
+                <Knapp type="hoved"> Send refusjonssøknad </Knapp>
+              </div>
+            </form>
+          </FormContext>
+        </div>
+      </Vis>
     </div>
   );
 };
