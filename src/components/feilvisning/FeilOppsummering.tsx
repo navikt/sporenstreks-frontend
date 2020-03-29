@@ -3,19 +3,19 @@ import Vis from '../Vis';
 import { erSynligIViewport } from '../../util/browser-utils';
 import { Undertittel } from 'nav-frontend-typografi';
 import './FeilOppsummering.less';
-import { useAppStore } from '../../data/store/AppStore';
 import { ErrorObject } from '../../data/types/sporenstreksTypes';
 
 interface FeiloppsummeringProps {
   settFokus?: boolean;
+  errors: any;
 }
 
 type FeilProps = FeiloppsummeringProps;
 
 const FeilOppsummering = (props: FeilProps) => {
-  const { errors } = useAppStore();
   const oppsummering = useRef<HTMLDivElement>(null);
-  const { settFokus } = props;
+  const { settFokus, errors } = props;
+  const entries: any[] = Object.entries(errors);
 
   useEffect(() => {
     let fokuser = settFokus;
@@ -54,13 +54,13 @@ const FeilOppsummering = (props: FeilProps) => {
         <div ref={oppsummering} tabIndex={0} role='region' className='feiloppsummering'>
           <Undertittel>{'Det er ' + errors.length + ' feil i skjemaet'}</Undertittel>
           <ul className='feiloppsummering__liste'>
-            {errors.map((error: ErrorObject, index) => (
+            {entries.sort(list => list[0][0]).map((list, index) => (
               <li key={index}>
                 <div role='link' className='lenke' tabIndex={0}
-                  onKeyDown={(e) => handleKeyDown(e, error)}
-                  onClick={() => handleClick(error)}
+                  onKeyDown={(e) => handleKeyDown(e, list)}
+                  onClick={() => handleClick(list)}
                 >
-                  {error.errorMessage}
+                  {list[1].message}
                 </div>
               </li>
             ))}
