@@ -19,7 +19,7 @@ import { History } from 'history';
 import dayjs from 'dayjs';
 import './Sykepenger.less';
 import Vis from './Vis';
-import AlertStripe from 'nav-frontend-alertstriper';
+import AlertStripe, { AlertStripeInfo } from 'nav-frontend-alertstriper';
 
 const Sykepenger = () => {
   const { arbeidsgivere } = useAppStore();
@@ -83,7 +83,8 @@ const Sykepenger = () => {
       if (response.status === 401) {
         window.location.href = process.env.REACT_APP_LOGIN_SERVICE_URL ?? '';
       } else if (response.status === 200) {
-        console.log('mottatt'); // todo: vis kvittering
+        console.log('mottatt'); // eslint-disable-line
+        // todo: vis kvittering
       } else if (response.status === 422) {
         response.json().then(data => {
           setErrors(data.violations.map(violation => ({
@@ -108,63 +109,78 @@ const Sykepenger = () => {
     }
   };
   
-  return (
-    <div className="sykepenger">
-      <Bedriftsmeny
-        history={history}
-        onOrganisasjonChange={(org: Organisasjon) => setArbeidsgiverId(org.OrganizationNumber)}
-        sidetittel={t(Keys.MY_PAGE)}
-        organisasjoner={arbeidsgivere}
-      />
-      <div className="limit">
-        <form className="refusjonsform" onSubmit={(e) => onSubmit(e)}>
-          <div className="container">
-            {
-              errors?.map(error =>
-                <AlertStripe type="feil" key={error.errorType}>
-                  {error.errorType in ErrorType ? t(error.errorType) : error.errorMessage}
-                </AlertStripe>
-              )
-            }
-            <div className="sykepenger--arbeidstaker">
-              <Undertittel className="sykepenger--undertittel">
-                Hvilken arbeidstaker gjelder søknaden?
-              </Undertittel>
-              <Input name="fnr"
-                     label="Fødselsnummer til arbeidstaker"
-                     bredde="M"
-                     autoComplete={'off'}
-                     onChange={e => filterIdentityNumberInput(e.target.value)}
-                     onBlur={e => validateFnr(e.target.value)}
-                     value={identityNumberSeparation(identityNumberInput)}
-              />
-            </div>
-            <Normaltekst tag='div' role='alert' aria-live='assertive' className='skjemaelement__feilmelding'>
-              <Vis hvis={idnrFeil}>
-                {idnrFeil}
-              </Vis>
-            </Normaltekst>
-          </div>
-          
-          <div className="container">
-            <div className="sykepenger--periode-velger form-group">
-              <Undertittel className="sykepenger--undertittel">
-                Hvilken periode har den ansatte vært fraværende?
-              </Undertittel>
-              <Undertekst className="sykepenger--undertekst">
-                NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
-              </Undertekst>
-              <Perioder />
-            </div>
-          </div>
-          
-          <div className="container">
-            <Knapp type="hoved"> Send refusjonssøknad </Knapp>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
+	return (
+		<div className="sykepenger">
+			{
+				arbeidsgivere.length === 0
+					? <AlertStripeInfo>
+						<div>Du har ikke rettigheter til å søke om refusjon for noen bedrifter</div>
+						<div>Tildeling av roller foregår i Altinn</div>
+						<a
+							href="/min-side-arbeidsgiver/informasjon-om-tilgangsstyring"
+							className="lenke informasjonsboks__lenke"
+						>
+							Les mer om roller og tilganger.
+						</a>
+					</AlertStripeInfo>
+					: <>
+						<Bedriftsmeny
+							history={history}
+							onOrganisasjonChange={(org: Organisasjon) => setArbeidsgiverId(org.OrganizationNumber)}
+							sidetittel={t(Keys.MY_PAGE)}
+							organisasjoner={arbeidsgivere}
+						/>
+						<div className="limit">
+							<form className="refusjonsform" onSubmit={(e) => onSubmit(e)}>
+								<div className="container">
+									{
+										errors?.map(error =>
+											<AlertStripe type="feil" key={error.errorType}>
+												{error.errorType in ErrorType ? t(error.errorType) : error.errorMessage}
+											</AlertStripe>
+										)
+									}
+									<div className="sykepenger--arbeidstaker">
+										<Undertittel className="sykepenger--undertittel">
+											Hvilken arbeidstaker gjelder søknaden?
+										</Undertittel>
+										<Input name="fnr"
+													 label="Fødselsnummer til arbeidstaker"
+													 bredde="M"
+													 autoComplete={'off'}
+													 onChange={e => filterIdentityNumberInput(e.target.value)}
+													 onBlur={e => validateFnr(e.target.value)}
+													 value={identityNumberSeparation(identityNumberInput)}
+										/>
+									</div>
+									<Normaltekst tag='div' role='alert' aria-live='assertive' className='skjemaelement__feilmelding'>
+										<Vis hvis={idnrFeil}>
+											{idnrFeil}
+										</Vis>
+									</Normaltekst>
+								</div>
+								
+								<div className="container">
+									<div className="sykepenger--periode-velger form-group">
+										<Undertittel className="sykepenger--undertittel">
+											Hvilken periode har den ansatte vært fraværende?
+										</Undertittel>
+										<Undertekst className="sykepenger--undertekst">
+											NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
+										</Undertekst>
+										<Perioder />
+									</div>
+								</div>
+								
+								<div className="container">
+									<Knapp type="hoved"> Send refusjonssøknad </Knapp>
+								</div>
+							</form>
+						</div>
+					</>
+			}
+		</div>
+	);
 };
 
 export default Sykepenger;
