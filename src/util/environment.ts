@@ -24,7 +24,7 @@ class Environment {
     switch (this.environmentMode) {
       case 0 : return "https://arbeidsgiver.nav.no/nettrefusjon";
       case 1 : return "https://arbeidsgiver-q.nav.no/nettrefusjon";
-      default : return "http://localhost:3000/nettrefusjon";
+      default : return "http://localhost:3000";
     }
   }
 
@@ -35,7 +35,7 @@ class Environment {
    *
    */
   get environmentMode(){
-    if (window.location.hostname == "localhost"){
+    if (window.location.hostname === "localhost"){
       return 2;
     }
     if (window.location.hostname.indexOf("-q") > -1){
