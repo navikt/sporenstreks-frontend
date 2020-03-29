@@ -1,15 +1,3 @@
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
-
-export interface HelseSpionState {
-  arbeidsgivere: Organisasjon[]
-  ytelsesperioder: Ytelsesperiode[]
-  arbeidsgivereLoading: boolean
-  arbeidsgivereErrorType?: string
-  arbeidsgivereErrorMessage?: string
-  refusjonSubmitting: boolean
-  refusjonErrors?: ErrorObject[]
-}
-
 export interface RefusjonsKrav {
   identitetsnummer: string;
   virksomhetsnummer: string;
@@ -35,11 +23,14 @@ export enum ErrorType {
   ORGANISASJONSNUMMERCONSTRAINT = 'ORGANISASJONSNUMMERCONSTRAINT',
   // GREATEROREQUAL = 'GREATEROREQUAL', // Todo: unused untill search on dates is implemented
   UNKNOWN = 'UNKNOWN',
+  TOOLOWAMOUNT = 'TOOLOWAMOUNT',
+  TOOHIGHAMOUNT = 'TOOHIGHAMOUNT',
 }
 
 export interface ErrorObject {
-  errorType: ErrorType
-  errorMessage: string
+  fieldName?: string;
+  errorType: ErrorType;
+  errorMessage: string;
 }
 
 export interface Ytelsesperiode {
@@ -92,14 +83,6 @@ export enum SporenstreksTypes {
   SUBMIT_REFUSJON_SUCCESS = 'FETCH_PERSON_SUCCESS',
   SUBMIT_REFUSJON_ERROR = 'FETCH_PERSON_ERROR',
 }
-
-export type SporenstreksActionTypes =
-  | { type: SporenstreksTypes.FETCH_ARBEIDSGIVERE_STARTED }
-  | { type: SporenstreksTypes.FETCH_ARBEIDSGIVERE_SUCCESS, arbeidsgivere: Organisasjon[] }
-  | { type: SporenstreksTypes.FETCH_ARBEIDSGIVERE_ERROR, errorType: string, errorMessage?: string }
-  | { type: SporenstreksTypes.SUBMIT_REFUSJON_STARTED }
-  | { type: SporenstreksTypes.SUBMIT_REFUSJON_SUCCESS}
-  | { type: SporenstreksTypes.SUBMIT_REFUSJON_ERROR, errors: ErrorObject[] };
 
 export interface UnleashToggles {
   [index: string]: boolean;

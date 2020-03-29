@@ -14,15 +14,15 @@ const Perioder = (props: PerioderProps) => {
   const forceUpdate = useForceUpdate();
 
   useEffect(() => {
-    const perioder: number[] = [];
-    setLokal(perioder.length > 0 ? perioder : lokal);
+    const periods: number[] = [];
+    setLokal(periods.length > 0 ? periods : lokal);
     lagIdForPerioder();
     // eslint-disable-next-line
   }, [ periodeliste ]);
 
   const lagIdForPerioder = () => {
-    const perioder = periodeliste.current!.querySelectorAll('.periode');
-    perioder.forEach((value, key) => {
+    const periods = periodeliste.current!.querySelectorAll('.periode');
+    periods.forEach((value, key) => {
       const input = value.querySelector('.input--xl[type=text]');
       if (input) {
         input!.setAttribute('id', 't_' + key);

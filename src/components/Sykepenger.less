@@ -56,6 +56,14 @@
     color: @redError;
     font-weight: bold;
     font-style: italic;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    height: auto;
+    max-height: 4rem;
+
+    &.tom {
+      max-height: 0;
+    }
   }
 }
 
@@ -77,6 +85,7 @@
       .virksomhetsvelger {
         margin-left: 1rem;
       }
+
       .virksomhetsvelger__dropdownwrapper--apen {
         top: -1rem;
       }
