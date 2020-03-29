@@ -48,8 +48,7 @@ export function DataFetcher(props: { children: any }) {
     return <Spinner />;
 
   } else if (hasAny401([ arbeidsgivere ])) {
-    history.push(process.env.REACT_APP_LOGIN_SERVICE_URL ?? '')
-
+    window.location.href = process.env.REACT_APP_LOGIN_SERVICE_URL ?? '';
   } else if (hasAnyFailed([ arbeidsgivere ])) {
     return <IngenData />;
   }
