@@ -27,6 +27,7 @@ const Sykepenger = () => {
   const { arbeidsgivere } = useAppStore();
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
   const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
+  const [ referanseNummer, setReferanseNummer ] = useState<string>('');
   const methods = useForm();
   const { t } = useTranslation();
   const history: History = useHistory();
@@ -80,8 +81,9 @@ const Sykepenger = () => {
       if (response.status === 401) {
         history.push(process.env.REACT_APP_LOGIN_SERVICE_URL ?? '');
       } else if (response.status === 200) {
-        console.log('mottatt'); // eslint-disable-line
-        // todo: vis kvittering
+        response.json().then(data => {
+          setReferanseNummer(data.referansenummer);
+        })
       } else if (response.status === 422) {
         response.json().then(data => {
           data.violations.map(violation => {
@@ -122,7 +124,18 @@ const Sykepenger = () => {
 
   return (
     <div className="sykepenger">
-      <Vis hvis={arbeidsgivere.length === 0}>
+      <Vis hvis={referanseNummer !== ''}>
+        <div className="limit">
+          <AlertStripeInfo>
+            <div>Søknaden er mottat</div>
+            <div>Referansnummer: {referanseNummer}</div>
+            <Link to="/nettrefusjon" className="lenke informasjonsboks__lenke">
+              Ny søknad
+            </Link>
+          </AlertStripeInfo>
+        </div>
+      </Vis>
+      <Vis hvis={arbeidsgivere.length === 0 && referanseNummer === ''}>
         <div className="limit">
           <AlertStripeInfo>
             <div>Du har ikke rettigheter til å søke om refusjon for noen bedrifter</div>
@@ -136,7 +149,7 @@ const Sykepenger = () => {
         </div>
       </Vis>
 
-      <Vis hvis={arbeidsgivere.length > 0}>
+      <Vis hvis={arbeidsgivere.length > 0 && referanseNummer === ''}>
         <Bedriftsmeny
           history={history}
           onOrganisasjonChange={(org: Organisasjon) => setArbeidsgiverId(org.OrganizationNumber)}
