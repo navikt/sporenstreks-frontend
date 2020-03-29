@@ -1,7 +1,8 @@
 import { RefusjonsKrav } from './types/sporenstreksTypes';
+import env from '../util/environment';
 
 export const submitRefusjon = async(refusjonsKrav: RefusjonsKrav) => {
-  await fetch(process.env.REACT_APP_BASE_URL + '/api/v1/refusjonskrav', {
+  await fetch(env.getBaseUrl + '/api/v1/refusjonskrav', {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
@@ -11,7 +12,7 @@ export const submitRefusjon = async(refusjonsKrav: RefusjonsKrav) => {
   }).then(response => {
     console.log('response', response); // eslint-disable-line
     if (response.status === 401) {
-      window.location.href = process.env.REACT_APP_LOGIN_SERVICE_URL ?? '';
+      window.location.href = env.getLoginService;
     } else if (response.status === 200) {
       return response.json();
     } else if (response.status === 422) {

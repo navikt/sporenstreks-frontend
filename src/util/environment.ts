@@ -12,6 +12,38 @@ class Environment {
     NODE_ENV: 'development'
   };
 
+  get getLoginService() {
+    switch (this.environmentMode) {
+      case 0 : return "https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/nettrefusjon/";
+      case 1 : return "https://loginservice-q.nav.no/login?redirect=https://arbeidsgiver-q.nav.no/nettrefusjon/";
+      default : return "https://loginservice.nav.no/login?redirect=https://localhost:3000/nettrefusjon/";
+    }
+  }
+
+  get getBaseUrl() {
+    switch (this.environmentMode) {
+      case 0 : return "https://arbeidsgiver.nav.no/nettrefusjon";
+      case 1 : return "https://arbeidsgiver-q.nav.no/nettrefusjon";
+      default : return "http://localhost:3000/nettrefusjon";
+    }
+  }
+
+  /**
+   * 2 = local
+   * 1 = dev
+   * 0 = prod
+   *
+   */
+  get environmentMode(){
+    if (window.location.hostname == "localhost"){
+      return 2;
+    }
+    if (window.location.hostname.indexOf("-q") > -1){
+      return 1;
+    }
+    return 0;
+  }
+
   private get nodeEnv() {
     return process.env.NODE_ENV;
   }

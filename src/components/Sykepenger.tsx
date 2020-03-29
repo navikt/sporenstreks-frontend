@@ -22,6 +22,7 @@ import dayjs from 'dayjs';
 import './Sykepenger.less';
 import Vis from './Vis';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import env from '../util/environment';
 
 const Sykepenger = () => {
   const { arbeidsgivere } = useAppStore();
@@ -69,7 +70,7 @@ const Sykepenger = () => {
     const form: HTMLFormElement = document.querySelector('.refusjonsform') ?? e.target;
     const data = formToJSON(form.elements);
     const refusjonsKrav = convertSkjemaToRefusjonsKrav(data);
-    await fetch(process.env.REACT_APP_BASE_URL + '/api/v1/refusjonskrav', {
+    await fetch(env.getBaseUrl + '/api/v1/refusjonskrav', {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -78,7 +79,7 @@ const Sykepenger = () => {
       body: JSON.stringify(refusjonsKrav),
     }).then(response => {
       if (response.status === 401) {
-        history.push(process.env.REACT_APP_LOGIN_SERVICE_URL ?? '');
+        history.push(env.getLoginService);
       } else if (response.status === 200) {
         console.log('mottatt'); // eslint-disable-line
         // todo: vis kvittering

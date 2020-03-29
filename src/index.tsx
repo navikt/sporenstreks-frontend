@@ -14,6 +14,4 @@ ReactDOM.render(
   document.getElementById('root') as HTMLElement
 );
 
-console.log('Miljø', process.env.REACT_APP_BASE_URL); // eslint-disable-line
-
 serviceWorker.unregister();
