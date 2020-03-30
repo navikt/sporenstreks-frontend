@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Spinner from 'nav-frontend-spinner';
 import useFetch from './rest/use-fetch';
 import { FetchState, hasAny401, hasAnyFailed, hasData, isAnyNotStartedOrPending, isNotStarted } from './rest/utils';
@@ -12,6 +12,8 @@ export function DataFetcher(props: { children: any }) {
   const { setArbeidsgivere } = useAppStore();
   const [ hasTimedOut, setHasTimedOut ] = useState(false);
   const arbeidsgivere = useFetch<Organisasjon[]>();
+  const arbeidsgivereRef = useRef(arbeidsgivere);
+  arbeidsgivereRef.current = arbeidsgivere;
 
   useEffect(() => {
     if (isNotStarted(arbeidsgivere)) {
@@ -32,7 +34,7 @@ export function DataFetcher(props: { children: any }) {
   }, []);
 
   function checkHasTimedOut() {
-    if (isAnyNotStartedOrPending([ arbeidsgivere ])) {
+    if (isAnyNotStartedOrPending([ arbeidsgivereRef.current ])) {
       setHasTimedOut(true);
     }
   }
