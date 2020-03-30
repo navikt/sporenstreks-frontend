@@ -41,7 +41,7 @@ export const isNotStarted = (fetch: FetchState): boolean => {
 };
 
 export const isNotStartedOrPending = (fetch: FetchState): boolean => {
-  return true; // fetch.status === FetchStatus.NOT_STARTED || fetch.status === FetchStatus.PENDING;
+  return fetch.status === FetchStatus.NOT_STARTED || fetch.status === FetchStatus.PENDING;
 };
 
 export const hasFinished = (fetch: FetchState): boolean => {
