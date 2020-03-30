@@ -50,8 +50,8 @@ const Sykepenger = () => {
       const periode: Periode = {
         fom: dayjs(days[0]).format('YYYY-MM-DD'),
         tom: dayjs(days[1]).format('YYYY-MM-DD'),
-        antallDagerMedRefusjon: data['antall_' + i],
-        beloep: data['beloep_' + i]
+        antallDagerMedRefusjon: data['antall_' + i].replace(/ /g, ''),
+        beloep: data['beloep_' + i].replace(/ /g, '')
           .replace(/\s/g, '')
           .replace(',', '.'),
       };
