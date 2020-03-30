@@ -17,7 +17,7 @@ import { filterStringToNumbersOnly } from '../util/filterStringToNumbersOnly';
 import { identityNumberSeparation } from '../util/identityNumberSeparation';
 import FeilOppsummering from '../components/feilvisning/FeilOppsummering';
 import { useAppStore } from '../data/store/AppStore';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { AlertStripeAdvarsel, AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { History } from 'history';
 import dayjs from 'dayjs';
 import Vis from '../components/Vis';
@@ -148,6 +148,10 @@ const Sykepenger = () => {
           organisasjoner={arbeidsgivere}
         />
         <div className="limit">
+          <AlertStripeAdvarsel>
+            En ny versjon av dette skjemaet er under utvikling. Der blir det mulig å søke om refusjon for flere ansatte
+            samtidig. Vent gjerne med å sende krav til ny versjon er på plass.
+          </AlertStripeAdvarsel>
           <FormContext {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)} className="refusjonsform">
               <div className="container">
