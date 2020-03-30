@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './app.less';
+import env from './util/environment';
 
 ReactDOM.render(
   <BrowserRouter basename="nettrefusjon">
@@ -14,6 +15,7 @@ ReactDOM.render(
   document.getElementById('root') as HTMLElement
 );
 
-console.log('Miljø', process.env.REACT_APP_BASE_URL); // eslint-disable-line
+console.log(env.baseUrl); // eslint-disable-line
+console.log(env.loginServiceUrl); // eslint-disable-line
 
 serviceWorker.unregister();
