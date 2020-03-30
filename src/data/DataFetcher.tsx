@@ -6,6 +6,7 @@ import { useAppStore } from './store/AppStore';
 import IngenData from '../pages/IngenData';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
 import { convertResponseDataToOrganisasjon } from './convertResponse';
+import env from "../util/environment";
 
 export function DataFetcher(props: { children: any }) {
   const { setArbeidsgivere } = useAppStore();
@@ -13,7 +14,7 @@ export function DataFetcher(props: { children: any }) {
 
   useEffect(() => {
     if (isNotStarted(arbeidsgivere)) {
-      arbeidsgivere.fetch(process.env.REACT_APP_BASE_URL + '/api/v1/arbeidsgivere', {
+      arbeidsgivere.fetch(env.baseUrl + '/api/v1/arbeidsgivere', {
         credentials: 'include',
       }, (fetchState: FetchState<Organisasjon[]>) => {
         if (hasData(fetchState)) {
@@ -29,7 +30,7 @@ export function DataFetcher(props: { children: any }) {
     return <Spinner />;
 
   } else if (hasAny401([ arbeidsgivere ])) {
-    window.location.href = process.env.REACT_APP_LOGIN_SERVICE_URL ?? '';
+    window.location.href = env.loginServiceUrl;
   } else if (hasAnyFailed([ arbeidsgivere ])) {
     return <IngenData />;
   }

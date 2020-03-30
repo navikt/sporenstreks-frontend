@@ -22,6 +22,7 @@ import { History } from 'history';
 import dayjs from 'dayjs';
 import Vis from '../components/Vis';
 import './Sykepenger.less';
+import env from '../util/environment';
 
 const Sykepenger = () => {
   const { arbeidsgivere, setReferanseNummer } = useAppStore();
@@ -69,7 +70,7 @@ const Sykepenger = () => {
     const form: HTMLFormElement = document.querySelector('.refusjonsform') ?? e.target;
     const data = formToJSON(form.elements);
     const refusjonsKrav = convertSkjemaToRefusjonsKrav(data);
-    await fetch(process.env.REACT_APP_BASE_URL + '/api/v1/refusjonskrav', {
+    await fetch(env.baseUrl + '/api/v1/refusjonskrav', {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -78,7 +79,7 @@ const Sykepenger = () => {
       body: JSON.stringify(refusjonsKrav),
     }).then(response => {
       if (response.status === 401) {
-        history.push(process.env.REACT_APP_LOGIN_SERVICE_URL ?? '');
+        history.push(env.loginServiceUrl);
       } else if (response.status === 200) {
         response.json().then(data => {
           setReferanseNummer(data.referansenummer);
