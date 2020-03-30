@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Spinner from 'nav-frontend-spinner';
 import useFetch from './rest/use-fetch';
 import { FetchState, hasAny401, hasAnyFailed, hasData, isAnyNotStartedOrPending, isNotStarted } from './rest/utils';
@@ -10,6 +10,7 @@ import env from '../util/environment';
 
 export function DataFetcher(props: { children: any }) {
   const { setArbeidsgivere } = useAppStore();
+  const [ hasTimedOut, setHasTimedOut ] = useState(false);
   const arbeidsgivere = useFetch<Organisasjon[]>();
 
   useEffect(() => {
@@ -22,9 +23,23 @@ export function DataFetcher(props: { children: any }) {
         }
       })
     }
-
     // eslint-disable-next-line
   }, [ arbeidsgivere ]);
+
+  useEffect(() => {
+    setTimeout(checkHasTimedOut, 5000);
+    // eslint-disable-next-line
+  }, [ arbeidsgivere ]);
+
+  function checkHasTimedOut() {
+    if (isAnyNotStartedOrPending([ arbeidsgivere ])) {
+      setHasTimedOut(true);
+    }
+  }
+
+  if (hasTimedOut) {
+    return <IngenData />;
+  }
 
   if (isAnyNotStartedOrPending([ arbeidsgivere ])) {
     return <Spinner type={'XXL'} className="sporenstreks-spinner" />;
