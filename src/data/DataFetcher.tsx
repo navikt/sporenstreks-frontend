@@ -6,7 +6,7 @@ import { useAppStore } from './store/AppStore';
 import IngenData from '../pages/IngenData';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
 import { convertResponseDataToOrganisasjon } from './convertResponse';
-import env from "../util/environment";
+import env from '../util/environment';
 
 export function DataFetcher(props: { children: any }) {
   const { setArbeidsgivere } = useAppStore();
@@ -27,10 +27,11 @@ export function DataFetcher(props: { children: any }) {
   }, [ arbeidsgivere ]);
 
   if (isAnyNotStartedOrPending([ arbeidsgivere ])) {
-    return <Spinner />;
+    return <Spinner type={'XXL'} className="sporenstreks-spinner" />;
 
   } else if (hasAny401([ arbeidsgivere ])) {
     window.location.href = env.loginServiceUrl;
+
   } else if (hasAnyFailed([ arbeidsgivere ])) {
     return <IngenData />;
   }

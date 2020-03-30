@@ -21,8 +21,8 @@ import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { History } from 'history';
 import dayjs from 'dayjs';
 import Vis from '../components/Vis';
-import './Sykepenger.less';
 import env from '../util/environment';
+import './Sykepenger.less';
 
 const Sykepenger = () => {
   const { arbeidsgivere, setReferanseNummer } = useAppStore();
