@@ -18,7 +18,7 @@ interface PeriodeProps {
 }
 
 const PeriodeKomp = (props: PeriodeProps) => {
-  const { errors, setError } = useFormContext();
+  const { errors, setError, clearError } = useFormContext();
   const [ amountInput, setAmountInput ] = useState<string>('');
   const { t } = useTranslation();
 
@@ -32,12 +32,13 @@ const PeriodeKomp = (props: PeriodeProps) => {
   const validatePeriode = (selectedDates): boolean => {
     const errbox = document.querySelector('.' + perId)!;
     const msg = selectedDates.length < 2 ? 'Perioden må ha to gyldige datoer' : '';
-    setError(perId, msg);
     if (msg !== '') {
       errbox.classList.remove('tom');
+      setError(perId, msg);
       return false;
     } else {
       errbox.classList.add('tom');
+      clearError([perId, 'backend']);
       return true;
     }
   };
@@ -46,12 +47,13 @@ const PeriodeKomp = (props: PeriodeProps) => {
     const errbox = document.querySelector('.' + antId)!;
     const numval = Number(value);
     const msg = numval <= 0 ? 'Antall må være minst 1' : '';
-    setError(antId, msg);
     if (msg !== '') {
       errbox.classList.remove('tom');
+      setError(antId, msg);
       return false;
     } else {
       errbox.classList.add('tom');
+      clearError([antId, 'backend']);
       return true;
     }
   };
@@ -70,12 +72,13 @@ const PeriodeKomp = (props: PeriodeProps) => {
     } else if (numval <= 0) {
       msg = t(Keys.TOOLOWAMOUNT);
     }
-    setError(belId, msg);
     if (msg !== '') {
       errbox.classList.remove('tom');
+      setError(belId, msg);
       return false;
     } else {
       errbox.classList.add('tom');
+      clearError([belId, 'backend']);
       return true;
     }
   };

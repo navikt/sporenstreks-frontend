@@ -12,22 +12,21 @@ import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import fnrvalidator from '@navikt/fnrvalidator';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
-import Perioder from './periode/Perioder';
+import Perioder from '../components/periode/Perioder';
 import { filterStringToNumbersOnly } from '../util/filterStringToNumbersOnly';
 import { identityNumberSeparation } from '../util/identityNumberSeparation';
-import FeilOppsummering from './feilvisning/FeilOppsummering';
+import FeilOppsummering from '../components/feilvisning/FeilOppsummering';
 import { useAppStore } from '../data/store/AppStore';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { History } from 'history';
 import dayjs from 'dayjs';
+import Vis from '../components/Vis';
 import './Sykepenger.less';
-import Vis from './Vis';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 
 const Sykepenger = () => {
-  const { arbeidsgivere } = useAppStore();
+  const { arbeidsgivere, setReferanseNummer } = useAppStore();
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
   const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
-  const [ referanseNummer, setReferanseNummer ] = useState<string>('');
   const methods = useForm();
   const { t } = useTranslation();
   const history: History = useHistory();
@@ -83,6 +82,7 @@ const Sykepenger = () => {
       } else if (response.status === 200) {
         response.json().then(data => {
           setReferanseNummer(data.referansenummer);
+          history.push('/kvittering')
         })
       } else if (response.status === 422) {
         response.json().then(data => {
@@ -112,30 +112,20 @@ const Sykepenger = () => {
     } else if (notValid) {
       msg = 'Fødselsnummer er ugyldig'
     }
-    methods.setError('fnr', msg);
     if (msg !== '') {
       errbox.classList.remove('tom');
+      methods.setError('fnr', msg);
       return false;
     } else {
       errbox.classList.add('tom');
+      methods.clearError(['fnr', 'backend']);
       return true;
     }
   };
 
   return (
     <div className="sykepenger">
-      <Vis hvis={referanseNummer !== ''}>
-        <div className="limit">
-          <AlertStripeInfo>
-            <div>Søknaden er mottat</div>
-            <div>Referansnummer: {referanseNummer}</div>
-            <Link to="/nettrefusjon" className="lenke informasjonsboks__lenke">
-              Ny søknad
-            </Link>
-          </AlertStripeInfo>
-        </div>
-      </Vis>
-      <Vis hvis={arbeidsgivere.length === 0 && referanseNummer === ''}>
+      <Vis hvis={arbeidsgivere.length === 0}>
         <div className="limit">
           <AlertStripeInfo>
             <div>Du har ikke rettigheter til å søke om refusjon for noen bedrifter</div>
@@ -149,7 +139,7 @@ const Sykepenger = () => {
         </div>
       </Vis>
 
-      <Vis hvis={arbeidsgivere.length > 0 && referanseNummer === ''}>
+      <Vis hvis={arbeidsgivere.length > 0}>
         <Bedriftsmeny
           history={history}
           onOrganisasjonChange={(org: Organisasjon) => setArbeidsgiverId(org.OrganizationNumber)}
