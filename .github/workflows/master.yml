@@ -1,4 +1,4 @@
-name: Bygg og deploy master til prod
+name: Bygg og deploy master
 
 on:
   push:
@@ -24,12 +24,6 @@ jobs:
             ${{ runner.os }}-
       - name: Bygg med npm install
         run: npm install
-        env:
-          NODE_ENV: production
-          PUBLIC_URL: https://arbeidsgiver.nav.no/nettrefusjon
-          PROXY: https://arbeidsgiver.nav.no/nettrefusjon
-          REACT_APP_BASE_URL: https://arbeidsgiver.nav.no/nettrefusjon
-          REACT_APP_LOGIN_SERVICE_URL: https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/nettrefusjon/
       - run: npm test
       - name: create docker tag
         env:
@@ -54,3 +48,12 @@ jobs:
           cluster: prod-sbs
           team: helsearbeidsgiver
           resources: deploy/prod.yaml
+      - name: deploy to dev
+        uses: navikt/deployment-cli/action@0.4.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+          AWAIT_SECONDS: 0
+        with:
+          cluster: dev-sbs
+          team: helsearbeidsgiver
+          resources: deploy/dev.yaml
