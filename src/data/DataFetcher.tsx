@@ -7,29 +7,15 @@ import IngenData from '../pages/IngenData';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
 import { convertResponseDataToOrganisasjon } from './convertResponse';
 import env from '../util/environment';
-import { unleashKeys } from './mock/data/toggles';
-import { UnleashToggles } from './types/sporenstreksTypes';
 
 export function DataFetcher(props: { children: any }) {
-  const { setUnleash, setArbeidsgivere } = useAppStore();
-  const unleash = useFetch<{}>();
+  const { setArbeidsgivere } = useAppStore();
   const arbeidsgivere = useFetch<Organisasjon[]>();
   const [ hasTimedOut, setHasTimedOut ] = useState(false);
   const arbeidsgivereRef = useRef(arbeidsgivere);
   arbeidsgivereRef.current = arbeidsgivere;
 
   useEffect(() => {
-    if (isNotStarted(unleash)) {
-      unleash.fetch(env.unleashUrl, {
-        method: 'POST',
-        credentials: 'include',
-        body: JSON.stringify(unleashKeys),
-        headers: { 'Content-Type': 'application/json' }
-      }, (fetchState: FetchState<UnleashToggles>) => {
-        setUnleash(fetchState.data!);
-      })
-    }
-
     if (isNotStarted(arbeidsgivere)) {
       arbeidsgivere.fetch(env.baseUrl + '/api/v1/arbeidsgivere', {
         credentials: 'include',
@@ -57,13 +43,13 @@ export function DataFetcher(props: { children: any }) {
     return <IngenData />;
   }
 
-  if (isAnyNotStartedOrPending([ unleash, arbeidsgivere ])) {
+  if (isAnyNotStartedOrPending([ arbeidsgivere ])) {
     return <Spinner type={'XXL'} className="sporenstreks-spinner" />;
 
-  } else if (hasAny401([ unleash, arbeidsgivere ])) {
+  } else if (hasAny401([ arbeidsgivere ])) {
     window.location.href = env.loginServiceUrl;
 
-  } else if (hasAnyFailed([ unleash, arbeidsgivere ])) {
+  } else if (hasAnyFailed([ arbeidsgivere ])) {
     return <IngenData />;
   }
 
