@@ -158,7 +158,9 @@ const Sykepenger = () => {
               sykefravær. I forbindelse med korona-pandemien kan refusjon det gis fra og med fjerde dag i
               arbeidsgiverperioden. Dette gjelder hvis den ansatte enten er smittet, mistenkt smittet eller i pålagt
               karantene. Det kan ikke søkes om refusjon for fravær på grunn av stengte skoler eller barnehager.
-              <br/><br/>Vent med å søke til arbeidsgiverperioden på 16 dager er over.<br/><br/>
+              <br/><br/>
+              Vent med å søke til arbeidsgiverperioden på 16 dager er over.
+              <br/><br/>
               Bruk dette skjemaet for å søke om refusjon for de siste 13 dagene av arbeidsgiverperioden.
             </Normaltekst>
           </div>
@@ -203,6 +205,16 @@ const Sykepenger = () => {
               </div>
 
               <FeilOppsummering errors={methods.errors} />
+  
+              <div className="container">
+                <Normaltekst>
+                  Vi erklærer at det ikke er søkt om omsorgspenger og at arbeidstakeren ikke er permittert. Kravet er
+                  basert på arbeidstakerens opplysninger om at arbeidstakeren enten er smittet av koronaviruset,
+                  mistenkt smittet eller i lovpålagt karantene.
+                  <br/><br/>
+                  Vær oppmerksom på at NAV kan foreta kontroller.
+                </Normaltekst>
+              </div>
 
               <div className="container">
                 <Knapp type="hoved"> Send søknad om refusjon </Knapp>
