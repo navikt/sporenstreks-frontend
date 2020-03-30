@@ -152,6 +152,16 @@ const Sykepenger = () => {
             En ny versjon av dette skjemaet er under utvikling. Der blir det mulig å søke om refusjon for flere ansatte
             samtidig. Vent gjerne med å sende krav til ny versjon er på plass.
           </AlertStripeAdvarsel>
+          <div className="container">
+            <Normaltekst>
+              Vanligvis skal arbeidsgiveren betale sykepenger de første 16 kalenderdagene (arbeidsgiverperioden) av et
+              sykefravær. I forbindelse med korona-pandemien kan refusjon det gis fra og med fjerde dag i
+              arbeidsgiverperioden. Dette gjelder hvis den ansatte enten er smittet, mistenkt smittet eller i pålagt
+              karantene. Det kan ikke søkes om refusjon for fravær på grunn av stengte skoler eller barnehager.
+              <br/><br/>Vent med å søke til arbeidsgiverperioden på 16 dager er over.<br/><br/>
+              Bruk dette skjemaet for å søke om refusjon for de siste 13 dagene av arbeidsgiverperioden.
+            </Normaltekst>
+          </div>
           <FormContext {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)} className="refusjonsform">
               <div className="container">
@@ -195,7 +205,7 @@ const Sykepenger = () => {
               <FeilOppsummering errors={methods.errors} />
 
               <div className="container">
-                <Knapp type="hoved"> Send refusjonssøknad </Knapp>
+                <Knapp type="hoved"> Send søknad om refusjon </Knapp>
               </div>
             </form>
           </FormContext>
