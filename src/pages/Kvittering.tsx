@@ -11,7 +11,7 @@ const Kvittering = () => {
       <AlertStripeInfo>
         <div>Søknaden er mottat</div>
         <div>Referansnummer: {referanseNummer}</div>
-        <Link to="/nettrefusjon" className="lenke informasjonsboks__lenke">
+        <Link to="/" className="lenke informasjonsboks__lenke">
           Ny søknad
         </Link>
       </AlertStripeInfo>
