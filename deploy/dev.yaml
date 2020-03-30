@@ -38,5 +38,5 @@ spec:
       - kvPath: apikey/apigw/dev/sporenstreks/sporenstreks-frontend_q1
         mountPath: /apigw/sporenstreks
   env:
-  - name: API_GATEWAY
-    value: https://api-gw-q1.oera.no/sporenstreks
+    - name: API_GATEWAY
+      value: https://api-gw-q1.oera.no/sporenstreks
