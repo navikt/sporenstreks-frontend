@@ -28,7 +28,7 @@ const Antall = (props: AntallProps) => {
   };
 
   return (
-    <div className="skjemaelement">
+    <div className="inputelement">
       <label htmlFor={antId} className="dager skjemaelement__label">
         <Normaltekst tag="span">
           Hvor mange dager ønskes refundert?

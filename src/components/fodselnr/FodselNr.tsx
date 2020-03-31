@@ -39,28 +39,28 @@ const FodselNr = (props: FnrProps) => {
       return false;
     } else {
       errbox.classList.add('tom');
-      clearError([fnrId, 'backend']);
+      clearError([ fnrId, 'backend' ]);
       return true;
     }
   };
 
   return (
-    <>
-      <div className="sykepenger--arbeidstaker">
+    <div className="inputelement">
+      <Vis hvis={props.index === undefined}>
         <Undertittel className="sykepenger--undertittel">
           Hvilken arbeidstaker gjelder søknaden?
         </Undertittel>
-        <Input
-          id={fnrId}
-          name={fnrId}
-          label="Fødselsnummer til arbeidstaker"
-          bredde="M"
-          autoComplete={'off'}
-          onChange={e => filterIdentityNumberInput(e.target.value)}
-          onBlur={e => validateFnr(e.target.value)}
-          value={identityNumberSeparation(identityNumberInput)}
-        />
-      </div>
+      </Vis>
+      <Input
+        id={fnrId}
+        name={fnrId}
+        label="Fødselsnummer til arbeidstaker"
+        bredde="M"
+        autoComplete={'off'}
+        onChange={e => filterIdentityNumberInput(e.target.value)}
+        onBlur={e => validateFnr(e.target.value)}
+        value={identityNumberSeparation(identityNumberInput)}
+      />
 
       <Normaltekst tag='div' role='alert' aria-live='assertive'
         className={'skjemaelement__feilmelding tom ' + fnrId}
@@ -69,8 +69,7 @@ const FodselNr = (props: FnrProps) => {
           <span>{errors[fnrId] && errors[fnrId].type}</span>
         </Vis>
       </Normaltekst>
-
-    </>
+    </div>
   );
 };
 

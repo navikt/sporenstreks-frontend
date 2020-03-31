@@ -10,7 +10,6 @@ import { Periode, RefusjonsKrav } from '../data/types/sporenstreksTypes';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
-import Perioder from '../components/perioder/Perioder';
 import FeilOppsummering from '../components/feilvisning/FeilOppsummering';
 import { useAppStore } from '../data/store/AppStore';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
@@ -18,7 +17,7 @@ import { History } from 'history';
 import dayjs from 'dayjs';
 import Vis from '../components/Vis';
 import env from '../util/environment';
-import FodselNr from '../components/fodselnr/FodselNr';
+import Ansatte from '../components/ansatte/Ansatte';
 import './Sykepenger.less';
 
 const BulkInnsending = () => {
@@ -117,10 +116,6 @@ const BulkInnsending = () => {
           organisasjoner={arbeidsgivere}
         />
         <div className="limit">
-          <AlertStripeAdvarsel>
-            En ny versjon av dette skjemaet er under utvikling. Der blir det mulig å søke om refusjon for flere ansatte
-            samtidig. Vent gjerne med å sende krav til ny versjon er på plass.
-          </AlertStripeAdvarsel>
           <div className="container">
             <Normaltekst>
               Vanligvis skal arbeidsgiveren betale sykepenger de første 16 kalenderdagene (arbeidsgiverperioden) av et
@@ -144,7 +139,7 @@ const BulkInnsending = () => {
                     NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
                   </Undertekst>
 
-                  <Perioder />
+                  <Ansatte />
 
                 </div>
               </div>

@@ -1,5 +1,9 @@
 @import '../../../node_modules/nav-frontend-core/less/_variabler';
 
+.skjemaelement__label {
+  font-weight: 400;
+}
+
 .ansatteliste {
   list-style: none;
   padding-left: 0;
@@ -14,8 +18,8 @@
       margin-top: 1rem;
     }
 
-    .skjemaelement {
-      & + .skjemaelement {
+    .inputelement {
+      & + .inputelement {
         margin-top: 0.7rem;
       }
 
@@ -64,7 +68,7 @@
       display: flex;
       align-items: flex-start;
 
-      .skjemaelement {
+      .inputelement {
         width: 28%;
 
         &:first-child {
@@ -80,7 +84,7 @@
           margin-bottom: 0.5rem;
         }
 
-        & + .skjemaelement {
+        & + .inputelement {
           margin-top: 0;
         }
       }
