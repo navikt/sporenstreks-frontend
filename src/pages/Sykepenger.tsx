@@ -200,7 +200,9 @@ const Sykepenger = () => {
                   <Undertekst className="sykepenger--undertekst">
                     NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
                   </Undertekst>
+
                   <Perioder />
+
                 </div>
               </div>
 
