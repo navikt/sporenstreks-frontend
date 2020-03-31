@@ -1,9 +1,10 @@
 import React from 'react';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
-import { Ingress, Innholdstittel } from 'nav-frontend-typografi';
+import {Ingress, Innholdstittel, Normaltekst} from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { useAppStore } from '../data/store/AppStore';
 import { Link } from 'react-router-dom';
+import './Kvittering.less';
 
 const Kvittering = () => {
   const { referanseNummer } = useAppStore();
@@ -16,8 +17,10 @@ const Kvittering = () => {
         </div>
         <div>
           <Ingress>Referansenummer: <b>{referanseNummer}</b></Ingress>
-          Ta vare på referansenummeret da du vil trenge det dersom du kontakter oss om denne saken.
+          <Normaltekst>
+            Ta vare på referansenummeret da du vil trenge det dersom du kontakter oss om denne saken.
           Du vil også ha behov for fødselsnummeret til de ansatte det gjelder.
+          </Normaltekst>
         </div>
         <AlertStripeInfo>
           Dersom dere ønsker å endre til mer hyppige utbetalinger enn det som er standard
