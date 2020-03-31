@@ -88,7 +88,7 @@ const PeriodeKomp = (props: PeriodeProps) => {
       <div className="skjemaelement">
         <label htmlFor={perId} className="fom skjemaelement__label">
           <Normaltekst tag="span">
-            Fra og med første, til og med siste fraværsdag
+            Første fraværsdag i arbeidsgiverperioden
           </Normaltekst>
         </label>
         <Controller
