@@ -79,7 +79,7 @@ const Sykepenger = () => {
       body: JSON.stringify(refusjonsKrav),
     }).then(response => {
       if (response.status === 401) {
-        history.push(env.loginServiceUrl);
+        window.location.href = env.loginServiceUrl;
       } else if (response.status === 200) {
         response.json().then(data => {
           setReferanseNummer(data.referansenummer);
