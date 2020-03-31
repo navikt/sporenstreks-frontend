@@ -67,9 +67,7 @@ const PeriodeKomp = (props: PeriodeProps) => {
     const errbox = document.querySelector('.' + belId)!;
 
     let msg = '';
-    if (value === '') {
-      msg = 'Beløp må fylles ut.';
-    } else if (numval <= 0) {
+    if (numval < 0) {
       msg = t(Keys.TOOLOWAMOUNT);
     }
     if (msg !== '') {
