@@ -21,9 +21,9 @@ const Kvittering = () => {
         <Link to="/" className="lenke informasjonsboks__lenke">
           Opprett en ny søknad
         </Link>
-        <div><Link to="https://arbeidsgiver.nav.no/min-side-arbeidsgiver/" className="lenke informasjonsboks__lenke">
+        <div><a href="https://arbeidsgiver.nav.no/min-side-arbeidsgiver/" className="lenke informasjonsboks__lenke">
           Tilbake til Min side - arbeidsgiver
-        </Link></div>
+        </a></div>
       </AlertStripeInfo>
     </div>
   );
