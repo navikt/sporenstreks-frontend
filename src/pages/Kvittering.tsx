@@ -15,7 +15,7 @@ const Kvittering = () => {
           Dersom den blir godkjent vil beløpet utbetales innen X virkedager. Beløpet kan ikke overstige 6G.
         </div>
         <div>
-          <Ingress>Referansenummer: <span style={{fontWeight: "bold"}}>{referanseNummer}</span></Ingress>
+          <Ingress>Referansenummer: <b>{referanseNummer}</b></Ingress>
           Ta vare på referansenummeret da du vil trenge det dersom du kontakter oss om denne saken.
         </div>
         <Link to="/" className="lenke informasjonsboks__lenke">
