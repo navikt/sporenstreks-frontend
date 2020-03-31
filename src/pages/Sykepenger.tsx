@@ -128,7 +128,7 @@ const Sykepenger = () => {
     <div className="sykepenger">
       <Vis hvis={arbeidsgivere.length === 0}>
         <div className="limit">
-          <AlertStripeInfo>
+          <AlertStripeAdvarsel>
             <div>Du har ikke rettigheter til å søke om refusjon for noen bedrifter</div>
             <div>Tildeling av roller foregår i Altinn</div>
             <Link to="/min-side-arbeidsgiver/informasjon-om-tilgangsstyring"
@@ -136,7 +136,7 @@ const Sykepenger = () => {
             >
               Les mer om roller og tilganger.
             </Link>
-          </AlertStripeInfo>
+          </AlertStripeAdvarsel>
         </div>
       </Vis>
 
