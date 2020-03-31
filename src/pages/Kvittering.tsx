@@ -12,7 +12,7 @@ const Kvittering = () => {
       <AlertStripeInfo>
         <div>
           <Ingress>Søknaden er mottatt.</Ingress>
-          Dersom den blir godkjent vil beløpet utbetales innen X virkedager. Beløpet kan ikke overstige 6G.
+          Dersom den blir godkjent vil beløpet utbetales. Beløpet kan ikke overstige 6G.
         </div>
         <div>
           <Ingress>Referansenummer: <b>{referanseNummer}</b></Ingress>
