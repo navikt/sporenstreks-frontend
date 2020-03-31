@@ -116,8 +116,7 @@ const Sykepenger = () => {
         reject(err);
       });
     }).catch(err => {
-      methods.setError('backend', 'Vi får akkurat nå ikke hentet alle data.\n' +
-        'Vi jobber med å løse saken. Vennligst prøv igjen senere.')
+      methods.setError('backend', 'Feil ved innsending av skjema');
     });
   };
 
