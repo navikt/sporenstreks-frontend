@@ -25,8 +25,8 @@ export enum Keys {
 
 const translatedKeys: IncludedKeys = {
 	[Keys.MY_PAGE]: {
-		nb: 'Refusjonskrav i forbindelse med coronavirus',
-		nn: 'Refusjonskrav i forbindelse med coronavirus',
+		nb: 'Refusjonskrav av sykepenger - korona',
+		nn: 'Refusjonskrav av sjukepengar - korona',
 		en: 'Refunds regarding corona virus',
 	},
 

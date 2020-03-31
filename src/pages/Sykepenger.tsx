@@ -17,7 +17,7 @@ import { filterStringToNumbersOnly } from '../util/filterStringToNumbersOnly';
 import { identityNumberSeparation } from '../util/identityNumberSeparation';
 import FeilOppsummering from '../components/feilvisning/FeilOppsummering';
 import { useAppStore } from '../data/store/AppStore';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { AlertStripeAdvarsel, AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { History } from 'history';
 import dayjs from 'dayjs';
 import Vis from '../components/Vis';
@@ -148,6 +148,22 @@ const Sykepenger = () => {
           organisasjoner={arbeidsgivere}
         />
         <div className="limit">
+          <AlertStripeAdvarsel>
+            En ny versjon av dette skjemaet er under utvikling. Der blir det mulig å søke om refusjon for flere ansatte
+            samtidig. Vent gjerne med å sende krav til ny versjon er på plass.
+          </AlertStripeAdvarsel>
+          <div className="container">
+            <Normaltekst>
+              Vanligvis skal arbeidsgiveren betale sykepenger de første 16 kalenderdagene (arbeidsgiverperioden) av et
+              sykefravær. I forbindelse med korona-pandemien kan refusjon det gis fra og med fjerde dag i
+              arbeidsgiverperioden. Dette gjelder hvis den ansatte enten er smittet, mistenkt smittet eller i pålagt
+              karantene. Det kan ikke søkes om refusjon for fravær på grunn av stengte skoler eller barnehager.
+              <br/><br/>
+              Vent med å søke til arbeidsgiverperioden på 16 dager er over.
+              <br/><br/>
+              Bruk dette skjemaet for å søke om refusjon for de siste 13 dagene av arbeidsgiverperioden.
+            </Normaltekst>
+          </div>
           <FormContext {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)} className="refusjonsform">
               <div className="container">
@@ -189,9 +205,19 @@ const Sykepenger = () => {
               </div>
 
               <FeilOppsummering errors={methods.errors} />
+  
+              <div className="container">
+                <Normaltekst>
+                  Vi erklærer at det ikke er søkt om omsorgspenger og at arbeidstakeren ikke er permittert. Kravet er
+                  basert på arbeidstakerens opplysninger om at arbeidstakeren enten er smittet av koronaviruset,
+                  mistenkt smittet eller i lovpålagt karantene.
+                  <br/><br/>
+                  Vær oppmerksom på at NAV kan foreta kontroller.
+                </Normaltekst>
+              </div>
 
               <div className="container">
-                <Knapp type="hoved"> Send refusjonssøknad </Knapp>
+                <Knapp type="hoved"> Send søknad om refusjon </Knapp>
               </div>
             </form>
           </FormContext>
