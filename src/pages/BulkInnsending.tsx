@@ -18,10 +18,10 @@ import { History } from 'history';
 import dayjs from 'dayjs';
 import Vis from '../components/Vis';
 import env from '../util/environment';
-import './Sykepenger.less';
 import FodselNr from '../components/fodselnr/FodselNr';
+import './Sykepenger.less';
 
-const Sykepenger = () => {
+const BulkInnsending = () => {
   const { arbeidsgivere, setReferanseNummer, identityNumberInput } = useAppStore();
   const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
   const methods = useForm();
@@ -136,10 +136,6 @@ const Sykepenger = () => {
           <FormContext {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)} className="refusjonsform">
               <div className="container">
-                <FodselNr />
-              </div>
-
-              <div className="container">
                 <div className="sykepenger--periode-velger form-group">
                   <Undertittel className="sykepenger--undertittel">
                     Hvilken periode har den ansatte vært fraværende?
@@ -176,4 +172,4 @@ const Sykepenger = () => {
   );
 };
 
-export default Sykepenger;
+export default BulkInnsending;

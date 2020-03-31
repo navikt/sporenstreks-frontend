@@ -5,29 +5,31 @@ import Periode from '../periode/Periode';
 import Antall from '../antall/Antall';
 import Beloep from '../beloep/Beloep';
 import './Flatpickr.less';
+import FodselNr from '../fodselnr/FodselNr';
 
-interface PeriodeKompProps {
+interface AnsatteKompProps {
   index: number;
   min?: Date;
   max?: Date;
-  slettPeriode: (e: any, idx: number) => void;
+  slettAnsatt: (e: any, idx: number) => void;
 }
 
-const PeriodeKomp = (props: PeriodeKompProps) => {
+const AnsattKomp = (props: AnsatteKompProps) => {
 
   return (
-    <div className="periode" role="group">
+    <div className="ansatt" role="group">
 
+      <FodselNr index={props.index} />
       <Periode index={props.index} min={props.min} max={props.max} />
       <Antall index={props.index} />
       <Beloep index={props.index} />
 
       <Vis hvis={props.index > 0}>
-        <button role='link' id={'btn_' + props.index} className='periodeknapp lenke slett'
-          onClick={(e) => props.slettPeriode(e, props.index)}
+        <button role='link' id={'btn_' + props.index} className='ansattknapp lenke slett'
+          onClick={(e) => props.slettAnsatt(e, props.index)}
         >
           <Normaltekst tag="span">
-            Slett periode
+            Slett ansatt
           </Normaltekst>
         </button>
       </Vis>
@@ -35,4 +37,4 @@ const PeriodeKomp = (props: PeriodeKompProps) => {
   )
 };
 
-export default PeriodeKomp;
+export default AnsattKomp;

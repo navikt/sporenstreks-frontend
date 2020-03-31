@@ -8,6 +8,7 @@ import { DataFetcher } from './data/DataFetcher';
 import StoreProvider from './data/store/StoreProvider';
 import { Amplitude } from './components/amplitude/AmplitudeProvider';
 import Kvittering from './pages/Kvittering';
+import BulkInnsending from './pages/BulkInnsending';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           <I18nextProvider i18n={i18n}>
             <Switch>
               <Route exact path="/" render={() => <Sykepenger />} />
+              <Route exact path="/bulk" render={() => <BulkInnsending />} />
               <Route exact path="/kvittering" render={() => <Kvittering />} />
               <Route path="/" render={() => <Redirecter />} />
             </Switch>

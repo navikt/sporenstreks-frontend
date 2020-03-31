@@ -1,0 +1,89 @@
+@import '../../../node_modules/nav-frontend-core/less/_variabler';
+
+.ansatteliste {
+  list-style: none;
+  padding-left: 0;
+  margin: 1rem 0;
+
+  .ansatt {
+    border: 1px solid @navGra40;
+    border-radius: 4px;
+    padding: 0.5rem;
+
+    & + .ansatt {
+      margin-top: 1rem;
+    }
+
+    .skjemaelement {
+      & + .skjemaelement {
+        margin-top: 0.7rem;
+      }
+
+      & + .ansattknapp {
+        display: inline;
+        padding-left: 0.7rem;
+        margin-top: 3.7rem;
+      }
+    }
+
+    .input {
+      border: 1px solid @navGra60;
+
+      &:focus {
+        outline: 0;
+        box-shadow: 0 0 0 3px @fokusFarge;
+      }
+    }
+
+    .fom {
+      cursor: pointer;
+    }
+
+    .dager {
+      cursor: pointer;
+    }
+  }
+}
+
+.ansattknapp {
+  padding: 0;
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+  text-decoration: underline;
+  background: none;
+  border: 0;
+  color: @navBla;
+
+  &:focus {
+    color: @white;
+  }
+}
+
+@media (min-width: 769px) {
+  .ansattliste {
+    .ansatt {
+      display: flex;
+      align-items: flex-start;
+
+      .skjemaelement {
+        width: 28%;
+
+        &:first-child {
+          width: 38%;
+        }
+
+        &:nth-child(3) {
+          width: 18%;
+        }
+
+        label {
+          display: inline-block;
+          margin-bottom: 0.5rem;
+        }
+
+        & + .skjemaelement {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}
