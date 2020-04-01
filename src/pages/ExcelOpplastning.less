@@ -1,0 +1,94 @@
+@import '../../node_modules/nav-frontend-core/less/core';
+@import '../../src/basic';
+
+.excelOpplastning {
+  &--alertstripe {
+    padding: 0.7rem;
+  }
+
+  &--header {
+    margin-top: 1rem;
+  }
+
+  &--undertittel {
+    margin-bottom: 0.7rem;
+  }
+
+  &--undertekst {
+    margin-bottom: 0.7rem;
+  }
+
+  &--loading-spinner {
+    margin: 1.4rem;
+  }
+
+  &--arbeidstaker {
+    label {
+      font-weight: 400;
+    }
+  }
+
+  .alertstripe {
+    margin-top: 1.4rem;
+  }
+
+  .bedriftsmeny__inner {
+    max-width: @desktopLimitWidth;
+  }
+
+  .container {
+    max-width: 50rem;
+    border-bottom: 1px solid @navMorkGra;
+    padding: 1rem 0 2rem;
+
+    &:nth-child(4) {
+      border: 0;
+    }
+
+    &:last-child {
+      border: 0;
+      padding: 1.5rem 0 4rem;
+    }
+  }
+
+  .skjemaelement__feilmelding {
+    margin-top: 0.5rem;
+    color: @redError;
+    font-weight: bold;
+    font-style: italic;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    height: auto;
+    max-height: 4rem;
+
+    &.tom {
+      max-height: 0;
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  .excelOpplastning {
+    .container {
+      padding: 1rem 0 2rem;
+
+      &:last-child {
+        padding: 1rem 0 4rem;
+      }
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .excelOpplastning {
+    .bedriftsmeny {
+      .virksomhetsvelger {
+        margin-left: 1rem;
+      }
+
+      .virksomhetsvelger__dropdownwrapper--apen {
+        top: -1rem;
+      }
+    }
+  }
+}

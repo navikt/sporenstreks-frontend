@@ -1,0 +1,176 @@
+import React, { useState } from 'react';
+import 'nav-frontend-tabell-style';
+import { Input } from 'nav-frontend-skjema';
+import { FormContext, useForm } from 'react-hook-form';
+import {Hovedknapp, Knapp} from 'nav-frontend-knapper';
+import { Link, useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import {Ingress, Innholdstittel, Normaltekst, Undertekst, Undertittel} from 'nav-frontend-typografi';
+import { Keys } from '../locales/keys';
+import { Periode, RefusjonsKrav } from '../data/types/sporenstreksTypes';
+import Bedriftsmeny from '@navikt/bedriftsmeny';
+import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
+import fnrvalidator from '@navikt/fnrvalidator';
+import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
+import Perioder from '../components/perioder/Perioder';
+import { filterStringToNumbersOnly } from '../util/filterStringToNumbersOnly';
+import { identityNumberSeparation } from '../util/identityNumberSeparation';
+import FeilOppsummering from '../components/feilvisning/FeilOppsummering';
+import { useAppStore } from '../data/store/AppStore';
+import { AlertStripeAdvarsel, AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { History } from 'history';
+import dayjs from 'dayjs';
+import Vis from '../components/Vis';
+import env from '../util/environment';
+import './ExcelOpplastning.less';
+
+const ExcelOpplastning = () => {
+    const { arbeidsgivere, setReferanseNummer } = useAppStore();
+    const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
+    const methods = useForm();
+    const { t } = useTranslation();
+    const history: History = useHistory();
+
+    const formToJSON = elms =>
+        [].reduce.call(elms, (data: any, elm: any) => {
+            data[elm.name] = elm.value;
+            return data;
+        }, {});
+
+
+    const onSubmit = async(e: any): Promise<void> => {
+        const form: HTMLFormElement = document.querySelector('.refusjonsform') ?? e.target;
+        const data = formToJSON(form.elements);
+
+        const FETCH_TIMEOUT = 0;
+        let didTimeOut = false;
+
+        new Promise((resolve, reject) => {
+            const timeout = setTimeout(function() {
+                didTimeOut = true;
+                reject(new Error('Request timed out'));
+            }, FETCH_TIMEOUT);
+
+            fetch(env.baseUrl + '/api/v1/refusjonskrav', {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+                body: JSON.stringify("TODO"),
+            }).then((response: Response) => {
+                clearTimeout(timeout);
+                if(!didTimeOut) {
+                    if (response.status === 401) {
+                        window.location.href = env.loginServiceUrl;
+                    } else if (response.status === 200) {
+                        response.json().then(data => {
+                            setReferanseNummer(data.referansenummer);
+                            history.push('/kvittering')
+                        })
+                    } else if (response.status === 422) {
+                        response.json().then(data => {
+                            data.violations.map(violation => {
+                                methods.setError('backend', violation.message);
+                            });
+                            data.violations.map(violation => ({
+                                errorType: violation.validationType,
+                                errorMessage: violation.message,
+                            }));
+                        });
+                    } else { // todo: error 400
+                        methods.setError('backend', 'Feil ved innsending av skjema');
+                    }
+                }
+            }).catch(err => {
+                if(didTimeOut) return;
+                reject(err);
+            });
+        }).catch(err => {
+            methods.setError('backend', 'Feil ved innsending av skjema');
+        });
+    };
+
+
+    return (
+        <div className="excelOpplastning">
+            <Vis hvis={arbeidsgivere.length === 0}>
+                <div className="limit">
+                    <AlertStripeAdvarsel>
+                        <div>Du har ikke rettigheter til å søke om refusjon for noen bedrifter</div>
+                        <div>Tildeling av roller foregår i Altinn</div>
+                        <Link to="/min-side-arbeidsgiver/informasjon-om-tilgangsstyring"
+                              className="lenke informasjonsboks__lenke"
+                        >
+                            Les mer om roller og tilganger.
+                        </Link>
+                    </AlertStripeAdvarsel>
+                </div>
+            </Vis>
+
+            <Vis hvis={arbeidsgivere.length > 0}>
+                <Bedriftsmeny
+                    history={history}
+                    onOrganisasjonChange={(org: Organisasjon) => setArbeidsgiverId(org.OrganizationNumber)}
+                    sidetittel={t(Keys.MY_PAGE)}
+                    organisasjoner={arbeidsgivere}
+                />
+                <div className="limit">
+                        <Ingress className="container">
+                            Vanligvis skal arbeidsgiveren betale sykepenger de første
+                            16 kalenderdagene (arbeidsgiverperioden) av et sykefravær.
+                            I forbindelse med korona-pandemien kan arbeidsgiveren søke om refusjon
+                            fra og med fjerde dag i arbeidsgiverperioden.
+                            Dette gjelder hvis den ansatte enten er smittet, mistenkt smittet eller i pålagt karantene.
+                            <br/><br/>
+                            Det kan ikke søkes om refusjon for fravær på grunn av stengte skoler eller barnehager.
+                            <br/><br/>
+                            <b>Her kan du laste opp en Excel-oversikt over de ansatte det gjelder,
+                                for å søke om refusjon for de siste 13 dagene av arbeidsgiverperioden.</b>
+                        </Ingress>
+                    <div className="container">
+                        <Ingress>Last ned Excel-malen, fyll ut og last opp.</Ingress>
+                        <Normaltekst>
+                            Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
+                            skal du bruke et eget skjema som du finner her.
+
+                            Denne metoden er tiltenkt dere som har svært mange refusjonskrav.
+                            Vi har også et eget skjema for å søke om refusjonskrav for flere ansatte
+                            dersom dere foretrekker å gjøre det på den måten.
+                        </Normaltekst>
+                        <Normaltekst>
+                            Last ned malen her, og fyll ut.Det er ikke mulig å benytte ditt eget excel-dokument,
+                            alt må fylles ut i denne malen før du laster opp.
+                        </Normaltekst>
+                    </div>
+                    <div className="container">
+                    <FormContext {...methods}>
+                        <form onSubmit={methods.handleSubmit(onSubmit)} className="excelform">
+                            <Knapp>Last opp utfylt Excel-mal</Knapp>
+                            NB, det kan maks legges inn 5000 linjer per excel-doc.
+                            Om det ikke er tilstrekkelig må dere gjøre dette i flere omganger.
+                        </form>
+                    </FormContext>
+                    </div>
+                    <div className="container">
+                        <FormContext {...methods}>
+                            <form onSubmit={methods.handleSubmit(onSubmit)} className="excelform">
+                                <Hovedknapp>Send søknad om refusjon</Hovedknapp>
+                                Vi erklærer at det ikke er søkt om omsorgspenger
+                                og at arbeidstakeren ikke er permittert.
+                                Vi erklærer at dette kravet er basert på
+                                at fraværet skyldes arbeidstakerens opplysninger
+                                om at det aktuelle fraværet skyldes covid-19-pandemien.
+                                Vær oppmerksom på at NAV kan foreta kontroller.
+                            </form>
+                        </FormContext>
+                    </div>
+
+
+                </div>
+            </Vis>
+        </div>
+    );
+};
+
+export default ExcelOpplastning;

@@ -8,6 +8,7 @@ import { DataFetcher } from './data/DataFetcher';
 import StoreProvider from './data/store/StoreProvider';
 import { Amplitude } from './components/amplitude/AmplitudeProvider';
 import Kvittering from './pages/Kvittering';
+import ExcelOpplastning from './pages/ExcelOpplastning';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
             <Switch>
               <Route exact path="/" render={() => <Sykepenger />} />
               <Route exact path="/kvittering" render={() => <Kvittering />} />
+              <Route exact path="/excel" render={() => <ExcelOpplastning />} />
               <Route path="/" render={() => <Redirecter />} />
             </Switch>
           </I18nextProvider>
