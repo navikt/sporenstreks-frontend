@@ -12,7 +12,7 @@ import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import fnrvalidator from '@navikt/fnrvalidator';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
-import Perioder from '../components/periode/Perioder';
+import Perioder from '../components/perioder/Perioder';
 import { filterStringToNumbersOnly } from '../util/filterStringToNumbersOnly';
 import { identityNumberSeparation } from '../util/identityNumberSeparation';
 import FeilOppsummering from '../components/feilvisning/FeilOppsummering';
@@ -219,12 +219,14 @@ const Sykepenger = () => {
                   <Undertekst className="sykepenger--undertekst">
                     NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
                   </Undertekst>
+
                   <Perioder />
+
                 </div>
               </div>
 
               <FeilOppsummering errors={methods.errors} />
-  
+
               <div className="container">
                 <Normaltekst>
                   Vi erklærer at det ikke er søkt om omsorgspenger og at arbeidstakeren ikke er permittert. Kravet er
