@@ -23,6 +23,7 @@ import dayjs from 'dayjs';
 import Vis from '../components/Vis';
 import env from '../util/environment';
 import './Sykepenger.less';
+import Lenke from "nav-frontend-lenker";
 
 const Sykepenger = () => {
   const { arbeidsgivere, setReferanseNummer } = useAppStore();
@@ -170,7 +171,9 @@ const Sykepenger = () => {
         <div className="limit">
           <AlertStripeAdvarsel>
             En ny versjon av dette skjemaet er under utvikling. Der blir det mulig å søke om refusjon for flere ansatte
-            samtidig. Vent gjerne med å sende krav til ny versjon er på plass.
+            samtidig.
+            <br/>
+            <Lenke href="https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/nyheter/refusjon-av-sykepenger-ved-koronavirus--hva-er-status">Vi ber offentlig sektor vente med å søke.</Lenke>
           </AlertStripeAdvarsel>
           <div className="container">
             <Normaltekst>
