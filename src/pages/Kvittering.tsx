@@ -24,7 +24,8 @@ const Kvittering = () => {
                         </Normaltekst>
                     </div>
                     <AlertStripeInfo>
-                        Ønsker dere hyppigere utbetalinger enn vanlig? I Altinn kan dere endre utbetalingsintervallet.
+                        Ønsker dere hyppigere utbetalinger enn vanlig?
+                        <a href=" https://www.altinn.no/Pages/ServiceEngine/Start/StartService.aspx?ServiceEditionCode=1&ServiceCode=5546" className="lenke ">I Altinn kan dere endre utbetalingsintervallet.</a>
                     </AlertStripeInfo>
                     <div><a id="logout"
                             href="https://loginservice.nav.no/slo" className="lenke informasjonsboks__lenke">Logg ut</a>
