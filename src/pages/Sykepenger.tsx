@@ -71,7 +71,7 @@ const Sykepenger = () => {
     const data = formToJSON(form.elements);
     const refusjonsKrav = convertSkjemaToRefusjonsKrav(data);
   
-    const FETCH_TIMEOUT = 0;
+    const FETCH_TIMEOUT = 5000;
     let didTimeOut = false;
   
     new Promise((resolve, reject) => {
