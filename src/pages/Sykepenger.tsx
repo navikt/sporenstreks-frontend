@@ -70,34 +70,53 @@ const Sykepenger = () => {
     const form: HTMLFormElement = document.querySelector('.refusjonsform') ?? e.target;
     const data = formToJSON(form.elements);
     const refusjonsKrav = convertSkjemaToRefusjonsKrav(data);
-    await fetch(env.baseUrl + '/api/v1/refusjonskrav', {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-      body: JSON.stringify(refusjonsKrav),
-    }).then(response => {
-      if (response.status === 401) {
-        window.location.href = env.loginServiceUrl;
-      } else if (response.status === 200) {
-        response.json().then(data => {
-          setReferanseNummer(data.referansenummer);
-          history.push('/kvittering')
-        })
-      } else if (response.status === 422) {
-        response.json().then(data => {
-          data.violations.map(violation => {
-            methods.setError('backend', violation.message);
-          });
-          data.violations.map(violation => ({
-            errorType: violation.validationType,
-            errorMessage: violation.message,
-          }));
-        });
-      } else { // todo: error 400
-        methods.setError('backend', 'Feil ved innsending av skjema');
-      }
+  
+    const FETCH_TIMEOUT = 0;
+    let didTimeOut = false;
+  
+    new Promise((resolve, reject) => {
+      const timeout = setTimeout(function() {
+        didTimeOut = true;
+        reject(new Error('Request timed out'));
+      }, FETCH_TIMEOUT);
+    
+      fetch(env.baseUrl + '/api/v1/refusjonskrav', {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify(refusjonsKrav),
+      }).then((response: Response) => {
+        clearTimeout(timeout);
+        if(!didTimeOut) {
+          if (response.status === 401) {
+            window.location.href = env.loginServiceUrl;
+          } else if (response.status === 200) {
+            response.json().then(data => {
+              setReferanseNummer(data.referansenummer);
+              history.push('/kvittering')
+            })
+          } else if (response.status === 422) {
+            response.json().then(data => {
+              data.violations.map(violation => {
+                methods.setError('backend', violation.message);
+              });
+              data.violations.map(violation => ({
+                errorType: violation.validationType,
+                errorMessage: violation.message,
+              }));
+            });
+          } else { // todo: error 400
+            methods.setError('backend', 'Feil ved innsending av skjema');
+          }
+        }
+      }).catch(err => {
+        if(didTimeOut) return;
+        reject(err);
+      });
+    }).catch(err => {
+      methods.setError('backend', 'Feil ved innsending av skjema');
     });
   };
 
