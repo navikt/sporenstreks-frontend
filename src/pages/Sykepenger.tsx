@@ -173,7 +173,9 @@ const Sykepenger = () => {
             En ny versjon av dette skjemaet er under utvikling. Der blir det mulig å søke om refusjon for flere ansatte
             samtidig.
             <br/>
-            <Lenke href="https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/nyheter/refusjon-av-sykepenger-ved-koronavirus--hva-er-status">Vi ber offentlig sektor vente med å søke.</Lenke>
+            <Lenke href="https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/nyheter/refusjon-av-sykepenger-ved-koronavirus--hva-er-status">
+              Vi ber offentlig sektor vente med å søke.
+            </Lenke>
           </AlertStripeAdvarsel>
           <div className="container">
             <Normaltekst>
