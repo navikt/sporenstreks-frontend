@@ -49,22 +49,16 @@ const Sykepenger = () => {
 
     for (let i = 0; i < antallPerioder; i++) {
       const days = data['periode_' + i].split(' til ');
-      const fom = dayjs(days[0]).format('YYYY-MM-DD');
-      const tom = dayjs(days[1]).format('YYYY-MM-DD');
-      if (fom === 'Invalid Date' || tom === 'Invalid Date') {
-        console.log('En dato er ugyldig:'); // eslint-disable-line no-console
-        console.log('fom: ', fom); // eslint-disable-line no-console
-        console.log('tom: ', tom); // eslint-disable-line no-console
-        console.log('days: ', days) // eslint-disable-line no-console
-      }
       const periode: Periode = {
-        fom: fom,
-        tom: tom,
+        fom: days[0],
+        tom: days[1],
         antallDagerMedRefusjon: data['antall_' + i].replace(/ /g, ''),
         beloep: data['beloep_' + i].replace(/ /g, '')
           .replace(/\s/g, '')
           .replace(',', '.'),
       };
+      console.log('days: ', days) // eslint-disable-line no-console
+
       perioder.push(periode)
     }
 
