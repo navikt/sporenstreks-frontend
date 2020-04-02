@@ -23,6 +23,8 @@ import dayjs from 'dayjs';
 import Vis from '../components/Vis';
 import env from '../util/environment';
 import './ExcelOpplastning.less';
+import Lenke from "nav-frontend-lenker";
+import excellogo from '../img/excel-logo.png';
 
 const ExcelOpplastning = () => {
     const { arbeidsgivere, setReferanseNummer } = useAppStore();
@@ -30,6 +32,7 @@ const ExcelOpplastning = () => {
     const methods = useForm();
     const { t } = useTranslation();
     const history: History = useHistory();
+    const [file, setFile] = useState();
 
     const formToJSON = elms =>
         [].reduce.call(elms, (data: any, elm: any) => {
@@ -116,6 +119,11 @@ const ExcelOpplastning = () => {
                     organisasjoner={arbeidsgivere}
                 />
                 <div className="limit">
+                    <AlertStripeAdvarsel>
+                        <Lenke href="https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/nyheter/refusjon-av-sykepenger-ved-koronavirus--hva-er-status">
+                            Vi ber offentlig sektor vente med å søke.
+                        </Lenke>
+                    </AlertStripeAdvarsel>
                         <Ingress className="container">
                             Vanligvis skal arbeidsgiveren betale sykepenger de første
                             16 kalenderdagene (arbeidsgiverperioden) av et sykefravær.
@@ -132,41 +140,49 @@ const ExcelOpplastning = () => {
                         <Ingress>Last ned Excel-malen, fyll ut og last opp.</Ingress>
                         <Normaltekst>
                             Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
-                            skal du bruke et eget skjema som du finner her.
-
+                            <Link to="/">&nbsp;skal du bruke et eget skjema som du finner her</Link>.
                             Denne metoden er tiltenkt dere som har svært mange refusjonskrav.
-                            Vi har også et eget skjema for å søke om refusjonskrav for flere ansatte
+                            Vi har også et eget
+                            skjema for å søke om refusjonskrav for flere ansatte
                             dersom dere foretrekker å gjøre det på den måten.
                         </Normaltekst>
+                        <br/><br/>
                         <Normaltekst>
-                            Last ned malen her, og fyll ut.Det er ikke mulig å benytte ditt eget excel-dokument,
+                            <img src={excellogo} width="35" className="logo"/>
+                            <Lenke href = "TODO">Last ned</Lenke> malen her, og fyll ut.
+                            Det er ikke mulig å benytte ditt eget excel-dokument,
                             alt må fylles ut i denne malen før du laster opp.
                         </Normaltekst>
                     </div>
                     <div className="container">
-                    <FormContext {...methods}>
-                        <form onSubmit={methods.handleSubmit(onSubmit)} className="excelform">
-                            <Knapp>Last opp utfylt Excel-mal</Knapp>
-                            NB, det kan maks legges inn 5000 linjer per excel-doc.
-                            Om det ikke er tilstrekkelig må dere gjøre dette i flere omganger.
-                        </form>
-                    </FormContext>
+                        <input
+                            className="knapp"
+                            type={'file'}
+                            accept={'xlsx'}
+                            onChange={(event: any) => setFile(event.target.files[0])}
+                            name={'fileInput'}>
+                            Last opp utfylt Excel-mal
+                        </input>
+                            <Normaltekst>
+                                NB, det kan maks legges inn 5000 linjer per excel-doc.
+                                Om det ikke er tilstrekkelig må dere gjøre dette i flere omganger.
+                            </Normaltekst>
                     </div>
                     <div className="container">
                         <FormContext {...methods}>
                             <form onSubmit={methods.handleSubmit(onSubmit)} className="excelform">
-                                <Hovedknapp>Send søknad om refusjon</Hovedknapp>
-                                Vi erklærer at det ikke er søkt om omsorgspenger
-                                og at arbeidstakeren ikke er permittert.
-                                Vi erklærer at dette kravet er basert på
-                                at fraværet skyldes arbeidstakerens opplysninger
-                                om at det aktuelle fraværet skyldes covid-19-pandemien.
-                                Vær oppmerksom på at NAV kan foreta kontroller.
+                                <Normaltekst>
+                                    Vi erklærer at det ikke er søkt om omsorgspenger
+                                    og at arbeidstakeren ikke er permittert.
+                                    Vi erklærer at dette kravet er basert på
+                                    at fraværet skyldes arbeidstakerens opplysninger
+                                    om at det aktuelle fraværet skyldes covid-19-pandemien.
+                                    Vær oppmerksom på at NAV kan foreta kontroller.
+                                </Normaltekst>
+                                <Hovedknapp className="knapp">Send søknad om refusjon</Hovedknapp>
                             </form>
                         </FormContext>
                     </div>
-
-
                 </div>
             </Vis>
         </div>
