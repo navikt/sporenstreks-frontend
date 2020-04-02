@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import Vis from '../Vis';
-import { erSynligIViewport } from '../../util/browser-utils';
 import { Undertittel } from 'nav-frontend-typografi';
 import './FeilOppsummering.less';
 
@@ -15,22 +14,6 @@ const FeilOppsummering = (props: FeilProps) => {
   const oppsummering = useRef<HTMLDivElement>(null);
   const { settFokus, errors } = props;
   const entries: any[] = Object.entries(errors);
-
-  useEffect(() => {
-    let fokuser = settFokus;
-    if (fokuser === undefined) {
-      fokuser = true;
-    }
-    if (fokuser && oppsummering.current) {
-      if (!erSynligIViewport(oppsummering.current)) {
-        setTimeout(() => {
-          oppsummering.current?.focus();
-        }, 300);
-      } else {
-        oppsummering.current?.focus();
-      }
-    }
-  });
 
   const handleClick = (list: any) => {
     const id = `${list[0]}`;
