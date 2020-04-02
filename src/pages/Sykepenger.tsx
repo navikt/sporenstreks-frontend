@@ -55,6 +55,7 @@ const Sykepenger = () => {
         console.log('En dato er ugyldig:'); // eslint-disable-line no-console
         console.log('fom: ', fom); // eslint-disable-line no-console
         console.log('tom: ', tom); // eslint-disable-line no-console
+        console.log('days: ', days) // eslint-disable-line no-console
       }
       const periode: Periode = {
         fom: fom,
