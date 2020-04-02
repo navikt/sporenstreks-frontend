@@ -21,27 +21,26 @@ const Ansatte = (props: AnsatteProps) => {
   }, [ ansatteliste ]);
 
   const lagIdForAnsatte = () => {
-    const employees = ansatteliste.current!.querySelectorAll('.ansatte');
+    const employees = ansatteliste.current!.querySelectorAll('.ansatt');
     employees.forEach((value, key) => {
-      const input = value.querySelector('.input--xl[type=text]');
+      const input = value.querySelector('.input--m[type=text]');
       if (input) {
         input!.setAttribute('id', 't_' + key);
         input!.setAttribute('autoComplete', 'off');
       }
     });
+    forceUpdate();
   };
 
   const oppdaterAnsatte = () => {
-    forceUpdate();
     setTimeout(() => {
       lagIdForAnsatte();
     }, 10);
   };
 
   const slettAnsatt = (e: any, idx: number) => {
-    e.preventDefault();
-    lokal.splice(idx, 1);
-    setLokal(lokal.map((val, idx) => idx));
+    const employees = ansatteliste.current!.querySelectorAll('.ansatt');
+    employees[idx].remove();
     oppdaterAnsatte();
   };
 

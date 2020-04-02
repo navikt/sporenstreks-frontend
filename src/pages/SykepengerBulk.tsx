@@ -58,10 +58,8 @@ const SykepengerBulk = () => {
   };
 
   const onSubmit = async(e: any): Promise<void> => {
-    console.log("!!!!!")
     const form: HTMLFormElement = document.querySelector('.refusjonsform') ?? e.target;
     const data = formToJSON(form.elements);
-    console.log(data)
     const refusjonsKrav = convertSkjemaToRefusjonsKrav(data);
     await fetch(env.baseUrl + '/api/v1/refusjonskrav', {
       headers: {
