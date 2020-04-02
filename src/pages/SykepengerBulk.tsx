@@ -18,9 +18,9 @@ import dayjs from 'dayjs';
 import Vis from '../components/Vis';
 import env from '../util/environment';
 import Ansatte from '../components/ansatte/Ansatte';
-import './Sykepenger.less';
+import './SykepengerBulk.less';
 
-const BulkInnsending = () => {
+const SykepengerBulk = () => {
   const { arbeidsgivere, setReferanseNummer, identityNumberInput } = useAppStore();
   const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
   const methods = useForm();
@@ -58,8 +58,10 @@ const BulkInnsending = () => {
   };
 
   const onSubmit = async(e: any): Promise<void> => {
+    console.log("!!!!!")
     const form: HTMLFormElement = document.querySelector('.refusjonsform') ?? e.target;
     const data = formToJSON(form.elements);
+    console.log(data)
     const refusjonsKrav = convertSkjemaToRefusjonsKrav(data);
     await fetch(env.baseUrl + '/api/v1/refusjonskrav', {
       headers: {
@@ -93,7 +95,7 @@ const BulkInnsending = () => {
   };
 
   return (
-    <div className="sykepenger">
+    <div className="sykepenger-bulk">
       <Vis hvis={arbeidsgivere.length === 0}>
         <div className="limit">
           <AlertStripeAdvarsel>
@@ -167,4 +169,4 @@ const BulkInnsending = () => {
   );
 };
 
-export default BulkInnsending;
+export default SykepengerBulk;

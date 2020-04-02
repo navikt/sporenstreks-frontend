@@ -42,10 +42,11 @@ const Antall = (props: AntallProps) => {
             label=""
             thousandSeparator={' '}
             decimalScale={0}
-            fixedDecimalScale={true}
+            fixedDecimalScale
             autoComplete={'off'}
             className={'skjemaelement__input input--s'}
             onBlur={e => validateAntall(e.target.value)}
+            allowNegative={false}
           />
         }
       />

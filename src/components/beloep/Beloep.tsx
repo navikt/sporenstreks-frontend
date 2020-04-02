@@ -54,7 +54,8 @@ const Beloep = (props: BeloepProps) => {
             thousandSeparator={' '}
             decimalSeparator={','}
             decimalScale={2}
-            fixedDecimalScale={true}
+            fixedDecimalScale
+            allowNegative={false}
             autoComplete={'off'}
             className={'skjemaelement__input input--m'}
             onBlur={e => validateBeloep(e.target.value)}

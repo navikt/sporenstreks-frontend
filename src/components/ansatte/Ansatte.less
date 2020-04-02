@@ -4,7 +4,7 @@
   font-weight: 400;
 }
 
-.ansatteliste {
+.ansattliste {
   list-style: none;
   padding-left: 0;
   margin: 1rem 0;
@@ -47,6 +47,35 @@
       cursor: pointer;
     }
   }
+
+  @media (min-width: 769px) {
+    .ansatt {
+      display: flex;
+      align-items: flex-start;
+
+      .inputelement {
+        width: 19%;
+        margin-right: 1rem;
+
+        &:first-child {
+          width: 19%;
+        }
+
+        &:nth-child(2) {
+          width: 22%;
+        }
+
+        label {
+          display: inline-block;
+          margin-bottom: 0.5rem;
+        }
+
+        & + .inputelement {
+          margin-top: 0;
+        }
+      }
+    }
+  }
 }
 
 .ansattknapp {
@@ -62,32 +91,3 @@
   }
 }
 
-@media (min-width: 769px) {
-  .ansattliste {
-    .ansatt {
-      display: flex;
-      align-items: flex-start;
-
-      .inputelement {
-        width: 28%;
-
-        &:first-child {
-          width: 38%;
-        }
-
-        &:nth-child(3) {
-          width: 18%;
-        }
-
-        label {
-          display: inline-block;
-          margin-bottom: 0.5rem;
-        }
-
-        & + .inputelement {
-          margin-top: 0;
-        }
-      }
-    }
-  }
-}
