@@ -23,7 +23,7 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       - name: Bygg med npm install
-        run: npm install
+        run: CI=false npm install
         env:
           NODE_ENV: production
           PUBLIC_URL: https://arbeidsgiver-q.nav.no/nettrefusjon
