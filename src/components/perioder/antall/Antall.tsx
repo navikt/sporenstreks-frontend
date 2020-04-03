@@ -3,6 +3,7 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import { Controller, useFormContext } from 'react-hook-form';
 import NumberFormat from "react-number-format";
 import Vis from '../../Vis';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 
 interface AntallProps {
   index: number;
@@ -49,6 +50,10 @@ const Antall = (props: AntallProps) => {
           />
         }
       />
+      <Hjelpetekst>
+        Antall dager arbeidstakeren skulle ha vært på jobb fra og med dag 4 i arbeidsgiverperioden. Vi spør om dette i
+        tillegg til fra- og til-dato, fordi enkelte har både helger og helligdager som fast arbeidstid.
+      </Hjelpetekst>
 
       <Normaltekst tag='div' role='alert' aria-live='assertive'
         className={'skjemaelement__feilmelding tom antall_' + props.index}
