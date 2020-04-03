@@ -65,15 +65,15 @@ const ExcelOpplastning = () => {
                 method: 'POST',
                 body: createFormData(file),
             }).then((response: Response) => {
+                // eslint-disable-next-line no-console
+                console.log(didTimeOut)
                 clearTimeout(timeout);
                 if(!didTimeOut) {
                     if (response.status === 401) {
                         window.location.href = env.loginServiceUrl;
                     } else if (response.status === 200) {
-                        response.json().then(data => {
-                            setReferanseNummer(data.referansenummer);
-                            history.push('/kvittering')
-                        })
+                        return response.formData();
+
                     } else if (response.status === 422) {
                         response.json().then(data => {
                             data.violations.map(violation => {
