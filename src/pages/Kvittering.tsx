@@ -5,6 +5,7 @@ import Panel from 'nav-frontend-paneler';
 import {useAppStore} from '../data/store/AppStore';
 import {Link} from 'react-router-dom';
 import './Kvittering.less';
+import Lenke from "nav-frontend-lenker";
 
 const Kvittering = () => {
     const {referanseNummer} = useAppStore();
@@ -21,6 +22,9 @@ const Kvittering = () => {
                         <Normaltekst>
                             Ta vare på referansenummeret. Du trenger det hvis du kontakter oss om denne saken.
                             Ha i tilfelle også den ansattes fødselsnummer klart.
+                            <br/><br/>
+                            <Lenke href="https://www.nav.no/no/bedrift/tjenester-og-skjemaer/aa-registeret-og-a-meldingen/relatert-informasjon/bankkontonummer-refusjoner-fra-nav-til-arbeidsgiver">
+                                Har du ikke registrert kontonummer hos oss, må du gjøre det snarest.</Lenke>
                         </Normaltekst>
                     </div>
                     <AlertStripeInfo>
