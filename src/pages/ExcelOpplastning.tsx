@@ -25,7 +25,6 @@ import env from '../util/environment';
 import './ExcelOpplastning.less';
 import Lenke from "nav-frontend-lenker";
 import excellogo from '../img/excel-logo.png';
-import * as XLSX from 'xlsx';
 
 const ExcelOpplastning = () => {
     const { arbeidsgivere, setReferanseNummer } = useAppStore();
@@ -43,17 +42,10 @@ const ExcelOpplastning = () => {
 
     function createFormData(f) {
         const formData  = new FormData();
-        const workbook = XLSX.readFile(f, )
-        // eslint-disable-next-line no-console
-        console.log(workbook)
-        for (const name in workbook) {
-            formData.append(name, workbook[name]);
+        if (file) {
+            // @ts-ignore
+            formData.append(fileName, file)
         }
-
-        // eslint-disable-next-line no-console
-        console.log(workbook)
-        // eslint-disable-next-line no-console
-        console.log(formData)
         return formData
     }
 
