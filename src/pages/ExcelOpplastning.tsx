@@ -32,18 +32,15 @@ const ExcelOpplastning = () => {
     const methods = useForm();
     const { t } = useTranslation();
     const history: History = useHistory();
-    const [file, setFile] = useState();
+    const [fileName, setFileName] = useState('Last opp utfylt Excel-mal');
+    const [file, setFile] = useState()
 
-    const formToJSON = elms =>
-        [].reduce.call(elms, (data: any, elm: any) => {
-            data[elm.name] = elm.value;
-            return data;
-        }, {});
-
+    const setUploadFile = (event: any) => {
+        setFileName(event.target.files[0].name);
+        setFile(event.target.files[0])
+    }
 
     const onSubmit = async(e: any): Promise<void> => {
-        const form: HTMLFormElement = document.querySelector('.refusjonsform') ?? e.target;
-        const data = formToJSON(form.elements);
 
         const FETCH_TIMEOUT = 0;
         let didTimeOut = false;
@@ -54,13 +51,12 @@ const ExcelOpplastning = () => {
                 reject(new Error('Request timed out'));
             }, FETCH_TIMEOUT);
 
-            fetch(env.baseUrl + '/api/v1/refusjonskrav', {
+            fetch(env.baseUrl + '/api/v1/bulk/upload', {
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json',
                 },
                 method: 'POST',
-                body: JSON.stringify("TODO"),
+                body: file,
             }).then((response: Response) => {
                 clearTimeout(timeout);
                 if(!didTimeOut) {
@@ -149,20 +145,21 @@ const ExcelOpplastning = () => {
                         <br/><br/>
                         <Normaltekst>
                             <img src={excellogo} width="35" className="logo"/>
-                            <Lenke href = "TODO">Last ned</Lenke> malen her, og fyll ut.
+                            <Lenke href = {env.baseUrl + "/api/v1/bulk/template"}>
+                                Last ned</Lenke> malen her, og fyll ut.
                             Det er ikke mulig å benytte ditt eget excel-dokument,
                             alt må fylles ut i denne malen før du laster opp.
                         </Normaltekst>
                     </div>
-                    <div className="container">
-                        <input
-                            className="knapp"
-                            type={'file'}
-                            accept={'xlsx'}
-                            onChange={(event: any) => setFile(event.target.files[0])}
-                            name={'fileInput'}>
-                            Last opp utfylt Excel-mal
-                        </input>
+                    <div>
+                        <label className="knapp">
+                    <input className="fileinput"
+                           type="file"
+                           id="fileUploader"
+                           accept=".xls,.xlsx"
+                           onChange={setUploadFile}/>
+                            {fileName}
+                        </label>
                             <Normaltekst>
                                 NB, det kan maks legges inn 5000 linjer per excel-doc.
                                 Om det ikke er tilstrekkelig må dere gjøre dette i flere omganger.
