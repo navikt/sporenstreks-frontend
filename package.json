@@ -57,6 +57,7 @@
     "react-scripts": "3.4.1",
     "typescript": "^3.8.3",
     "use-force-update": "^1.0.7",
+    "xlsx": "^0.15.6",
     "yet-another-fetch-mock": "^3.4.0"
   },
   "homepage": "/nettrefusjon",

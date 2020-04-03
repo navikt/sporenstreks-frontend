@@ -25,6 +25,7 @@ import env from '../util/environment';
 import './ExcelOpplastning.less';
 import Lenke from "nav-frontend-lenker";
 import excellogo from '../img/excel-logo.png';
+import * as XLSX from 'xlsx';
 
 const ExcelOpplastning = () => {
     const { arbeidsgivere, setReferanseNummer } = useAppStore();
@@ -40,6 +41,23 @@ const ExcelOpplastning = () => {
         setFile(event.target.files[0])
     }
 
+    function createFormData(f) {
+        const formData  = new FormData();
+        const workbook = XLSX.readFile(f, )
+        // eslint-disable-next-line no-console
+        console.log(workbook)
+        for (const name in workbook) {
+            formData.append(name, workbook[name]);
+        }
+
+        // eslint-disable-next-line no-console
+        console.log(workbook)
+        // eslint-disable-next-line no-console
+        console.log(formData)
+        return formData
+    }
+
+
     const onSubmit = async(e: any): Promise<void> => {
 
         const FETCH_TIMEOUT = 0;
@@ -52,11 +70,8 @@ const ExcelOpplastning = () => {
             }, FETCH_TIMEOUT);
 
             fetch(env.baseUrl + '/api/v1/bulk/upload', {
-                headers: {
-                    'Accept': 'application/json',
-                },
                 method: 'POST',
-                body: file,
+                body: createFormData(file),
             }).then((response: Response) => {
                 clearTimeout(timeout);
                 if(!didTimeOut) {
