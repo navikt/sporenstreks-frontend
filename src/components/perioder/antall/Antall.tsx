@@ -32,7 +32,7 @@ const Antall = (props: AntallProps) => {
     <div className="skjemaelement">
       <label htmlFor={antId} className="dager skjemaelement__label">
         <Normaltekst tag="span">
-          Hvor mange dager ønskes refundert?
+          Antall arbeidsdager dere vil ha refundert
         </Normaltekst>
       </label>
       <Controller
@@ -51,8 +51,13 @@ const Antall = (props: AntallProps) => {
         }
       />
       <Hjelpetekst>
-        Antall dager arbeidstakeren skulle ha vært på jobb fra og med dag 4 i arbeidsgiverperioden. Vi spør om dette i
-        tillegg til fra- og til-dato, fordi enkelte har både helger og helligdager som fast arbeidstid.
+        <ul>
+          <li>
+            Her teller du dagene arbeidstakeren skulle vært på jobb fra dag 4 til dag 16 i sykefraværet.
+            Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.
+          </li>
+          <li>Var noen av fraværsdagene før 16. mars, kan du ikke ta dem med.</li>
+        </ul>
       </Hjelpetekst>
 
       <Normaltekst tag='div' role='alert' aria-live='assertive'
