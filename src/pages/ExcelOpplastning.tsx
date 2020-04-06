@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import 'nav-frontend-tabell-style';
 import { FormContext, useForm } from 'react-hook-form';
-import {Hovedknapp, Knapp} from 'nav-frontend-knapper';
+import {Hovedknapp} from 'nav-frontend-knapper';
 import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import {Ingress, Innholdstittel, Normaltekst, Undertekst, Undertittel} from 'nav-frontend-typografi';
+import {Ingress, Normaltekst} from 'nav-frontend-typografi';
 import { Keys } from '../locales/keys';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
-import FeilOppsummeringExcel from '../components/feilvisning/FeilOppsummeringExcel';
+import Feiloppsummering, {FeiloppsummeringFeil} from "nav-frontend-skjema/lib/feiloppsummering";
 import { useAppStore } from '../data/store/AppStore';
-import { AlertStripeAdvarsel, AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
 import { History } from 'history';
 import Vis from '../components/Vis';
 import env from '../util/environment';
@@ -19,6 +19,12 @@ import './ExcelOpplastning.less';
 import Lenke from "nav-frontend-lenker";
 import excellogo from '../img/excel-logo.png';
 import save from 'save-file'
+
+interface Feil {
+    message: string,
+    row: string,
+    column: string
+}
 
 const ExcelOpplastning = () => {
     const { arbeidsgivere} = useAppStore();
@@ -28,10 +34,17 @@ const ExcelOpplastning = () => {
     const history: History = useHistory();
     const [fileName, setFileName] = useState('Last opp utfylt Excel-mal');
     const [file, setFile] = useState();
+    const [feil, setFeil] = useState<FeiloppsummeringFeil[]>([]);
 
     const setUploadFile = (event: any) => {
         setFileName(event.target.files[0].name);
         setFile(event.target.files[0])
+    }
+
+    function renderFeil(f: FeiloppsummeringFeil) {
+        return(
+            <div>Rad {f.skjemaelementId} &emsp; {f.feilmelding} </div>
+        )
     }
 
     function createFormData(f) {
@@ -43,6 +56,10 @@ const ExcelOpplastning = () => {
         return formData
     }
 
+
+    function lagFeilmelding(f: Feil) {
+        return `${f.column}: ${f.message}`
+    };
 
     const onSubmit = async(e: any): Promise<void> => {
 
@@ -72,12 +89,13 @@ const ExcelOpplastning = () => {
 
                     } else if (response.status === 422) {
                         response.json().then(data => {
-                            data.problemDetails.map(violation => ({
-                                errorType: violation.validationType,
-                                errorMessage: violation.message,
-                                errorRow: violation.row,
-                                errorColumn: violation.column
+                            let f : FeiloppsummeringFeil[] =
+                                data.problemDetails.map(violation => ({
+                                    skjemaelementId: violation.row,
+                                    feilmelding: lagFeilmelding(violation),
+
                             }));
+                            setFeil(f)
                         });
                     } else { // todo: error 400
                         methods.setError('backend', 'Feil ved innsending av skjema');
@@ -101,8 +119,7 @@ const ExcelOpplastning = () => {
                         <div>Du har ikke rettigheter til å søke om refusjon for noen bedrifter</div>
                         <div>Tildeling av roller foregår i Altinn</div>
                         <Link to="/min-side-arbeidsgiver/informasjon-om-tilgangsstyring"
-                              className="lenke informasjonsboks__lenke"
-                        >
+                              className="lenke informasjonsboks__lenke">
                             Les mer om roller og tilganger.
                         </Link>
                     </AlertStripeAdvarsel>
@@ -167,7 +184,14 @@ const ExcelOpplastning = () => {
                                 Om det ikke er tilstrekkelig må dere gjøre dette i flere omganger.
                             </Normaltekst>
                     </div>
-                    <FeilOppsummeringExcel errors={methods.errors} />
+                    <Vis hvis={feil.length > 0}>
+                    <Feiloppsummering
+                        tittel="Følgende feil i dokumentet må utbedres før du laster det opp på nytt"
+                        feil={feil.sort((x, y) => x.skjemaelementId > y.skjemaelementId ? 1 : -1)}
+                        customFeilRender={renderFeil}
+
+                    />
+                    </Vis>
                     <div className="container">
                         <FormContext {...methods}>
                             <form onSubmit={methods.handleSubmit(onSubmit)} className="excelform">
