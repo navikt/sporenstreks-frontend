@@ -1,25 +1,18 @@
 import React, { useState } from 'react';
 import 'nav-frontend-tabell-style';
-import { Input } from 'nav-frontend-skjema';
 import { FormContext, useForm } from 'react-hook-form';
 import {Hovedknapp, Knapp} from 'nav-frontend-knapper';
 import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {Ingress, Innholdstittel, Normaltekst, Undertekst, Undertittel} from 'nav-frontend-typografi';
 import { Keys } from '../locales/keys';
-import { Periode, RefusjonsKrav } from '../data/types/sporenstreksTypes';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
-import fnrvalidator from '@navikt/fnrvalidator';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
-import Perioder from '../components/perioder/Perioder';
-import { filterStringToNumbersOnly } from '../util/filterStringToNumbersOnly';
-import { identityNumberSeparation } from '../util/identityNumberSeparation';
-import FeilOppsummering from '../components/feilvisning/FeilOppsummering';
+import FeilOppsummeringExcel from '../components/feilvisning/FeilOppsummeringExcel';
 import { useAppStore } from '../data/store/AppStore';
 import { AlertStripeAdvarsel, AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { History } from 'history';
-import dayjs from 'dayjs';
 import Vis from '../components/Vis';
 import env from '../util/environment';
 import './ExcelOpplastning.less';
@@ -79,12 +72,11 @@ const ExcelOpplastning = () => {
 
                     } else if (response.status === 422) {
                         response.json().then(data => {
-                            data.violations.map(violation => {
-                                methods.setError('backend', violation.message);
-                            });
-                            data.violations.map(violation => ({
+                            data.problemDetails.map(violation => ({
                                 errorType: violation.validationType,
                                 errorMessage: violation.message,
+                                errorRow: violation.row,
+                                errorColumn: violation.column
                             }));
                         });
                     } else { // todo: error 400
@@ -175,7 +167,7 @@ const ExcelOpplastning = () => {
                                 Om det ikke er tilstrekkelig må dere gjøre dette i flere omganger.
                             </Normaltekst>
                     </div>
-                    <FeilOppsummering errors={methods.errors} />
+                    <FeilOppsummeringExcel errors={methods.errors} />
                     <div className="container">
                         <FormContext {...methods}>
                             <form onSubmit={methods.handleSubmit(onSubmit)} className="excelform">
