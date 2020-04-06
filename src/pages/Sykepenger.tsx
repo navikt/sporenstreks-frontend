@@ -17,18 +17,21 @@ import { filterStringToNumbersOnly } from '../util/filterStringToNumbersOnly';
 import { identityNumberSeparation } from '../util/identityNumberSeparation';
 import FeilOppsummering from '../components/feilvisning/FeilOppsummering';
 import { useAppStore } from '../data/store/AppStore';
-import { AlertStripeAdvarsel, AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { History } from 'history';
-import dayjs from 'dayjs';
 import Vis from '../components/Vis';
 import env from '../util/environment';
 import './Sykepenger.less';
 import Lenke from "nav-frontend-lenker";
+import ModalWrapper from 'nav-frontend-modal';
 
 const Sykepenger = () => {
   const { arbeidsgivere, setReferanseNummer } = useAppStore();
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
   const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
+  const [ firma, setFirma ] = useState<string>('');
+  const [ modalOpen, setModalOpen ] = useState<boolean>(false);
+  const [ formData, setFormData ] = useState<any>({});
   const methods = useForm();
   const { t } = useTranslation();
   const history: History = useHistory();
@@ -68,11 +71,16 @@ const Sykepenger = () => {
       perioder: perioder
     };
   };
-
-  const onSubmit = async(e: any): Promise<void> => {
+  
+  const setForm = (e: any) => {
     const form: HTMLFormElement = document.querySelector('.refusjonsform') ?? e.target;
-    const data = formToJSON(form.elements);
-    const refusjonsKrav = convertSkjemaToRefusjonsKrav(data);
+    setFormData(formToJSON(form.elements));
+    setModalOpen(true);
+  };
+
+  const submitForm = async(): Promise<void> => {
+    const refusjonsKrav = convertSkjemaToRefusjonsKrav(formData);
+    setModalOpen(false);
   
     const FETCH_TIMEOUT = 5000;
     let didTimeOut = false;
@@ -162,11 +170,28 @@ const Sykepenger = () => {
           </AlertStripeAdvarsel>
         </div>
       </Vis>
-
+  
+      <ModalWrapper
+        isOpen={modalOpen}
+        onRequestClose={() => setModalOpen(false)}
+        closeButton={true}
+        contentLabel="Min modalrute"
+      >
+        <Undertittel className="sykepenger__modal-tittel">Du søker om refusjon på vegne av:</Undertittel>
+        <p className="sykepenger__modal-tekst">{firma}</p>
+        <p className="sykepenger__modal-tekst">Organisasjonsnummer: {arbeidsgiverId}</p>
+        <Knapp className="sykepenger__modal-btn" onClick={() => submitForm()}>Send søknad om refusjon</Knapp>
+        <div className="sykepenger__modal-avbrytt lenke" onClick={() => setModalOpen(false)}>
+          Avbrytt
+        </div>
+      </ModalWrapper>
       <Vis hvis={arbeidsgivere.length > 0}>
         <Bedriftsmeny
           history={history}
-          onOrganisasjonChange={(org: Organisasjon) => setArbeidsgiverId(org.OrganizationNumber)}
+          onOrganisasjonChange={(org: Organisasjon) => {
+            setArbeidsgiverId(org.OrganizationNumber);
+            setFirma(org.Name);
+          }}
           sidetittel={t(Keys.MY_PAGE)}
           organisasjoner={arbeidsgivere}
         />
@@ -195,7 +220,7 @@ const Sykepenger = () => {
             </Normaltekst>
           </div>
           <FormContext {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)} className="refusjonsform">
+            <form onSubmit={methods.handleSubmit(setForm)} className="refusjonsform">
               <div className="container">
                 <div className="sykepenger--arbeidstaker">
                   <Undertittel className="sykepenger--undertittel">

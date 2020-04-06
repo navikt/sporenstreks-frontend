@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import useForceUpdate from 'use-force-update';
 import PeriodeKomp from './PeriodeKomp';
 import './Perioder.less';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 
 interface PerioderProps {
   min?: Date;
@@ -67,6 +68,9 @@ const Perioder = (props: PerioderProps) => {
       <button role="link" className="periodeknapp lenke" onClick={leggTilPeriode}>
         Legg til periode
       </button>
+      <Hjelpetekst>
+        Denne benytter du kun dersom arbeidstaker har vært borte fra jobb i to eller flere omganger.
+      </Hjelpetekst>
     </>
   )
 };
