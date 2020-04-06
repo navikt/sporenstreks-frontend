@@ -25,15 +25,16 @@ import env from '../util/environment';
 import './ExcelOpplastning.less';
 import Lenke from "nav-frontend-lenker";
 import excellogo from '../img/excel-logo.png';
+import save from 'save-file'
 
 const ExcelOpplastning = () => {
-    const { arbeidsgivere, setReferanseNummer } = useAppStore();
+    const { arbeidsgivere} = useAppStore();
     const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
     const methods = useForm();
     const { t } = useTranslation();
     const history: History = useHistory();
     const [fileName, setFileName] = useState('Last opp utfylt Excel-mal');
-    const [file, setFile] = useState()
+    const [file, setFile] = useState();
 
     const setUploadFile = (event: any) => {
         setFileName(event.target.files[0].name);
@@ -52,10 +53,10 @@ const ExcelOpplastning = () => {
 
     const onSubmit = async(e: any): Promise<void> => {
 
-        const FETCH_TIMEOUT = 0;
+        const FETCH_TIMEOUT = 5000;
         let didTimeOut = false;
 
-        new Promise((resolve, reject) => {
+    new Promise((resolve, reject) => {
             const timeout = setTimeout(function() {
                 didTimeOut = true;
                 reject(new Error('Request timed out'));
@@ -65,14 +66,16 @@ const ExcelOpplastning = () => {
                 method: 'POST',
                 body: createFormData(file),
             }).then((response: Response) => {
-                // eslint-disable-next-line no-console
-                console.log(didTimeOut)
                 clearTimeout(timeout);
                 if(!didTimeOut) {
                     if (response.status === 401) {
                         window.location.href = env.loginServiceUrl;
                     } else if (response.status === 200) {
-                        return response.formData();
+                        response.blob().then( data => {
+                            save(data, "nav_refusjon")
+                            history.push('/kvitteringBulk')
+                            }
+                        )
 
                     } else if (response.status === 422) {
                         response.json().then(data => {
@@ -172,6 +175,7 @@ const ExcelOpplastning = () => {
                                 Om det ikke er tilstrekkelig må dere gjøre dette i flere omganger.
                             </Normaltekst>
                     </div>
+                    <FeilOppsummering errors={methods.errors} />
                     <div className="container">
                         <FormContext {...methods}>
                             <form onSubmit={methods.handleSubmit(onSubmit)} className="excelform">
