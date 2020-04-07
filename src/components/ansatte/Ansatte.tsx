@@ -39,8 +39,9 @@ const Ansatte = (props: AnsatteProps) => {
   };
 
   const slettAnsatt = (e: any, idx: number) => {
-    const employees = ansatteliste.current!.querySelectorAll('.ansatt');
-    employees[idx].remove();
+    e.preventDefault();
+    lokal.splice(idx, 1);
+    setLokal(lokal.map((val, idx) => idx));
     oppdaterAnsatte();
   };
 
