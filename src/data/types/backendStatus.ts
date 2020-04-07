@@ -1,4 +1,4 @@
-import { BackendStatus } from '../../data/types/sporenstreksTypes';
+import { BackendStatus } from './sporenstreksTypes';
 
 export const backendStatus: BackendStatus[] = [
   {
