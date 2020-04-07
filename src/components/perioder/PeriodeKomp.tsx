@@ -1,9 +1,9 @@
 import React from 'react';
 import Vis from '../Vis';
 import { Normaltekst } from 'nav-frontend-typografi';
-import Periode from '../periode/Periode';
-import Antall from '../antall/Antall';
-import Beloep from '../beloep/Beloep';
+import Periode from '../inputfelt/Periode';
+import Antall from '../inputfelt/Antall';
+import Beloep from '../inputfelt/Beloep';
 import './Flatpickr.less';
 
 interface PeriodeKompProps {

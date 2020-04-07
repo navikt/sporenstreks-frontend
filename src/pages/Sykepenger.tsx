@@ -19,7 +19,7 @@ import dayjs from 'dayjs';
 import Vis from '../components/Vis';
 import env from '../util/environment';
 import './Sykepenger.less';
-import FodselNr from '../components/fodselnr/FodselNr';
+import FodselNr from '../components/inputfelt/FodselNr';
 import Lenke from "nav-frontend-lenker";
 
 const Sykepenger = () => {
@@ -65,16 +65,16 @@ const Sykepenger = () => {
     const form: HTMLFormElement = document.querySelector('.refusjonsform') ?? e.target;
     const data = formToJSON(form.elements);
     const refusjonsKrav = convertSkjemaToRefusjonsKrav(data);
-  
+
     const FETCH_TIMEOUT = 5000;
     let didTimeOut = false;
-  
+
     new Promise((resolve, reject) => {
       const timeout = setTimeout(function() {
         didTimeOut = true;
         reject(new Error('Request timed out'));
       }, FETCH_TIMEOUT);
-    
+
       fetch(env.baseUrl + '/api/v1/refusjonskrav', {
         headers: {
           'Accept': 'application/json',

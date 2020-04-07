@@ -5,10 +5,32 @@ export interface RefusjonsKrav {
 }
 
 export interface Periode {
-  fom: string
-  tom: string
-  antallDagerMedRefusjon: number
+  fom: string;
+  tom: string;
+  antallDagerMedRefusjon: number;
   beloep: number;
+}
+
+export interface Ansatt {
+  fnr: string;
+  fom: string;
+  tom: string;
+  antallDagerMedRefusjon: number;
+  beloep: number;
+}
+
+export interface BackendStatus {
+  status: 'OK' | 'GENERIC_ERROR' | 'VALIDATION_ERRORS';
+  validationErrors: BackendValidation[] | null;
+  genericMessage: string | null;
+  referenceNumber: string | null;
+}
+
+export interface BackendValidation {
+  validationType: string;
+  message: string;
+  propertyPath: string;
+  invalidValue: string | number;
 }
 
 export enum OrganisationType {
@@ -34,38 +56,38 @@ export interface ErrorObject {
 }
 
 export interface Ytelsesperiode {
-  arbeidsforhold: Arbeidsforhold
-  dagsats: number
-  ferieperioder: Periode[]
-  grad?: number
-  maxdato: Date
-  merknad: string
-  periode: Periode
-  refusjonsbeløp?: number
-  sistEndret: Date
-  status: Status
-  vedtaksId: string
-  ytelse: string
+  arbeidsforhold: Arbeidsforhold;
+  dagsats: number;
+  ferieperioder: Periode[];
+  grad?: number;
+  maxdato: Date;
+  merknad: string;
+  periode: Periode;
+  refusjonsbeløp?: number;
+  sistEndret: Date;
+  status: Status;
+  vedtaksId: string;
+  ytelse: string;
 }
 
 export interface Arbeidsforhold {
-  arbeidsforholdId: string,
-  arbeidsgiver: YtelsesperioderArbeidsgiver
-  arbeidstaker: Arbeidstaker
+  arbeidsforholdId: string;
+  arbeidsgiver: YtelsesperioderArbeidsgiver;
+  arbeidstaker: Arbeidstaker;
 }
 
 // fra Ytelsesperioder API
 export interface YtelsesperioderArbeidsgiver {
-  identitetsnummer: null
-  navn: string
-  organisasjonsnummer: string
-  virksomhetsnummer: string
+  identitetsnummer: null;
+  navn: string;
+  organisasjonsnummer: string;
+  virksomhetsnummer: string;
 }
 
 export interface Arbeidstaker {
-  etternavn: string
-  fornavn: string
-  identitetsnummer: string
+  etternavn: string;
+  fornavn: string;
+  identitetsnummer: string;
 }
 
 export enum Status {
