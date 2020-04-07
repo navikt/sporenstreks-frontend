@@ -4,12 +4,11 @@ import {FormContext, useForm} from 'react-hook-form';
 import {Hovedknapp} from 'nav-frontend-knapper';
 import {Link, useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
-import {Ingress, Innholdstittel, Normaltekst} from 'nav-frontend-typografi';
+import {Ingress, Normaltekst} from 'nav-frontend-typografi';
 import {Keys} from '../locales/keys';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import {Organisasjon} from '@navikt/bedriftsmeny/lib/Organisasjon';
-import Feiloppsummering, {FeiloppsummeringFeil} from "nav-frontend-skjema/lib/feiloppsummering";
 import {useAppStore} from '../data/store/AppStore';
 import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
 import {History} from 'history';
@@ -23,7 +22,7 @@ import save from 'save-file'
 interface Feil {
     melding: string,
     rad: number,
-    kolonne: number
+    kolonne?: number
 }
 
 const ExcelOpplastning = () => {
@@ -35,14 +34,19 @@ const ExcelOpplastning = () => {
     const [fileName, setFileName] = useState('Last opp utfylt Excel-mal');
     const [file, setFile] = useState();
     const [feil, setFeil] = useState<Feil[]>([]);
+    const FILEUPLOAD_MAX_SIZE = 100000;
 
     const setUploadFile = (event: any) => {
-        setFileName(event.target.files[0].name);
-        setFile(event.target.files[0])
+        if (event.target.files[0].size > FILEUPLOAD_MAX_SIZE) {
+            setFeil([{rad: -1, melding: "Du kan ikke laste opp filer større enn 100 kB."}])
+        } else {
+            setFileName(event.target.files[0].name);
+            setFile(event.target.files[0])
+        }
     }
 
 
-    function createFormData(f) {
+    function createFormData() {
         const formData = new FormData();
         if (file) {
             // @ts-ignore
@@ -50,6 +54,7 @@ const ExcelOpplastning = () => {
         }
         return formData
     }
+
 
     const onSubmit = async (e: any): Promise<void> => {
 
@@ -64,7 +69,7 @@ const ExcelOpplastning = () => {
 
             fetch(env.baseUrl + '/api/v1/bulk/upload', {
                 method: 'POST',
-                body: createFormData(file),
+                body: createFormData(),
             }).then((response: Response) => {
                 clearTimeout(timeout);
                 if (!didTimeOut) {
@@ -74,6 +79,7 @@ const ExcelOpplastning = () => {
                         response.blob().then(data => {
                                 save(data, "nav_refusjon")
                                 history.push('/kvitteringBulk')
+                                setFeil([])
                             }
                         )
 
@@ -88,8 +94,8 @@ const ExcelOpplastning = () => {
                                 }));
                             setFeil(f)
                         });
-                    } else { // todo: vis feilmelding riktig
-                        let f: Feil = {melding: "Feil ved innsending av skjema", rad: -1, kolonne: -1}
+                    } else {
+                        let f: Feil = {melding: "Feil ved innsending av skjema.", rad: -1}
                         setFeil([f])
                     }
                 }
@@ -98,7 +104,7 @@ const ExcelOpplastning = () => {
                 reject(err);
             });
         }).catch(err => {
-            let f: Feil = {melding: "Feil ved innsending av skjema", rad: -1, kolonne: -1}
+            let f: Feil = {melding: "Feil ved innsending av skjema.", rad: -1}
             setFeil([f])
         });
     };
@@ -185,8 +191,8 @@ const ExcelOpplastning = () => {
                                 <tbody>
                                 {feil.sort((x, y) => x.rad > y.rad ? 1 : -1).map((f, index) => (
                                     <tr key={index}>
-                                        <td>Rad {f.rad}</td>
-                                        <td>{f.kolonne}</td>
+                                        <td>{(f.rad < 0 ? "" : f.rad)}</td>
+                                        <td>{(f.kolonne && f.kolonne  < 0 ? "" : f.kolonne)}</td>
                                         <td>{f.melding}</td>
                                     </tr>
                                 ))}
