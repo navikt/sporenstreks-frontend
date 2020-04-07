@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import 'nav-frontend-tabell-style';
-import { FormContext, useForm } from 'react-hook-form';
+import {FormContext, useForm} from 'react-hook-form';
 import {Hovedknapp} from 'nav-frontend-knapper';
-import { Link, useHistory } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import {Ingress, Normaltekst} from 'nav-frontend-typografi';
-import { Keys } from '../locales/keys';
+import {Link, useHistory} from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
+import {Ingress, Innholdstittel, Normaltekst} from 'nav-frontend-typografi';
+import {Keys} from '../locales/keys';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
+import {Organisasjon} from '@navikt/bedriftsmeny/lib/Organisasjon';
 import Feiloppsummering, {FeiloppsummeringFeil} from "nav-frontend-skjema/lib/feiloppsummering";
-import { useAppStore } from '../data/store/AppStore';
-import { AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
-import { History } from 'history';
+import {useAppStore} from '../data/store/AppStore';
+import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
+import {History} from 'history';
 import Vis from '../components/Vis';
 import env from '../util/environment';
 import './ExcelOpplastning.less';
@@ -21,34 +21,29 @@ import excellogo from '../img/excel-logo.png';
 import save from 'save-file'
 
 interface Feil {
-    message: string,
-    row: string,
-    column: string
+    melding: string,
+    rad: number,
+    kolonne: number
 }
 
 const ExcelOpplastning = () => {
-    const { arbeidsgivere} = useAppStore();
-    const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
+    const {arbeidsgivere} = useAppStore();
+    const [arbeidsgiverId, setArbeidsgiverId] = useState<string>('');
     const methods = useForm();
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const history: History = useHistory();
     const [fileName, setFileName] = useState('Last opp utfylt Excel-mal');
     const [file, setFile] = useState();
-    const [feil, setFeil] = useState<FeiloppsummeringFeil[]>([]);
+    const [feil, setFeil] = useState<Feil[]>([]);
 
     const setUploadFile = (event: any) => {
         setFileName(event.target.files[0].name);
         setFile(event.target.files[0])
     }
 
-    function renderFeil(f: FeiloppsummeringFeil) {
-        return(
-            <div>Rad {f.skjemaelementId} &emsp; {f.feilmelding} </div>
-        )
-    }
 
     function createFormData(f) {
-        const formData  = new FormData();
+        const formData = new FormData();
         if (file) {
             // @ts-ignore
             formData.append(fileName, file)
@@ -56,18 +51,13 @@ const ExcelOpplastning = () => {
         return formData
     }
 
-
-    function lagFeilmelding(f: Feil) {
-        return `${f.column}: ${f.message}`
-    };
-
-    const onSubmit = async(e: any): Promise<void> => {
+    const onSubmit = async (e: any): Promise<void> => {
 
         const FETCH_TIMEOUT = 5000;
         let didTimeOut = false;
 
-    new Promise((resolve, reject) => {
-            const timeout = setTimeout(function() {
+        new Promise((resolve, reject) => {
+            const timeout = setTimeout(function () {
                 didTimeOut = true;
                 reject(new Error('Request timed out'));
             }, FETCH_TIMEOUT);
@@ -77,36 +67,39 @@ const ExcelOpplastning = () => {
                 body: createFormData(file),
             }).then((response: Response) => {
                 clearTimeout(timeout);
-                if(!didTimeOut) {
+                if (!didTimeOut) {
                     if (response.status === 401) {
                         window.location.href = env.loginServiceUrl;
                     } else if (response.status === 200) {
-                        response.blob().then( data => {
-                            save(data, "nav_refusjon")
-                            history.push('/kvitteringBulk')
+                        response.blob().then(data => {
+                                save(data, "nav_refusjon")
+                                history.push('/kvitteringBulk')
                             }
                         )
 
                     } else if (response.status === 422) {
                         response.json().then(data => {
-                            let f : FeiloppsummeringFeil[] =
+                            let f: Feil[] =
                                 data.problemDetails.map(violation => ({
-                                    skjemaelementId: violation.row,
-                                    feilmelding: lagFeilmelding(violation),
+                                    rad: violation.row,
+                                    kolonne: violation.column,
+                                    melding: violation.message
 
-                            }));
+                                }));
                             setFeil(f)
                         });
-                    } else { // todo: error 400
-                        methods.setError('backend', 'Feil ved innsending av skjema');
+                    } else { // todo: vis feilmelding riktig
+                        let f: Feil = {melding: "Feil ved innsending av skjema", rad: -1, kolonne: -1}
+                        setFeil([f])
                     }
                 }
             }).catch(err => {
-                if(didTimeOut) return;
+                if (didTimeOut) return;
                 reject(err);
             });
         }).catch(err => {
-            methods.setError('backend', 'Feil ved innsending av skjema');
+            let f: Feil = {melding: "Feil ved innsending av skjema", rad: -1, kolonne: -1}
+            setFeil([f])
         });
     };
 
@@ -135,22 +128,23 @@ const ExcelOpplastning = () => {
                 />
                 <div className="limit">
                     <AlertStripeAdvarsel>
-                        <Lenke href="https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/nyheter/refusjon-av-sykepenger-ved-koronavirus--hva-er-status">
+                        <Lenke
+                            href="https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/nyheter/refusjon-av-sykepenger-ved-koronavirus--hva-er-status">
                             Vi ber offentlig sektor vente med å søke.
                         </Lenke>
                     </AlertStripeAdvarsel>
-                        <Ingress className="container">
-                            Vanligvis skal arbeidsgiveren betale sykepenger de første
-                            16 kalenderdagene (arbeidsgiverperioden) av et sykefravær.
-                            I forbindelse med korona-pandemien kan arbeidsgiveren søke om refusjon
-                            fra og med fjerde dag i arbeidsgiverperioden.
-                            Dette gjelder hvis den ansatte enten er smittet, mistenkt smittet eller i pålagt karantene.
-                            <br/><br/>
-                            Det kan ikke søkes om refusjon for fravær på grunn av stengte skoler eller barnehager.
-                            <br/><br/>
-                            <b>Her kan du laste opp en Excel-oversikt over de ansatte det gjelder,
-                                for å søke om refusjon for de siste 13 dagene av arbeidsgiverperioden.</b>
-                        </Ingress>
+                    <Ingress className="container">
+                        Vanligvis skal arbeidsgiveren betale sykepenger de første
+                        16 kalenderdagene (arbeidsgiverperioden) av et sykefravær.
+                        I forbindelse med korona-pandemien kan arbeidsgiveren søke om refusjon
+                        fra og med fjerde dag i arbeidsgiverperioden.
+                        Dette gjelder hvis den ansatte enten er smittet, mistenkt smittet eller i pålagt karantene.
+                        <br/><br/>
+                        Det kan ikke søkes om refusjon for fravær på grunn av stengte skoler eller barnehager.
+                        <br/><br/>
+                        <b>Her kan du laste opp en Excel-oversikt over de ansatte det gjelder,
+                            for å søke om refusjon for de siste 13 dagene av arbeidsgiverperioden.</b>
+                    </Ingress>
                     <div className="container">
                         <Ingress>Last ned Excel-malen, fyll ut og last opp.</Ingress>
                         <Normaltekst>
@@ -164,7 +158,7 @@ const ExcelOpplastning = () => {
                         <br/><br/>
                         <Normaltekst>
                             <img src={excellogo} width="35" className="logo"/>
-                            <Lenke href = {env.baseUrl + "/api/v1/bulk/template"}>
+                            <Lenke href={env.baseUrl + "/api/v1/bulk/template"}>
                                 Last ned</Lenke> malen her, og fyll ut.
                             Det er ikke mulig å benytte ditt eget excel-dokument,
                             alt må fylles ut i denne malen før du laster opp.
@@ -172,25 +166,33 @@ const ExcelOpplastning = () => {
                     </div>
                     <div>
                         <label className="knapp">
-                    <input className="fileinput"
-                           type="file"
-                           id="fileUploader"
-                           accept=".xls,.xlsx"
-                           onChange={setUploadFile}/>
+                            <input className="fileinput"
+                                   type="file"
+                                   id="fileUploader"
+                                   accept=".xls,.xlsx"
+                                   onChange={setUploadFile}/>
                             {fileName}
                         </label>
-                            <Normaltekst>
-                                NB, det kan maks legges inn 5000 linjer per excel-doc.
-                                Om det ikke er tilstrekkelig må dere gjøre dette i flere omganger.
-                            </Normaltekst>
+                        <Normaltekst>
+                            NB, det kan maks legges inn 5000 linjer per excel-doc.
+                            Om det ikke er tilstrekkelig må dere gjøre dette i flere omganger.
+                        </Normaltekst>
                     </div>
                     <Vis hvis={feil.length > 0}>
-                    <Feiloppsummering
-                        tittel="Følgende feil i dokumentet må utbedres før du laster det opp på nytt"
-                        feil={feil.sort((x, y) => x.skjemaelementId > y.skjemaelementId ? 1 : -1)}
-                        customFeilRender={renderFeil}
-
-                    />
+                        <div className="feiloppsummering">
+                            <Ingress>Følgende feil i dokumentet må utbedres før du laster det opp på nytt:</Ingress>
+                            <table className="tabell tabell--stripet">
+                                <tbody>
+                                {feil.sort((x, y) => x.rad > y.rad ? 1 : -1).map((f, index) => (
+                                    <tr key={index}>
+                                        <td>Rad {f.rad}</td>
+                                        <td>{f.kolonne}</td>
+                                        <td>{f.melding}</td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </Vis>
                     <div className="container">
                         <FormContext {...methods}>
