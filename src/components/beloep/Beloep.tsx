@@ -57,7 +57,7 @@ const Beloep = (props: BeloepProps) => {
             fixedDecimalScale
             allowNegative={false}
             autoComplete={'off'}
-            className={'skjemaelement__input input--m'}
+            className={'skjemaelement__input input--s'}
             onBlur={e => validateBeloep(e.target.value)}
             onChange={e => setAmountInput(e.target.value)}
           />

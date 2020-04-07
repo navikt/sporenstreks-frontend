@@ -19,14 +19,9 @@
     }
 
     .inputelement {
-      & + .inputelement {
-        margin-top: 0.7rem;
-      }
-
       & + .ansattknapp {
         display: inline;
-        padding-left: 0.7rem;
-        margin-top: 3.7rem;
+        margin-top: 0.7rem;
       }
     }
 
@@ -47,22 +42,44 @@
       cursor: pointer;
     }
   }
+}
 
-  @media (min-width: 769px) {
+@media (min-width: 769px) {
+  .ansattliste {
     .ansatt {
       display: flex;
       align-items: flex-start;
 
       .inputelement {
-        width: 19%;
-        margin-right: 1rem;
+        margin-right: 0.7rem;
+
+        & + .ansattknapp {
+          margin-top: 3.7rem;
+        }
 
         &:first-child {
-          width: 19%;
+          max-width: 8rem;
         }
 
         &:nth-child(2) {
-          width: 22%;
+          max-width: 14rem;
+
+          .skjemaelement__label {
+            max-width: 210px;
+          }
+        }
+
+        &:nth-child(3) {
+          max-width: 8rem;
+        }
+
+        &:nth-child(4) {
+          max-width: 7rem;
+          margin-right: 0;
+
+          .skjemaelement__input.input--s {
+            width: 100px;
+          }
         }
 
         label {
