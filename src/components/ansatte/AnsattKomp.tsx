@@ -5,31 +5,26 @@ import Periode from '../inputfelt/Periode';
 import Antall from '../inputfelt/Antall';
 import Beloep from '../inputfelt/Beloep';
 import FodselNr from '../inputfelt/FodselNr';
-import { Ansatt } from '../../data/types/sporenstreksTypes';
 
 interface AnsatteKompProps {
   index: number;
-  ansatt: Ansatt;
   min?: Date;
   max?: Date;
+  slettAnsatt: (e: any, idx: number) => void;
 }
 
 const AnsattKomp = (props: AnsatteKompProps) => {
-  const slettAnsatt = (e, index) => {
-    e.preventDefault();
-  };
 
   return (
     <div className="ansatt" role="group">
-
-      <FodselNr ansatt={props.ansatt} index={props.index} />
-      <Periode ansatt={props.ansatt} index={props.index} min={props.min} max={props.max} />
-      <Antall ansatt={props.ansatt} index={props.index} />
-      <Beloep ansatt={props.ansatt} index={props.index} />
+      <FodselNr index={props.index} />
+      <Periode index={props.index} min={props.min} max={props.max} />
+      <Antall index={props.index} />
+      <Beloep index={props.index} />
 
       <Vis hvis={props.index > 0}>
         <button role='link' id={'btn_' + props.index} className='ansattknapp lenke slett'
-          onClick={(e) => slettAnsatt(e, props.index)}
+          onClick={(e) => props.slettAnsatt(e, props.index)}
         >
           <Normaltekst tag="span">
             Slett ansatt

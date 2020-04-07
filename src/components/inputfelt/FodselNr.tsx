@@ -6,25 +6,11 @@ import { identityNumberSeparation } from '../../util/identityNumberSeparation';
 import { useFormContext } from 'react-hook-form';
 import { useAppStore } from '../../data/store/AppStore';
 import { filterStringToNumbersOnly } from '../../util/filterStringToNumbersOnly';
-import { Ansatt } from '../../data/types/sporenstreksTypes';
 import Vis from '../Vis';
 
 interface FnrProps {
-  ansatt: Ansatt;
   index?: number;
 }
-
-const lagIdForAnsatte = () => {
-  const employees = ansatteliste.current!.querySelectorAll('.ansatt');
-  employees.forEach((value, key) => {
-    const input = value.querySelector('.input--m[type=text]');
-    if (input) {
-      input!.setAttribute('id', 't_' + key);
-      input!.setAttribute('autoComplete', 'off');
-    }
-  });
-  forceUpdate();
-};
 
 const FodselNr = (props: FnrProps) => {
   const { errors, setError, clearError } = useFormContext();
