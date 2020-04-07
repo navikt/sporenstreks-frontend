@@ -191,7 +191,7 @@ const ExcelOpplastning = () => {
                                 <tbody>
                                 {feil.sort((x, y) => x.rad > y.rad ? 1 : -1).map((f, index) => (
                                     <tr key={index}>
-                                        <td>{(f.rad < 0 ? "" : f.rad)}</td>
+                                        <td>{(f.rad < 0 ? "" : "Rad " +f.rad)}</td>
                                         <td>{(f.kolonne && f.kolonne  < 0 ? "" : f.kolonne)}</td>
                                         <td>{f.melding}</td>
                                     </tr>
