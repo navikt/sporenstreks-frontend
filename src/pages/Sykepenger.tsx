@@ -25,6 +25,11 @@ import './Sykepenger.less';
 import Lenke from "nav-frontend-lenker";
 import ModalWrapper from 'nav-frontend-modal';
 
+const fnrErrorState = {
+  hasError: '',
+  noError: 'tom'
+}
+
 const Sykepenger = () => {
   const { arbeidsgivere, setReferanseNummer } = useAppStore();
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
@@ -32,6 +37,7 @@ const Sykepenger = () => {
   const [ firma, setFirma ] = useState<string>('');
   const [ modalOpen, setModalOpen ] = useState<boolean>(false);
   const [ formData, setFormData ] = useState<any>({});
+  const [ fnrClassName, setFnrClassName ] = useState<string>(fnrErrorState.noError);
   const methods = useForm();
   const { t } = useTranslation();
   const history: History = useHistory();
@@ -111,7 +117,7 @@ const Sykepenger = () => {
             })
           } else if (response.status === 422) {
             response.json().then(data => {
-              data.violations.map(violation => {
+              data.violations.forEach(violation => {
                 methods.setError('backend', violation.message);
               });
               data.violations.map(violation => ({
@@ -133,7 +139,6 @@ const Sykepenger = () => {
   };
 
   const validateFnr = (value: string) => {
-    const errbox = document.querySelector('.fnr')!;
     value = value.replace(/-/g, '');
     const notValid = fnrvalidator.fnr(value).status === 'invalid';
     let msg = '';
@@ -145,11 +150,11 @@ const Sykepenger = () => {
       msg = 'Fødselsnummer er ugyldig'
     }
     if (msg !== '') {
-      errbox.classList.remove('tom');
+      setFnrClassName(fnrErrorState.hasError)
       methods.setError('fnr', msg);
       return false;
     } else {
-      errbox.classList.add('tom');
+      setFnrClassName(fnrErrorState.noError);
       methods.clearError(['fnr', 'backend']);
       return true;
     }
@@ -233,7 +238,7 @@ const Sykepenger = () => {
                 </div>
 
                 <Normaltekst tag='div' role='alert' aria-live='assertive'
-                  className={'skjemaelement__feilmelding tom fnr'}
+                  className={'skjemaelement__feilmelding fnr ' + fnrClassName }
                 >
                   <Vis hvis={methods.errors['fnr']}>
                     <span>{methods.errors['fnr'] && methods.errors['fnr'].type}</span>
