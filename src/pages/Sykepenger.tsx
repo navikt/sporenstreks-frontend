@@ -175,7 +175,7 @@ const Sykepenger = () => {
         isOpen={modalOpen}
         onRequestClose={() => setModalOpen(false)}
         closeButton={true}
-        contentLabel="Min modalrute"
+        contentLabel="Send refusjon"
       >
         <Undertittel className="sykepenger__modal-tittel">Du søker om refusjon på vegne av:</Undertittel>
         <p className="sykepenger__modal-tekst">{firma}</p>
