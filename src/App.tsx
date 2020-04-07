@@ -9,7 +9,7 @@ import StoreProvider from './data/store/StoreProvider';
 import { Amplitude } from './components/amplitude/AmplitudeProvider';
 import Kvittering from './pages/Kvittering';
 import ExcelOpplastning from './pages/ExcelOpplastning';
-import KvitteringBulk from "./pages/KvitteringBulk";
+import KvitteringExcel from "./pages/KvitteringExcel";
 
 const App = () => {
   return (
@@ -21,7 +21,7 @@ const App = () => {
               <Route exact path="/" render={() => <Sykepenger />} />
               <Route exact path="/kvittering" render={() => <Kvittering />} />
               <Route exact path="/excel" render={() => <ExcelOpplastning />} />
-              <Route exact path="/kvitteringBulk" render={() => <KvitteringBulk />} />
+              <Route exact path="/kvitteringExcel" render={() => <KvitteringExcel />} />
               <Route path="/" render={() => <Redirecter />} />
             </Switch>
           </I18nextProvider>

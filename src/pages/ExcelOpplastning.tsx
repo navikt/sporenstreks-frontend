@@ -78,7 +78,7 @@ const ExcelOpplastning = () => {
                     } else if (response.status === 200) {
                         response.blob().then(data => {
                                 save(data, "nav_refusjon")
-                                history.push('/kvitteringBulk')
+                                history.push('/kvitteringExcel')
                                 setFeil([])
                             }
                         )
@@ -163,7 +163,7 @@ const ExcelOpplastning = () => {
                         </Normaltekst>
                         <br/><br/>
                         <Normaltekst>
-                            <img src={excellogo} width="35" className="logo"/>
+                            <img src={excellogo} width="35" className="excelLogo"/>
                             <Lenke href={env.baseUrl + "/api/v1/bulk/template"}>
                                 Last ned</Lenke> malen her, og fyll ut.
                             Det er ikke mulig å benytte ditt eget excel-dokument,

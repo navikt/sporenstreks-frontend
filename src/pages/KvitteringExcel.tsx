@@ -7,9 +7,9 @@ import {Link} from 'react-router-dom';
 import './Kvittering.less';
 import Lenke from "nav-frontend-lenker";
 
-const KvitteringBulk = () => {
+const KvitteringExcel = () => {
     return (
-        <div className="kvittering">
+        <div className="kvitteringExcel">
             <div className="limit">
                 <Panel>
                     <div>
@@ -46,4 +46,4 @@ const KvitteringBulk = () => {
     );
 };
 
-export default KvitteringBulk;
+export default KvitteringExcel;
