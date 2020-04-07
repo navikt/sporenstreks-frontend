@@ -12,7 +12,7 @@ type FeilProps = FeiloppsummeringProps;
 
 const FeilOppsummering = (props: FeilProps) => {
   const oppsummering = useRef<HTMLDivElement>(null);
-  const { settFokus, errors } = props;
+  const { errors } = props;
   const entries: any[] = Object.entries(errors);
 
   const handleClick = (list: any) => {

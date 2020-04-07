@@ -11,6 +11,13 @@ export interface Periode {
   beloep: number;
 }
 
+export const tomPeriode: Periode = {
+  fom: '',
+  tom: '',
+  antallDagerMedRefusjon: 0,
+  beloep: 0
+};
+
 export interface Ansatt {
   fnr: string;
   fom: string;

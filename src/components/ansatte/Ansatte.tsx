@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import useForceUpdate from 'use-force-update';
 import { useAppStore } from '../../data/store/AppStore';
 import AnsattKomp from './AnsattKomp';

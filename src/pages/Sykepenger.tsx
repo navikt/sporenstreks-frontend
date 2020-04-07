@@ -15,7 +15,6 @@ import FeilOppsummering from '../components/feilvisning/FeilOppsummering';
 import { useAppStore } from '../data/store/AppStore';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { History } from 'history';
-import dayjs from 'dayjs';
 import Vis from '../components/Vis';
 import env from '../util/environment';
 import './Sykepenger.less';
@@ -97,6 +96,7 @@ const Sykepenger = () => {
             response.json().then(data => {
               data.violations.map(violation => {
                 methods.setError('backend', violation.message);
+                return methods;
               });
               data.violations.map(violation => ({
                 errorType: violation.validationType,

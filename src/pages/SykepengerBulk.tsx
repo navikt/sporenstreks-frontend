@@ -80,6 +80,7 @@ const SykepengerBulk = () => {
         response.json().then(data => {
           data.violations.map(violation => {
             methods.setError('backend', violation.message);
+            return methods;
           });
           data.violations.map(violation => ({
             errorType: violation.validationType,
