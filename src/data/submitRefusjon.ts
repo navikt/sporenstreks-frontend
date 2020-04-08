@@ -1,5 +1,5 @@
 import { RefusjonsKrav } from './types/sporenstreksTypes';
-import env from "../util/environment";
+import env from '../util/environment';
 
 export const submitRefusjon = async(refusjonsKrav: RefusjonsKrav) => {
   await fetch(env.baseUrl + '/api/v1/refusjonskrav', {

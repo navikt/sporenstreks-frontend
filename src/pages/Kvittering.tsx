@@ -4,8 +4,8 @@ import { Ingress, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { useAppStore } from '../data/store/AppStore';
 import { Link } from 'react-router-dom';
+import Lenke from 'nav-frontend-lenker';
 import './Kvittering.less';
-import Lenke from "nav-frontend-lenker";
 
 const Kvittering = () => {
   const { referanseNummer } = useAppStore();

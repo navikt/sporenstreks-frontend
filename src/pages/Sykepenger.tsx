@@ -9,21 +9,18 @@ import { Keys } from '../locales/keys';
 import { Periode, RefusjonsKrav } from '../data/types/sporenstreksTypes';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
-import fnrvalidator from '@navikt/fnrvalidator';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
 import Perioder from '../components/perioder/Perioder';
-import { filterStringToNumbersOnly } from '../util/filterStringToNumbersOnly';
-import { identityNumberSeparation } from '../util/identityNumberSeparation';
 import FeilOppsummering from '../components/feilvisning/FeilOppsummering';
 import { useAppStore } from '../data/store/AppStore';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { History } from 'history';
 import Vis from '../components/Vis';
 import env from '../util/environment';
-import './Sykepenger.less';
-import Lenke from "nav-frontend-lenker";
+import Lenke from 'nav-frontend-lenker';
 import ModalWrapper from 'nav-frontend-modal';
 import FodselNr from '../components/perioder/FodselNr';
+import './Sykepenger.less';
 
 const Sykepenger = () => {
   const { arbeidsgivere, setReferanseNummer, identityNumberInput } = useAppStore();
@@ -34,10 +31,6 @@ const Sykepenger = () => {
   const methods = useForm();
   const { t } = useTranslation();
   const history: History = useHistory();
-
-  const filterIdentityNumberInput = (input: string) => {
-    setIdentityNumberInput(filterStringToNumbersOnly(input, 11));
-  };
 
   const formToJSON = elms =>
     [].reduce.call(elms, (data: any, elm: any) => {
@@ -59,8 +52,6 @@ const Sykepenger = () => {
           .replace(/\s/g, '')
           .replace(',', '.'),
       };
-      console.log('days: ', days) // eslint-disable-line no-console
-
       perioder.push(periode)
     }
 
