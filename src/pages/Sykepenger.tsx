@@ -120,7 +120,7 @@ const Sykepenger = () => {
               }));
             });
           } else { // todo: error 400
-            methods.setError('backend', 'Feil ved innsending av skjema');
+            methods.setError('backend', 'Server feil, prøv igjen senere');
           }
         }
       }).catch(err => {
@@ -128,7 +128,7 @@ const Sykepenger = () => {
         reject(err);
       });
     }).catch(err => {
-      methods.setError('backend', 'Feil ved innsending av skjema');
+      methods.setError('backend', 'Server feil, prøv igjen senere');
     });
   };
 

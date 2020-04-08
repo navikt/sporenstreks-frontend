@@ -42,7 +42,7 @@ const Beloep = (props: BeloepProps) => {
   return (
     <div className="skjemaelement">
       <label htmlFor={belId} className="skjemaelement__label">
-        <Normaltekst tag="span">Hvor mye søkes refundert</Normaltekst>
+        <Normaltekst tag="span">Brutto beløp som søkes refundert</Normaltekst>
       </label>
       <Controller
         name={belId}
