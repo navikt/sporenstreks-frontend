@@ -66,6 +66,7 @@
     "react-number-format": "^4.4.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "save-file": "^2.3.1",
     "typescript": "^3.8.3",
     "use-force-update": "^1.0.7",
     "yet-another-fetch-mock": "^3.4.0"
