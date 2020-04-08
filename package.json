@@ -75,7 +75,7 @@
     "start": "react-app-rewired start --development",
     "build": "npm run lint && react-app-rewired start --development",
     "install": "react-app-rewired build",
-    "test": "react-app-rewired test --color --watchAll=false",
+    "test": "react-app-rewired test --color --watchAll=false --coverage",
     "eject": "react-scripts eject",
     "lint": "eslint 'src/**/*.ts*'"
   },
