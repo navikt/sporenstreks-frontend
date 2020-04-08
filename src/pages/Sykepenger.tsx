@@ -24,6 +24,7 @@ import env from '../util/environment';
 import './Sykepenger.less';
 import Lenke from "nav-frontend-lenker";
 import ModalWrapper from 'nav-frontend-modal';
+import FodselNr from '../components/perioder/FodselNr';
 
 const Sykepenger = () => {
   const { arbeidsgivere, setReferanseNummer } = useAppStore();
@@ -71,7 +72,7 @@ const Sykepenger = () => {
       perioder: perioder
     };
   };
-  
+
   const setForm = (e: any) => {
     const form: HTMLFormElement = document.querySelector('.refusjonsform') ?? e.target;
     setFormData(formToJSON(form.elements));
@@ -81,16 +82,16 @@ const Sykepenger = () => {
   const submitForm = async(): Promise<void> => {
     const refusjonsKrav = convertSkjemaToRefusjonsKrav(formData);
     setModalOpen(false);
-  
+
     const FETCH_TIMEOUT = 5000;
     let didTimeOut = false;
-  
+
     new Promise((resolve, reject) => {
       const timeout = setTimeout(function() {
         didTimeOut = true;
         reject(new Error('Request timed out'));
       }, FETCH_TIMEOUT);
-    
+
       fetch(env.baseUrl + '/api/v1/refusjonskrav', {
         headers: {
           'Accept': 'application/json',
@@ -170,7 +171,7 @@ const Sykepenger = () => {
           </AlertStripeAdvarsel>
         </div>
       </Vis>
-  
+
       <ModalWrapper
         isOpen={modalOpen}
         onRequestClose={() => setModalOpen(false)}
@@ -216,29 +217,7 @@ const Sykepenger = () => {
           <FormContext {...methods}>
             <form onSubmit={methods.handleSubmit(setForm)} className="refusjonsform">
               <div className="container">
-                <div className="sykepenger--arbeidstaker">
-                  <Undertittel className="sykepenger--undertittel">
-                    Hvilken arbeidstaker gjelder søknaden?
-                  </Undertittel>
-                  <Input
-                    id="fnr"
-                    name="fnr"
-                    label="Fødselsnummer til arbeidstaker"
-                    bredde="M"
-                    autoComplete={'off'}
-                    onChange={e => filterIdentityNumberInput(e.target.value)}
-                    onBlur={e => validateFnr(e.target.value)}
-                    value={identityNumberSeparation(identityNumberInput)}
-                  />
-                </div>
-
-                <Normaltekst tag='div' role='alert' aria-live='assertive'
-                  className={'skjemaelement__feilmelding tom fnr'}
-                >
-                  <Vis hvis={methods.errors['fnr']}>
-                    <span>{methods.errors['fnr'] && methods.errors['fnr'].type}</span>
-                  </Vis>
-                </Normaltekst>
+                <FodselNr />
               </div>
 
               <div className="container">

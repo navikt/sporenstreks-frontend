@@ -3,7 +3,7 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Norwegian } from 'flatpickr/dist/l10n/no.js';
 import Flatpickr from 'react-flatpickr';
-import Vis from '../../Vis';
+import Vis from '../Vis';
 import dayjs from 'dayjs';
 
 interface PeriodeProps {

@@ -5,10 +5,47 @@ export interface RefusjonsKrav {
 }
 
 export interface Periode {
-  fom: string
-  tom: string
-  antallDagerMedRefusjon: number
+  fom: string;
+  tom: string;
+  antallDagerMedRefusjon: number;
   beloep: number;
+}
+
+export const tomPeriode: Periode = {
+  fom: '',
+  tom: '',
+  antallDagerMedRefusjon: 0,
+  beloep: 0
+};
+
+export interface Ansatt {
+  fnr: string;
+  fom: string;
+  tom: string;
+  antallDagerMedRefusjon: number;
+  beloep: number;
+}
+
+export const tomAnsatt: Ansatt = {
+  fnr: '',
+  fom: '',
+  tom: '',
+  antallDagerMedRefusjon: 0,
+  beloep: 0
+};
+
+export interface BackendStatus {
+  status: 'OK' | 'GENERIC_ERROR' | 'VALIDATION_ERRORS';
+  validationErrors: BackendValidation[] | null;
+  genericMessage: string | null;
+  referenceNumber: string | null;
+}
+
+export interface BackendValidation {
+  validationType: string;
+  message: string;
+  propertyPath: string;
+  invalidValue: string | number;
 }
 
 export enum OrganisationType {
