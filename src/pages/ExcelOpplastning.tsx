@@ -14,7 +14,7 @@ import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
 import {History} from 'history';
 import Vis from '../components/Vis';
 import env from '../util/environment';
-import './ExcelOpplastning.less';
+import './Sykepenger.less';
 import Lenke from "nav-frontend-lenker";
 import excellogo from '../img/excel-logo.png';
 import save from 'save-file'
@@ -211,7 +211,7 @@ const ExcelOpplastning = () => {
                                     om at det aktuelle fraværet skyldes covid-19-pandemien.
                                     Vær oppmerksom på at NAV kan foreta kontroller.
                                 </Normaltekst>
-                                <Hovedknapp className="knapp">Send søknad om refusjon</Hovedknapp>
+                                <Hovedknapp className="knapp filKnapp">Send søknad om refusjon</Hovedknapp>
                             </form>
                         </FormContext>
                     </div>
