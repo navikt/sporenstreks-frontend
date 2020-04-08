@@ -111,7 +111,7 @@ const ExcelOpplastning = () => {
 
 
     return (
-        <div className="excelOpplastning">
+        <div className="sykepenger">
             <Vis hvis={arbeidsgivere.length === 0}>
                 <div className="limit">
                     <AlertStripeAdvarsel>
@@ -171,7 +171,7 @@ const ExcelOpplastning = () => {
                         </Normaltekst>
                     </div>
                     <div>
-                        <label className="knapp">
+                        <label className="knapp filKnapp">
                             <input className="fileinput"
                                    type="file"
                                    id="fileUploader"
@@ -185,7 +185,7 @@ const ExcelOpplastning = () => {
                         </Normaltekst>
                     </div>
                     <Vis hvis={feil.length > 0}>
-                        <div className="feiloppsummering">
+                        <div className="feiloppsummeringTabell feiloppsummering">
                             <Ingress>Følgende feil i dokumentet må utbedres før du laster det opp på nytt:</Ingress>
                             <table className="tabell tabell--stripet">
                                 <tbody>
