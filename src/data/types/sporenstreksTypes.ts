@@ -71,38 +71,38 @@ export interface ErrorObject {
 }
 
 export interface Ytelsesperiode {
-  arbeidsforhold: Arbeidsforhold
-  dagsats: number
-  ferieperioder: Periode[]
-  grad?: number
-  maxdato: Date
-  merknad: string
-  periode: Periode
-  refusjonsbeløp?: number
-  sistEndret: Date
-  status: Status
-  vedtaksId: string
-  ytelse: string
+  arbeidsforhold: Arbeidsforhold;
+  dagsats: number;
+  ferieperioder: Periode[];
+  grad?: number;
+  maxdato: Date;
+  merknad: string;
+  periode: Periode;
+  refusjonsbeløp?: number;
+  sistEndret: Date;
+  status: Status;
+  vedtaksId: string;
+  ytelse: string;
 }
 
 export interface Arbeidsforhold {
-  arbeidsforholdId: string,
-  arbeidsgiver: YtelsesperioderArbeidsgiver
-  arbeidstaker: Arbeidstaker
+  arbeidsforholdId: string;
+  arbeidsgiver: YtelsesperioderArbeidsgiver;
+  arbeidstaker: Arbeidstaker;
 }
 
 // fra Ytelsesperioder API
 export interface YtelsesperioderArbeidsgiver {
-  identitetsnummer: null
-  navn: string
-  organisasjonsnummer: string
-  virksomhetsnummer: string
+  identitetsnummer: null;
+  navn: string;
+  organisasjonsnummer: string;
+  virksomhetsnummer: string;
 }
 
 export interface Arbeidstaker {
-  etternavn: string
-  fornavn: string
-  identitetsnummer: string
+  etternavn: string;
+  fornavn: string;
+  identitetsnummer: string;
 }
 
 export enum Status {

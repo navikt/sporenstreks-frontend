@@ -29,7 +29,7 @@ const Antall = (props: AntallProps) => {
   };
 
   return (
-    <div className="skjemaelement">
+    <div className="inputelement">
       <label htmlFor={antId} className="dager skjemaelement__label">
         <Normaltekst tag="span">
           Antall arbeidsdager dere vil ha refundert
@@ -43,10 +43,11 @@ const Antall = (props: AntallProps) => {
             label=""
             thousandSeparator={' '}
             decimalScale={0}
-            fixedDecimalScale={true}
+            fixedDecimalScale
             autoComplete={'off'}
-            className={'skjemaelement__input input--s'}
+            className={'skjemaelement__input input--xs'}
             onBlur={e => validateAntall(e.target.value)}
+            allowNegative={false}
           />
         }
       />

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import 'nav-frontend-tabell-style';
-import { Input } from 'nav-frontend-skjema';
 import { FormContext, useForm } from 'react-hook-form';
 import { Knapp } from 'nav-frontend-knapper';
 import { Link, useHistory } from 'react-router-dom';
@@ -27,8 +26,7 @@ import ModalWrapper from 'nav-frontend-modal';
 import FodselNr from '../components/perioder/FodselNr';
 
 const Sykepenger = () => {
-  const { arbeidsgivere, setReferanseNummer } = useAppStore();
-  const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
+  const { arbeidsgivere, setReferanseNummer, identityNumberInput } = useAppStore();
   const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
   const [ firma, setFirma ] = useState<string>('');
   const [ modalOpen, setModalOpen ] = useState<boolean>(false);
@@ -114,6 +112,7 @@ const Sykepenger = () => {
             response.json().then(data => {
               data.violations.map(violation => {
                 methods.setError('backend', violation.message);
+                return methods;
               });
               data.violations.map(violation => ({
                 errorType: violation.validationType,
@@ -131,29 +130,6 @@ const Sykepenger = () => {
     }).catch(err => {
       methods.setError('backend', 'Server feil, prøv igjen senere');
     });
-  };
-
-  const validateFnr = (value: string) => {
-    const errbox = document.querySelector('.fnr')!;
-    value = value.replace(/-/g, '');
-    const notValid = fnrvalidator.fnr(value).status === 'invalid';
-    let msg = '';
-    if (value === '') {
-      msg = 'Fødselsnummer må fylles ut'
-    } else if (value.length < 11) {
-      msg = 'Fødselsnummer må ha 11 siffer';
-    } else if (notValid) {
-      msg = 'Fødselsnummer er ugyldig'
-    }
-    if (msg !== '') {
-      errbox.classList.remove('tom');
-      methods.setError('fnr', msg);
-      return false;
-    } else {
-      errbox.classList.add('tom');
-      methods.clearError(['fnr', 'backend']);
-      return true;
-    }
   };
 
   return (
@@ -241,7 +217,7 @@ const Sykepenger = () => {
                   Vi erklærer at det ikke er søkt om omsorgspenger og at arbeidstakeren ikke er permittert. Kravet er
                   basert på arbeidstakerens opplysninger om at arbeidstakeren enten er smittet av koronaviruset,
                   mistenkt smittet eller i lovpålagt karantene.
-                  <br/><br/>
+                  <br /><br />
                   Vær oppmerksom på at NAV kan foreta kontroller.
                 </Normaltekst>
               </div>

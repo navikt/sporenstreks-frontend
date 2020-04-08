@@ -1,28 +1,27 @@
 @import '../../../node_modules/nav-frontend-core/less/_variabler';
 
-.periodeliste {
+.skjemaelement__label {
+  font-weight: 400;
+}
+
+.ansattliste {
   list-style: none;
   padding-left: 0;
   margin: 1rem 0;
 
-  .periode {
+  .ansatt {
     border: 1px solid @navGra40;
     border-radius: 4px;
-    padding: 0.5rem;
+    padding: 0.5rem 0.8rem;
 
-    & + .periode {
+    & + .ansatt {
       margin-top: 1rem;
     }
 
     .inputelement {
-      & + .inputelement {
-        margin-top: 0.7rem;
-      }
-
-      & + .periodeknapp {
+      & + .ansattknapp {
         display: inline;
-        padding-left: 0.7rem;
-        margin-top: 3.7rem;
+        margin-top: 0.7rem;
       }
     }
 
@@ -45,34 +44,38 @@
   }
 }
 
-.periodeknapp {
-  padding: 0;
-  font-family: 'Source Sans Pro', Arial, sans-serif;
-  text-decoration: underline;
-  background: none;
-  border: 0;
-  color: @navBla;
-
-  &:focus {
-    color: @white;
-  }
-}
-
 @media (min-width: 769px) {
-  .periodeliste {
-    .periode {
+  .ansattliste {
+    .ansatt {
       display: flex;
       align-items: flex-start;
 
       .inputelement {
-        width: 28%;
+        margin-right: 0.7rem;
+
+        & + .ansattknapp {
+          margin-top: 3.7rem;
+        }
 
         &:first-child {
-          width: 38%;
+          max-width: 8rem;
+        }
+
+        &:nth-child(2) {
+          max-width: 14rem;
+
+          .skjemaelement__label {
+            max-width: 210px;
+          }
         }
 
         &:nth-child(3) {
-          width: 18%;
+          max-width: 8rem;
+        }
+
+        &:nth-child(4) {
+          max-width: 7rem;
+          margin-right: 0;
 
           .skjemaelement__input.input--s {
             width: 100px;
@@ -91,3 +94,17 @@
     }
   }
 }
+
+.ansattknapp {
+  padding: 0;
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+  text-decoration: underline;
+  background: none;
+  border: 0;
+  color: @navBla;
+
+  &:focus {
+    color: @white;
+  }
+}
+

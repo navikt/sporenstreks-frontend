@@ -34,7 +34,7 @@ const Periode = (props: PeriodeProps) => {
   };
 
   return (
-    <div className="skjemaelement">
+    <div className="inputelement">
       <label htmlFor={perId} className="fom skjemaelement__label">
         <Normaltekst tag="span">
           Fra og med første, til og med siste fraværsdag
