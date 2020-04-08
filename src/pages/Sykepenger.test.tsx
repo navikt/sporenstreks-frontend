@@ -1,141 +1,130 @@
 import '@testing-library/jest-dom'
 import React from 'react'
-import {render, fireEvent, screen} from '@testing-library/react'
+import { render, fireEvent, screen } from '@testing-library/react'
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
 import { useAppStore } from '../data/store/AppStore';
 
-import  Sykepenger  from './Sykepenger';
+import Sykepenger from './Sykepenger';
+import { act } from 'react-dom/test-utils'
 
 jest.mock('../data/store/AppStore');
 
 const mockUseAppStore = useAppStore as jest.Mock
 const mockArbeidsgiverValues = {
   arbeidsgivere: [{
-     Name: "Navn",
-     Type: "Type",
-     OrganizationNumber: "123456789",
-     OrganizationForm: "oform",
-     Status: "Status",
-     ParentOrganizationNumber: "3333344444"
- },{
-     Name: "Navn",
-     Type: "Type",
-     OrganizationNumber: "223456789",
-     OrganizationForm: "oform",
-     Status: "Status",
-     ParentOrganizationNumber: "3333344444"
- },{
-     Name: "Navn3",
-     Type: "Type",
-     OrganizationNumber: "323456789",
-     OrganizationForm: "oform",
-     Status: "Status",
-     ParentOrganizationNumber: "3333344444"
- }],
+    Name: "Navn",
+    Type: "Type",
+    OrganizationNumber: "123456789",
+    OrganizationForm: "oform",
+    Status: "Status",
+    ParentOrganizationNumber: "3333344444"
+  }, {
+    Name: "Navn",
+    Type: "Type",
+    OrganizationNumber: "223456789",
+    OrganizationForm: "oform",
+    Status: "Status",
+    ParentOrganizationNumber: "3333344444"
+  }, {
+    Name: "Navn3",
+    Type: "Type",
+    OrganizationNumber: "323456789",
+    OrganizationForm: "oform",
+    Status: "Status",
+    ParentOrganizationNumber: "3333344444"
+  }],
   setReferanseNummer: jest.fn()
 };
 
 describe('Sykepenger', () => {
-    it('should show warning when arbeidsgiver contains no data', () => {
-        mockUseAppStore.mockReturnValue({
-            arbeidsgivere: [],
-            setReferanseNummer: jest.fn()
-        });
-
-        const history = createMemoryHistory();
-
-        const rendered = render( <Router history={history}><Sykepenger/></Router>);
-
-        expect(rendered.getByText('Du har ikke rettigheter til å søke om refusjon for noen bedrifter')).toBeTruthy();
+  it('should show warning when arbeidsgiver contains no data', () => {
+    mockUseAppStore.mockReturnValue({
+      arbeidsgivere: [],
+      setReferanseNummer: jest.fn()
     });
 
-    it('should show infotext when arbeidsgiver has data', () => {
-      mockUseAppStore.mockReturnValue(mockArbeidsgiverValues);
+    const history = createMemoryHistory();
 
-      const history = createMemoryHistory();
+    const rendered = render(<Router history={history}><Sykepenger /></Router>);
 
-      const rendered = render( <Router history={history}><Sykepenger/></Router>);
+    expect(rendered.getByText('Du har ikke rettigheter til å søke om refusjon for noen bedrifter')).toBeTruthy();
+  });
 
-      expect(rendered.getByText('NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar')).toBeTruthy();
-    });
+  it('should show infotext when arbeidsgiver has data', () => {
+    mockUseAppStore.mockReturnValue(mockArbeidsgiverValues);
 
-    it('gives warning on missing fødselsnummer', () => {
-      mockUseAppStore.mockReturnValue(mockArbeidsgiverValues);
+    const history = createMemoryHistory();
 
-      const history = createMemoryHistory();
+    const rendered = render(<Router history={history}><Sykepenger /></Router>);
 
-      const rendered = render( <Router history={history}><Sykepenger/></Router>);
+    expect(rendered.getByText(
+      'NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar'
+    )).toBeTruthy();
+  });
 
-      const inputNode = rendered.getByLabelText('Fødselsnummer til arbeidstaker');
+  it('gives warning on missing fødselsnummer', () => {
+    mockUseAppStore.mockReturnValue(mockArbeidsgiverValues);
 
-      fireEvent(inputNode, new FocusEvent('blur'));
+    const history = createMemoryHistory();
 
-      expect(rendered.queryAllByText('Fødselsnummer må fylles ut').length).toBe(2)
-    });
+    const rendered = render(<Router history={history}><Sykepenger /></Router>);
 
-    it('gives warning on short fødselsnummer', () => {
-      mockUseAppStore.mockReturnValue(mockArbeidsgiverValues);
+    const inputNode = rendered.getByLabelText('Fødselsnummer til arbeidstaker');
 
-      const history = createMemoryHistory();
+    fireEvent(inputNode, new FocusEvent('blur'));
 
-      const rendered = render( <Router history={history}><Sykepenger/></Router>);
+    expect(rendered.queryAllByText('Fødselsnummer må fylles ut').length).toBe(2)
+  });
 
-      const inputNode = rendered.getByLabelText('Fødselsnummer til arbeidstaker');
+  it('gives warning on short fødselsnummer', () => {
+    mockUseAppStore.mockReturnValue(mockArbeidsgiverValues);
 
-      fireEvent.change(inputNode, { target: { value: '11' } });
+    const history = createMemoryHistory();
 
-      fireEvent(inputNode, new FocusEvent('blur'));
+    const rendered = render(<Router history={history}><Sykepenger /></Router>);
 
-      expect(rendered.queryAllByText('Fødselsnummer må ha 11 siffer').length).toBe(2)
-    });
+    const inputNode = rendered.getByLabelText('Fødselsnummer til arbeidstaker');
 
-    it('gives warning on invalid fødselsnummer', () => {
-      mockUseAppStore.mockReturnValue(mockArbeidsgiverValues);
+    fireEvent.change(inputNode, { target: { value: '11' } });
 
-      const history = createMemoryHistory();
+    fireEvent(inputNode, new FocusEvent('blur'));
 
-      const rendered = render( <Router history={history}><Sykepenger/></Router>);
+    expect(rendered.queryAllByText('Fødselsnummer må ha 11 siffer').length).toBe(2)
+  });
 
-      const inputNode = rendered.getByLabelText('Fødselsnummer til arbeidstaker');
+  it('gives warning on invalid fødselsnummer', () => {
+    mockUseAppStore.mockReturnValue(mockArbeidsgiverValues);
 
-      fireEvent.change(inputNode, { target: { value: '11111111111' } });
+    const history = createMemoryHistory();
 
-      fireEvent.blur(inputNode);
+    const rendered = render(<Router history={history}><Sykepenger /></Router>);
 
-      expect(rendered.queryAllByText('Fødselsnummer er ugyldig').length).toBe(2)
-    });
+    const inputNode = rendered.getByLabelText('Fødselsnummer til arbeidstaker');
 
-    it('gives warning on invalid fødselsnummer', () => {
-      mockUseAppStore.mockReturnValue(mockArbeidsgiverValues);
+    fireEvent.change(inputNode, { target: { value: '11111111111' } });
 
-      const history = createMemoryHistory();
+    fireEvent.blur(inputNode);
 
-      const rendered = render( <Router history={history}><Sykepenger/></Router>);
+    expect(rendered.queryAllByText('Fødselsnummer er ugyldig').length).toBe(2)
+  });
 
-      const inputNode = rendered.getByLabelText('Fødselsnummer til arbeidstaker');
+  it('gives warning on invalid fødselsnummer', () => {
+    mockUseAppStore.mockReturnValue(mockArbeidsgiverValues);
 
-      fireEvent.change(inputNode, { target: { value: '21112428795' } }); // Randomly, at least once, generated fødselsnummer
+    const history = createMemoryHistory();
 
-      fireEvent.blur(inputNode);
+    const rendered = render(<Router history={history}><Sykepenger /></Router>);
 
-      expect(rendered.queryAllByText('Fødselsnummer er ugyldig').length).toBe(0);
-    });
+    const inputNode = rendered.getByLabelText(
+      'Fødselsnummer til arbeidstaker');
 
-    // it('gives warning on invalid fraværsdag periode', () => {
-    //   mockUseAppStore.mockReturnValue(mockArbeidsgiverValues);
+    fireEvent.change(inputNode, {
+      target: { value: '21112428795' }
+    }); // Randomly, at least once, generated fødselsnummer
 
-    //   const history = createMemoryHistory();
+    fireEvent.blur(inputNode);
 
-    //   const rendered = render( <Router history={history}><Sykepenger/></Router>);
-
-    //   const inputNode = rendered.getByPlaceholderText('dd.mm.yyyy til dd.mm.yyyy');
-
-    //   fireEvent.change(inputNode, { target: { value: '21132428' } });
-
-    //   fireEvent.blur(inputNode);
-
-    //   expect(rendered.queryAllByText('Fødselsnummer er ugyldig').length).toBe(0);
-    // });
-
+    expect(rendered.queryAllByText('Fødselsnummer er ugyldig').length).toBe(0);
+  });
 });
