@@ -185,7 +185,7 @@ const ExcelOpplastning = () => {
                         </Normaltekst>
                     </div>
                     <Vis hvis={feil.length > 0}>
-                        <div className="feiloppsummeringTabell feiloppsummering">
+                        <span className="feiloppsummeringTabell feiloppsummering">
                             <Ingress>Følgende feil i dokumentet må utbedres før du laster det opp på nytt:</Ingress>
                             <table className="tabell tabell--stripet">
                                 <tbody>
@@ -198,11 +198,10 @@ const ExcelOpplastning = () => {
                                 ))}
                                 </tbody>
                             </table>
-                        </div>
+                        </span>
                     </Vis>
-                    <div className="container">
                         <FormContext {...methods}>
-                            <form onSubmit={methods.handleSubmit(onSubmit)} className="excelform">
+                            <form onSubmit={methods.handleSubmit(onSubmit)} className="excelform container">
                                 <Normaltekst>
                                     Vi erklærer at det ikke er søkt om omsorgspenger
                                     og at arbeidstakeren ikke er permittert.
@@ -214,7 +213,6 @@ const ExcelOpplastning = () => {
                                 <Hovedknapp className="knapp filKnapp">Send søknad om refusjon</Hovedknapp>
                             </form>
                         </FormContext>
-                    </div>
                 </div>
             </Vis>
         </div>
