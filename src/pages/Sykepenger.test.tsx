@@ -1,12 +1,11 @@
 import '@testing-library/jest-dom'
 import React from 'react'
-import { render, fireEvent, screen } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
 import { useAppStore } from '../data/store/AppStore';
 
 import Sykepenger from './Sykepenger';
-import { act } from 'react-dom/test-utils'
 
 jest.mock('../data/store/AppStore');
 

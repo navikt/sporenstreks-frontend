@@ -10,9 +10,15 @@ interface BeloepProps {
   index: number;
 }
 
+const beloepErrorState = {
+  hasError: '',
+  noError: 'tom'
+}
+
 const Beloep = (props: BeloepProps) => {
   const { errors, setError, clearError } = useFormContext();
   const [ amountInput, setAmountInput ] = useState<string>('');
+  const [ beloepClassName, setBelopClassName ] = useState<string>(beloepErrorState.noError);
   const belId = 'beloep_' + props.index;
   const { t } = useTranslation();
 
@@ -22,18 +28,17 @@ const Beloep = (props: BeloepProps) => {
       .replace(',', '.');
     const numval = Number(value);
 
-    const errbox = document.querySelector('.' + belId)!;
-
     let msg = '';
     if (numval < 0) {
       msg = t(Keys.TOOLOWAMOUNT);
+      msg = "feil";
     }
     if (msg !== '') {
-      errbox.classList.remove('tom');
+      setBelopClassName(beloepErrorState.hasError);
       setError(belId, msg);
       return false;
     } else {
-      errbox.classList.add('tom');
+      setBelopClassName(beloepErrorState.noError);
       clearError([belId, 'backend']);
       return true;
     }
@@ -45,8 +50,8 @@ const Beloep = (props: BeloepProps) => {
         <Normaltekst tag="span">Brutto beløp som søkes refundert</Normaltekst>
       </label>
       <Controller
-        name={belId}
         id={belId}
+        name={belId}
         as={
           <NumberFormat
             label=""
@@ -64,8 +69,8 @@ const Beloep = (props: BeloepProps) => {
       />
 
       <Normaltekst tag='div' role='alert' aria-live='assertive'
-        className={'skjemaelement__feilmelding tom beloep_' + props.index}
-      >
+        className={`skjemaelement__feilmelding ${beloepClassName} beloep_${props.index}`}
+        >
         <Vis hvis={errors[belId]}>
           <span>{errors[belId] && errors[belId].type}</span>
         </Vis>

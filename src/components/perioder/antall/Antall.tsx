@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { Controller, useFormContext } from 'react-hook-form';
 import NumberFormat from "react-number-format";
@@ -17,7 +17,6 @@ const antErrorState = {
 const Antall = (props: AntallProps) => {
   const { errors, setError, clearError } = useFormContext();
   const antId = 'antall_' + props.index;
-  const refAntId = useRef(null);
   const [errorState, setErrorState] = useState(antErrorState.noError);
 
   const validateAntall = (value: string): boolean => {
@@ -67,7 +66,6 @@ const Antall = (props: AntallProps) => {
       </Hjelpetekst>
 
       <Normaltekst tag='div' role='alert' aria-live='assertive'
-        ref={refAntId}
         className={`skjemaelement__feilmelding ${errorState} antall_${props.index}`}
       >
         <Vis hvis={errors[antId]}>
