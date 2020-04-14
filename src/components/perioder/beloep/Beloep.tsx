@@ -31,7 +31,6 @@ const Beloep = (props: BeloepProps) => {
     let msg = '';
     if (numval < 0) {
       msg = t(Keys.TOOLOWAMOUNT);
-      msg = "feil";
     }
     if (msg !== '') {
       setBelopClassName(beloepErrorState.hasError);
