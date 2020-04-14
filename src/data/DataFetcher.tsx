@@ -29,7 +29,7 @@ export function DataFetcher(props: { children: any }) {
   }, [ arbeidsgivere ]);
 
   useEffect(() => {
-    setTimeout(checkHasTimedOut, 5000);
+    setTimeout(checkHasTimedOut, 15000);
     // eslint-disable-next-line
   }, []);
 
