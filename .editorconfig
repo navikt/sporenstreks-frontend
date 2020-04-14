@@ -33,10 +33,3 @@ charset = utf-8
 indent_style = space
 indent_size = 4
 trim_trailing_whitespace=true
-
-# 4 space indentation
-[**.tsx]
-charset = utf-8
-indent_style = space
-indent_size = 2
-trim_trailing_whitespace=true
