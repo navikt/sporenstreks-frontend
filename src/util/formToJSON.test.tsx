@@ -4,9 +4,9 @@ import formToJSON from './formToJSON';
 
 describe('formToJSON', () => {
   it('returns an empty object when no form elements are given.', () => {
-    const form: HTMLFormControlsCollection = document.forms;
+    const forms: HTMLFormControlsCollection = document.forms;
 
-    const jsonData = formToJSON(form);
+    const jsonData = formToJSON(forms);
     expect(jsonData).toEqual({});
   });
 
