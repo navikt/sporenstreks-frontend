@@ -68,7 +68,7 @@ describe('Sykepenger', () => {
       const rendered = render( <Router history={history}><Sykepenger/></Router>);
 
       const inputNode = rendered.getByLabelText('Fødselsnummer til arbeidstaker');
-      
+
       fireEvent(inputNode, new FocusEvent('blur'));
 
       expect(rendered.queryAllByText('Fødselsnummer må fylles ut').length).toBe(2)
@@ -82,7 +82,7 @@ describe('Sykepenger', () => {
       const rendered = render( <Router history={history}><Sykepenger/></Router>);
 
       const inputNode = rendered.getByLabelText('Fødselsnummer til arbeidstaker');
-      
+
       fireEvent.change(inputNode, { target: { value: '11' } });
 
       fireEvent(inputNode, new FocusEvent('blur'));
@@ -98,7 +98,7 @@ describe('Sykepenger', () => {
       const rendered = render( <Router history={history}><Sykepenger/></Router>);
 
       const inputNode = rendered.getByLabelText('Fødselsnummer til arbeidstaker');
-      
+
       fireEvent.change(inputNode, { target: { value: '11111111111' } });
 
       fireEvent.blur(inputNode);
@@ -114,12 +114,28 @@ describe('Sykepenger', () => {
       const rendered = render( <Router history={history}><Sykepenger/></Router>);
 
       const inputNode = rendered.getByLabelText('Fødselsnummer til arbeidstaker');
-      
-      fireEvent.change(inputNode, { target: { value: '21112428795' } }); // Randomly, at least once, generated fødselsnummer 
+
+      fireEvent.change(inputNode, { target: { value: '21112428795' } }); // Randomly, at least once, generated fødselsnummer
 
       fireEvent.blur(inputNode);
 
       expect(rendered.queryAllByText('Fødselsnummer er ugyldig').length).toBe(0);
     });
+
+    // it('gives warning on invalid fraværsdag periode', () => {
+    //   mockUseAppStore.mockReturnValue(mockArbeidsgiverValues);
+
+    //   const history = createMemoryHistory();
+
+    //   const rendered = render( <Router history={history}><Sykepenger/></Router>);
+
+    //   const inputNode = rendered.getByPlaceholderText('dd.mm.yyyy til dd.mm.yyyy');
+
+    //   fireEvent.change(inputNode, { target: { value: '21132428' } });
+
+    //   fireEvent.blur(inputNode);
+
+    //   expect(rendered.queryAllByText('Fødselsnummer er ugyldig').length).toBe(0);
+    // });
 
 });
