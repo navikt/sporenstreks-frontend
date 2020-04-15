@@ -204,20 +204,13 @@ const Sykepenger = () => {
           Dager før 16. mars får du ikke refusjon for.<br/>
           6. Gang dagsatsen med antall dager dere krever refusjon for.<br/><br/>
           <b>Eksempel:</b><br/>
-          <ul>
-            <li>
-              Frida har første fraværsdag 20. mars. Hun jobber mandag-fredag og får ikke utbetalt lønn for helgedager.
-            </li>
-            <li>Arbeidsgiverperioden går til og med 4. april</li>
-            <li>
-              Trekk fra helgedager og de tre første dagene i arbeidsgiverperioden =
-              10 dager som det kan kreves refusjon for.
-            </li>
-            <li>Gang med 12 = 660 000 i årslønn</li>
-            <li>Reduser beløpet til 6G = 599 148</li>
-            <li>Del på 260 (antallet arbeidsdager Frida jobber i året) = 2 304 kroner pr dag (dagsats)</li>
-            <li>Gang dagsatsen med 10 = 23 040 kroner</li>
-          </ul>
+          1. Trekk fra helgedager og de tre første dagene i arbeidsgiverperioden = 10 dager som det kan kreves
+          refusjon for.<br/>
+          2. Finn gjennomsnittet av Fridas bruttolønn i desember, januar og februar = kr. 55 000.<br/>
+          3. Gang med 12 = 660 000 i årslønn.<br/>
+          4. Reduser beløpet til 6G = 599 148.<br/>
+          5. Del på 260 (antallet arbeidsdager Frida jobber i året) = 2 304 kroner pr dag (dagsats).<br/>
+          6. Gang dagsatsen med 10 = 23 040 kroner.<br/>
           <button role="link" className="periodeknapp lenke" onClick={() => setEksempelOpen(false)}>
             Lukk dette vinduet
           </button>
