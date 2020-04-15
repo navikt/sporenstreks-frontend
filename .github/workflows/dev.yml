@@ -3,7 +3,7 @@ name: Bygg og deploy til testmiljø
 on:
   push:
     branches:
-      - 'preprod/**'
+      - 'dev/**'
 
 jobs:
   build:
