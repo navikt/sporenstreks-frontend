@@ -24,13 +24,14 @@ import env from '../util/environment';
 import './Sykepenger.less';
 import Lenke from "nav-frontend-lenker";
 import ModalWrapper from 'nav-frontend-modal';
+import Eksempel from '../components/Eksempel';
 
 const Sykepenger = () => {
   const { arbeidsgivere, setReferanseNummer } = useAppStore();
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
   const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
   const [ firma, setFirma ] = useState<string>('');
-  const [ modalOpen, setModalOpen ] = useState<boolean>(false);
+  const [ sendSkjemaOpen, setSendSkjemaOpen ] = useState<boolean>(false);
   const [ formData, setFormData ] = useState<any>({});
   const methods = useForm();
   const { t } = useTranslation();
@@ -71,26 +72,26 @@ const Sykepenger = () => {
       perioder: perioder
     };
   };
-  
+
   const setForm = (e: any) => {
     const form: HTMLFormElement = document.querySelector('.refusjonsform') ?? e.target;
     setFormData(formToJSON(form.elements));
-    setModalOpen(true);
+    setSendSkjemaOpen(true);
   };
 
   const submitForm = async(): Promise<void> => {
     const refusjonsKrav = convertSkjemaToRefusjonsKrav(formData);
-    setModalOpen(false);
-  
+    setSendSkjemaOpen(false);
+
     const FETCH_TIMEOUT = 5000;
     let didTimeOut = false;
-  
+
     new Promise((resolve, reject) => {
       const timeout = setTimeout(function() {
         didTimeOut = true;
         reject(new Error('Request timed out'));
       }, FETCH_TIMEOUT);
-    
+
       fetch(env.baseUrl + '/api/v1/refusjonskrav', {
         headers: {
           'Accept': 'application/json',
@@ -170,18 +171,18 @@ const Sykepenger = () => {
           </AlertStripeAdvarsel>
         </div>
       </Vis>
-  
+
       <ModalWrapper
-        isOpen={modalOpen}
-        onRequestClose={() => setModalOpen(false)}
+        isOpen={sendSkjemaOpen}
+        onRequestClose={() => setSendSkjemaOpen(false)}
         closeButton={true}
-        contentLabel="Min modalrute"
+        contentLabel="Send skjema"
       >
         <Undertittel className="sykepenger__modal-tittel">Du søker om refusjon på vegne av:</Undertittel>
         <p className="sykepenger__modal-tekst">{firma}</p>
         <p className="sykepenger__modal-tekst">Organisasjonsnummer: {arbeidsgiverId}</p>
         <Knapp className="sykepenger__modal-btn" onClick={() => submitForm()}>Send søknad om refusjon</Knapp>
-        <div className="sykepenger__modal-avbrytt lenke" onClick={() => setModalOpen(false)}>
+        <div className="sykepenger__modal-avbrytt lenke" onClick={() => setSendSkjemaOpen(false)}>
           Avbrytt
         </div>
       </ModalWrapper>
@@ -249,8 +250,8 @@ const Sykepenger = () => {
                   <Undertekst className="sykepenger--undertekst">
                     NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
                   </Undertekst>
-
-                  <Perioder />
+                  <Eksempel/>
+                  <Perioder/>
 
                 </div>
               </div>
