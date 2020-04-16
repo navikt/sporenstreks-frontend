@@ -4,7 +4,7 @@ import {FormContext, useForm} from 'react-hook-form';
 import {Hovedknapp} from 'nav-frontend-knapper';
 import {Link, useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
-import {Ingress, Normaltekst} from 'nav-frontend-typografi';
+import {Ingress, Normaltekst, Innholdstittel} from 'nav-frontend-typografi';
 import {Keys} from '../locales/keys';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
@@ -77,7 +77,7 @@ const ExcelOpplastning = () => {
                         window.location.href = env.loginServiceUrl;
                     } else if (response.status === 200) {
                         response.blob().then(data => {
-                                save(data, "nav_refusjon")
+                                save(data, "nav_refusjon_kvittering.xlsx")
                                 history.push('/kvitteringExcel')
                                 setFeil([])
                             }
@@ -152,7 +152,7 @@ const ExcelOpplastning = () => {
                             for å søke om refusjon for de siste 13 dagene av arbeidsgiverperioden.</b>
                     </Ingress>
                     <div className="container">
-                        <Ingress>Last ned Excel-malen, fyll ut og last opp.</Ingress>
+                        <Innholdstittel>Last ned Excel-malen, fyll ut og last opp.</Innholdstittel>
                         <Normaltekst>
                             Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
                             <Link to="/">&nbsp;skal du bruke et eget skjema som du finner her</Link>.
@@ -210,7 +210,8 @@ const ExcelOpplastning = () => {
                                     om at det aktuelle fraværet skyldes covid-19-pandemien.
                                     Vær oppmerksom på at NAV kan foreta kontroller.
                                 </Normaltekst>
-                                <Hovedknapp className="knapp filKnapp">Send søknad om refusjon</Hovedknapp>
+                                <Hovedknapp id="sendExcelKnapp" disabled={file? false: true} className="filKnapp">
+                                    Send søknad om refusjon</Hovedknapp>
                             </form>
                         </FormContext>
                 </div>
