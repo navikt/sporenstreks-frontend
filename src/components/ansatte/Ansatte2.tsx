@@ -47,39 +47,41 @@ interface AnsatteProps {
 //   </div>
 // </>;
 
-
+const reducer = (ansatte: any[], action: any) => {
+  switch (action.type) {
+    case "add":
+      return [...ansatte, tomAnsatt];
+    case "edit":
+      console.log("value", action.value)
+      const nyAnsatte: Ansatt[] = [...ansatte];
+      console.log("før",nyAnsatte)
+      const tmpAnsatt = {...nyAnsatte[action.value.idx]};
+      tmpAnsatt.fnr = action.value.fnr;  
+      nyAnsatte[action.value.idx] = tmpAnsatt;
+      console.log("etter",nyAnsatte)
+      return [...nyAnsatte];
+    case "remove":
+      return ansatte.filter((_, index) => index !== action.value.idx);
+    default:
+      return ansatte;
+  }
+}
 
 const Ansatte2 = (props: AnsatteProps) => {
-  const { ansatte, setAnsatte } = useAppStore();
-  // const [ ansatte, dispatch ] = useReducer((ansatte, { type, value }) => {
-  //   switch (type) {
-  //     case "add":
-  //       return [...ansatte, tomAnsatt];
-  //     case "edit":
-  //       // console.log(value)
-  //       let nyAnsatte: Ansatt[] = ansatte;
-  //       // console.log(nyAnsatte)
-  //       nyAnsatte[value.idx].fnr = value.fnr;
-  //       // console.log(nyAnsatte)
-  //       return nyAnsatte;
-  //     case "remove":
-  //       return ansatte.filter((_, index) => index !== value.idx);
-  //     default:
-  //       return ansatte;
-  //   }
-  // }, [tomAnsatt]);
+  // const { ansatte, setAnsatte } = useAppStore();
+  const [ ansatte, dispatch ] = useReducer(reducer, [tomAnsatt]);
   
-  const setFnr = (fnr: string, idx: number) => {
-    let nyAnsatte = ansatte;
-    nyAnsatte[idx].fnr = fnr;
-    console.log(nyAnsatte)
-    setAnsatte(nyAnsatte);
+  // const setFnr = (fnr: string, idx: number) => {
+  //   let nyAnsatte = ansatte;
+  //   nyAnsatte[idx].fnr = fnr;
+  //   console.log(nyAnsatte)
+  //   setAnsatte(nyAnsatte);
     
-  }
+  // }
   
-  const addAnsatt = () => {
-    setAnsatte([...ansatte, tomAnsatt]);
-  }
+  // const addAnsatt = () => {
+  //   setAnsatte([...ansatte, tomAnsatt]);
+  // }
   
   // console.log(ansatte)
   
@@ -91,17 +93,17 @@ const Ansatte2 = (props: AnsatteProps) => {
           return <div key={idx} className="ansatt" role="group">
               <FnrInput
                 id={"fnr_"+idx}
-                name="fnr"
+                name={"fnr_"+idx}
                 bredde="M"
                 label="Fødselsnummer til arbeidstaker"
-                value={ansatt.fnr}
-                // onChange={(e) => dispatch({ type: "edit", value: {fnr: e.target.value, idx: idx}})}
-                onChange={(e) => setFnr(e.target.value, idx)}
+                value={ansatte[idx].fnr}
+                onChange={(e) => dispatch({ type: "edit", value: {fnr: e.target.value, idx: idx}})}
+                // onChange={(e) => setFnr(e.target.value, idx)}
                 onValidate={(valid) => true} // todo: fix
                 feil={!ansatt.fnr ? undefined : 'Ugyldig fødselsnummer'}
               />
-              <Periode2 index={idx} />
-              <input value={ansatt.fnr} onChange={e => setFnr(e.target.value, idx)}/>
+              <Periode2 index={idx} />idx: {idx} fnr: {ansatte[idx].fnr}
+              {/* <input value={ansatt.fnr} onChange={e => setFnr(e.target.value, idx)}/> */}
               {/*<Antall2 index={props.index} />*/}
               {/*<Beloep2 index={props.index} />*/}
     
@@ -118,7 +120,7 @@ const Ansatte2 = (props: AnsatteProps) => {
             </div>
         })}
       </div>
-      <button role="link" className="ansattknapp lenke" onClick={(e) => addAnsatt()}>
+      <button role="link" className="ansattknapp lenke" onClick={(e) => dispatch({type: "add", action: {}})}>
         Legg til ansatt
       </button>
     </>
