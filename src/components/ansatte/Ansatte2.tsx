@@ -52,13 +52,10 @@ const reducer = (ansatte: any[], action: any) => {
     case "add":
       return [...ansatte, tomAnsatt];
     case "edit":
-      console.log("value", action.value)
       const nyAnsatte: Ansatt[] = [...ansatte];
-      console.log("før",nyAnsatte)
       const tmpAnsatt = {...nyAnsatte[action.value.idx]};
       tmpAnsatt.fnr = action.value.fnr;  
       nyAnsatte[action.value.idx] = tmpAnsatt;
-      console.log("etter",nyAnsatte)
       return [...nyAnsatte];
     case "remove":
       return ansatte.filter((_, index) => index !== action.value.idx);
