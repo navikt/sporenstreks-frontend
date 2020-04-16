@@ -11,10 +11,11 @@ interface AnsatteKompProps {
   min?: Date;
   max?: Date;
   slettAnsatt: (e: any, idx: number) => void;
+  showDelete: boolean;
 }
 
 const AnsattKomp = (props: AnsatteKompProps) => {
-
+  
   return (
     <div className="ansatt" role="group">
       <FodselNr index={props.index} />
@@ -22,7 +23,7 @@ const AnsattKomp = (props: AnsatteKompProps) => {
       <Antall index={props.index} />
       <Beloep index={props.index} />
 
-      <Vis hvis={props.index > 0}>
+      <Vis hvis={props.showDelete}>
         <button role='link' id={'btn_' + props.index} className='ansattknapp lenke slett'
           onClick={(e) => props.slettAnsatt(e, props.index)}
         >

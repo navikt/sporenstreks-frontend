@@ -14,7 +14,7 @@ interface PeriodeKompProps {
 }
 
 const PeriodeKomp = (props: PeriodeKompProps) => {
-
+  
   return (
     <div className="periode" role="group">
       <Periode index={props.index} min={props.min} max={props.max} />

@@ -19,6 +19,7 @@ import Vis from '../components/Vis';
 import env from '../util/environment';
 import Ansatte from '../components/ansatte/Ansatte';
 import './SykepengerBulk.less';
+import Ansatte2 from '../components/ansatte/Ansatte2';
 
 const SykepengerBulk = () => {
   const { arbeidsgivere, setReferanseNummer, identityNumberInput } = useAppStore();
@@ -140,7 +141,7 @@ const SykepengerBulk = () => {
                     NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
                   </Undertekst>
 
-                  <Ansatte />
+                  <Ansatte2 />
 
                 </div>
               </div>

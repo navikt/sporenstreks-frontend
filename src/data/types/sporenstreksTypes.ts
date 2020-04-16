@@ -18,12 +18,20 @@ export const tomPeriode: Periode = {
   beloep: 0
 };
 
+export enum SkjemaStatus {
+  'NY',
+  'AVVENTER',
+  'GODKJENT',
+  'VALIDERINGSFEIL',
+}
+
 export interface Ansatt {
   fnr: string;
   fom: string;
   tom: string;
   antallDagerMedRefusjon: number;
   beloep: number;
+  status: SkjemaStatus
 }
 
 export const tomAnsatt: Ansatt = {
@@ -31,8 +39,11 @@ export const tomAnsatt: Ansatt = {
   fom: '',
   tom: '',
   antallDagerMedRefusjon: 0,
-  beloep: 0
+  beloep: 0,
+  status: SkjemaStatus.NY,
 };
+
+
 
 export interface BackendStatus {
   status: 'OK' | 'GENERIC_ERROR' | 'VALIDATION_ERRORS';
