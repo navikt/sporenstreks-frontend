@@ -7,7 +7,7 @@ export const [ AppStoreProvider, useAppStore ] = constate(() => {
   const [ unleash, setUnleash ] = useState<UnleashToggles>();
   const [ arbeidsgivere, setArbeidsgivere ] = useState<Organisasjon[]>([]);
   const [ perioder, setPerioder ] = useState<Periode[]>([tomPeriode]);
-  const [ ansatte, setAnsatte ] = useState<Ansatt[]>([tomAnsatt]);
+  const [ ansatte, setAnsatte ] = useState<Ansatt[]>([tomAnsatt,tomAnsatt,tomAnsatt]);
   const [ referanseNummer, setReferanseNummer ] = useState<string>('');
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
 

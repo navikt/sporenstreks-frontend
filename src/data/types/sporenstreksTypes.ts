@@ -26,7 +26,8 @@ export enum SkjemaStatus {
 }
 
 export interface Ansatt {
-  fnr: string;
+  fnr?: number;
+  fnrError?: boolean,
   fom: string;
   tom: string;
   antallDagerMedRefusjon: number;
@@ -35,7 +36,7 @@ export interface Ansatt {
 }
 
 export const tomAnsatt: Ansatt = {
-  fnr: '',
+  fnr: undefined,
   fom: '',
   tom: '',
   antallDagerMedRefusjon: 0,
