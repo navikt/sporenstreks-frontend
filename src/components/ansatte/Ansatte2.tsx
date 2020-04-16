@@ -50,24 +50,36 @@ interface AnsatteProps {
 
 
 const Ansatte2 = (props: AnsatteProps) => {
-  // const { ansatte, setAnsatte } = useAppStore();
-  const [ ansatte, dispatch ] = useReducer((ansatte, { type, value }) => {
-    switch (type) {
-      case "add":
-        return [...ansatte, tomAnsatt];
-      case "edit":
-        // console.log(value)
-        let nyAnsatte: Ansatt[] = ansatte;
-        console.log(nyAnsatte)
-        nyAnsatte[value.idx].fnr = value.fnr;
-        console.log(nyAnsatte)
-        return [...nyAnsatte];
-      case "remove":
-        return ansatte.filter((_, index) => index !== value.idx);
-      default:
-        return ansatte;
-    }
-  }, [tomAnsatt]);
+  const { ansatte, setAnsatte } = useAppStore();
+  // const [ ansatte, dispatch ] = useReducer((ansatte, { type, value }) => {
+  //   switch (type) {
+  //     case "add":
+  //       return [...ansatte, tomAnsatt];
+  //     case "edit":
+  //       // console.log(value)
+  //       let nyAnsatte: Ansatt[] = ansatte;
+  //       // console.log(nyAnsatte)
+  //       nyAnsatte[value.idx].fnr = value.fnr;
+  //       // console.log(nyAnsatte)
+  //       return nyAnsatte;
+  //     case "remove":
+  //       return ansatte.filter((_, index) => index !== value.idx);
+  //     default:
+  //       return ansatte;
+  //   }
+  // }, [tomAnsatt]);
+  
+  const setFnr = (fnr: string, idx: number) => {
+    let nyAnsatte = ansatte;
+    nyAnsatte[idx].fnr = fnr;
+    console.log(nyAnsatte)
+    setAnsatte(nyAnsatte);
+    
+  }
+  
+  const addAnsatt = () => {
+    setAnsatte([...ansatte, tomAnsatt]);
+  }
   
   // console.log(ansatte)
   
@@ -76,7 +88,6 @@ const Ansatte2 = (props: AnsatteProps) => {
       <div className="ansattliste">
         {
           ansatte.map((ansatt: Ansatt, idx) => {
-            console.log(ansatt, idx)
           return <div key={idx} className="ansatt" role="group">
               <FnrInput
                 id={"fnr_"+idx}
@@ -84,12 +95,13 @@ const Ansatte2 = (props: AnsatteProps) => {
                 bredde="M"
                 label="Fødselsnummer til arbeidstaker"
                 value={ansatt.fnr}
-                onChange={(e) => dispatch({ type: "edit", value: {fnr: e.target.value,
-                    idx: idx}})}
+                // onChange={(e) => dispatch({ type: "edit", value: {fnr: e.target.value, idx: idx}})}
+                onChange={(e) => setFnr(e.target.value, idx)}
                 onValidate={(valid) => true} // todo: fix
                 feil={!ansatt.fnr ? undefined : 'Ugyldig fødselsnummer'}
               />
               <Periode2 index={idx} />
+              <input value={ansatt.fnr} onChange={e => setFnr(e.target.value, idx)}/>
               {/*<Antall2 index={props.index} />*/}
               {/*<Beloep2 index={props.index} />*/}
     
@@ -106,7 +118,7 @@ const Ansatte2 = (props: AnsatteProps) => {
             </div>
         })}
       </div>
-      <button role="link" className="ansattknapp lenke" onClick={(e) => dispatch({type: "add", value: ''})}>
+      <button role="link" className="ansattknapp lenke" onClick={(e) => addAnsatt()}>
         Legg til ansatt
       </button>
     </>
