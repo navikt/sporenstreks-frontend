@@ -14,10 +14,11 @@ import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
 import {History} from 'history';
 import Vis from '../components/Vis';
 import env from '../util/environment';
-import './Sykepenger.less';
+import './ExcelOpplastning.less';
 import Lenke from "nav-frontend-lenker";
 import excellogo from '../img/excel-logo.png';
 import save from 'save-file'
+import Hjelpetekst from "nav-frontend-hjelpetekst";
 
 interface Feil {
     melding: string,
@@ -111,7 +112,7 @@ const ExcelOpplastning = () => {
 
 
     return (
-        <div className="sykepenger">
+        <div className="excelOpplastning">
             <Vis hvis={arbeidsgivere.length === 0}>
                 <div className="limit">
                     <AlertStripeAdvarsel>
@@ -170,7 +171,7 @@ const ExcelOpplastning = () => {
                             alt må fylles ut i denne malen før du laster opp.
                         </Normaltekst>
                     </div>
-                    <div>
+                    <div className="container">
                         <label className="knapp filKnapp">
                             <input className="fileinput"
                                    type="file"
@@ -183,37 +184,45 @@ const ExcelOpplastning = () => {
                             NB, det kan maks legges inn 5000 linjer per excel-doc.
                             Om det ikke er tilstrekkelig må dere gjøre dette i flere omganger.
                         </Normaltekst>
-                    </div>
-                    <Vis hvis={feil.length > 0}>
+                        <Vis hvis={feil.length > 0}>
                         <span className="feiloppsummeringTabell feiloppsummering">
                             <Ingress>Følgende feil i dokumentet må utbedres før du laster det opp på nytt:</Ingress>
                             <table className="tabell tabell--stripet">
                                 <tbody>
                                 {feil.sort((x, y) => x.rad > y.rad ? 1 : -1).map((f, index) => (
                                     <tr key={index}>
-                                        <td>{(f.rad < 0 ? "" : "Rad " +f.rad)}</td>
-                                        <td>{(f.kolonne && f.kolonne  < 0 ? "" : f.kolonne)}</td>
+                                        <td>{(f.rad < 0 ? "" : "Rad " + f.rad)}</td>
+                                        <td>{(f.kolonne && f.kolonne < 0 ? "" : f.kolonne)}</td>
                                         <td>{f.melding}</td>
                                     </tr>
                                 ))}
                                 </tbody>
                             </table>
                         </span>
-                    </Vis>
-                        <FormContext {...methods}>
-                            <form onSubmit={methods.handleSubmit(onSubmit)} className="excelform container">
-                                <Normaltekst>
-                                    Vi erklærer at det ikke er søkt om omsorgspenger
-                                    og at arbeidstakeren ikke er permittert.
-                                    Vi erklærer at dette kravet er basert på
-                                    at fraværet skyldes arbeidstakerens opplysninger
-                                    om at det aktuelle fraværet skyldes covid-19-pandemien.
-                                    Vær oppmerksom på at NAV kan foreta kontroller.
-                                </Normaltekst>
-                                <Hovedknapp id="sendExcelKnapp" disabled={file? false: true} className="filKnapp">
-                                    Send søknad om refusjon</Hovedknapp>
-                            </form>
-                        </FormContext>
+                        </Vis>
+                    </div>
+                    <FormContext {...methods}>
+                        <form onSubmit={methods.handleSubmit(onSubmit)} className="excelform container">
+                            <Normaltekst>
+                                Vi erklærer at det ikke er søkt om omsorgspenger
+                                og at arbeidstakeren ikke er permittert.
+                                Vi erklærer at dette kravet er basert på
+                                at fraværet skyldes arbeidstakerens opplysninger
+                                om at det aktuelle fraværet skyldes covid-19-pandemien.
+                                Vær oppmerksom på at NAV kan foreta kontroller.
+                            </Normaltekst>
+                            <Hovedknapp
+                                id="sendExcelKnapp"
+                                disabled={file ? false : true}
+                                className="filKnapp"
+                            >
+                                Send søknad om refusjon
+                            </Hovedknapp>
+                            <Vis hvis={file ? false : true}>
+                            <Hjelpetekst>Du må laste opp et utfylt Excel-dokument først.</Hjelpetekst>
+                            </Vis>
+                        </form>
+                    </FormContext>
                 </div>
             </Vis>
         </div>
