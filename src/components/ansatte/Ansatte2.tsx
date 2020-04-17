@@ -5,7 +5,7 @@ import {useAppStore} from '../../data/store/AppStore';
 import {Feiloppsummering} from 'nav-frontend-skjema';
 import {Flatknapp, Knapp} from "nav-frontend-knapper";
 import {AnsattRad} from "./AnsattRad";
-import {IsValid, Validering} from "./Validering";
+import {IsValid, Validering} from "../validering/Validering";
 import {ValideringsFeil} from "./ValideringsFeil";
 import {ByggValideringsFeil} from "./ByggValideringsFeil";
 import {Innsending} from "./Innsending";

@@ -20,7 +20,7 @@ export const Periode = (id: number) => {
     let max = dayjs(new Date()).add(1, 'year').toDate();
     return (<div>
         <Flatpickr
-            placeholder='dd.mm.yyyy til dd.mm.yyyy'
+            placeholder='yyyy.mm.dd til yyyy.mm.dd'
             className={"skjemaelement__input"}
             options={{
                 minDate: min,
