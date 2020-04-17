@@ -15,3 +15,7 @@ export const Validering = (ansatte: Ansatt[]) => {
     })
     return ansatte
 }
+
+export const IsValid = (ansatte: Ansatt[]) => {
+    return !ansatte.find(a => !!a.fnrError)
+}

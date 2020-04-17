@@ -25,6 +25,7 @@ export enum SkjemaStatus {
   'AVVENTER',
   'GODKJENT',
   'VALIDERINGSFEIL',
+  'ERRORBACKEND',
 }
 
 export interface Ansatt {
@@ -41,7 +42,7 @@ export interface Ansatt {
   beloep?: number;
   status: SkjemaStatus;
   oppdatert: number;
-  referenceNumber: string | null;
+  referenceNumber?: string | null;
 }
 
 export const byggAnsatt = () => {
