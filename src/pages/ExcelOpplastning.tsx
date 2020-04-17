@@ -39,11 +39,12 @@ const ExcelOpplastning = () => {
     const FILEUPLOAD_MAX_SIZE = 100000;
 
     const setUploadFile = (event: any) => {
-        if (event.target.files[0].size > FILEUPLOAD_MAX_SIZE) {
+        if (event.target.files[0] && event.target.files[0].size > FILEUPLOAD_MAX_SIZE) {
             setFeil([{rad: -1, melding: "Du kan ikke laste opp filer større enn 100 kB."}])
         } else {
             setFileName(event.target.files[0].name);
-            setFile(event.target.files[0])
+            setFile(event.target.files[0]);
+            setFeil([]);
         }
     }
 
@@ -75,30 +76,43 @@ const ExcelOpplastning = () => {
             }).then((response: Response) => {
                 clearTimeout(timeout);
                 if (!didTimeOut) {
-                    if (response.status === 401) {
-                        window.location.href = env.loginServiceUrl;
-                    } else if (response.status === 200) {
-                        response.blob().then(data => {
-                                save(data, "nav_refusjon_kvittering.xlsx")
-                                history.push('/kvitteringExcel')
-                                setFeil([])
-                            }
-                        )
+                    switch(response.status) {
+                        case 401: {
+                           window.location.href = env.loginServiceUrl;
+                           break;
+                        }
+                        case 200: {
+                            response.blob().then(data => {
+                                    save(data, "nav_refusjon_kvittering.xlsx")
+                                    history.push('/kvitteringExcel')
+                                    setFeil([])
+                                }
+                            )
+                            break;
+                        }
+                        case 422: {
+                            response.json().then(data => {
+                                let f: Feil[] =
+                                    data.problemDetails.map(violation => ({
+                                        rad: violation.row,
+                                        kolonne: violation.column,
+                                        melding: violation.message
 
-                    } else if (response.status === 422) {
-                        response.json().then(data => {
-                            let f: Feil[] =
-                                data.problemDetails.map(violation => ({
-                                    rad: violation.row,
-                                    kolonne: violation.column,
-                                    melding: violation.message
+                                    }));
 
-                                }));
-                            setFeil(f)
-                        });
-                    } else {
-                        let f: Feil = {melding: "Feil ved innsending av skjema.", rad: -1}
-                        setFeil([f])
+                                if(f.length > 0) {
+                                    setFeil(f)
+                                } else {
+                                    setFeil([{rad: -1, melding: data.detail}])
+                                }
+                            });
+                            break;
+                        }
+                        default: {
+                            let f: Feil = {melding: "Feil ved innsending av skjema.", rad: -1}
+                            setFeil([f])
+                            break;
+                        }
                     }
                 }
             }).catch(err => {
