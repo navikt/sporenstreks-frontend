@@ -8,13 +8,13 @@ import {AnsattRad} from "./AnsattRad";
 import {IsValid, Validering} from "../validering/Validering";
 import {ValideringsFeil} from "./ValideringsFeil";
 import {ByggValideringsFeil} from "./ByggValideringsFeil";
-import {Innsending} from "./Innsending";
+import Innsending from "./Innsending";
 import Hjelpetekst from "nav-frontend-hjelpetekst";
 import {Normaltekst} from "nav-frontend-typografi";
 
-const Ansatte2 = () => {
+const Ansatte2 = ({arbeidsgiverId}) => {
     const {ansatte, setAnsatte} = useAppStore();
-    const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
+    // const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
     const [ feil, setFeil ] = useState<ValideringsFeil[]>([]);
     const handleAddRad = () => {
         ansatte.push(byggAnsatt())

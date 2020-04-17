@@ -3,7 +3,7 @@ import {sykepengerData} from "./SykepengerData";
 import env from "../../util/environment";
 import { backendStatus } from "../../data/types/backendStatus";
 
-export const Innsending = (arbeidsgiverId: String, validerteAnsatte: Ansatt[]) => {
+export default (arbeidsgiverId: String, validerteAnsatte: Ansatt[]) => {
     console.log("ansatte", JSON.stringify(validerteAnsatte));
     const preparedAnsatte: sykepengerData[] = validerteAnsatte.map((ansatt: Ansatt) => {
         return {
