@@ -71,7 +71,8 @@ const Sykepenger = () => {
   const submitForm = async(): Promise<void> => {
     const refusjonsKrav = convertSkjemaToRefusjonsKrav(formData);
     setModalOpen(false);
-
+    console.log(JSON.stringify(refusjonsKrav));
+    debugger;
     const FETCH_TIMEOUT = 5000;
     let didTimeOut = false;
 

@@ -6,7 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
 import { Keys } from '../locales/keys';
-import { Periode, RefusjonsKrav } from '../data/types/sporenstreksTypes';
+import { Periode, RefusjonsKrav, Ansatt } from '../data/types/sporenstreksTypes';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
@@ -20,9 +20,23 @@ import env from '../util/environment';
 import Ansatte from '../components/ansatte/Ansatte';
 import './SykepengerBulk.less';
 import Ansatte2 from '../components/ansatte/Ansatte2';
+import Beloep from '../components/inputfelt/Beloep';
+
+interface sykepengerData {
+  "identitetsnummer": Number | undefined;
+  "virksomhetsnummer": String | undefined;
+  "perioder":[
+    {
+      "fom": String | undefined;
+      "tom": String | undefined;
+      "antallDagerMedRefusjon": number | undefined;
+      "beloep": number | undefined;
+    }
+  ]
+}
 
 const SykepengerBulk = () => {
-  const { arbeidsgivere, setReferanseNummer, identityNumberInput } = useAppStore();
+  const { ansatte, arbeidsgivere, setReferanseNummer, identityNumberInput } = useAppStore();
   const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
   const methods = useForm();
   const { t } = useTranslation();
@@ -34,41 +48,32 @@ const SykepengerBulk = () => {
       return data;
     }, {});
 
-  const convertSkjemaToRefusjonsKrav = (data): RefusjonsKrav => {
-    const antallPerioder = (Object.keys(data).length - 2) / 3;
-    let perioder: Periode[] = [];
+  const onSubmit = async(e: React.FormEvent): Promise<void> => {
+    e.preventDefault();
+    const preparedAnsatte: sykepengerData[] = ansatte.map((ansatt: Ansatt) => {
+      return {
+        identitetsnummer: ansatt.fnr,
+        virksomhetsnummer: arbeidsgiverId,
+        perioder: [
+          {
+            fom: ansatt.fom,
+            tom: ansatt.tom,
+            antallDagerMedRefusjon: ansatt.antallDagerMedRefusjon,
+            beloep: ansatt.beloep
+          }
+        ]
+      }
+    })
 
-    for (let i = 0; i < antallPerioder; i++) {
-      const days = data['periode_' + i].split(' til ');
-      const periode: Periode = {
-        fom: dayjs(days[0]).format('YYYY-MM-DD'),
-        tom: dayjs(days[1]).format('YYYY-MM-DD'),
-        antallDagerMedRefusjon: data['antall_' + i].replace(/ /g, ''),
-        beloep: data['beloep_' + i].replace(/ /g, '')
-          .replace(/\s/g, '')
-          .replace(',', '.'),
-      };
-      perioder.push(periode)
-    }
+    console.log("ansatte", JSON.stringify(ansatte));
 
-    return {
-      identitetsnummer: identityNumberInput,
-      virksomhetsnummer: arbeidsgiverId,
-      perioder: perioder
-    };
-  };
-
-  const onSubmit = async(e: any): Promise<void> => {
-    const form: HTMLFormElement = document.querySelector('.refusjonsform') ?? e.target;
-    const data = formToJSON(form.elements);
-    const refusjonsKrav = convertSkjemaToRefusjonsKrav(data);
-    await fetch(env.baseUrl + '/api/v1/refusjonskrav', {
+    await fetch(env.baseUrl + '/api/v1/refusjonskrav/list', {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       method: 'POST',
-      body: JSON.stringify(refusjonsKrav),
+      body: JSON.stringify(preparedAnsatte),
     }).then(response => {
       if (response.status === 401) {
         window.location.href = env.loginServiceUrl;
@@ -132,6 +137,7 @@ const SykepengerBulk = () => {
           </div>
           <FormContext {...methods}>
 
+            <form onSubmit={(e) => onSubmit(e)} className="refusjonsform">
               <div className="container">
                 <div className="sykepenger--periode-velger form-group">
                   <Undertittel className="sykepenger--undertittel">
@@ -155,7 +161,7 @@ const SykepengerBulk = () => {
                   Vær oppmerksom på at NAV kan foreta kontroller.
                 </Normaltekst>
               </div>
-
+            </form>
           </FormContext>
         </div>
       </Vis>
