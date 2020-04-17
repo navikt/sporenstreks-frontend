@@ -4,7 +4,7 @@ import {FormContext, useForm} from 'react-hook-form';
 import {Hovedknapp} from 'nav-frontend-knapper';
 import {Link, useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
-import {Ingress, Normaltekst, Innholdstittel} from 'nav-frontend-typografi';
+import {Ingress, Innholdstittel, Normaltekst} from 'nav-frontend-typografi';
 import {Keys} from '../locales/keys';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
@@ -19,6 +19,7 @@ import Lenke from "nav-frontend-lenker";
 import excellogo from '../img/excel-logo.png';
 import save from 'save-file'
 import Hjelpetekst from "nav-frontend-hjelpetekst";
+import {PopoverOrientering} from "nav-frontend-popover";
 
 interface Feil {
     melding: string,
@@ -211,6 +212,7 @@ const ExcelOpplastning = () => {
                                 om at det aktuelle fraværet skyldes covid-19-pandemien.
                                 Vær oppmerksom på at NAV kan foreta kontroller.
                             </Normaltekst>
+                            <span className="container">
                             <Hovedknapp
                                 id="sendExcelKnapp"
                                 disabled={file ? false : true}
@@ -219,10 +221,14 @@ const ExcelOpplastning = () => {
                                 Send søknad om refusjon
                             </Hovedknapp>
                             <Vis hvis={file ? false : true}>
-                            <Hjelpetekst>Du må laste opp et utfylt Excel-dokument først.</Hjelpetekst>
+                            <Hjelpetekst type={PopoverOrientering.Hoyre}>
+                                Du må laste opp et utfylt Excel-dokument først.
+                            </Hjelpetekst>
                             </Vis>
+                            </span>
                         </form>
                     </FormContext>
+
                 </div>
             </Vis>
         </div>
