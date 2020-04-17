@@ -25,6 +25,7 @@ export enum SkjemaStatus {
   'AVVENTER',
   'GODKJENT',
   'VALIDERINGSFEIL',
+  'ERRORBACKEND',
 }
 
 export interface Ansatt {
