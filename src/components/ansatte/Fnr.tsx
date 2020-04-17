@@ -1,18 +1,26 @@
 import React from "react";
 import {InputProps} from "nav-frontend-skjema/lib/input";
-import {Input} from "nav-frontend-skjema";
+import {FnrInput, Input} from "nav-frontend-skjema";
 import {useAppStore} from "../../data/store/AppStore";
 
-export const Refusjon = (id: number) => {
+export const Fnr = (id: number) => {
     const {ansatte, setAnsatte} = useAppStore();
     const a = ansatte.find(a => a.id === id)
     const handleChange = (evt) => {
         if (a){
-            a.beloep = parseInt(evt.target.value)
+            a.fnr = parseInt(evt.target.value)
         } else {
             console.warn("Fant ikke rad")
         }
         setAnsatte(ansatte)
     }
-    return (<div><Input feil={a?.beloepError} value={a?.beloep} inputMode={"numeric"} onChange={handleChange}/></div>)
+    return (<div>
+        <FnrInput
+            bredde="M"
+            value={a?.fnr}
+            onChange={handleChange}
+            onValidate={() => console.log("valid")}
+            feil={a?.fnrError}
+        />
+    </div>)
 }

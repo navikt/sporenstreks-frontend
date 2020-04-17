@@ -1,25 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import {InputProps} from "nav-frontend-skjema/lib/input";
 import {Input} from "nav-frontend-skjema";
+import {Ansatt, UnleashToggles} from "../../data/types/sporenstreksTypes";
+import {useAppStore} from "../../data/store/AppStore";
 
-export interface DagerProps extends InputProps {
-    antall: number
-}
-
-export class Dager extends React.Component<DagerProps> {
-    constructor(props) {
-        super(props);
-        this.state = {
-            antall: props.antall
+export const Dager = (id: number) => {
+    const {ansatte, setAnsatte} = useAppStore();
+    const a = ansatte.find(a => a.id === id)
+    const handleChange = (evt) => {
+        if (a){
+            a.antallDagerMedRefusjon = parseInt(evt.target.value)
+        } else {
+            console.warn("Fant ikke rad")
         }
+        setAnsatte(ansatte)
     }
-    handleChange = (evt) => {
-        console.log(this.state)
-        this.setState({
-            antall: evt.target.value
-        })
-    }
-    render(){
-        return (<div><Input value={this.state["antall"]} onChange={this.handleChange}/></div>)
-    };
+    return (<div><Input feil={a?.dagerError} value={a?.antallDagerMedRefusjon} inputMode={"numeric"} onChange={handleChange}/></div>)
 }

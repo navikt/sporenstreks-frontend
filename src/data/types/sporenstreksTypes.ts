@@ -30,11 +30,15 @@ export enum SkjemaStatus {
 export interface Ansatt {
   id: number,
   fnr?: number;
-  fnrError?: boolean,
+  fnrError?: string,
+  beloepError?: string,
+  refusjonError?: string,
+  periodeError?: string,
+  dagerError?: string,
   fom: string;
   tom: string;
-  antallDagerMedRefusjon: number;
-  beloep: number;
+  antallDagerMedRefusjon?: number;
+  beloep?: number;
   status: SkjemaStatus,
   oppdatert: number
 }
@@ -44,8 +48,8 @@ export const byggAnsatt = () => {
   a.id = uuid();
   a.fom = '';
   a.tom = '';
-  a.antallDagerMedRefusjon = 0;
-  a.beloep = 0;
+  a.antallDagerMedRefusjon = undefined;
+  a.beloep = undefined;
   a.status = SkjemaStatus.NY;
   a.oppdatert = 0;
   return a;

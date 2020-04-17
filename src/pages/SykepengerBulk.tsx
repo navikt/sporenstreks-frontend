@@ -131,7 +131,7 @@ const SykepengerBulk = () => {
             </Normaltekst>
           </div>
           <FormContext {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)} className="refusjonsform">
+
               <div className="container">
                 <div className="sykepenger--periode-velger form-group">
                   <Undertittel className="sykepenger--undertittel">
@@ -146,8 +146,6 @@ const SykepengerBulk = () => {
                 </div>
               </div>
 
-              <FeilOppsummering errors={methods.errors} />
-
               <div className="container">
                 <Normaltekst>
                   Vi erklærer at det ikke er søkt om omsorgspenger og at arbeidstakeren ikke er permittert. Kravet er
@@ -158,10 +156,6 @@ const SykepengerBulk = () => {
                 </Normaltekst>
               </div>
 
-              <div className="container">
-                <Knapp type="hoved"> Send søknad om refusjon </Knapp>
-              </div>
-            </form>
           </FormContext>
         </div>
       </Vis>
