@@ -1,3 +1,5 @@
+import uuid from 'uuid/v4';
+
 export interface RefusjonsKrav {
   identitetsnummer: string;
   virksomhetsnummer: string;
@@ -26,22 +28,38 @@ export enum SkjemaStatus {
 }
 
 export interface Ansatt {
+  id: number,
   fnr?: number;
   fnrError?: boolean,
   fom: string;
   tom: string;
   antallDagerMedRefusjon: number;
   beloep: number;
-  status: SkjemaStatus
+  status: SkjemaStatus,
+  oppdatert: number
 }
 
+export const byggAnsatt = () => {
+  let a = {} as Ansatt;
+  a.id = uuid();
+  a.fom = '';
+  a.tom = '';
+  a.antallDagerMedRefusjon = 0;
+  a.beloep = 0;
+  a.status = SkjemaStatus.NY;
+  a.oppdatert = 0;
+  return a;
+};
+
 export const tomAnsatt: Ansatt = {
+  id: Math.random()*100000 * new Date().getTime(),
   fnr: undefined,
   fom: '',
   tom: '',
   antallDagerMedRefusjon: 0,
   beloep: 0,
   status: SkjemaStatus.NY,
+  oppdatert: 0
 };
 
 

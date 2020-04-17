@@ -39,7 +39,7 @@
     "nav-frontend-lenker": "^1.0.35",
     "nav-frontend-lenker-style": "^0.2.26",
     "nav-frontend-lukknapp": "^1.0.25",
-    "nav-frontend-lukknapp-style": "^.2.22",
+    "nav-frontend-lukknapp-style": "^0.2.22",
     "nav-frontend-modal": "^1.0.33",
     "nav-frontend-modal-style": "^0.3.32",
     "nav-frontend-paneler": "^2.0.1",
@@ -72,6 +72,7 @@
     "react-scripts": "3.4.1",
     "typescript": "^3.8.3",
     "use-force-update": "^1.0.7",
+    "uuid": "^7.0.3",
     "yet-another-fetch-mock": "^3.4.0"
   },
   "homepage": "/nettrefusjon",
@@ -104,6 +105,7 @@
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",
     "eslint": "^6.8.0",
-    "eslint-plugin-react": "^7.19.0"
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^3.0.0"
   }
 }

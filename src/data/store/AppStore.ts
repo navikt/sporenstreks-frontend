@@ -1,13 +1,15 @@
 import constate from 'constate';
 import { useState } from 'react';
-import { Ansatt, Periode, tomAnsatt, tomPeriode, UnleashToggles } from '../types/sporenstreksTypes';
+import {Ansatt, byggAnsatt, Periode, tomAnsatt, tomPeriode, UnleashToggles} from '../types/sporenstreksTypes';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
 
 export const [ AppStoreProvider, useAppStore ] = constate(() => {
   const [ unleash, setUnleash ] = useState<UnleashToggles>();
   const [ arbeidsgivere, setArbeidsgivere ] = useState<Organisasjon[]>([]);
   const [ perioder, setPerioder ] = useState<Periode[]>([tomPeriode]);
-  const [ ansatte, setAnsatte ] = useState<Ansatt[]>([tomAnsatt,tomAnsatt,tomAnsatt]);
+  const [ ansatte, setAnsatte ] = useState<Ansatt[]>([
+      byggAnsatt(),byggAnsatt(),byggAnsatt()
+  ]);
   const [ referanseNummer, setReferanseNummer ] = useState<string>('');
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
 
