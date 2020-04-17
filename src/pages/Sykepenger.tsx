@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import 'nav-frontend-tabell-style';
 import { Input } from 'nav-frontend-skjema';
 import { FormContext, useForm } from 'react-hook-form';
@@ -7,7 +7,6 @@ import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
 import { Keys } from '../locales/keys';
-import { Periode, RefusjonsKrav } from '../data/types/sporenstreksTypes';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import fnrvalidator from '@navikt/fnrvalidator';
@@ -24,73 +23,52 @@ import env from '../util/environment';
 import './Sykepenger.less';
 import Lenke from "nav-frontend-lenker";
 import ModalWrapper from 'nav-frontend-modal';
+import Eksempel from '../components/Eksempel';
+import formToJSON from '../util/formToJSON';
+import convertSkjemaToRefusjonsKrav from '../util/convertSkjemaToRefusjonsKrav';
+
+const fnrErrorState = {
+  hasError: '',
+  noError: 'tom'
+}
 
 const Sykepenger = () => {
   const { arbeidsgivere, setReferanseNummer } = useAppStore();
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
   const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
   const [ firma, setFirma ] = useState<string>('');
-  const [ modalOpen, setModalOpen ] = useState<boolean>(false);
+  const [ sendSkjemaOpen, setSendSkjemaOpen ] = useState<boolean>(false);
   const [ formData, setFormData ] = useState<any>({});
+  const [ fnrClassName, setFnrClassName ] = useState<string>(fnrErrorState.noError);
   const methods = useForm();
   const { t } = useTranslation();
   const history: History = useHistory();
+  const refRefusjonsform = useRef(null);
 
   const filterIdentityNumberInput = (input: string) => {
     setIdentityNumberInput(filterStringToNumbersOnly(input, 11));
   };
 
-  const formToJSON = elms =>
-    [].reduce.call(elms, (data: any, elm: any) => {
-      data[elm.name] = elm.value;
-      return data;
-    }, {});
-
-  const convertSkjemaToRefusjonsKrav = (data): RefusjonsKrav => {
-    const antallPerioder = (Object.keys(data).length - 2) / 3;
-    let perioder: Periode[] = [];
-
-    for (let i = 0; i < antallPerioder; i++) {
-      const days = data['periode_' + i].split(' til ');
-      const periode: Periode = {
-        fom: days[0],
-        tom: days[1] ?? days[0],
-        antallDagerMedRefusjon: data['antall_' + i].replace(/ /g, ''),
-        beloep: data['beloep_' + i].replace(/ /g, '')
-          .replace(/\s/g, '')
-          .replace(',', '.'),
-      };
-      console.log('days: ', days) // eslint-disable-line no-console
-
-      perioder.push(periode)
-    }
-
-    return {
-      identitetsnummer: identityNumberInput,
-      virksomhetsnummer: arbeidsgiverId,
-      perioder: perioder
-    };
-  };
-  
   const setForm = (e: any) => {
-    const form: HTMLFormElement = document.querySelector('.refusjonsform') ?? e.target;
+    const form = refRefusjonsform.current ?? e.target;
+
     setFormData(formToJSON(form.elements));
-    setModalOpen(true);
+    setSendSkjemaOpen(true);
   };
 
   const submitForm = async(): Promise<void> => {
-    const refusjonsKrav = convertSkjemaToRefusjonsKrav(formData);
-    setModalOpen(false);
-  
+    const refusjonsKrav = convertSkjemaToRefusjonsKrav(formData, identityNumberInput, arbeidsgiverId);
+    setSendSkjemaOpen(false);
+
     const FETCH_TIMEOUT = 5000;
     let didTimeOut = false;
-  
+
     new Promise((resolve, reject) => {
       const timeout = setTimeout(function() {
         didTimeOut = true;
         reject(new Error('Request timed out'));
       }, FETCH_TIMEOUT);
-    
+
       fetch(env.baseUrl + '/api/v1/refusjonskrav', {
         headers: {
           'Accept': 'application/json',
@@ -111,7 +89,7 @@ const Sykepenger = () => {
             })
           } else if (response.status === 422) {
             response.json().then(data => {
-              data.violations.map(violation => {
+              data.violations.forEach(violation => {
                 methods.setError('backend', violation.message);
               });
               data.violations.map(violation => ({
@@ -133,7 +111,6 @@ const Sykepenger = () => {
   };
 
   const validateFnr = (value: string) => {
-    const errbox = document.querySelector('.fnr')!;
     value = value.replace(/-/g, '');
     const notValid = fnrvalidator.fnr(value).status === 'invalid';
     let msg = '';
@@ -145,11 +122,11 @@ const Sykepenger = () => {
       msg = 'Fødselsnummer er ugyldig'
     }
     if (msg !== '') {
-      errbox.classList.remove('tom');
+      setFnrClassName(fnrErrorState.hasError)
       methods.setError('fnr', msg);
       return false;
     } else {
-      errbox.classList.add('tom');
+      setFnrClassName(fnrErrorState.noError);
       methods.clearError(['fnr', 'backend']);
       return true;
     }
@@ -170,18 +147,18 @@ const Sykepenger = () => {
           </AlertStripeAdvarsel>
         </div>
       </Vis>
-  
+
       <ModalWrapper
-        isOpen={modalOpen}
-        onRequestClose={() => setModalOpen(false)}
+        isOpen={sendSkjemaOpen}
+        onRequestClose={() => setSendSkjemaOpen(false)}
         closeButton={true}
-        contentLabel="Min modalrute"
+        contentLabel="Send skjema"
       >
         <Undertittel className="sykepenger__modal-tittel">Du søker om refusjon på vegne av:</Undertittel>
         <p className="sykepenger__modal-tekst">{firma}</p>
         <p className="sykepenger__modal-tekst">Organisasjonsnummer: {arbeidsgiverId}</p>
         <Knapp className="sykepenger__modal-btn" onClick={() => submitForm()}>Send søknad om refusjon</Knapp>
-        <div className="sykepenger__modal-avbrytt lenke" onClick={() => setModalOpen(false)}>
+        <div className="sykepenger__modal-avbrytt lenke" onClick={() => setSendSkjemaOpen(false)}>
           Avbrytt
         </div>
       </ModalWrapper>
@@ -214,7 +191,7 @@ const Sykepenger = () => {
             </Normaltekst>
           </div>
           <FormContext {...methods}>
-            <form onSubmit={methods.handleSubmit(setForm)} className="refusjonsform">
+            <form onSubmit={methods.handleSubmit(setForm)} ref={refRefusjonsform}>
               <div className="container">
                 <div className="sykepenger--arbeidstaker">
                   <Undertittel className="sykepenger--undertittel">
@@ -233,7 +210,7 @@ const Sykepenger = () => {
                 </div>
 
                 <Normaltekst tag='div' role='alert' aria-live='assertive'
-                  className={'skjemaelement__feilmelding tom fnr'}
+                  className={'skjemaelement__feilmelding fnr ' + fnrClassName }
                 >
                   <Vis hvis={methods.errors['fnr']}>
                     <span>{methods.errors['fnr'] && methods.errors['fnr'].type}</span>
@@ -249,8 +226,8 @@ const Sykepenger = () => {
                   <Undertekst className="sykepenger--undertekst">
                     NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
                   </Undertekst>
-
-                  <Perioder />
+                  <Eksempel/>
+                  <Perioder/>
 
                 </div>
               </div>

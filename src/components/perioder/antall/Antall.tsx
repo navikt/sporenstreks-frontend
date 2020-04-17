@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { Controller, useFormContext } from 'react-hook-form';
 import NumberFormat from "react-number-format";
@@ -9,20 +9,25 @@ interface AntallProps {
   index: number;
 }
 
+const antErrorState = {
+  hasError: '',
+  noError: 'tom'
+}
+
 const Antall = (props: AntallProps) => {
   const { errors, setError, clearError } = useFormContext();
   const antId = 'antall_' + props.index;
+  const [errorState, setErrorState] = useState(antErrorState.noError);
 
   const validateAntall = (value: string): boolean => {
-    const errbox = document.querySelector('.' + antId)!;
     const numval = Number(value);
-    const msg = numval <= 0 ? 'Antall må være minst 1' : '';
+    const msg = numval < 0 ? 'Antall kan ikke være negativt' : '';
     if (msg !== '') {
-      errbox.classList.remove('tom');
       setError(antId, msg);
+      setErrorState(antErrorState.hasError)
       return false;
     } else {
-      errbox.classList.add('tom');
+      setErrorState(antErrorState.noError);
       clearError([ antId, 'backend' ]);
       return true;
     }
@@ -61,7 +66,7 @@ const Antall = (props: AntallProps) => {
       </Hjelpetekst>
 
       <Normaltekst tag='div' role='alert' aria-live='assertive'
-        className={'skjemaelement__feilmelding tom antall_' + props.index}
+        className={`skjemaelement__feilmelding ${errorState} antall_${props.index}`}
       >
         <Vis hvis={errors[antId]}>
           <span>{errors[antId] && errors[antId].type}</span>

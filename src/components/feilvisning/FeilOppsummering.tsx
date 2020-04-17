@@ -42,7 +42,7 @@ const FeilOppsummering = (props: FeilProps) => {
                   onKeyDown={(e) => handleKeyDown(e, list)}
                   onClick={() => handleClick(list)}
                 >
-                  {list[1].type}
+									{list[1].type === 'pattern' ? list[1].message : list[1].type}
                 </div>
               </li>
             ))}
