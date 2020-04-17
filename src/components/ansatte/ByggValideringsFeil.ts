@@ -1,14 +1,17 @@
 import {Ansatt} from "../../data/types/sporenstreksTypes";
+import {ValideringsFeil} from "./ValideringsFeil";
 
-export const ByggValideringsFeil = (ansatt: Ansatt[]) => {
-    if (ansatt[0].fnrError){
-        return [
-            {skjemaelementId: '1', feilmelding: 'Du må oppgi et navn'}
-        ]
-    }
-    return [
-        {skjemaelementId: '1', feilmelding: 'Du må oppgi et navn'},
-        {skjemaelementId: '2', feilmelding: 'Du må oppgi en adresse'},
-        {skjemaelementId: '3', feilmelding: 'Du må oppgi et telefonnummer'}
-    ]
+export const ByggValideringsFeil = (ansatte: Ansatt[]) => {
+    let feil:ValideringsFeil[] = []
+    ansatte.forEach((a, index) => {
+        if (a.fnrError || a.periodeError || a.dagerError || a.beloepError){
+            feil.push(
+                {
+                    skjemaelementId: "fnr_" + a.id,
+                    feilmelding: 'Det er en feil i rad nr ' + (index + 1)
+                }
+            )
+        }
+    });
+    return feil
 }

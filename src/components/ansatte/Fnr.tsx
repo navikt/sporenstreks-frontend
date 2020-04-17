@@ -16,6 +16,7 @@ export const Fnr = (id: number) => {
     }
     return (<div>
         <FnrInput
+            id={"fnr_"+id}
             bredde="M"
             value={a?.fnr}
             placeholder="11 siffer"

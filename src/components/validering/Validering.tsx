@@ -17,19 +17,20 @@ export const Validering = (ansatte: Ansatt[]) => {
 };
 
 export const IsValid = (ansatte: Ansatt[]) => {
+    let isValid = true
     ansatte.forEach(a => {
         if (a.fnrError){
-            return false;
+            isValid = false;
         }
         if (a.periodeError){
-            return false;
+            isValid = false;
         }
         if (a.dagerError){
-            return false;
+            isValid = false;
         }
         if (a.beloepError){
-            return false;
+            isValid = false;
         }
     });
-    return true;
+    return isValid;
 };

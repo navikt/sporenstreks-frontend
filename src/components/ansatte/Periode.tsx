@@ -18,7 +18,7 @@ export const Periode = (id: number) => {
     }
     let min = dayjs('1970-01-01').toDate();
     let max = dayjs(new Date()).add(1, 'year').toDate();
-    return (<div>
+    return (<div className="skjemaelement">
         <Flatpickr
             placeholder='yyyy.mm.dd til yyyy.mm.dd'
             className={"skjemaelement__input"}
@@ -37,8 +37,10 @@ export const Periode = (id: number) => {
             }}
         />
 
-        <span className={"skjemaelement__feilmelding"}>
-            <p className={"typo-feilmelding"}>{a?.periodeError}</p>
-        </span>
+        <div aria-live="polite">
+            <span className={"skjemaelement__feilmelding"}>
+                <p className={"typo-feilmelding"}>{a?.periodeError}</p>
+            </span>
+        </div>
     </div>)
 }
