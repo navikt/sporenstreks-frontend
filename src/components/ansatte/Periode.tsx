@@ -9,8 +9,8 @@ export const Periode = (id: number) => {
     const a = ansatte.find(a => a.id === id)
     const handleClose = (selectedDates) => {
         if (a){
-            a.fom = selectedDates[0]
-            a.tom = selectedDates[1]
+            a.fom = dayjs(selectedDates[0]).format("YYYY-MM-DD")
+            a.tom = dayjs(selectedDates[1]).format("YYYY-MM-DD")
         } else {
             console.warn("Fant ikke rad")
         }
@@ -20,7 +20,7 @@ export const Periode = (id: number) => {
     let max = dayjs(new Date()).add(1, 'year').toDate();
     return (<div>
         <Flatpickr
-            placeholder='dd.mm.yyyy til dd.mm.yyyy'
+            placeholder='yyyy.mm.dd til yyyy.mm.dd'
             className={"skjemaelement__input"}
             options={{
                 minDate: min,
@@ -36,6 +36,7 @@ export const Periode = (id: number) => {
                 onClose: (selectedDates) => handleClose(selectedDates)
             }}
         />
+
         <span className={"skjemaelement__feilmelding"}>
             <p className={"typo-feilmelding"}>{a?.periodeError}</p>
         </span>

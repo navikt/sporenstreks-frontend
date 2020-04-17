@@ -1,39 +1,20 @@
 import React, { useState } from 'react';
 import 'nav-frontend-tabell-style';
 import { FormContext, useForm } from 'react-hook-form';
-import { Knapp } from 'nav-frontend-knapper';
 import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
 import { Keys } from '../locales/keys';
-import { Periode, RefusjonsKrav, Ansatt } from '../data/types/sporenstreksTypes';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
-import FeilOppsummering from '../components/feilvisning/FeilOppsummering';
 import { useAppStore } from '../data/store/AppStore';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { History } from 'history';
-import dayjs from 'dayjs';
 import Vis from '../components/Vis';
-import env from '../util/environment';
-import Ansatte from '../components/ansatte/Ansatte';
 import './SykepengerBulk.less';
 import Ansatte2 from '../components/ansatte/Ansatte2';
-import Beloep from '../components/inputfelt/Beloep';
 
-interface sykepengerData {
-  "identitetsnummer": Number | undefined;
-  "virksomhetsnummer": String | undefined;
-  "perioder":[
-    {
-      "fom": String | undefined;
-      "tom": String | undefined;
-      "antallDagerMedRefusjon": number | undefined;
-      "beloep": number | undefined;
-    }
-  ]
-}
 
 const SykepengerBulk = () => {
   const { ansatte, arbeidsgivere, setReferanseNummer, identityNumberInput } = useAppStore();
@@ -41,15 +22,6 @@ const SykepengerBulk = () => {
   const methods = useForm();
   const { t } = useTranslation();
   const history: History = useHistory();
-
-  const formToJSON = elms =>
-    [].reduce.call(elms, (data: any, elm: any) => {
-      data[elm.name] = elm.value;
-      return data;
-    }, {});
-
-
-
   return (
     <div className="sykepenger-bulk">
       <Vis hvis={arbeidsgivere.length === 0}>
@@ -87,7 +59,6 @@ const SykepengerBulk = () => {
             </Normaltekst>
           </div>
           <FormContext {...methods}>
-
               <div className="container">
                 <div className="sykepenger--periode-velger form-group">
                   <Undertittel className="sykepenger--undertittel">
@@ -96,20 +67,8 @@ const SykepengerBulk = () => {
                   <Undertekst className="sykepenger--undertekst">
                     NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
                   </Undertekst>
-
                   <Ansatte2 />
-
                 </div>
-              </div>
-
-              <div className="container">
-                <Normaltekst>
-                  Vi erklærer at det ikke er søkt om omsorgspenger og at arbeidstakeren ikke er permittert. Kravet er
-                  basert på arbeidstakerens opplysninger om at arbeidstakeren enten er smittet av koronaviruset,
-                  mistenkt smittet eller i lovpålagt karantene.
-                  <br /><br />
-                  Vær oppmerksom på at NAV kan foreta kontroller.
-                </Normaltekst>
               </div>
           </FormContext>
         </div>
