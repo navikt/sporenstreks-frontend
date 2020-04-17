@@ -21,7 +21,7 @@ const Antall = (props: AntallProps) => {
 
   const validateAntall = (value: string): boolean => {
     const numval = Number(value);
-    const msg = numval <= 0 ? 'Antall må være minst 1' : '';
+    const msg = numval < 0 ? 'Antall kan ikke være negativt' : '';
     if (msg !== '') {
       setError(antId, msg);
       setErrorState(antErrorState.hasError)
