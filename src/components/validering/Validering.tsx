@@ -4,7 +4,7 @@ import { validatePerioder } from './validatePerioder';
 import { validateNotNullAndPositive } from './validateNotNullAndPositive';
 
 export const Validering = (ansatte: Ansatt[]) => {
-    console.log(ansatte)
+    console.log("Validering", ansatte)
     
     ansatte.forEach(a => {
         a.fnrError = validateFnr(a.fnr);
@@ -17,5 +17,19 @@ export const Validering = (ansatte: Ansatt[]) => {
 };
 
 export const IsValid = (ansatte: Ansatt[]) => {
-    return !ansatte.find(a => !!a.fnrError)
+    ansatte.forEach(a => {
+        if (a.fnrError){
+            return false;
+        }
+        if (a.periodeError){
+            return false;
+        }
+        if (a.dagerError){
+            return false;
+        }
+        if (a.beloepError){
+            return false;
+        }
+    });
+    return true;
 };

@@ -15,19 +15,19 @@ import {Normaltekst} from "nav-frontend-typografi";
 const Ansatte2 = () => {
     const {ansatte, setAnsatte} = useAppStore();
     const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
+    const [ feil, setFeil ] = useState<ValideringsFeil[]>([]);
     const handleAddRad = () => {
         ansatte.push(byggAnsatt())
         setAnsatte(ansatte);
     }
-    let feil: ValideringsFeil[] = [];
     const handleSubmit = async(e: React.FormEvent): Promise<void> => {
         const validerteAnsatte = Validering(ansatte)
         if (IsValid(validerteAnsatte)){
-            feil = [];
+            setFeil([])
             Innsending(arbeidsgiverId, validerteAnsatte)
         } else {
+            setFeil(ByggValideringsFeil(validerteAnsatte))
             setAnsatte(validerteAnsatte);
-            feil = ByggValideringsFeil(ansatte)
         }
         e.preventDefault();
     };
