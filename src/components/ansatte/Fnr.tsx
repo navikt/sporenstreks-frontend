@@ -18,6 +18,7 @@ export const Fnr = (id: number) => {
         <FnrInput
             bredde="M"
             value={a?.fnr}
+            placeholder="11 siffer"
             onChange={handleChange}
             onValidate={() => console.log("valid")}
             feil={a?.fnrError}

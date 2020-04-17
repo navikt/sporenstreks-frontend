@@ -3,6 +3,7 @@ import {useAppStore} from "../../data/store/AppStore";
 import dayjs from "dayjs";
 import Flatpickr from 'react-flatpickr';
 import {Norwegian} from 'flatpickr/dist/l10n/no.js';
+import Hjelpetekst from "nav-frontend-hjelpetekst";
 
 export const Periode = (id: number) => {
     const {ansatte, setAnsatte} = useAppStore();
@@ -36,6 +37,7 @@ export const Periode = (id: number) => {
                 onClose: (selectedDates) => handleClose(selectedDates)
             }}
         />
+
         <span className={"skjemaelement__feilmelding"}>
             <p className={"typo-feilmelding"}>{a?.periodeError}</p>
         </span>
