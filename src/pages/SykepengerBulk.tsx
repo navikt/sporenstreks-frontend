@@ -79,6 +79,7 @@ const SykepengerBulk = () => {
         window.location.href = env.loginServiceUrl;
       } else if (response.status === 200) {
         response.json().then(data => {
+          console.log(JSON.stringify(data));
           setReferanseNummer(data.referansenummer);
           history.push('/kvittering')
         })

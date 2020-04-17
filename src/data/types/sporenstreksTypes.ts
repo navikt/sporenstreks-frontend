@@ -39,8 +39,9 @@ export interface Ansatt {
   tom: string;
   antallDagerMedRefusjon?: number;
   beloep?: number;
-  status: SkjemaStatus,
-  oppdatert: number
+  status: SkjemaStatus;
+  oppdatert: number;
+  referenceNumber: string | null;
 }
 
 export const byggAnsatt = () => {
@@ -65,8 +66,6 @@ export const tomAnsatt: Ansatt = {
   status: SkjemaStatus.NY,
   oppdatert: 0
 };
-
-
 
 export interface BackendStatus {
   status: 'OK' | 'GENERIC_ERROR' | 'VALIDATION_ERRORS';
