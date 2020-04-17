@@ -3,15 +3,14 @@ import {useAppStore} from "../../data/store/AppStore";
 import dayjs from "dayjs";
 import Flatpickr from 'react-flatpickr';
 import {Norwegian} from 'flatpickr/dist/l10n/no.js';
-import Hjelpetekst from "nav-frontend-hjelpetekst";
 
 export const Periode = (id: number) => {
     const {ansatte, setAnsatte} = useAppStore();
     const a = ansatte.find(a => a.id === id)
     const handleClose = (selectedDates) => {
         if (a){
-            a.fom = selectedDates[0]
-            a.tom = selectedDates[1]
+            a.fom = dayjs(selectedDates[0]).format("YYYY-MM-DD")
+            a.tom = dayjs(selectedDates[1]).format("YYYY-MM-DD")
         } else {
             console.warn("Fant ikke rad")
         }
