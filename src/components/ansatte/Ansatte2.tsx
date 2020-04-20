@@ -2,7 +2,7 @@ import React from 'react';
 import './Ansatte.less';
 import {useAppStore} from '../../data/store/AppStore';
 import {AnsattRad} from "./AnsattRad";
-import {IsValid, Validering} from "../validering/Validering";
+import {Validering} from "../validering/Validering";
 import {ByggValideringsFeil} from "./ByggValideringsFeil";
 import Innsending from "./Innsending";
 import {LeggTilKnapp} from "./LeggTilKnapp";
@@ -17,8 +17,8 @@ import {ValideringsFeil} from "./ValideringsFeil";
 const Ansatte2 = () => {
   const {ansatte, feil, setFeil, arbeidsgiverId } = useAppStore();
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
-    const validerteAnsatte = Validering(ansatte)
     e.preventDefault();
+    const validerteAnsatte = Validering(ansatte);
     const innsendteAnsatte = await Innsending(arbeidsgiverId, validerteAnsatte);
     setFeil(
       ByggValideringsFeil(innsendteAnsatte)
@@ -62,7 +62,9 @@ const Ansatte2 = () => {
           <Eklæring/>
         </div>
         <div className="container">
-          <BekreftKnapp/>
+          {
+            BekreftKnapp(handleSubmit)
+          }
         </div>
       </form>
     </>
