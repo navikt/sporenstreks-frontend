@@ -1,11 +1,10 @@
-import {Ansatt, BackendStatus, SkjemaStatus} from "../../data/types/sporenstreksTypes";
-import {sykepengerData} from "./SykepengerData";
+import { Ansatt, BackendStatus, SkjemaStatus } from "../../data/types/sporenstreksTypes";
+import { SykepengerData } from "./SykepengerData";
 import env from "../../util/environment";
-import { backendStatus } from "../../data/types/backendStatus";
 
-export default (arbeidsgiverId: String, validerteAnsatte: Ansatt[]): Promise<any> => {
+export default (arbeidsgiverId: string, validerteAnsatte: Ansatt[]): Promise<any> => {
     console.log("ansatte", JSON.stringify(validerteAnsatte));
-    const preparedAnsatte: sykepengerData[] = validerteAnsatte.map((ansatt: Ansatt) => {
+    const preparedAnsatte: SykepengerData[] = validerteAnsatte.map((ansatt: Ansatt) => {
         return {
             identitetsnummer: ansatt.fnr,
             virksomhetsnummer: arbeidsgiverId,
@@ -36,11 +35,11 @@ export default (arbeidsgiverId: String, validerteAnsatte: Ansatt[]): Promise<any
                         validerteAnsatte[idx].status = SkjemaStatus.GODKJENT;
                         validerteAnsatte[idx].referenceNumber = recievedLine.referenceNumber;
                     }
-
+                    
                     if(recievedLine.status === "GENERIC_ERROR") {
                         validerteAnsatte[idx].status = SkjemaStatus.ERRORBACKEND
                     }
-
+                    
                     if(recievedLine.status === "VALIDATION_ERRORS") {
                         validerteAnsatte[idx].status = SkjemaStatus.VALIDERINGSFEIL
                         recievedLine.validationErrors?.forEach((validationError) => {
@@ -50,22 +49,22 @@ export default (arbeidsgiverId: String, validerteAnsatte: Ansatt[]): Promise<any
                                     validerteAnsatte[idx].fnrError = validationError.message;
                                     break;
                                 case 'virksomhetsnummer':
-                                    // ToDo: Hva gjør vi med denne? 
+                                    // ToDo: Hva gjør vi med denne?
                                     break;
-
-                                    case 'perioder':
-                                        validerteAnsatte[idx].periodeError = validationError.message;
-                                        break;
-
-                                    case 'perioder[0].tom':
-                                        validerteAnsatte[idx].periodeError = validationError.message;
-                                        break;
-                            
+                                
+                                case 'perioder':
+                                    validerteAnsatte[idx].periodeError = validationError.message;
+                                    break;
+                                
+                                case 'perioder[0].tom':
+                                    validerteAnsatte[idx].periodeError = validationError.message;
+                                    break;
+                                
                                 default:
                                     break;
                             }
                         })
-                                            }
+                    }
                 });
                 return validerteAnsatte;
             })

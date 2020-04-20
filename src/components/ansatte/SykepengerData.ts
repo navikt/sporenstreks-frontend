@@ -1,13 +1,13 @@
 
-export interface sykepengerData {
-    "identitetsnummer": Number | undefined;
-    "virksomhetsnummer": String | undefined;
+export interface SykepengerData {
+    "identitetsnummer"?: string;
+    "virksomhetsnummer"?: string;
     "perioder":[
         {
-            "fom": String | undefined;
-            "tom": String | undefined;
-            "antallDagerMedRefusjon": number | undefined;
-            "beloep": number | undefined;
+            "fom"?: string;
+            "tom"?: string;
+            "antallDagerMedRefusjon"?: number;
+            "beloep"?: number;
         }
     ]
 }

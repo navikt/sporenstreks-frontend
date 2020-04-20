@@ -30,7 +30,7 @@ export enum SkjemaStatus {
 
 export interface Ansatt {
   id: number,
-  fnr?: number;
+  fnr: string;
   fnrError?: string,
   beloepError?: string,
   refusjonError?: string,
@@ -48,6 +48,7 @@ export interface Ansatt {
 export const byggAnsatt = () => {
   let a = {} as Ansatt;
   a.id = uuid();
+  a.fnr = '';
   a.fom = '';
   a.tom = '';
   a.antallDagerMedRefusjon = undefined;
@@ -59,7 +60,7 @@ export const byggAnsatt = () => {
 
 export const tomAnsatt: Ansatt = {
   id: Math.random()*100000 * new Date().getTime(),
-  fnr: undefined,
+  fnr: '',
   fom: '',
   tom: '',
   antallDagerMedRefusjon: 0,

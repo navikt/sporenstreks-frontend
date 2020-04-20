@@ -5,8 +5,8 @@ import fnrvalidator from '@navikt/fnrvalidator';
 import { identityNumberSeparation } from '../../util/identityNumberSeparation';
 import { useFormContext } from 'react-hook-form';
 import { useAppStore } from '../../data/store/AppStore';
-import { filterStringToNumbersOnly } from '../../util/filterStringToNumbersOnly';
 import Vis from '../Vis';
+import { filterIdentityNumberInput } from '../../util/filterIndentityNumberInput';
 
 interface FnrProps {
   index?: number;
@@ -16,10 +16,6 @@ const FodselNr = (props: FnrProps) => {
   const { errors, setError, clearError } = useFormContext();
   const { identityNumberInput, setIdentityNumberInput } = useAppStore();
   const fnrId = props.index ? 'fnr_' + props.index : 'fnr';
-
-  const filterIdentityNumberInput = (input: string) => {
-    setIdentityNumberInput(filterStringToNumbersOnly(input, 11));
-  };
 
   const validateFnr = (value: string) => {
     const errbox = document.querySelector('.' + fnrId)!;
@@ -57,7 +53,7 @@ const FodselNr = (props: FnrProps) => {
         label="Fødselsnummer til arbeidstaker"
         bredde="M"
         autoComplete={'off'}
-        onChange={e => filterIdentityNumberInput(e.target.value)}
+        onChange={e => setIdentityNumberInput(filterIdentityNumberInput(e.target.value))}
         onBlur={e => validateFnr(e.target.value)}
         value={identityNumberSeparation(identityNumberInput)}
       />
