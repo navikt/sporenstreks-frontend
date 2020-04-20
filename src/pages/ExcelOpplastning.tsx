@@ -36,11 +36,11 @@ const ExcelOpplastning = () => {
     const [fileName, setFileName] = useState('Last opp utfylt Excel-mal');
     const [file, setFile] = useState();
     const [feil, setFeil] = useState<Feil[]>([]);
-    const FILEUPLOAD_MAX_SIZE = 100000;
+    const FILEUPLOAD_MAX_SIZE = 250000;
 
     const setUploadFile = (event: any) => {
         if (event.target.files[0] && event.target.files[0].size > FILEUPLOAD_MAX_SIZE) {
-            setFeil([{rad: -1, melding: "Du kan ikke laste opp filer større enn 100 kB."}])
+            setFeil([{rad: -1, melding: "Du kan ikke laste opp filer større enn 250 kB."}])
         } else {
             setFileName(event.target.files[0].name);
             setFile(event.target.files[0]);
