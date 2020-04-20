@@ -18,7 +18,7 @@ import {HjelpetekstPeriode} from "./HjelpetekstPeriode";
 
 const Ansatte2 = ({arbeidsgiverId}) => {
   const {ansatte, setAnsatte} = useAppStore();
-   const [  feil, setFeil ] = useState<ValideringsFeil[]>([]);
+  const [  feil, setFeil ] = useState<ValideringsFeil[]>([]);
 
   const handleSubmit = async(e: React.FormEvent): Promise<void> => {
     e.preventDefault();
@@ -33,6 +33,15 @@ const Ansatte2 = ({arbeidsgiverId}) => {
       setAnsatte(validerteAnsatte);
     }
   };
+
+  const handleFjernFeil = (slettetElement: string) => {
+    const aktiveFeil = feil.filter((element: ValideringsFeil) => {
+      return element.skjemaelementId !== `fnr_${slettetElement}`;
+    });
+
+    setFeil(aktiveFeil);
+  }
+
   return (
     <>
       <form onSubmit={handleSubmit} className="refusjonsform">
@@ -56,7 +65,7 @@ const Ansatte2 = ({arbeidsgiverId}) => {
             <td></td>
           </tr>
           {
-            ansatte.map((ansatt, index) => AnsattRad(ansatt.id))
+            ansatte.map((ansatt, index) => AnsattRad(ansatt.id, () => handleFjernFeil(ansatt.id)))
           }
           </tbody>
         </table>
