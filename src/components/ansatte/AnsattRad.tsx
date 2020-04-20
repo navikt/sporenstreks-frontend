@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import './Ansatte.less';
 import { Dager } from "./Dager";
 import { Refusjon } from "./Refusjon";
@@ -7,13 +7,15 @@ import { Periode } from "./Periode";
 import { useAppStore } from "../../data/store/AppStore";
 import { byggAnsatt } from "../../data/types/sporenstreksTypes";
 import Lukknapp from "nav-frontend-lukknapp";
+import {ByggValideringsFeil} from "./ByggValideringsFeil";
 
-export const AnsattRad = (id: number, fjernFeil: any) => {
-  const { ansatte, setAnsatte } = useAppStore();
-  const handleClick = (evt) => {
+export const AnsattRad = (id: number) => {
+  const { ansatte, setAnsatte, setFeil  } = useAppStore();
+  const handleClick = (evt: FormEvent) => {
     const arr = ansatte.filter(a => a.id !== id);
     setAnsatte([...arr]);
-    fjernFeil();
+    setFeil(ByggValideringsFeil([...arr]));
+    evt.preventDefault();
   }
   const a = ansatte.find(a => a.id === id) || byggAnsatt()
   return (

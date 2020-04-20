@@ -25,12 +25,6 @@ const Ansatte2 = () => {
     );
   };
 
-  const handleFjernFeil = (slettetElement: number) => {
-    const aktiveFeil = feil.filter((element: ValideringsFeil) => {
-      return element.skjemaelementId !== `fnr_${slettetElement}`;
-    });
-    setFeil(aktiveFeil);
-  }
   return (
     <>
       <form onSubmit={handleSubmit} className="refusjonsform">
@@ -56,7 +50,7 @@ const Ansatte2 = () => {
             <td></td>
           </tr>
           {
-            ansatte.map((ansatt, index) => AnsattRad(ansatt.id, handleFjernFeil))
+            ansatte.map((ansatt, index) => AnsattRad(ansatt.id))
           }
           </tbody>
         </table>
