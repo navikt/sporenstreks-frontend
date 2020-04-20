@@ -16,9 +16,10 @@ const Ansatte2 = ({arbeidsgiverId}) => {
     const {ansatte, setAnsatte} = useAppStore();
     // const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
     const [ feil, setFeil ] = useState<ValideringsFeil[]>([]);
-    const handleAddRad = () => {
-        ansatte.push(byggAnsatt())
-        setAnsatte(ansatte);
+    const handleAddRad = (e: React.FormEvent) => {
+      e.preventDefault();
+      ansatte.push(byggAnsatt())
+      setAnsatte([...ansatte]);
     }
     const handleSubmit = async(e: React.FormEvent): Promise<void> => {
       e.preventDefault();
