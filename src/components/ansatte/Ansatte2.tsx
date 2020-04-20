@@ -14,20 +14,21 @@ import {Eklæring} from "./Erklæring";
 import {ValideringOppsummering} from "./ValideringOppsummering";
 import {ValideringsFeil} from "./ValideringsFeil";
 
-const Ansatte2 = ({arbeidsgiverId}) => {
-  const {ansatte, setAnsatte} = useAppStore();
-  const {feil, setFeil} = useAppStore();
+const Ansatte2 = () => {
+  const {ansatte, setAnsatte, feil, setFeil, arbeidsgiverId } = useAppStore();
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     const validerteAnsatte = Validering(ansatte)
     if (IsValid(validerteAnsatte)) {
       setFeil([])
       const innsendteAnsatte = await Innsending(arbeidsgiverId, validerteAnsatte);
-      setFeil(ByggValideringsFeil(innsendteAnsatte));
-      setAnsatte(innsendteAnsatte);
+      setFeil(
+        ByggValideringsFeil(innsendteAnsatte)
+      );
+      setAnsatte([...innsendteAnsatte]);
     } else {
       setFeil(ByggValideringsFeil(validerteAnsatte))
-      setAnsatte(validerteAnsatte);
+      setAnsatte([...validerteAnsatte]);
     }
   };
 

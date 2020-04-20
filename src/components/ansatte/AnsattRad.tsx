@@ -12,7 +12,7 @@ export const AnsattRad = (id: number, fjernFeil: any) => {
   const { ansatte, setAnsatte } = useAppStore();
   const handleClick = (evt) => {
     const arr = ansatte.filter(a => a.id !== id);
-    setAnsatte(arr);
+    setAnsatte([...ansatte]);
     fjernFeil();
   }
   const a = ansatte.find(a => a.id === id) || byggAnsatt()

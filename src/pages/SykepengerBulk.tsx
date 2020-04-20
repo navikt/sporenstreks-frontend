@@ -17,8 +17,7 @@ import Ansatte2 from '../components/ansatte/Ansatte2';
 
 
 const SykepengerBulk = () => {
-  const { ansatte, arbeidsgivere, setReferanseNummer, identityNumberInput } = useAppStore();
-  const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
+  const { arbeidsgivere, setArbeidsgiverId } = useAppStore();
   const methods = useForm();
   const { t } = useTranslation();
   const history: History = useHistory();
@@ -67,7 +66,7 @@ const SykepengerBulk = () => {
                   <Undertekst className="sykepenger--undertekst">
                     NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
                   </Undertekst>
-                  <Ansatte2 arbeidsgiverId={arbeidsgiverId}/>
+                  <Ansatte2/>
                 </div>
               </div>
           </FormContext>

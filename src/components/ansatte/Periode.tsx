@@ -14,7 +14,7 @@ export const Periode = (id: number) => {
         } else {
             console.warn("Fant ikke rad")
         }
-        setAnsatte(ansatte)
+        setAnsatte([...ansatte]);
     }
     let min = dayjs('1970-01-01').toDate();
     let max = dayjs(new Date()).add(1, 'year').toDate();

@@ -13,21 +13,19 @@ interface AnsatteProps {
 const Ansatte = (props: AnsatteProps) => {
   const { ansatte, setAnsatte } = useAppStore();
   const forceUpdate = useForceUpdate();
-  
+
   const leggTilAnsatt = (e) => {
     e.preventDefault();
     ansatte.push(tomAnsatt);
-    setAnsatte(ansatte);
-    forceUpdate();
+    setAnsatte([...ansatte]);
   };
-  
+
   const slettAnsatt = (e, index) => {
     e.preventDefault();
     ansatte.splice(index, 1);
-    setAnsatte(ansatte);
-    forceUpdate();
+    setAnsatte([...ansatte]);
   };
-  
+
   return (
     <>
       <div className="ansattliste">

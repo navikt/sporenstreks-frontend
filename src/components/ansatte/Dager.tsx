@@ -11,7 +11,7 @@ export const Dager = (id: number) => {
         } else {
             console.warn("Fant ikke rad")
         }
-        setAnsatte(ansatte)
+        setAnsatte([...ansatte]);
     }
     return (
             <Select feil={a?.dagerError} onChange={handleChange} selected={a?.antallDagerMedRefusjon}>
