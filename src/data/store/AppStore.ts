@@ -2,6 +2,7 @@ import constate from 'constate';
 import { useState } from 'react';
 import {Ansatt, byggAnsatt, Periode, tomAnsatt, tomPeriode, UnleashToggles} from '../types/sporenstreksTypes';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
+import {ValideringsFeil} from "../../components/ansatte/ValideringsFeil";
 
 export const [ AppStoreProvider, useAppStore ] = constate(() => {
   const [ unleash, setUnleash ] = useState<UnleashToggles>();
@@ -12,6 +13,7 @@ export const [ AppStoreProvider, useAppStore ] = constate(() => {
   ]);
   const [ referanseNummer, setReferanseNummer ] = useState<string>('');
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
+  const [ feil, setFeil ] = useState<ValideringsFeil[]>([]);
 
   return {
     unleash, setUnleash,
@@ -19,6 +21,7 @@ export const [ AppStoreProvider, useAppStore ] = constate(() => {
     perioder, setPerioder,
     ansatte, setAnsatte,
     referanseNummer, setReferanseNummer,
-    identityNumberInput, setIdentityNumberInput
+    identityNumberInput, setIdentityNumberInput,
+    feil, setFeil
   };
 });

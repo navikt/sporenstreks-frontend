@@ -2,12 +2,16 @@ import React, {useState} from "react";
 import {Knapp} from "nav-frontend-knapper";
 import ModalWrapper from "nav-frontend-modal";
 import {Normaltekst, Systemtittel} from "nav-frontend-typografi";
+import {useAppStore} from "../../data/store/AppStore";
 
 export const BekreftKnapp = () => {
     const [open, setOpen] = useState<boolean>(false);
+    const {feil, setFeil} = useAppStore();
     const handleOpen = (evt) => {
-        //evt.preventDefault()
-        setOpen(true)
+        if (feil.length > 0){
+            evt.preventDefault()
+            setOpen(false)
+        }
     }
     const handleClose = (evt) => {
         setOpen(false)
