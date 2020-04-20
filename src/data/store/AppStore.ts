@@ -15,6 +15,7 @@ export const [ AppStoreProvider, useAppStore ] = constate(() => {
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
   const [ feil, setFeil ] = useState<ValideringsFeil[]>([]);
   const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
+  const [ loadingStatus, setLoadingStatus ] = useState<number>(-1);
 
   return {
     unleash, setUnleash,
@@ -24,6 +25,7 @@ export const [ AppStoreProvider, useAppStore ] = constate(() => {
     referanseNummer, setReferanseNummer,
     identityNumberInput, setIdentityNumberInput,
     feil, setFeil,
-    arbeidsgiverId, setArbeidsgiverId
+    arbeidsgiverId, setArbeidsgiverId,
+    loadingStatus, setLoadingStatus
   };
 });

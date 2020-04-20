@@ -7,14 +7,20 @@ import {IsValid, Validering} from "../validering/Validering";
 import {ByggValideringsFeil} from "./ByggValideringsFeil";
 
 export const BekreftKnapp = (onSubmit: any) => {
-    const {ansatte, setAnsatte, feil, setFeil } = useAppStore();
+    const { ansatte, setAnsatte, setFeil } = useAppStore();
+    const { loadingStatus } = useAppStore();
     const [open, setOpen] = useState<boolean>(false);
     const handleOpen = (evt) => {
       evt.preventDefault()
       const validerteAnsatte = Validering(ansatte)
-      setFeil(ByggValideringsFeil(validerteAnsatte))
       setAnsatte([...validerteAnsatte]);
-      setOpen(feil.length === 0);
+      if (IsValid(validerteAnsatte)){
+        setOpen(true)
+        setFeil([])
+      } else {
+        setFeil(ByggValideringsFeil(validerteAnsatte))
+        setOpen(false);
+      }
     }
     const handleClose = (evt) => {
         setOpen(false)
@@ -23,10 +29,9 @@ export const BekreftKnapp = (onSubmit: any) => {
         setOpen(false)
         onSubmit(evt)
     }
-    console.log("BekreftKnapp");
     return (
         <>
-            <Knapp onClick={handleOpen}>Send søknad om refusjon</Knapp>
+            <Knapp type="hoved" onClick={handleOpen}>Send søknad om refusjon</Knapp>
             <ModalWrapper
                 isOpen={open}
                 onRequestClose={() => handleClose}
@@ -40,7 +45,7 @@ export const BekreftKnapp = (onSubmit: any) => {
                             Er du sikker på at du vil sende inn?
                         </Normaltekst>
                     </div>
-                    <Knapp type="hoved" onClick={handleSubmit}>Ok</Knapp>
+                    <Knapp type="hoved" onClick={handleSubmit} spinner={loadingStatus === 0}>Ok</Knapp>
                     <span style={{margin: '2rem 2.5rem'}}></span>
                     <Knapp type="standard" onClick={handleClose}>Avbryt</Knapp>
                 </div>

@@ -12,14 +12,13 @@ import {HjelpetekstDager} from "./HjelpetekstDager";
 import {HjelpetekstPeriode} from "./HjelpetekstPeriode";
 import {Eklæring} from "./Erklæring";
 import {ValideringOppsummering} from "./ValideringOppsummering";
-import {ValideringsFeil} from "./ValideringsFeil";
 
 const Ansatte2 = () => {
-  const {ansatte, feil, setFeil, arbeidsgiverId } = useAppStore();
+  const {ansatte, setFeil, arbeidsgiverId, setLoadingStatus } = useAppStore();
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     const validerteAnsatte = Validering(ansatte);
-    const innsendteAnsatte = await Innsending(arbeidsgiverId, validerteAnsatte);
+    const innsendteAnsatte = await Innsending(arbeidsgiverId, validerteAnsatte, setLoadingStatus);
     setFeil(
       ByggValideringsFeil(innsendteAnsatte)
     );
