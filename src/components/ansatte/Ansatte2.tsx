@@ -7,10 +7,12 @@ import {IsValid, Validering} from "../validering/Validering";
 import {ValideringsFeil} from "./ValideringsFeil";
 import {ByggValideringsFeil} from "./ByggValideringsFeil";
 import Innsending from "./Innsending";
-import Hjelpetekst from "nav-frontend-hjelpetekst";
 import {Normaltekst} from "nav-frontend-typografi";
 import {LeggTilKnapp} from "./LeggTilKnapp";
 import {BekreftKnapp} from "./BekreftKnapp";
+import {HjelpetekstRefusjon} from "./HjelpetekstRefusjon";
+import {HjelpetekstDager} from "./HjelpetekstDager";
+import {HjelpetekstPeriode} from "./HjelpetekstPeriode";
 
 const Ansatte2 = ({arbeidsgiverId}) => {
     const {ansatte, setAnsatte} = useAppStore();
@@ -40,17 +42,15 @@ const Ansatte2 = ({arbeidsgiverId}) => {
                         </td>
                         <td>
                             <span>Hvilken periode var den ansatte borte?</span>
-                            <Hjelpetekst>Fra og med første, til og med siste fraværsdag i arbeidsgiverperioden</Hjelpetekst>
+                            {HjelpetekstPeriode()}
                         </td>
                         <td>
                             <span>Antall dager det skulle vært utbetalt lønn</span>
-                            <Hjelpetekst>
-                                <li>Her teller du dagene det skulle vært utbetalt lønn fra og med dag 4 i arbeidsgiverperioden. Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.</li>
-                                <li>Var noen av fraværsdagene før 16. mars, kan du ikke ta dem med.</li>
-                            </Hjelpetekst>
+                            {HjelpetekstDager()}
                         </td>
                         <td>
                             <span>Brutto beløp som  søkes refundert</span>
+                            {HjelpetekstRefusjon()}
                         </td>
                         <td></td>
                     </tr>
