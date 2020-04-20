@@ -6,25 +6,22 @@ import {useAppStore} from "../../data/store/AppStore";
 import {IsValid, Validering} from "../validering/Validering";
 import {ByggValideringsFeil} from "./ByggValideringsFeil";
 
-export const BekreftKnapp = () => {
+export const BekreftKnapp = (onSubmit: any) => {
     const {ansatte, setAnsatte, feil, setFeil } = useAppStore();
     const [open, setOpen] = useState<boolean>(false);
     const handleOpen = (evt) => {
+      evt.preventDefault()
       const validerteAnsatte = Validering(ansatte)
-      if (IsValid(validerteAnsatte)) {
-        setFeil([])
-      } else {
-        setFeil(ByggValideringsFeil(validerteAnsatte))
-      }
+      setFeil(ByggValideringsFeil(validerteAnsatte))
       setAnsatte([...validerteAnsatte]);
       setOpen(feil.length === 0);
-      //evt.preventDefault()
     }
     const handleClose = (evt) => {
         setOpen(false)
     }
     const handleSubmit = (evt) => {
         setOpen(false)
+        onSubmit(evt)
     }
     console.log("BekreftKnapp");
     return (

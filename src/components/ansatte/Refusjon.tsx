@@ -7,7 +7,7 @@ export const Refusjon = (id: number) => {
   const a = ansatte.find(a => a.id === id)
   const handleChange = (evt) => {
     if (a) {
-      a.beloep = parseInt(evt.target.value)
+      a.beloep = evt.target.value ? parseInt(evt.target.value) : undefined
     } else {
       console.warn("Fant ikke rad")
     }
