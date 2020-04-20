@@ -3,15 +3,22 @@ import {Knapp} from "nav-frontend-knapper";
 import ModalWrapper from "nav-frontend-modal";
 import {Normaltekst, Systemtittel} from "nav-frontend-typografi";
 import {useAppStore} from "../../data/store/AppStore";
+import {IsValid, Validering} from "../validering/Validering";
+import {ByggValideringsFeil} from "./ByggValideringsFeil";
 
 export const BekreftKnapp = () => {
+    const {ansatte, setAnsatte, feil, setFeil } = useAppStore();
     const [open, setOpen] = useState<boolean>(false);
-    const {feil, setFeil} = useAppStore();
     const handleOpen = (evt) => {
-        if (feil.length > 0){
-            evt.preventDefault()
-            setOpen(false)
-        }
+      const validerteAnsatte = Validering(ansatte)
+      if (IsValid(validerteAnsatte)) {
+        setFeil([])
+      } else {
+        setFeil(ByggValideringsFeil(validerteAnsatte))
+      }
+      setAnsatte([...validerteAnsatte]);
+      setOpen(feil.length === 0);
+      //evt.preventDefault()
     }
     const handleClose = (evt) => {
         setOpen(false)
@@ -19,6 +26,7 @@ export const BekreftKnapp = () => {
     const handleSubmit = (evt) => {
         setOpen(false)
     }
+    console.log("BekreftKnapp");
     return (
         <>
             <Knapp onClick={handleOpen}>Send søknad om refusjon</Knapp>

@@ -15,28 +15,20 @@ import {ValideringOppsummering} from "./ValideringOppsummering";
 import {ValideringsFeil} from "./ValideringsFeil";
 
 const Ansatte2 = () => {
-  const {ansatte, setAnsatte, feil, setFeil, arbeidsgiverId } = useAppStore();
+  const {ansatte, feil, setFeil, arbeidsgiverId } = useAppStore();
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
-    e.preventDefault();
     const validerteAnsatte = Validering(ansatte)
-    if (IsValid(validerteAnsatte)) {
-      setFeil([])
-      const innsendteAnsatte = await Innsending(arbeidsgiverId, validerteAnsatte);
-      setFeil(
-        ByggValideringsFeil(innsendteAnsatte)
-      );
-      setAnsatte([...innsendteAnsatte]);
-    } else {
-      setFeil(ByggValideringsFeil(validerteAnsatte))
-      setAnsatte([...validerteAnsatte]);
-    }
+    e.preventDefault();
+    const innsendteAnsatte = await Innsending(arbeidsgiverId, validerteAnsatte);
+    setFeil(
+      ByggValideringsFeil(innsendteAnsatte)
+    );
   };
 
   const handleFjernFeil = (slettetElement: number) => {
     const aktiveFeil = feil.filter((element: ValideringsFeil) => {
       return element.skjemaelementId !== `fnr_${slettetElement}`;
     });
-
     setFeil(aktiveFeil);
   }
   return (
