@@ -3,7 +3,7 @@ import {sykepengerData} from "./SykepengerData";
 import env from "../../util/environment";
 import { backendStatus } from "../../data/types/backendStatus";
 
-export default (arbeidsgiverId: String, validerteAnsatte: Ansatt[]) => {
+export default (arbeidsgiverId: String, validerteAnsatte: Ansatt[]): Promise<any> => {
     console.log("ansatte", JSON.stringify(validerteAnsatte));
     const preparedAnsatte: sykepengerData[] = validerteAnsatte.map((ansatt: Ansatt) => {
         return {
@@ -19,7 +19,7 @@ export default (arbeidsgiverId: String, validerteAnsatte: Ansatt[]) => {
             ]
         }
     })
-    fetch(env.baseUrl + '/api/v1/refusjonskrav/list', {
+    return fetch(env.baseUrl + '/api/v1/refusjonskrav/list', {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ export default (arbeidsgiverId: String, validerteAnsatte: Ansatt[]) => {
         if (response.status === 401) {
             window.location.href = env.loginServiceUrl;
         } else if (response.status === 200) {
-            response.json().then(data => {
+            return response.json().then(data => {
                 data.forEach((recievedLine: BackendStatus, idx) => {
                     if(recievedLine.status === "OK") {
                         validerteAnsatte[idx].status = SkjemaStatus.GODKJENT;
@@ -45,24 +45,29 @@ export default (arbeidsgiverId: String, validerteAnsatte: Ansatt[]) => {
                         validerteAnsatte[idx].status = SkjemaStatus.VALIDERINGSFEIL
                         recievedLine.validationErrors?.forEach((validationError) => {
                             const errorField = validationError.propertyPath;
-                            console.log(errorField);
                             switch (errorField) {
                                 case 'identitetsnummer':
                                     validerteAnsatte[idx].fnrError = validationError.message;
                                     break;
                                 case 'virksomhetsnummer':
-                                    // validerteAnsatte[idx].virksomhetError = validationError.message;
+                                    // ToDo: Hva gjør vi med denne? 
                                     break;
+
+                                    case 'perioder':
+                                        validerteAnsatte[idx].periodeError = validationError.message;
+                                        break;
+
+                                    case 'perioder[0].tom':
+                                        validerteAnsatte[idx].periodeError = validationError.message;
+                                        break;
                             
                                 default:
                                     break;
                             }
                         })
-                        // validerteAnsatte[idx].me
-                    }
+                                            }
                 });
-                // ToDo: lagere ansatte til backend.
-                
+                return validerteAnsatte;
             })
         } else if (response.status === 422) {
             // response.json().then(data => {

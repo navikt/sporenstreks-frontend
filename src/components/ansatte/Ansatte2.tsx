@@ -21,15 +21,17 @@ const Ansatte2 = ({arbeidsgiverId}) => {
         setAnsatte(ansatte);
     }
     const handleSubmit = async(e: React.FormEvent): Promise<void> => {
+      e.preventDefault();
         const validerteAnsatte = Validering(ansatte)
         if (IsValid(validerteAnsatte)){
             setFeil([])
-            Innsending(arbeidsgiverId, validerteAnsatte)
+            const innsendteAnsatte = await Innsending(arbeidsgiverId, validerteAnsatte);
+            setFeil(ByggValideringsFeil(innsendteAnsatte));
+            setAnsatte(innsendteAnsatte);
         } else {
             setFeil(ByggValideringsFeil(validerteAnsatte))
             setAnsatte(validerteAnsatte);
         }
-        e.preventDefault();
     };
     return (
         <>
