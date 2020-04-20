@@ -34,7 +34,7 @@ const Ansatte2 = ({arbeidsgiverId}) => {
     }
   };
 
-  const handleFjernFeil = (slettetElement: string) => {
+  const handleFjernFeil = (slettetElement: number) => {
     const aktiveFeil = feil.filter((element: ValideringsFeil) => {
       return element.skjemaelementId !== `fnr_${slettetElement}`;
     });
