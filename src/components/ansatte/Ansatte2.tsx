@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import './Ansatte.less';
-import {byggAnsatt} from '../../data/types/sporenstreksTypes';
 import {useAppStore} from '../../data/store/AppStore';
 import {Feiloppsummering} from 'nav-frontend-skjema';
-import {Flatknapp, Knapp} from "nav-frontend-knapper";
 import {AnsattRad} from "./AnsattRad";
 import {IsValid, Validering} from "../validering/Validering";
 import {ValideringsFeil} from "./ValideringsFeil";
@@ -11,15 +9,12 @@ import {ByggValideringsFeil} from "./ByggValideringsFeil";
 import Innsending from "./Innsending";
 import Hjelpetekst from "nav-frontend-hjelpetekst";
 import {Normaltekst} from "nav-frontend-typografi";
+import {LeggTilKnapp} from "./LeggTilKnapp";
+import {BekreftKnapp} from "./BekreftKnapp";
 
 const Ansatte2 = ({arbeidsgiverId}) => {
     const {ansatte, setAnsatte} = useAppStore();
-    // const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
     const [ feil, setFeil ] = useState<ValideringsFeil[]>([]);
-    const handleAddRad = () => {
-        ansatte.push(byggAnsatt())
-        setAnsatte(ansatte);
-    }
     const handleSubmit = async(e: React.FormEvent): Promise<void> => {
       e.preventDefault();
         const validerteAnsatte = Validering(ansatte)
@@ -39,6 +34,7 @@ const Ansatte2 = ({arbeidsgiverId}) => {
             <table className="AnsattTable">
                 <tbody>
                     <tr>
+                        <td>Rad</td>
                         <td>
                             <span>Fødselsnummer til ansatt:</span>
                         </td>
@@ -63,7 +59,9 @@ const Ansatte2 = ({arbeidsgiverId}) => {
                 }
                 </tbody>
             </table>
-            <Flatknapp onClick={handleAddRad}>Legg til enda en ansatt</Flatknapp>
+                {
+                    LeggTilKnapp()
+                }
             {feil.length > 0 &&
                 <Feiloppsummering
                     tittel="Det er feil i skjemaet"
@@ -80,7 +78,7 @@ const Ansatte2 = ({arbeidsgiverId}) => {
                 </Normaltekst>
             </div>
                 <div className="container">
-                    <Knapp type="hoved">Send søknad om refusjon </Knapp>
+                    <BekreftKnapp/>
                 </div>
             </form>
         </>

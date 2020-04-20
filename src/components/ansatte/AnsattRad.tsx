@@ -17,11 +17,16 @@ export const AnsattRad = (id: number) => {
     const a = ansatte.find(a => a.id === id) || byggAnsatt()
     return (
         <tr key={a?.id}>
+            <td>{ansatte.indexOf(a)+1}</td>
             <td>{Fnr(a?.id)}</td>
             <td>{Periode(a?.id)}</td>
             <td>{Dager(a?.id)}</td>
             <td>{Refusjon(a?.id)}</td>
-            <td><Lukknapp onClick={handleClick}/></td>
+            <td>
+                {ansatte.length > 1 &&
+                    <Lukknapp onClick={handleClick}/>
+                }
+            </td>
         </tr>
     )
 }
