@@ -9,7 +9,7 @@ export const validateFnr = (ansatte: Ansatt[], ansatt: Ansatt): string | undefin
   } else if (fnrvalidator.fnr(ansatt.fnr).status === 'invalid') {
     return 'Fødselsnummer er ugyldig'
   } else if (ansatte.filter(a => a.fnr == ansatt.fnr).length > 1) {
-    return 'Fødselsnummer er brukt'
+    return 'Fødselsnummer er allerede brukt'
   }
   return undefined;
 };
