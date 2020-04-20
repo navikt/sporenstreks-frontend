@@ -1,7 +1,6 @@
 import React from "react";
 import { FnrInput } from "nav-frontend-skjema";
 import { useAppStore } from "../../data/store/AppStore";
-import { identityNumberSeparation } from '../../util/identityNumberSeparation';
 import { filterIdentityNumberInput } from '../../util/filterIndentityNumberInput';
 
 export const Fnr = (id: number) => {
@@ -16,8 +15,7 @@ export const Fnr = (id: number) => {
     setAnsatte([...ansatte]);
   };
 
-  return (<div>
-    <FnrInput
+  return <FnrInput
       id={"fnr_"+id}
       bredde="M"
       value={a?.fnr}
@@ -26,5 +24,4 @@ export const Fnr = (id: number) => {
       onValidate={() => console.log("valid")}
       feil={a?.fnrError}
     />
-  </div>)
 };

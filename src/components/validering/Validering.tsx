@@ -6,7 +6,7 @@ import { validateNotNullAndPositive } from './validateNotNullAndPositive';
 export const Validering = (ansatte: Ansatt[]) => {
     console.log("Validering", ansatte);
     ansatte.forEach(a => {
-        a.fnrError = validateFnr(a.fnr);
+        a.fnrError = validateFnr(ansatte, a);
         a.periodeError = validatePerioder(a.fom, a.tom);
         a.dagerError = validateNotNullAndPositive(a.antallDagerMedRefusjon);
         a.beloepError = validateNotNullAndPositive(a.beloep);
