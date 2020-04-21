@@ -36,3 +36,5 @@ export const Dager = (props: dagerProps) => {
             </Select>
     )
 }
+
+export default Dager;

@@ -3,11 +3,15 @@ import { FnrInput } from "nav-frontend-skjema";
 import { useAppStore } from "../../data/store/AppStore";
 import { filterIdentityNumberInput } from '../../util/filterIndentityNumberInput';
 
-export const Fnr = (id: number) => {
+interface fnrProps {
+  id: number
+}
+
+export const Fnr = ({ id }: fnrProps) => {
   const { ansatte, setAnsatte } = useAppStore();
   const a = ansatte.find(a => a.id === id)
   const handleChange = (evt) => {
-    if (a){
+    if (a) {
       a.fnr = filterIdentityNumberInput(evt.target.value);
     } else {
       console.warn("Fant ikke rad")
@@ -16,12 +20,12 @@ export const Fnr = (id: number) => {
   };
 
   return <FnrInput
-      id={"fnr_"+id}
-      bredde="M"
-      value={a?.fnr}
-      placeholder="11 siffer"
-      onChange={handleChange}
-      onValidate={() => {}}
-      feil={a?.fnrError}
-    />
+    id={"fnr_" + id}
+    bredde="M"
+    value={a?.fnr}
+    placeholder="11 siffer"
+    onChange={handleChange}
+    onValidate={() => { }}
+    feil={a?.fnrError}
+  />
 };

@@ -4,9 +4,13 @@ import dayjs from "dayjs";
 import Flatpickr from 'react-flatpickr';
 import {Norwegian} from 'flatpickr/dist/l10n/no.js';
 
-export const Periode = (id: number) => {
+interface periodeProps {
+  id: number
+}
+
+export const Periode = (props: periodeProps) => {
     const {ansatte, setAnsatte} = useAppStore();
-    const a = ansatte.find(a => a.id === id)
+    const a = ansatte.find(a => a.id === props.id)
     const handleClose = (selectedDates) => {
         if (a){
             a.fom = dayjs(selectedDates[0]).format("YYYY-MM-DD")
@@ -44,3 +48,5 @@ export const Periode = (id: number) => {
         </div>
     </div>)
 }
+
+export default Periode;
