@@ -4,7 +4,7 @@ import {FormContext, useForm} from 'react-hook-form';
 import {Hovedknapp} from 'nav-frontend-knapper';
 import {Link, useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
-import {Ingress, Normaltekst} from 'nav-frontend-typografi';
+import {Ingress, Innholdstittel, Normaltekst} from 'nav-frontend-typografi';
 import {Keys} from '../locales/keys';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
@@ -14,10 +14,12 @@ import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
 import {History} from 'history';
 import Vis from '../components/Vis';
 import env from '../util/environment';
-import './Sykepenger.less';
+import './ExcelOpplastning.less';
 import Lenke from "nav-frontend-lenker";
 import excellogo from '../img/excel-logo.png';
 import save from 'save-file'
+import Hjelpetekst from "nav-frontend-hjelpetekst";
+import {PopoverOrientering} from "nav-frontend-popover";
 
 interface Feil {
     melding: string,
@@ -34,14 +36,15 @@ const ExcelOpplastning = () => {
     const [fileName, setFileName] = useState('Last opp utfylt Excel-mal');
     const [file, setFile] = useState();
     const [feil, setFeil] = useState<Feil[]>([]);
-    const FILEUPLOAD_MAX_SIZE = 100000;
+    const FILEUPLOAD_MAX_SIZE = 250000;
 
     const setUploadFile = (event: any) => {
-        if (event.target.files[0].size > FILEUPLOAD_MAX_SIZE) {
-            setFeil([{rad: -1, melding: "Du kan ikke laste opp filer større enn 100 kB."}])
+        if (event.target.files[0] && event.target.files[0].size > FILEUPLOAD_MAX_SIZE) {
+            setFeil([{rad: -1, melding: "Du kan ikke laste opp filer større enn 250 kB."}])
         } else {
             setFileName(event.target.files[0].name);
-            setFile(event.target.files[0])
+            setFile(event.target.files[0]);
+            setFeil([]);
         }
     }
 
@@ -73,30 +76,43 @@ const ExcelOpplastning = () => {
             }).then((response: Response) => {
                 clearTimeout(timeout);
                 if (!didTimeOut) {
-                    if (response.status === 401) {
-                        window.location.href = env.loginServiceUrl;
-                    } else if (response.status === 200) {
-                        response.blob().then(data => {
-                                save(data, "nav_refusjon")
-                                history.push('/kvitteringExcel')
-                                setFeil([])
-                            }
-                        )
+                    switch(response.status) {
+                        case 401: {
+                           window.location.href = env.loginServiceUrl;
+                           break;
+                        }
+                        case 200: {
+                            response.blob().then(data => {
+                                    save(data, "nav_refusjon_kvittering.xlsx")
+                                    history.push('/kvitteringExcel')
+                                    setFeil([])
+                                }
+                            )
+                            break;
+                        }
+                        case 422: {
+                            response.json().then(data => {
+                                let f: Feil[] =
+                                    data.problemDetails.map(violation => ({
+                                        rad: violation.row,
+                                        kolonne: violation.column,
+                                        melding: violation.message
 
-                    } else if (response.status === 422) {
-                        response.json().then(data => {
-                            let f: Feil[] =
-                                data.problemDetails.map(violation => ({
-                                    rad: violation.row,
-                                    kolonne: violation.column,
-                                    melding: violation.message
+                                    }));
 
-                                }));
-                            setFeil(f)
-                        });
-                    } else {
-                        let f: Feil = {melding: "Feil ved innsending av skjema.", rad: -1}
-                        setFeil([f])
+                                if(f.length > 0) {
+                                    setFeil(f)
+                                } else {
+                                    setFeil([{rad: -1, melding: data.detail}])
+                                }
+                            });
+                            break;
+                        }
+                        default: {
+                            let f: Feil = {melding: "Feil ved innsending av skjema.", rad: -1}
+                            setFeil([f])
+                            break;
+                        }
                     }
                 }
             }).catch(err => {
@@ -111,7 +127,7 @@ const ExcelOpplastning = () => {
 
 
     return (
-        <div className="sykepenger">
+        <div className="excelOpplastning">
             <Vis hvis={arbeidsgivere.length === 0}>
                 <div className="limit">
                     <AlertStripeAdvarsel>
@@ -152,7 +168,7 @@ const ExcelOpplastning = () => {
                             for å søke om refusjon for de siste 13 dagene av arbeidsgiverperioden.</b>
                     </Ingress>
                     <div className="container">
-                        <Ingress>Last ned Excel-malen, fyll ut og last opp.</Ingress>
+                        <Innholdstittel>Last ned Excel-malen, fyll ut og last opp.</Innholdstittel>
                         <Normaltekst>
                             Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
                             <Link to="/">&nbsp;skal du bruke et eget skjema som du finner her</Link>.
@@ -170,7 +186,7 @@ const ExcelOpplastning = () => {
                             alt må fylles ut i denne malen før du laster opp.
                         </Normaltekst>
                     </div>
-                    <div>
+                    <div className="container">
                         <label className="knapp filKnapp">
                             <input className="fileinput"
                                    type="file"
@@ -183,36 +199,50 @@ const ExcelOpplastning = () => {
                             NB, det kan maks legges inn 5000 linjer per excel-doc.
                             Om det ikke er tilstrekkelig må dere gjøre dette i flere omganger.
                         </Normaltekst>
-                    </div>
-                    <Vis hvis={feil.length > 0}>
+                        <Vis hvis={feil.length > 0}>
                         <span className="feiloppsummeringTabell feiloppsummering">
                             <Ingress>Følgende feil i dokumentet må utbedres før du laster det opp på nytt:</Ingress>
                             <table className="tabell tabell--stripet">
                                 <tbody>
                                 {feil.sort((x, y) => x.rad > y.rad ? 1 : -1).map((f, index) => (
                                     <tr key={index}>
-                                        <td>{(f.rad < 0 ? "" : "Rad " +f.rad)}</td>
-                                        <td>{(f.kolonne && f.kolonne  < 0 ? "" : f.kolonne)}</td>
+                                        <td>{(f.rad < 0 ? "" : "Rad " + f.rad)}</td>
+                                        <td>{(f.kolonne && f.kolonne < 0 ? "" : f.kolonne)}</td>
                                         <td>{f.melding}</td>
                                     </tr>
                                 ))}
                                 </tbody>
                             </table>
                         </span>
-                    </Vis>
-                        <FormContext {...methods}>
-                            <form onSubmit={methods.handleSubmit(onSubmit)} className="excelform container">
-                                <Normaltekst>
-                                    Vi erklærer at det ikke er søkt om omsorgspenger
-                                    og at arbeidstakeren ikke er permittert.
-                                    Vi erklærer at dette kravet er basert på
-                                    at fraværet skyldes arbeidstakerens opplysninger
-                                    om at det aktuelle fraværet skyldes covid-19-pandemien.
-                                    Vær oppmerksom på at NAV kan foreta kontroller.
-                                </Normaltekst>
-                                <Hovedknapp className="knapp filKnapp">Send søknad om refusjon</Hovedknapp>
-                            </form>
-                        </FormContext>
+                        </Vis>
+                    </div>
+                    <FormContext {...methods}>
+                        <form onSubmit={methods.handleSubmit(onSubmit)} className="excelform container">
+                            <Normaltekst>
+                                Vi erklærer at det ikke er søkt om omsorgspenger
+                                og at arbeidstakeren ikke er permittert.
+                                Vi erklærer at dette kravet er basert på
+                                at fraværet skyldes arbeidstakerens opplysninger
+                                om at det aktuelle fraværet skyldes covid-19-pandemien.
+                                Vær oppmerksom på at NAV kan foreta kontroller.
+                            </Normaltekst>
+                            <span className="container">
+                            <Hovedknapp
+                                id="sendExcelKnapp"
+                                disabled={file ? false : true}
+                                className="filKnapp"
+                            >
+                                Send søknad om refusjon
+                            </Hovedknapp>
+                            <Vis hvis={file ? false : true}>
+                            <Hjelpetekst type={PopoverOrientering.Hoyre}>
+                                Du må laste opp et utfylt Excel-dokument først.
+                            </Hjelpetekst>
+                            </Vis>
+                            </span>
+                        </form>
+                    </FormContext>
+
                 </div>
             </Vis>
         </div>
