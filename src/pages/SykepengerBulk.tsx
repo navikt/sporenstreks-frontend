@@ -13,7 +13,7 @@ import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { History } from 'history';
 import Vis from '../components/Vis';
 import './SykepengerBulk.less';
-import Ansatte2 from '../components/ansatte/Ansatte2';
+import Ansatte from '../components/ansatte/Ansatte';
 
 
 const SykepengerBulk = () => {
@@ -66,7 +66,7 @@ const SykepengerBulk = () => {
                   <Undertekst className="sykepenger--undertekst">
                     NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
                   </Undertekst>
-                  <Ansatte2/>
+                  <Ansatte/>
                 </div>
               </div>
           </FormContext>
