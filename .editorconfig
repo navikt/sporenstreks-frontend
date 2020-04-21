@@ -6,30 +6,17 @@ root = true
 end_of_line = lf
 insert_final_newline = true
 
-# 4 space indentation
-[**.java]
-charset = utf-8
-indent_style = space
-indent_size = 4
-trim_trailing_whitespace=true
-
-# 4 space indentation
-[**.jsx]
-charset = utf-8
-indent_style = space
-indent_size = 2
-trim_trailing_whitespace=true
-
-# 4 space indentation
+# 2 space indentation
 [**.tsx]
 charset = utf-8
 indent_style = space
 indent_size = 2
 trim_trailing_whitespace=true
+insert_final_newline = true
 
-# 4 space indentation
-[**.kt]
+# 2 space indentation
+[**.ts]
 charset = utf-8
 indent_style = space
-indent_size = 4
+indent_size = 2
 trim_trailing_whitespace=true
