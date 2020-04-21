@@ -1,10 +1,8 @@
 import {Ansatt, BackendStatus, SkjemaStatus} from "../../data/types/sporenstreksTypes";
 import {SykepengerData} from "./SykepengerData";
 import env from "../../util/environment";
-import {useAppStore} from "../../data/store/AppStore";
 
 export default (arbeidsgiverId: string, validerteAnsatte: Ansatt[], setLoadingStatus: any): Promise<any> => {
-  console.log("Innsending", JSON.stringify(validerteAnsatte));
   const preparedAnsatte: SykepengerData[] = validerteAnsatte.map((ansatt: Ansatt) => {
     return {
       identitetsnummer: ansatt.fnr,
