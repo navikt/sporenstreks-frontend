@@ -28,28 +28,28 @@ const Ansatte = () => {
       <form onSubmit={handleSubmit} className="refusjonsform">
         <table className="AnsattTable">
           <tbody>
-            <tr>
-              <td>Rad</td>
-              <td>
-                <span>Fødselsnummer til ansatt:</span>
-              </td>
-              <td>
-                <span>Hvilken periode var den ansatte borte?</span>
-                {HjelpetekstPeriode()}
-              </td>
-              <td>
-                <span>Antall dager det skulle vært utbetalt lønn</span>
-                {HjelpetekstDager()}
-              </td>
-              <td>
-                <span>Brutto beløp som  søkes refundert</span>
-                {HjelpetekstRefusjon()}
-              </td>
-              <td>Status</td>
-            </tr>
-            {
-              ansatte.map((ansatt) => <AnsattRad id={ansatt.id} key={ansatt.id} />)
-            }
+          <tr>
+            <th>Rad</th>
+            <th>
+              <span>Fødselsnummer</span>
+            </th>
+            <th>
+              <span>Periode</span>
+              {HjelpetekstPeriode()}
+            </th>
+            <th>
+              <span>Antall dager</span>
+              {HjelpetekstDager()}
+            </th>
+            <th>
+              <span>Beløp</span>
+              {HjelpetekstRefusjon()}
+            </th>
+            <th></th>
+          </tr>
+          {
+            ansatte.map((ansatt) => <AnsattRad id={ansatt.id} key={ansatt.id} />)
+          }
           </tbody>
         </table>
         <LeggTilKnapp />

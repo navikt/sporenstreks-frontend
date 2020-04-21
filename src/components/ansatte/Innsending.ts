@@ -1,11 +1,12 @@
-import {Ansatt, BackendStatus, SkjemaStatus} from "../../data/types/sporenstreksTypes";
-import {SykepengerData} from "./SykepengerData";
+import { Ansatt, BackendStatus, SkjemaStatus } from "../../data/types/sporenstreksTypes";
+import { SykepengerData } from "./SykepengerData";
 import env from "../../util/environment";
 import formaterAnsatteForInnsending from './formaterAnsatteForInnsending';
+import mergeAnsattlister from './mergeAnsattlister'
 
 export default (arbeidsgiverId: string, validerteAnsatte: Ansatt[], setLoadingStatus: any): Promise<any> => {
   const filtrerteAnsatte = validerteAnsatte.filter((element) => {
-    return !!element.referenceNumber;
+    return !element.referenceNumber;
   });
   const preparedAnsatte: SykepengerData[] = formaterAnsatteForInnsending(filtrerteAnsatte, arbeidsgiverId)
   setLoadingStatus(0)
@@ -24,32 +25,32 @@ export default (arbeidsgiverId: string, validerteAnsatte: Ansatt[], setLoadingSt
       return response.json().then(data => {
         data.forEach((recievedLine: BackendStatus, idx) => {
           if (recievedLine.status === "OK") {
-            validerteAnsatte[idx].status = SkjemaStatus.GODKJENT;
-            validerteAnsatte[idx].referenceNumber = recievedLine.referenceNumber;
+            filtrerteAnsatte[idx].status = SkjemaStatus.GODKJENT;
+            filtrerteAnsatte[idx].referenceNumber = recievedLine.referenceNumber;
           }
 
           if (recievedLine.status === "GENERIC_ERROR") {
-            validerteAnsatte[idx].status = SkjemaStatus.ERRORBACKEND
+            filtrerteAnsatte[idx].status = SkjemaStatus.ERRORBACKEND
           }
 
           if (recievedLine.status === "VALIDATION_ERRORS") {
-            validerteAnsatte[idx].status = SkjemaStatus.VALIDERINGSFEIL
+            filtrerteAnsatte[idx].status = SkjemaStatus.VALIDERINGSFEIL
             recievedLine.validationErrors?.forEach((validationError) => {
               const errorField = validationError.propertyPath;
               switch (errorField) {
                 case 'identitetsnummer':
-                  validerteAnsatte[idx].fnrError = validationError.message;
+                  filtrerteAnsatte[idx].fnrError = validationError.message;
                   break;
                 case 'virksomhetsnummer':
                   // ToDo: Hva gjør vi med denne?
                   break;
 
                 case 'perioder':
-                  validerteAnsatte[idx].periodeError = validationError.message;
+                  filtrerteAnsatte[idx].periodeError = validationError.message;
                   break;
 
                 case 'perioder[0].tom':
-                  validerteAnsatte[idx].periodeError = validationError.message;
+                  filtrerteAnsatte[idx].periodeError = validationError.message;
                   break;
 
                 default:
@@ -58,7 +59,8 @@ export default (arbeidsgiverId: string, validerteAnsatte: Ansatt[], setLoadingSt
             })
           }
         });
-        return validerteAnsatte;
+
+        return mergeAnsattlister(validerteAnsatte, filtrerteAnsatte);
       })
     } else if (response.status === 422) {
       // response.json().then(data => {

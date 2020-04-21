@@ -15,8 +15,6 @@ export const Periode = (props: periodeProps) => {
         if (a){
             a.fom = dayjs(selectedDates[0]).format("YYYY-MM-DD")
             a.tom = dayjs(selectedDates[1]).format("YYYY-MM-DD")
-        } else {
-            console.warn("Fant ikke rad")
         }
         setAnsatte([...ansatte]);
     }

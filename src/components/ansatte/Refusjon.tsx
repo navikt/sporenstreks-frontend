@@ -12,8 +12,6 @@ export const Refusjon = (props: refusjonProps) => {
   const handleChange = (evt) => {
     if (a) {
       a.beloep = evt.target.value ? parseInt(evt.target.value) : undefined
-    } else {
-      console.warn("Fant ikke rad")
     }
     setAnsatte([...ansatte]);
   }
