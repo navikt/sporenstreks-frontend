@@ -15,3 +15,5 @@ export const ByggValideringsFeil = (ansatte: Ansatt[]) => {
     });
     return feil
 }
+
+export default ByggValideringsFeil;

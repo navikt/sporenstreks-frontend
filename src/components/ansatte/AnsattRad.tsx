@@ -35,7 +35,7 @@ export const AnsattRad = (id: number) => {
       <td>{ansatte.indexOf(a) + 1}</td>
       <td>{Fnr(a?.id)}</td>
       <td>{Periode(a?.id)}</td>
-      <td>{Dager(a?.id)}</td>
+      <td><Dager id={a?.id}/></td>
       <td>{Refusjon(a?.id)}</td>
       <td>
         {
