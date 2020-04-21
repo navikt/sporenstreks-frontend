@@ -21,7 +21,7 @@ export const Fnr = (id: number) => {
       value={a?.fnr}
       placeholder="11 siffer"
       onChange={handleChange}
-      onValidate={() => console.log("valid")}
+      onValidate={() => {}}
       feil={a?.fnrError}
     />
 };
