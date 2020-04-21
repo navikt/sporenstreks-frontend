@@ -1,22 +1,13 @@
 import {Ansatt, BackendStatus, SkjemaStatus} from "../../data/types/sporenstreksTypes";
 import {SykepengerData} from "./SykepengerData";
 import env from "../../util/environment";
+import formaterAnsatteForInnsending from './formaterAnsatteForInnsending';
 
 export default (arbeidsgiverId: string, validerteAnsatte: Ansatt[], setLoadingStatus: any): Promise<any> => {
-  const preparedAnsatte: SykepengerData[] = validerteAnsatte.map((ansatt: Ansatt) => {
-    return {
-      identitetsnummer: ansatt.fnr,
-      virksomhetsnummer: arbeidsgiverId,
-      perioder: [
-        {
-          fom: ansatt.fom,
-          tom: ansatt.tom,
-          antallDagerMedRefusjon: ansatt.antallDagerMedRefusjon,
-          beloep: ansatt.beloep
-        }
-      ]
-    }
-  })
+  const filtrerteAnsatte = validerteAnsatte.filter((element) => {
+    return !!element.referenceNumber;
+  });
+  const preparedAnsatte: SykepengerData[] = formaterAnsatteForInnsending(filtrerteAnsatte, arbeidsgiverId)
   setLoadingStatus(0)
   return fetch(env.baseUrl + '/api/v1/refusjonskrav/list', {
     headers: {
