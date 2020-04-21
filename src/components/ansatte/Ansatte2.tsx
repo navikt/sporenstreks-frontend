@@ -23,7 +23,6 @@ const Ansatte2 = () => {
       ByggValideringsFeil(innsendteAnsatte)
     );
   };
-
   return (
     <>
       <form onSubmit={handleSubmit} className="refusjonsform">
@@ -46,7 +45,7 @@ const Ansatte2 = () => {
               <span>Brutto beløp som  søkes refundert</span>
               {HjelpetekstRefusjon()}
             </td>
-            <td></td>
+            <td>Status</td>
           </tr>
           {
             ansatte.map((ansatt, index) => AnsattRad(ansatt.id))
