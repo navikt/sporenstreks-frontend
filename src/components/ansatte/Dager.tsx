@@ -12,8 +12,6 @@ export const Dager = (props: dagerProps) => {
     const handleChange = (evt) => {
         if (a) {
             a.antallDagerMedRefusjon = parseInt(evt.target.selectedIndex)
-        } else {
-            console.warn("Fant ikke rad")
         }
         setAnsatte([...ansatte]);
     }

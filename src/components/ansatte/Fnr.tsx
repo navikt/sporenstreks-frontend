@@ -9,8 +9,6 @@ export const Fnr = (id: number) => {
   const handleChange = (evt) => {
     if (a){
       a.fnr = filterIdentityNumberInput(evt.target.value);
-    } else {
-      console.warn("Fant ikke rad")
     }
     setAnsatte([...ansatte]);
   };
