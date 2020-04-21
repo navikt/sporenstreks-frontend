@@ -29,23 +29,23 @@ const Ansatte = () => {
         <table className="AnsattTable">
           <tbody>
           <tr>
-            <td>Rad</td>
-            <td>
-              <span>Fødselsnummer til ansatt:</span>
-            </td>
-            <td>
-              <span>Hvilken periode var den ansatte borte?</span>
+            <th>Rad</th>
+            <th>
+              <span>Fødselsnummer</span>
+            </th>
+            <th>
+              <span>Periode</span>
               {HjelpetekstPeriode()}
-            </td>
-            <td>
-              <span>Antall dager det skulle vært utbetalt lønn</span>
+            </th>
+            <th>
+              <span>Antall dager</span>
               {HjelpetekstDager()}
-            </td>
-            <td>
-              <span>Brutto beløp som  søkes refundert</span>
+            </th>
+            <th>
+              <span>Beløp</span>
               {HjelpetekstRefusjon()}
-            </td>
-            <td>Status</td>
+            </th>
+            <th></th>
           </tr>
           {
             ansatte.map((ansatt) => AnsattRad(ansatt.id))
