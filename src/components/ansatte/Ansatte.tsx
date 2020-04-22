@@ -12,9 +12,12 @@ import { HjelpetekstDager } from "./HjelpetekstDager";
 import { HjelpetekstPeriode } from "./HjelpetekstPeriode";
 import { Erklaring } from "./Erklaring";
 import { ValideringOppsummering } from "./ValideringOppsummering";
+import {History} from 'history';
+import {useHistory} from "react-router-dom";
 
 const Ansatte = () => {
-  const {ansatte, setFeil, arbeidsgiverId, setLoadingStatus } = useAppStore();
+  const {ansatte, feil, setFeil, arbeidsgiverId, setLoadingStatus } = useAppStore();
+  const history: History = useHistory();
   const [ erklæringAkseptert, setErklæringAkseptert ] = useState<boolean>(false);
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
@@ -23,6 +26,9 @@ const Ansatte = () => {
     setFeil(
       ByggValideringsFeil(innsendteAnsatte)
     );
+    if (feil.length === 0) {
+      history.push('/kvitteringBulk')
+    }
   };
 
   return (
