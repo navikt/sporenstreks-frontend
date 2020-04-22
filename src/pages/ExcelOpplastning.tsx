@@ -36,7 +36,7 @@ const ExcelOpplastning = () => {
   const {t} = useTranslation();
   const history: History = useHistory();
   const [fileName, setFileName] = useState('Last opp utfylt Excel-mal');
-  const [file, setFile] = useState();
+  const [file, setFile] = useState(undefined);
   const [feil, setFeil] = useState<Feil[]>([]);
   const [visAlleFeil, setVisAlleFeil] = useState(false)
   const FILEUPLOAD_MAX_SIZE = 250000;
@@ -264,17 +264,19 @@ const ExcelOpplastning = () => {
             <Innholdstittel>Last ned Excel-malen, fyll ut og last opp.</Innholdstittel>
             <Normaltekst>
               Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
-              <Link to="/">&nbsp;skal du bruke et eget skjema som du finner her</Link>.
+              <Link to="/" className="lenke">&nbsp;skal du bruke et eget skjema som du finner her</Link>.
               Denne metoden er tiltenkt dere som har svært mange refusjonskrav.
-              Vi har også et eget
-              skjema for å søke om refusjonskrav for flere ansatte
+              Vi har også et &nbsp;
+              <Link to="/bulk" className="lenke">
+                eget skjema for å søke om refusjonskrav for flere ansatte
+              </Link> &nbsp;
               dersom dere foretrekker å gjøre det på den måten.
             </Normaltekst>
             <br/><br/>
             <Normaltekst>
               <img src={excellogo} width="35" className="excelLogo"/>
               <Lenke href={env.baseUrl + "/api/v1/bulk/template"}>
-                Last ned</Lenke> malen her, og fyll ut.
+                Last ned malen her</Lenke>, og fyll ut.
               Det er ikke mulig å benytte ditt eget excel-dokument,
               alt må fylles ut i denne malen før du laster opp.
             </Normaltekst>
@@ -297,7 +299,8 @@ const ExcelOpplastning = () => {
           <FormContext {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)} className="excelform container">
               {Erklaring(erklæringAkseptert, value => setErklæringAkseptert(value))}
-              <Hovedknapp disabled={!erklæringAkseptert} className="knapp filKnapp">Send søknad om refusjon</Hovedknapp>
+              <Hovedknapp disabled={!(erklæringAkseptert && file != undefined)} className="knapp filKnapp">
+                Send søknad om refusjon</Hovedknapp>
             </form>
           </FormContext>
         </div>
