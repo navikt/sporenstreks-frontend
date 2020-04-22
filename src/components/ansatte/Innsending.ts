@@ -1,7 +1,7 @@
 import { Ansatt, BackendStatus, SkjemaStatus } from "../../data/types/sporenstreksTypes";
 import { SykepengerData } from "./SykepengerData";
 import env from "../../util/environment";
-import formaterAnsatteForInnsending from './formaterAnsatteForInnsending';
+import filtrerAnsatteForInnsending from './filtrerAnsatteForInnsending';
 import mergeAnsattlister from './mergeAnsattlister'
 import berikAnsatte from "./berikAnsatte";
 
@@ -9,7 +9,7 @@ export default (arbeidsgiverId: string, validerteAnsatte: Ansatt[], setLoadingSt
   const filtrerteAnsatte = validerteAnsatte.filter((element) => {
     return !element.referenceNumber;
   });
-  const preparedAnsatte: SykepengerData[] = formaterAnsatteForInnsending(filtrerteAnsatte, arbeidsgiverId)
+  const preparedAnsatte: SykepengerData[] = filtrerAnsatteForInnsending(filtrerteAnsatte, arbeidsgiverId)
   setLoadingStatus(0)
   return fetch(env.baseUrl + '/api/v1/refusjonskrav/list', {
     headers: {

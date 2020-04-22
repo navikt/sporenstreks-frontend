@@ -1,8 +1,8 @@
-import formaterAnsatteForInnsending from './formaterAnsatteForInnsending';
+import filtrerAnsatteForInnsending from './filtrerAnsatteForInnsending';
 import { Ansatt } from '../../data/types/sporenstreksTypes';
 import { SykepengerData } from './SykepengerData';
 
-describe("formaterAnsatteForInnsending", () => {
+describe("filtrerAnsatteForInnsending", () => {
   it("should return a new list prepared for posting to the backend", () => {
     const master: Ansatt[] = [
       {
@@ -76,6 +76,6 @@ describe("formaterAnsatteForInnsending", () => {
       },
     ]
 
-    expect(formaterAnsatteForInnsending(master, "123456789")).toEqual(expected);
+    expect(filtrerAnsatteForInnsending(master, "123456789")).toEqual(expected);
   })
 })

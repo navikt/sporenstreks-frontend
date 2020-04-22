@@ -1,7 +1,7 @@
 import {Ansatt} from "../../data/types/sporenstreksTypes";
 import {SykepengerData} from "./SykepengerData";
 
-function formaterAnsatteForInnsending(validerteAnsatte: Ansatt[], arbeidsgiverId: string): SykepengerData[] {
+function filtrerAnsatteForInnsending(validerteAnsatte: Ansatt[], arbeidsgiverId: string): SykepengerData[] {
   return validerteAnsatte.map((ansatt: Ansatt) => {
     return {
       identitetsnummer: ansatt.fnr,
@@ -18,4 +18,4 @@ function formaterAnsatteForInnsending(validerteAnsatte: Ansatt[], arbeidsgiverId
   });
 }
 
-export default formaterAnsatteForInnsending;
+export default filtrerAnsatteForInnsending;
