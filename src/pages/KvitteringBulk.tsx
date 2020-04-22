@@ -19,7 +19,7 @@ const KvitteringBulk = () => {
                   <div>
                     <Normaltekst>Referansenummer:
                       {ansatte.map(a => {
-                      return (<li>{a.referenceNumber}</li>)
+                      return (<li key={a.id}>{a.referenceNumber}</li>)
                     })}</Normaltekst>
                   </div>
                     <div>
