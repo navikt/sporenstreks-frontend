@@ -28,8 +28,11 @@ export enum SkjemaStatus {
   'ERRORBACKEND',
 }
 
-export interface Ansatt {
-  id: number,
+export interface AnsattID {
+  id: number
+}
+
+export interface Ansatt extends AnsattID {
   fnr: string;
   fnrError?: string,
   beloepError?: string,

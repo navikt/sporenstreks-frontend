@@ -56,21 +56,19 @@ const Ansatte = () => {
             <th></th>
           </tr>
           {
-            ansatte.map((ansatt) => AnsattRad(ansatt.id))
+            ansatte.map((ansatt) => <AnsattRad id={ansatt.id} key={ansatt.id} />)
           }
           </tbody>
         </table>
-        <LeggTilKnapp/>
+        <LeggTilKnapp />
 
-        <ValideringOppsummering/>
+        <ValideringOppsummering />
 
         <div className="container">
           {Erklaring(erklæringAkseptert, value => setErklæringAkseptert(value))}
         </div>
         <div className="container">
-          {
-            BekreftKnapp(handleSubmit, erklæringAkseptert)
-          }
+          <BekreftKnapp onSubmit={handleSubmit} erklæringAkseptert={erklæringAkseptert} />
         </div>
       </form>
     </>

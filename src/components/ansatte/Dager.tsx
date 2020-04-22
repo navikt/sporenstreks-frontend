@@ -1,17 +1,14 @@
 import React from "react";
 import {Select} from "nav-frontend-skjema";
 import {useAppStore} from "../../data/store/AppStore";
+import { AnsattID } from "../../data/types/sporenstreksTypes";
 
-interface dagerProps {
-  id: number
-}
-
-export const Dager = (props: dagerProps) => {
+export const Dager = (props: AnsattID) => {
     const {ansatte, setAnsatte} = useAppStore();
     const a = ansatte.find(a => a.id === props.id)
     const handleChange = (evt) => {
         if (a) {
-            a.antallDagerMedRefusjon = parseInt(evt.target.selectedIndex)
+            a.antallDagerMedRefusjon = parseInt(evt.target.selectedIndex);
         }
         setAnsatte([...ansatte]);
     }
@@ -34,3 +31,5 @@ export const Dager = (props: dagerProps) => {
             </Select>
     )
 }
+
+export default Dager;
