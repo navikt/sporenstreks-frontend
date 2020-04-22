@@ -20,7 +20,7 @@ import excellogo from '../img/excel-logo.png';
 import save from 'save-file'
 import Hjelpetekst from "nav-frontend-hjelpetekst";
 import {PopoverOrientering} from "nav-frontend-popover";
-import { Eklaring } from '../components/ansatte/Erklaring';
+import { Erklaring } from '../components/ansatte/Erklaring';
 
 interface Feil {
   melding: string,
@@ -296,7 +296,7 @@ const ExcelOpplastning = () => {
           </div>
           <FormContext {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)} className="excelform container">
-              {Eklaring(erklæringAkseptert, value => setErklæringAkseptert(value))}
+              {Erklaring(erklæringAkseptert, value => setErklæringAkseptert(value))}
               <Hovedknapp disabled={!erklæringAkseptert} className="knapp filKnapp">Send søknad om refusjon</Hovedknapp>
             </form>
           </FormContext>

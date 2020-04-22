@@ -10,7 +10,7 @@ import { BekreftKnapp } from "./BekreftKnapp";
 import { HjelpetekstRefusjon } from "./HjelpetekstRefusjon";
 import { HjelpetekstDager } from "./HjelpetekstDager";
 import { HjelpetekstPeriode } from "./HjelpetekstPeriode";
-import { Eklaring } from "./Erklaring";
+import { Erklaring } from "./Erklaring";
 import { ValideringOppsummering } from "./ValideringOppsummering";
 
 const Ansatte = () => {
@@ -59,7 +59,7 @@ const Ansatte = () => {
         <ValideringOppsummering/>
 
         <div className="container">
-          {Eklaring(erklæringAkseptert, value => setErklæringAkseptert(value))}
+          {Erklaring(erklæringAkseptert, value => setErklæringAkseptert(value))}
         </div>
         <div className="container">
           {

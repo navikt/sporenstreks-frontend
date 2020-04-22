@@ -26,7 +26,7 @@ import ModalWrapper from 'nav-frontend-modal';
 import Eksempel from '../components/Eksempel';
 import formToJSON from '../util/formToJSON';
 import convertSkjemaToRefusjonsKrav from '../util/convertSkjemaToRefusjonsKrav';
-import { Eklaring } from '../components/ansatte/Erklaring';
+import { Erklaring } from '../components/ansatte/Erklaring';
 
 const fnrErrorState = {
   hasError: '',
@@ -238,7 +238,7 @@ const Sykepenger = () => {
 
               <div className="container">
                 <div className="container">
-                  {Eklaring(erklæringAkseptert, value => setErklæringAkseptert(value))}
+                  {Erklaring(erklæringAkseptert, value => setErklæringAkseptert(value))}
                 </div>
               </div>
 
