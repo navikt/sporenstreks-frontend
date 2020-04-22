@@ -5,15 +5,11 @@ import { Refusjon } from "./Refusjon";
 import { Fnr } from "./Fnr";
 import { Periode } from "./Periode";
 import { useAppStore } from "../../data/store/AppStore";
-import { byggAnsatt, SkjemaStatus } from "../../data/types/sporenstreksTypes";
+import { byggAnsatt, SkjemaStatus, AnsattID } from "../../data/types/sporenstreksTypes";
 import Lukknapp from "nav-frontend-lukknapp";
 import { ByggValideringsFeil } from "./ByggValideringsFeil";
 
-interface ansattRadProps {
-  id: number
-}
-
-export const AnsattRad = ({ id }: ansattRadProps) => {
+export const AnsattRad = ({ id }: AnsattID) => {
   const { ansatte, setAnsatte, setFeil } = useAppStore();
   const handleClick = (evt: FormEvent) => {
     const arr = ansatte.filter(a => a.id !== id);
