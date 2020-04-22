@@ -6,7 +6,7 @@ import {useAppStore} from "../../data/store/AppStore";
 import {IsValid, Validering} from "../validering/Validering";
 import {ByggValideringsFeil} from "./ByggValideringsFeil";
 
-export const BekreftKnapp = (onSubmit: any) => {
+export const BekreftKnapp = (onSubmit: any, erklæringAkseptert: boolean) => {
     const { ansatte, setAnsatte, setFeil } = useAppStore();
     const { loadingStatus } = useAppStore();
     const [open, setOpen] = useState<boolean>(false);
@@ -31,7 +31,7 @@ export const BekreftKnapp = (onSubmit: any) => {
     }
     return (
         <>
-            <Knapp type="hoved" onClick={handleOpen}>Send søknad om refusjon</Knapp>
+            <Knapp disabled={!erklæringAkseptert} type="hoved" onClick={handleOpen}>Send søknad om refusjon</Knapp>
             <ModalWrapper
                 isOpen={open}
                 onRequestClose={() => handleClose}

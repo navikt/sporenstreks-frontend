@@ -20,6 +20,7 @@ import excellogo from '../img/excel-logo.png';
 import save from 'save-file'
 import Hjelpetekst from "nav-frontend-hjelpetekst";
 import {PopoverOrientering} from "nav-frontend-popover";
+import { Erklaring } from '../components/ansatte/Erklaring';
 
 interface Feil {
   melding: string,
@@ -30,6 +31,7 @@ interface Feil {
 const ExcelOpplastning = () => {
   const {arbeidsgivere} = useAppStore();
   const [arbeidsgiverId, setArbeidsgiverId] = useState<string>('');
+  const [ erklæringAkseptert, setErklæringAkseptert ] = useState<boolean>(false);
   const methods = useForm();
   const {t} = useTranslation();
   const history: History = useHistory();
@@ -294,15 +296,8 @@ const ExcelOpplastning = () => {
           </div>
           <FormContext {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)} className="excelform container">
-              <Normaltekst>
-                Vi erklærer at det ikke er søkt om omsorgspenger
-                og at arbeidstakeren ikke er permittert.
-                Vi erklærer at dette kravet er basert på
-                at fraværet skyldes arbeidstakerens opplysninger
-                om at det aktuelle fraværet skyldes covid-19-pandemien.
-                Vær oppmerksom på at NAV kan foreta kontroller.
-              </Normaltekst>
-              <Hovedknapp className="knapp filKnapp">Send søknad om refusjon</Hovedknapp>
+              {Erklaring(erklæringAkseptert, value => setErklæringAkseptert(value))}
+              <Hovedknapp disabled={!erklæringAkseptert} className="knapp filKnapp">Send søknad om refusjon</Hovedknapp>
             </form>
           </FormContext>
         </div>

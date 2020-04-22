@@ -26,6 +26,7 @@ import ModalWrapper from 'nav-frontend-modal';
 import Eksempel from '../components/Eksempel';
 import formToJSON from '../util/formToJSON';
 import convertSkjemaToRefusjonsKrav from '../util/convertSkjemaToRefusjonsKrav';
+import { Erklaring } from '../components/ansatte/Erklaring';
 
 const fnrErrorState = {
   hasError: '',
@@ -35,6 +36,7 @@ const fnrErrorState = {
 const Sykepenger = () => {
   const { arbeidsgivere, setReferanseNummer } = useAppStore();
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
+  const [ erklæringAkseptert, setErklæringAkseptert ] = useState<boolean>(false);
   const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
   const [ firma, setFirma ] = useState<string>('');
   const [ sendSkjemaOpen, setSendSkjemaOpen ] = useState<boolean>(false);
@@ -235,17 +237,13 @@ const Sykepenger = () => {
               <FeilOppsummering errors={methods.errors} />
 
               <div className="container">
-                <Normaltekst>
-                  Vi erklærer at det ikke er søkt om omsorgspenger og at arbeidstakeren ikke er permittert. Kravet er
-                  basert på arbeidstakerens opplysninger om at arbeidstakeren enten er smittet av koronaviruset,
-                  mistenkt smittet eller i lovpålagt karantene.
-                  <br/><br/>
-                  Vær oppmerksom på at NAV kan foreta kontroller.
-                </Normaltekst>
+                <div className="container">
+                  {Erklaring(erklæringAkseptert, value => setErklæringAkseptert(value))}
+                </div>
               </div>
 
               <div className="container">
-                <Knapp type="hoved"> Send søknad om refusjon </Knapp>
+                <Knapp disabled={!erklæringAkseptert} type="hoved"> Send søknad om refusjon </Knapp>
               </div>
             </form>
           </FormContext>
