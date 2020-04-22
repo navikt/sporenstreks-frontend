@@ -8,9 +8,10 @@ import { ByggValideringsFeil } from "./ByggValideringsFeil";
 
 interface bekreftKnappProps {
   onSubmit: any
+  erklæringAkseptert: boolean
 }
 
-export const BekreftKnapp = ({ onSubmit }: bekreftKnappProps) => {
+export const BekreftKnapp = ({ onSubmit, erklæringAkseptert }: bekreftKnappProps) => {
   const { ansatte, setAnsatte, setFeil } = useAppStore();
   const { loadingStatus } = useAppStore();
   const [open, setOpen] = useState<boolean>(false);
@@ -35,7 +36,7 @@ export const BekreftKnapp = ({ onSubmit }: bekreftKnappProps) => {
   }
   return (
     <>
-      <Knapp type="hoved" onClick={handleOpen}>Send søknad om refusjon</Knapp>
+      <Knapp disabled={!erklæringAkseptert} type="hoved" onClick={handleOpen}>Send søknad om refusjon</Knapp>
       <ModalWrapper
         isOpen={open}
         onRequestClose={() => handleClose}

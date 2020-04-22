@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Ansatte.less';
 import { useAppStore } from '../../data/store/AppStore';
 import { AnsattRad } from "./AnsattRad";
@@ -10,11 +10,15 @@ import { BekreftKnapp } from "./BekreftKnapp";
 import { HjelpetekstRefusjon } from "./HjelpetekstRefusjon";
 import { HjelpetekstDager } from "./HjelpetekstDager";
 import { HjelpetekstPeriode } from "./HjelpetekstPeriode";
-import { Eklæring } from "./Erklæring";
+import { Erklaring } from "./Erklaring";
 import { ValideringOppsummering } from "./ValideringOppsummering";
+import {History} from 'history';
+import {useHistory} from "react-router-dom";
 
 const Ansatte = () => {
-  const { ansatte, setFeil, arbeidsgiverId, setLoadingStatus } = useAppStore();
+  const {ansatte, feil, setFeil, arbeidsgiverId, setLoadingStatus } = useAppStore();
+  const history: History = useHistory();
+  const [ erklæringAkseptert, setErklæringAkseptert ] = useState<boolean>(false);
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     const validerteAnsatte = Validering(ansatte);
@@ -22,7 +26,11 @@ const Ansatte = () => {
     setFeil(
       ByggValideringsFeil(innsendteAnsatte)
     );
+    if (feil.length === 0) {
+      history.push('/kvitteringBulk')
+    }
   };
+
   return (
     <>
       <form onSubmit={handleSubmit} className="refusjonsform">
@@ -57,10 +65,10 @@ const Ansatte = () => {
         <ValideringOppsummering />
 
         <div className="container">
-          <Eklæring />
+          {Erklaring(erklæringAkseptert, value => setErklæringAkseptert(value))}
         </div>
         <div className="container">
-          <BekreftKnapp onSubmit={handleSubmit} />
+          <BekreftKnapp onSubmit={handleSubmit} erklæringAkseptert={erklæringAkseptert} />
         </div>
       </form>
     </>

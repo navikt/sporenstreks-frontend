@@ -31,6 +31,8 @@ server {
     server_name  _;
 
     access_log /dev/stdout;
+    error_log /dev/stdout info;
+
 
     # Set some varable for usage in OpenResty modules.
     set $app_path_prefix            "${APP_PATH_PREFIX}";
@@ -62,14 +64,22 @@ server {
         default_type text/plain;
     }
 
+    location ~* \.(?:manifest|appcache|html?|xml|json)$ {
+        expires -1;
+    }
+
     location /nettrefusjon/api/ {
         proxy_set_header "x-nav-apiKey" $apigw_api_key;
         proxy_pass "${API_GATEWAY}/api/";
     }
 
-    ## All static files will be served directly and cached
-    location ^~ /nettrefusjon {
-        alias "${APP_DIR}";
+    location /nettrefusjon/static/ {
+        alias "${APP_DIR}/static/";
+    }
+
+    # Any route that doesn't have a file extension (e.g. /devices)
+    location / {
+        try_files $uri $uri/ /index.html;
     }
 
     location @401_json {
