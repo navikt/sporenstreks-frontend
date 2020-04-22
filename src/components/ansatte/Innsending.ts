@@ -1,4 +1,4 @@
-import { Ansatt, BackendStatus, SkjemaStatus } from "../../data/types/sporenstreksTypes";
+import { Ansatt } from "../../data/types/sporenstreksTypes";
 import { SykepengerData } from "./SykepengerData";
 import env from "../../util/environment";
 import filtrerAnsatteForInnsending from './filtrerAnsatteForInnsending';
