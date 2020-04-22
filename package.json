@@ -9,7 +9,7 @@
     "install": "react-app-rewired build",
     "test": "react-app-rewired test --color --watchAll=false --coverage",
     "eject": "react-scripts eject",
-    "lint": "eslint src/**/*.ts*"
+    "lint": "eslint src/**/*.ts* --fix"
   },
   "browserslist": {
     "production": [
