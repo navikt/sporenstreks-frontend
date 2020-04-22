@@ -3,12 +3,9 @@ import {useAppStore} from "../../data/store/AppStore";
 import dayjs from "dayjs";
 import Flatpickr from 'react-flatpickr';
 import {Norwegian} from 'flatpickr/dist/l10n/no.js';
+import { AnsattID } from "../../data/types/sporenstreksTypes";
 
-interface periodeProps {
-  id: number
-}
-
-export const Periode = (props: periodeProps) => {
+export const Periode = (props: AnsattID) => {
     const {ansatte, setAnsatte} = useAppStore();
     const a = ansatte.find(a => a.id === props.id)
     const handleClose = (selectedDates) => {
