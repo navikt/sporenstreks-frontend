@@ -11,7 +11,7 @@ export const Dager = (props: dagerProps) => {
     const a = ansatte.find(a => a.id === props.id)
     const handleChange = (evt) => {
         if (a) {
-            a.antallDagerMedRefusjon = parseInt(evt.target.selectedIndex)
+            a.antallDagerMedRefusjon = parseInt(evt.target.selectedIndex);
         }
         setAnsatte([...ansatte]);
     }
