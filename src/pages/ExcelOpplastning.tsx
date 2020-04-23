@@ -241,7 +241,7 @@ const ExcelOpplastning = () => {
           sidetittel={t(Keys.MY_PAGE)}
           organisasjoner={arbeidsgivere}
         />
-        <div className="limit">
+        <div className="limit bakgrunn">
           <AlertStripeAdvarsel>
             <Lenke
               href="https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/nyheter/refusjon-av-sykepenger-ved-koronavirus--hva-er-status">
@@ -264,13 +264,12 @@ const ExcelOpplastning = () => {
             <Innholdstittel>Last ned Excel-malen, fyll ut og last opp.</Innholdstittel>
             <Normaltekst>
               Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
-              <Link to="/" className="lenke">&nbsp;skal du bruke et eget skjema som du finner her</Link>.
-              Denne metoden er tiltenkt dere som har svært mange refusjonskrav.
+              <Link to="/" className="lenke">&nbsp;skal du bruke et eget skjema</Link>.
+              Excel-opplasting er tiltenkt dere som har svært mange refusjonskrav.
               Vi har også et &nbsp;
               <Link to="/bulk" className="lenke">
-                eget skjema for å søke om refusjonskrav for flere ansatte
-              </Link> &nbsp;
-              dersom dere foretrekker å gjøre det på den måten.
+                eget skjema for å søke om refusjonskrav for flere ansatte</Link>
+              &nbsp; dersom dere foretrekker å gjøre det på den måten.
             </Normaltekst>
             <br/><br/>
             <Normaltekst>
@@ -284,7 +283,7 @@ const ExcelOpplastning = () => {
           <div className="container">
             <Normaltekst>
               NB, det kan maks legges inn 5000 linjer per excel-doc.
-              Om det ikke er tilstrekkelig må dere gjøre dette i flere omganger.
+              Om det ikke er tilstrekkelig, må dere gjøre dette i flere omganger.
             </Normaltekst>
             <label className="knapp filKnapp">
               <input className="fileinput"
@@ -302,6 +301,12 @@ const ExcelOpplastning = () => {
             <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)}/>
               <Hovedknapp disabled={!(erklæringAkseptert && file != undefined)} className="knapp filKnapp">
                 Send søknad om refusjon</Hovedknapp>
+              <Vis hvis={!erklæringAkseptert && file != undefined}>
+                <Normaltekst className="advarsel">Du må huke av erklæringen før du kan sende inn</Normaltekst>
+              </Vis>
+              <Vis hvis={file == undefined}>
+                <Normaltekst className="advarsel">Du må laste opp Excel-skjemaet som skal sendes inn</Normaltekst>
+              </Vis>
             </form>
           </FormContext>
         </div>

@@ -36,16 +36,6 @@
     max-width: @desktopLimitWidth;
   }
 
-  .container {
-    max-width: 50rem;
-    border-bottom: 1px solid @navMorkGra;
-    padding: 1rem 0 2rem;
-
-    &:last-child {
-      border: 0;
-      padding: 1.5rem 0 4rem;
-    }
-  }
 
   .feiloppsummeringTabell {
     .typo-ingress {
@@ -81,6 +71,17 @@
   .hjelpetekst__ikon {
     vertical-align: bottom
   }
+
+  .bakgrunn{
+    background-color: white;
+    .container {
+      margin: 1rem;
+    }
+  }
+  .advarsel {
+    color: @redError;
+    font-style: italic;
+  }
 }
 
 @media (min-width: 769px) {
@@ -113,6 +114,20 @@
 
       .virksomhetsvelger__dropdownwrapper--apen {
         top: -1rem;
+      }
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  .excelOpplastning {
+    .container {
+      padding: 2.5rem 0 2rem;
+      border-bottom: 1px solid @navMorkGra;
+
+      &:last-child {
+        padding: 2.5rem 0 4rem;
+        border-bottom: none;
       }
     }
   }
