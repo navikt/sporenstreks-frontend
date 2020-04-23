@@ -68,7 +68,7 @@ const Ansatte = () => {
         <ValideringOppsummering />
 
         <div className="container">
-          {Erklaring(erklæringAkseptert, value => setErklæringAkseptert(value))}
+          <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)}/>
         </div>
         <div className="container">
           <BekreftKnapp onSubmit={handleSubmit} erklæringAkseptert={erklæringAkseptert} />

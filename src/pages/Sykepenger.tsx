@@ -238,7 +238,7 @@ const Sykepenger = () => {
 
               <div className="container">
                 <div className="container">
-                  {Erklaring(erklæringAkseptert, value => setErklæringAkseptert(value))}
+                  <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)}/>
                 </div>
               </div>
 

@@ -1,7 +1,12 @@
 import React from "react";
 import { Checkbox } from 'nav-frontend-skjema';
 
-export const Erklaring = (value: boolean, handleSetErklæring: (boolean) => void) => {
+interface erklaringProps {
+  value: boolean
+  handleSetErklæring: (passedValue: boolean) => void
+}
+
+export const Erklaring = ({value, handleSetErklæring}: erklaringProps) => {
   return (
     <Checkbox
       checked={value}
