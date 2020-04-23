@@ -18,6 +18,7 @@ import Ansatte from '../components/ansatte/Ansatte';
 
 const SykepengerBulk = () => {
   const { arbeidsgivere, setArbeidsgiverId } = useAppStore();
+  const { setFirma } = useAppStore();
   const methods = useForm();
   const { t } = useTranslation();
   const history: History = useHistory();
@@ -40,7 +41,10 @@ const SykepengerBulk = () => {
       <Vis hvis={arbeidsgivere.length > 0}>
         <Bedriftsmeny
           history={history}
-          onOrganisasjonChange={(org: Organisasjon) => setArbeidsgiverId(org.OrganizationNumber)}
+          onOrganisasjonChange={(org: Organisasjon) => {
+            setArbeidsgiverId(org.OrganizationNumber);
+            setFirma(org.Name);
+          }}
           sidetittel={t(Keys.MY_PAGE)}
           organisasjoner={arbeidsgivere}
         />
