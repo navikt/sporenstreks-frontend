@@ -296,7 +296,7 @@ const ExcelOpplastning = () => {
           </div>
           <FormContext {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)} className="excelform container">
-              {Erklaring(erklæringAkseptert, value => setErklæringAkseptert(value))}
+            <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)}/>
               <Hovedknapp disabled={!erklæringAkseptert} className="knapp filKnapp">Send søknad om refusjon</Hovedknapp>
             </form>
           </FormContext>
