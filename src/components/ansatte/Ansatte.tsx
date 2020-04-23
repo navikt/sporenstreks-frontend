@@ -14,7 +14,7 @@ import { Erklaring } from "./Erklaring";
 import { ValideringOppsummering } from "./ValideringOppsummering";
 import {History} from 'history';
 import {useHistory} from "react-router-dom";
-import {byggAnsatt} from "../../data/types/sporenstreksTypes";
+import {byggAnsatt, Ansatt} from "../../data/types/sporenstreksTypes";
 
 const Ansatte = () => {
   const {ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, setLoadingStatus } = useAppStore();
@@ -27,7 +27,7 @@ const Ansatte = () => {
     setFeil(
       ByggValideringsFeil(innsendteAnsatte)
     );
-    if (feil.length === 0) {
+    if(!innsendteAnsatte.find((ansatt: Ansatt) => !ansatt.referenceNumber)) {
       setAnsatte([byggAnsatt()])
       setFeil([])
       history.push('/kvitteringBulk')
