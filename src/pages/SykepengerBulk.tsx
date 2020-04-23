@@ -48,6 +48,11 @@ const SykepengerBulk = () => {
           sidetittel={t(Keys.MY_PAGE)}
           organisasjoner={arbeidsgivere}
         />
+
+        <div className="limit"  style={{padding: "2rem 0rem 1rem 0rem"}}>
+          <a href="/min-side-arbeidsgiver/" className="lenke informasjonsboks__lenke" style={{paddingLeft: "1rem"}}>&lt;&lt;Min side arbeidsgiver</a>
+        </div>
+
         <div className="limit skjemabakgrunn">
           <div className="container">
             <Normaltekst>
