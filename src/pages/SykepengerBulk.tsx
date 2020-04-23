@@ -12,6 +12,7 @@ import { useAppStore } from '../data/store/AppStore';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { History } from 'history';
 import Vis from '../components/Vis';
+import './SykepengerBulk.less';
 import Ansatte from '../components/ansatte/Ansatte';
 
 
