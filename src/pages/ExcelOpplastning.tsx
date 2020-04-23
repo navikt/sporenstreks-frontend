@@ -282,18 +282,19 @@ const ExcelOpplastning = () => {
             </Normaltekst>
           </div>
           <div className="container">
+            <Normaltekst>
+              NB, det kan maks legges inn 5000 linjer per excel-doc.
+              Om det ikke er tilstrekkelig må dere gjøre dette i flere omganger.
+            </Normaltekst>
             <label className="knapp filKnapp">
               <input className="fileinput"
                      type="file"
                      id="fileUploader"
                      accept=".xls,.xlsx"
-                     onChange={setUploadFile}/>
+                     onChange={setUploadFile}
+                      onClick={(e: any) => e.target.value = null}/>
               {fileName}
             </label>
-            <Normaltekst>
-              NB, det kan maks legges inn 5000 linjer per excel-doc.
-              Om det ikke er tilstrekkelig må dere gjøre dette i flere omganger.
-            </Normaltekst>
             {feilVisningsTabell()}
           </div>
           <FormContext {...methods}>
