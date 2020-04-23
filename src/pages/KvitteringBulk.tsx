@@ -5,10 +5,8 @@ import Panel from 'nav-frontend-paneler';
 import {Link} from 'react-router-dom';
 import './Kvittering.less';
 import Lenke from "nav-frontend-lenker";
-import {useAppStore} from "../data/store/AppStore";
 
 const KvitteringBulk = () => {
-  const { ansatte } = useAppStore();
     return (
         <div className="kvittering">
             <div className="limit">
@@ -17,16 +15,9 @@ const KvitteringBulk = () => {
                         <Innholdstittel>Søknaden er mottatt.</Innholdstittel>
                     </div>
                   <div>
-                    <Normaltekst>Referansenummer:
-                      {ansatte.map(a => {
-                      return (<li key={a.id}>{a.referenceNumber}</li>)
-                    })}</Normaltekst>
                   </div>
                     <div>
                         <Normaltekst>
-                            Du trenger referansenummeret hvis du kontakter oss om saken.
-                            Ha i tilfelle også den ansattes fødselsnummer klart.
-                            <br/><br/>
                             <Lenke
                                 href="https://www.nav.no/no/bedrift/tjenester-og-skjemaer/aa-registeret-og-a-meldingen/relatert-informasjon/bankkontonummer-refusjoner-fra-nav-til-arbeidsgiver">
                                 Har du ikke registrert kontonummer hos oss, må du gjøre det snarest.</Lenke>

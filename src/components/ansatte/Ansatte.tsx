@@ -14,9 +14,10 @@ import { Erklaring } from "./Erklaring";
 import { ValideringOppsummering } from "./ValideringOppsummering";
 import {History} from 'history';
 import {useHistory} from "react-router-dom";
+import {byggAnsatt} from "../../data/types/sporenstreksTypes";
 
 const Ansatte = () => {
-  const {ansatte, feil, setFeil, arbeidsgiverId, setLoadingStatus } = useAppStore();
+  const {ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, setLoadingStatus } = useAppStore();
   const history: History = useHistory();
   const [ erklæringAkseptert, setErklæringAkseptert ] = useState<boolean>(false);
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
@@ -27,6 +28,8 @@ const Ansatte = () => {
       ByggValideringsFeil(innsendteAnsatte)
     );
     if (feil.length === 0) {
+      setAnsatte([byggAnsatt()])
+      setFeil([])
       history.push('/kvitteringBulk')
     }
   };
