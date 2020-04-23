@@ -15,6 +15,8 @@ import { ValideringOppsummering } from "./ValideringOppsummering";
 import {History} from 'history';
 import {useHistory} from "react-router-dom";
 import {byggAnsatt, Ansatt} from "../../data/types/sporenstreksTypes";
+import {Normaltekst} from "nav-frontend-typografi";
+import Advarsler from "./Advarsler";
 
 const Ansatte = () => {
   const {ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, setLoadingStatus } = useAppStore();
@@ -72,6 +74,7 @@ const Ansatte = () => {
         </div>
         <div className="container">
           <BekreftKnapp onSubmit={handleSubmit} erklæringAkseptert={erklæringAkseptert} />
+          <Advarsler erklæringAkseptert={erklæringAkseptert} harFeil={feil.length > 0}/>
         </div>
       </form>
     </>
