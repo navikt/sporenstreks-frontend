@@ -42,7 +42,7 @@ const Ansatte = () => {
         <table className="AnsattTable">
           <tbody>
           <tr>
-            <th>Rad</th>
+            <th><span>Rad</span></th>
             <th>
               <span>Fødselsnummer</span>
             </th>

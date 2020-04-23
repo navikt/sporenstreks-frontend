@@ -32,7 +32,7 @@ export const AnsattRad = ({ id }: AnsattID) => {
   }
   return (
     <tr key={a?.id}>
-      <td>{ansatte.indexOf(a) + 1}</td>
+      <td><span className="radnr">{ansatte.indexOf(a) + 1}</span></td>
       <td><Fnr id={a?.id} /></td>
       <td><Periode id={a?.id} /></td>
       <td><Dager id={a?.id} /></td>

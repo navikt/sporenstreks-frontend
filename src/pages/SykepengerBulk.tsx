@@ -69,11 +69,16 @@ const SykepengerBulk = () => {
               <div className="container">
                 <div className="sykepenger--periode-velger form-group">
                   <Undertittel className="sykepenger--undertittel">
-                    Hvilken periode har den ansatte vært fraværende?
+                    Oppgi ansatte, arbeidsgiverperiode og beløp
                   </Undertittel>
-                  <Undertekst className="sykepenger--undertekst">
-                    NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
-                  </Undertekst>
+                  <Normaltekst>
+                    Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
+                    <Link to="../"> skal du bruke et eget skjema som du finner her.</Link>
+                  </Normaltekst>
+                  <Normaltekst>
+                    Har dere svært mange ansatte kan det om ønskelig
+                    <Link to="../excel/"> benyttes Excel-opplasting.</Link>
+                  </Normaltekst>
                   <Ansatte/>
                 </div>
               </div>

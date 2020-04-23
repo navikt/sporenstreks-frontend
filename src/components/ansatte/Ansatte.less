@@ -9,11 +9,25 @@
   padding-bottom: 0rem;
   text-align: left;
   white-space: nowrap;
+  line-height: 48px;
+  span {
+    display: inline-block;
+  }
+  .hjelpetekst{
+    vertical-align: top;
+    display: inline-block;
+    margin-top: 6px;
+  }
 }
 
 .AnsattTable TD {
   padding: 0.5rem;
   vertical-align: top;
+}
+
+.AnsattTable TD:nth-child(1) {
+  width: 3rem;
+  text-align: center;
 }
 
 .AnsattTable TD:nth-child(3) {
@@ -29,4 +43,13 @@
 
 .AnsattTable TD:nth-child(6) {
   width: 2rem;
+}
+
+.AnsattTable {
+  .slettknapp {
+    line-height: 38px;
+  }
+  .radnr{
+    line-height: 38px;
+  }
 }
