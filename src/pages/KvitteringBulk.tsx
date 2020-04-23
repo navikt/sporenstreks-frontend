@@ -16,7 +16,10 @@ const KvitteringBulk = () => {
                     </div>
                   <div>
                   </div>
-                    <div>
+                    <div style={{margin: "1rem 0rem"}}>
+                      <Normaltekst>Om du har behov for å kontakte oss i forbindelse med søknaden er det tilstrekkelig å oppgi fødselsnummeret til den ansatte det angår</Normaltekst>
+                    </div>
+                    <div style={{marginBottom: "3rem"}}>
                         <Normaltekst>
                             <Lenke
                                 href="https://www.nav.no/no/bedrift/tjenester-og-skjemaer/aa-registeret-og-a-meldingen/relatert-informasjon/bankkontonummer-refusjoner-fra-nav-til-arbeidsgiver">
