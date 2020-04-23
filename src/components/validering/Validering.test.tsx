@@ -3,6 +3,7 @@ import '@testing-library/jest-dom'
 import { Validering, IsValid } from './Validering';
 import { Ansatt, SkjemaStatus } from '../../data/types/sporenstreksTypes';
 
+// TODO - Legg inn test på at beløp er for høyt
 
 describe('Validering', () => {
   it('should validate the input data and report invalid dates', () => {
