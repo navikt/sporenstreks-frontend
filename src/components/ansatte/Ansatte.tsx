@@ -36,7 +36,7 @@ const Ansatte = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="refusjonsform">
+      <form onSubmit={handleSubmit} className="sykepengerbulkform">
         <table className="AnsattTable">
           <tbody>
           <tr>
@@ -67,7 +67,7 @@ const Ansatte = () => {
 
         <ValideringOppsummering />
 
-        <div className="container">
+        <div className="container container__erklaring">
           <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)}/>
         </div>
         <div className="container">
