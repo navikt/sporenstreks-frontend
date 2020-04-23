@@ -44,17 +44,16 @@ const SykepengerBulk = () => {
           sidetittel={t(Keys.MY_PAGE)}
           organisasjoner={arbeidsgivere}
         />
-        <div className="limit">
+        <div className="limit skjemabakgrunn">
           <div className="container">
             <Normaltekst>
-              Vanligvis skal arbeidsgiveren betale sykepenger de første 16 kalenderdagene (arbeidsgiverperioden) av et
-              sykefravær. I forbindelse med korona-pandemien kan refusjon det gis fra og med fjerde dag i
-              arbeidsgiverperioden. Dette gjelder hvis den ansatte enten er smittet, mistenkt smittet eller i pålagt
-              karantene. Det kan ikke søkes om refusjon for fravær på grunn av stengte skoler eller barnehager.
-              <br /><br />
-              Vent med å søke til arbeidsgiverperioden på 16 dager er over.
-              <br /><br />
-              Bruk dette skjemaet for å søke om refusjon for de siste 13 dagene av arbeidsgiverperioden.
+              I forbindelse med korona dekker NAV sykepenger fra dag 4 i perioden på 16 dager som arbeidsgiveren
+              vanligvis betaler (arbeidsgiverperioden). Forutsetningen er at den ansatte er smittet av korona,
+              mistenkt smittet eller i pålagt karantene. Her kan dere søke om refusjon for dager fra og med 16. mars.
+              <span> </span>
+              <a className="lenke informasjonsboks__lenke" href="https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/nyheter/refusjon-av-sykepenger-ved-koronavirus--hva-er-status">
+                Du finner mer informasjon på denne siden.
+              </a>
             </Normaltekst>
           </div>
           <FormContext {...methods}>
