@@ -6,8 +6,8 @@ import { Fnr } from "./Fnr";
 import { Periode } from "./Periode";
 import { useAppStore } from "../../data/store/AppStore";
 import { byggAnsatt, SkjemaStatus, AnsattID } from "../../data/types/sporenstreksTypes";
-import Lukknapp from "nav-frontend-lukknapp";
 import { ByggValideringsFeil } from "./ByggValideringsFeil";
+import Slettknapp from './Slettknapp';
 
 export const AnsattRad = ({ id }: AnsattID) => {
   const { ansatte, setAnsatte, setFeil } = useAppStore();
@@ -40,7 +40,7 @@ export const AnsattRad = ({ id }: AnsattID) => {
       <td>
         {
           ansatte.length > 1 &&
-          <Lukknapp onClick={handleClick} />
+          <Slettknapp onClick={handleClick} />
         }
       </td>
     </tr>
