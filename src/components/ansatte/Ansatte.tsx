@@ -14,7 +14,6 @@ import { Erklaring } from "./Erklaring";
 import { ValideringOppsummering } from "./ValideringOppsummering";
 import {History} from 'history';
 import {useHistory} from "react-router-dom";
-import { Ansatt } from '../../data/types/sporenstreksTypes';
 
 const Ansatte = () => {
   const {ansatte, feil, setFeil, arbeidsgiverId, setLoadingStatus } = useAppStore();
@@ -25,11 +24,8 @@ const Ansatte = () => {
     const validerteAnsatte = Validering(ansatte);
     const innsendteAnsatte = await Innsending(arbeidsgiverId, validerteAnsatte, setLoadingStatus);
     setFeil(
-      [...ByggValideringsFeil(innsendteAnsatte)]
+      ByggValideringsFeil(innsendteAnsatte)
     );
-    if(innsendteAnsatte.find((ansatt: Ansatt) => !ansatt.referenceNumber)) {
-      console.log("Har registreringer som ikke har godkjent innsending");
-    }
     if (feil.length === 0) {
       history.push('/kvitteringBulk')
     }
