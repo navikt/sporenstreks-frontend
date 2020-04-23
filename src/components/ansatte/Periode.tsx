@@ -26,7 +26,7 @@ export const Periode = (props: AnsattID) => {
     return (<div className={`skjemaelement ${errorClass}`}>
         <Flatpickr
             placeholder='yyyy.mm.dd til yyyy.mm.dd'
-            className={`skjemaelement__input ${errorClass}`}
+            className={"skjemaelement__input"}
             options={{
                 minDate: min,
                 maxDate: max,
