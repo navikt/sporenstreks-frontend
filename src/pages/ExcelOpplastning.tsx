@@ -18,9 +18,8 @@ import './ExcelOpplastning.less';
 import Lenke from "nav-frontend-lenker";
 import excellogo from '../img/excel-logo.png';
 import save from 'save-file'
-import Hjelpetekst from "nav-frontend-hjelpetekst";
-import {PopoverOrientering} from "nav-frontend-popover";
 import { Erklaring } from '../components/ansatte/Erklaring';
+import { FeilTabell } from '../components/feilvisning/FeilTabell';
 
 interface Feil {
   melding: string,
@@ -51,7 +50,6 @@ const ExcelOpplastning = () => {
     }
   }
 
-
   function createFormData() {
     const formData = new FormData();
     if (file) {
@@ -60,97 +58,6 @@ const ExcelOpplastning = () => {
     }
     return formData
   }
-
-  const feilVisningsTabell = () => {
-    if (feil.length == 0) {
-      return;
-    } else if (feil.length > 10) {
-
-      let gruppertFeil = feil.reduce(
-        function (gruppert, feil) {
-          let feilGruppering = gruppert.find((el) => {
-            return (el.kolonne == feil.kolonne && el.melding == feil.melding)
-          })
-          if (feilGruppering) {
-            feilGruppering.indeks += 1
-
-          } else {
-            gruppert.push({indeks: 1, melding: feil.melding, kolonne: feil.kolonne})
-          }
-          return gruppert
-        }, [] as Feil[]
-      )
-
-      if (visAlleFeil) {
-        return feilvisningsTabellVanlig()
-      } else {
-        return feilvisningsTabellGruppert(gruppertFeil)
-      }
-
-    } else {
-      return (feilvisningsTabellVanlig())
-    }
-  }
-
-  const feilvisningsTabellGruppert = (gruppertFeil: Feil[]) => {
-    return (
-      <span className="feiloppsummeringTabell feiloppsummering">
-              <Ingress>{feil.length} feil i dokumentet må utbedres før du laster det opp på nytt:</Ingress>
-              <table className="tabell tabell--stripet">
-                <thead>
-                <tr>
-                  <th>Feilmelding</th>
-                  <th>Kolonne</th>
-                  <th>Antall feil</th>
-                </tr>
-                </thead>
-                  <tbody>
-                  {gruppertFeil.sort((x, y) => y.indeks - x.indeks).map((f, index) => (
-                    <tr key={index}>
-                      <td>{f.melding}</td>
-                      <td>{f.kolonne}</td>
-                      <td>{f.indeks}</td>
-                    </tr>
-                  ))}
-                  </tbody>
-                <tfoot>
-                  <tr>
-                    <th>
-                      <Knapp onClick={() => setVisAlleFeil(!visAlleFeil)}>Vis alle rader med feilmelding</Knapp>
-                    </th>
-                  </tr>
-                </tfoot>
-              </table>
-          </span>
-    )
-  }
-
-  const feilvisningsTabellVanlig = () => {
-    return (
-      <span className="feiloppsummeringTabell feiloppsummering">
-        <div className="tabellOverflow">
-          <Ingress>Følgende feil i dokumentet må utbedres før du laster det opp på nytt:</Ingress>
-            <table className="tabell tabell--stripet">
-              <tbody>
-              {feil.sort((x, y) => x.indeks - y.indeks).map((f, index) => (
-                <tr key={index}>
-                  <td>{(f.indeks < 0 ? "" : "Rad " + f.indeks)}</td>
-                  <td>{(f.kolonne && f.kolonne < 0 ? "" : f.kolonne)}</td>
-                  <td>{f.melding}</td>
-                </tr>
-              ))}
-              </tbody>
-            </table>
-          </div>
-        <Vis hvis={feil.length > 10}>
-          <Knapp className="toggleFeilvisning"
-                 onClick={() => setVisAlleFeil(!visAlleFeil)}>
-            Vis feilmeldingsammendrag</Knapp>
-        </Vis>
-      </span>
-    )
-  }
-
 
   const onSubmit = async (e: any): Promise<void> => {
 
@@ -219,6 +126,7 @@ const ExcelOpplastning = () => {
   };
 
 
+  // @ts-ignore
   return (
     <div className="excelOpplastning">
       <Vis hvis={arbeidsgivere.length === 0}>
@@ -294,17 +202,20 @@ const ExcelOpplastning = () => {
                       onClick={(e: any) => e.target.value = null}/>
               {fileName}
             </label>
-            {feilVisningsTabell()}
+            <FeilTabell
+              feil={feil}
+              visAlleFeil={visAlleFeil}
+              handleSetVisAlleFeil={visAlleFeil => setVisAlleFeil(visAlleFeil)}/>
           </div>
           <FormContext {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)} className="excelform container">
             <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)}/>
-              <Hovedknapp disabled={!(erklæringAkseptert && file != undefined)} className="knapp filKnapp">
+              <Hovedknapp disabled={!(erklæringAkseptert && file !== undefined)} className="knapp filKnapp">
                 Send søknad om refusjon</Hovedknapp>
-              <Vis hvis={!erklæringAkseptert && file != undefined}>
+              <Vis hvis={!erklæringAkseptert && file !== undefined}>
                 <Normaltekst className="advarsel">Du må huke av erklæringen før du kan sende inn</Normaltekst>
               </Vis>
-              <Vis hvis={file == undefined}>
+              <Vis hvis={file === undefined}>
                 <Normaltekst className="advarsel">Du må laste opp Excel-skjemaet som skal sendes inn</Normaltekst>
               </Vis>
             </form>
