@@ -25,20 +25,10 @@ export default (arbeidsgiverId: string, validerteAnsatte: Ansatt[], setLoadingSt
     } else if (response.status === 200) {
       return response.json().then(data =>
         mergeAnsattlister(validerteAnsatte, berikAnsatte(filtrerteAnsatte, data))
-      )
-    } else if (response.status === 422) {
-      // response.json().then(data => {
-      //     data.violations.map(violation => {
-      //         methods.setError('backend', violation.message);
-      //         return methods;
-      //     });
-      //     data.violations.map(violation => ({
-      //         errorType: violation.validationType,
-      //         errorMessage: violation.message,
-      //     }));
-      // });
+      );
     } else { // todo: error 400
       //methods.setError('backend', 'Feil ved innsending av skjema');
+      return validerteAnsatte;
     }
   });
 }
