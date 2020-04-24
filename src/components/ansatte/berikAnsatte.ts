@@ -39,8 +39,8 @@ function berikAnsatte(Ansatte: Ansatt[], data: BackendStatus[]): Ansatt[] {
             kopiAnsatte[idx].periodeError = errConcat(kopiAnsatte[idx].periodeError , validationError.message);
             break;
 
-          default:
-            break;
+          // default:
+          //   break;
         }
       })
     }
