@@ -161,7 +161,7 @@ const Sykepenger = () => {
         <p className="sykepenger__modal-tekst">Organisasjonsnummer: {arbeidsgiverId}</p>
         <Knapp className="sykepenger__modal-btn" onClick={() => submitForm()}>Send søknad om refusjon</Knapp>
         <div className="sykepenger__modal-avbrytt lenke" onClick={() => setSendSkjemaOpen(false)}>
-          Avbrytt
+          Avbryt
         </div>
       </ModalWrapper>
       <Vis hvis={arbeidsgivere.length > 0}>
