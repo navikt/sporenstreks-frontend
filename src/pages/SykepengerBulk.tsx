@@ -75,10 +75,10 @@ const SykepengerBulk = () => {
                     Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
                     <Link to="../"> skal du bruke et eget skjema som du finner her.</Link>
                   </Normaltekst>
-                  <Normaltekst>
-                    Har dere svært mange ansatte kan det om ønskelig
-                    <Link to="../excel/"> benyttes Excel-opplasting.</Link>
-                  </Normaltekst>
+                  {/*<Normaltekst>*/}
+                  {/*  Har dere svært mange ansatte kan det om ønskelig*/}
+                  {/*  <Link to="../excel/"> benyttes Excel-opplasting.</Link>*/}
+                  {/*</Normaltekst>*/}
                   <Ansatte/>
                 </div>
               </div>
