@@ -1,5 +1,10 @@
 import { BackendStatus, Ansatt, SkjemaStatus } from "../../data/types/sporenstreksTypes";
 
+const errConcat = (target: string | undefined, added: string): string => {
+  const dottedText = added.endsWith('.') ? added : added + '.';
+  return ((target || "").concat(" " + dottedText)).trim();
+}
+
 function berikAnsatte(Ansatte: Ansatt[], data: BackendStatus[]): Ansatt[] {
   const kopiAnsatte: Ansatt[] = [...Ansatte];
 
@@ -17,20 +22,21 @@ function berikAnsatte(Ansatte: Ansatt[], data: BackendStatus[]): Ansatt[] {
       kopiAnsatte[idx].status = SkjemaStatus.VALIDERINGSFEIL
       recievedLine.validationErrors?.forEach((validationError) => {
         const errorField = validationError.propertyPath;
+        const errorMessage = validationError.message.endsWith('.') ? validationError.message : validationError.message + '.';
         switch (errorField) {
           case 'identitetsnummer':
-            kopiAnsatte[idx].fnrError = validationError.message;
+            kopiAnsatte[idx].fnrError = errConcat(kopiAnsatte[idx].fnrError, validationError.message);
             break;
           case 'virksomhetsnummer':
             // ToDo: Hva gjør vi med denne?
             break;
 
           case 'perioder':
-            kopiAnsatte[idx].periodeError = validationError.message;
+            kopiAnsatte[idx].periodeError = errConcat(kopiAnsatte[idx].periodeError , validationError.message);
             break;
 
           case 'perioder[0].tom':
-            kopiAnsatte[idx].periodeError = validationError.message;
+            kopiAnsatte[idx].periodeError = errConcat(kopiAnsatte[idx].periodeError , validationError.message);
             break;
 
           default:
