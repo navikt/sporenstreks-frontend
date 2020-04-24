@@ -11,7 +11,6 @@ const Sprsml = () => (<svg className="hjelpetekst__ikon" width="32" height="32" 
  <path d="M9.1 11.5c-.3 0-.5-.2-.5-.5V8.6c0-.3.2-.5.5-.5 1 0 1.9-.8 1.9-1.9s-.8-1.9-1.9-1.9c-1 0-1.9.8-1.9 1.9 0 .3-.2.5-.5.5s-.5-.2-.5-.4c0-1.6 1.3-2.9 2.9-2.9S12 4.7 12 6.3c0 1.4-1 2.6-2.4 2.8V11c0 .3-.2.5-.5.5z"/>
  </svg>);
 
-// const Sprsml = () => (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12 2c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10zm4.9 13.5-1.4 1.4-3.5-3.5-3.5 3.5-1.4-1.4 3.5-3.5-3.5-3.5 1.4-1.4 3.5 3.5 3.5-3.5 1.4 1.4-3.5 3.5 3.5 3.5z" /></svg>);
 
 const EksempelBulk = () => {
   const [ eksempelOpen, setEksempelOpen ] = useState<boolean>(false);
