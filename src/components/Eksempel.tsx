@@ -7,6 +7,16 @@ import Veilederpanel from 'nav-frontend-veilederpanel';
 const Eksempel = () => {
   const [ eksempelOpen, setEksempelOpen ] = useState<boolean>(false);
 
+  const handleCloseButton = (evt) => {
+    evt.preventDefault();
+    setEksempelOpen(false);
+  };
+
+  const handleOpenButton = (evt) => {
+    evt.preventDefault();
+    setEksempelOpen(true);
+  }
+
   return (
     <div className="eksempel">
       <ModalWrapper
@@ -35,12 +45,12 @@ const Eksempel = () => {
           4. Reduser beløpet til 6G = 599 148.<br/>
           5. Del på 260 (antallet arbeidsdager Frida jobber i året) = 2 304 kroner pr dag (dagsats).<br/>
           6. Gang dagsatsen med 10 = 23 040 kroner.<br/><br/>
-          <button role="link" className="periodeknapp lenke" onClick={() => setEksempelOpen(false)}>
+          <button role="link" className="periodeknapp lenke" onClick={(evt) => handleCloseButton(evt)}>
             Lukk dette vinduet
           </button>
         </Veilederpanel>
       </ModalWrapper>
-      <button role="link" className="periodeknapp lenke" onClick={() => setEksempelOpen(true)}>
+      <button role="link" className="periodeknapp lenke" onClick={(evt) => handleOpenButton(evt)}>
         Se eksempel på utregning
       </button>
 
