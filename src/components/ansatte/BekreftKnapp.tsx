@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Knapp } from "nav-frontend-knapper";
 import ModalWrapper from "nav-frontend-modal";
-import { Normaltekst, Systemtittel } from "nav-frontend-typografi";
+import { Undertittel } from "nav-frontend-typografi";
 import { useAppStore } from "../../data/store/AppStore";
 import { IsValid, Validering } from "../validering/Validering";
 import { ByggValideringsFeil } from "./ByggValideringsFeil";
@@ -13,6 +13,8 @@ interface bekreftKnappProps {
 
 export const BekreftKnapp = ({ onSubmit, erklæringAkseptert }: bekreftKnappProps) => {
   const { ansatte, setAnsatte, setFeil } = useAppStore();
+  const { firma } = useAppStore();
+  const { arbeidsgiverId } = useAppStore();
   const { loadingStatus } = useAppStore();
   const [open, setOpen] = useState<boolean>(false);
   const handleOpen = (evt) => {
@@ -26,37 +28,32 @@ export const BekreftKnapp = ({ onSubmit, erklæringAkseptert }: bekreftKnappProp
       setFeil(ByggValideringsFeil(validerteAnsatte))
       setOpen(false);
     }
-  }
-  const handleClose = () => {
-    setOpen(false)
-  }
+  };
+
   const handleSubmit = (evt) => {
     setOpen(false)
     onSubmit(evt)
-  }
+  };
+
   return (
     <>
       <Knapp disabled={!erklæringAkseptert} type="hoved" onClick={handleOpen}>Send søknad om refusjon</Knapp>
       <ModalWrapper
         isOpen={open}
-        onRequestClose={() => handleClose}
-        closeButton={false}
-        contentLabel="Min modalrute"
+        onRequestClose={() => setOpen(false)}
+        closeButton={true}
+        contentLabel="Send skjema"
       >
-        <div style={{ padding: '2rem 2.5rem' }}>
-          <div style={{ padding: '2rem 2.5rem' }}>
-            <Systemtittel>Bekreft innsending</Systemtittel>
-            <Normaltekst>
-              Er du sikker på at du vil sende inn?
-                        </Normaltekst>
-          </div>
-          <Knapp type="hoved" onClick={handleSubmit} spinner={loadingStatus === 0}>Ok</Knapp>
-          <span style={{ margin: '2rem 2.5rem' }} />
-          <Knapp type="standard" onClick={handleClose}>Avbryt</Knapp>
+        <Undertittel className="sykepenger__modal-tittel">Du søker om refusjon på vegne av:</Undertittel>
+        <p className="sykepenger__modal-tekst">{firma}</p>
+        <p className="sykepenger__modal-tekst">Organisasjonsnummer: {arbeidsgiverId}</p>
+        <Knapp className="sykepenger__modal-btn" onClick={handleSubmit} spinner={loadingStatus === 0}>
+          Send søknad om refusjon
+        </Knapp>
+        <div className="sykepenger__modal-avbrytt lenke" onClick={() => setOpen(false)}>
+          Avbrytt
         </div>
       </ModalWrapper>
     </>
   )
-}
-
-export default BekreftKnapp;
+};

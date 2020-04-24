@@ -18,6 +18,7 @@ import Ansatte from '../components/ansatte/Ansatte';
 
 const SykepengerBulk = () => {
   const { arbeidsgivere, setArbeidsgiverId } = useAppStore();
+  const { setFirma } = useAppStore();
   const methods = useForm();
   const { t } = useTranslation();
   const history: History = useHistory();
@@ -40,10 +41,18 @@ const SykepengerBulk = () => {
       <Vis hvis={arbeidsgivere.length > 0}>
         <Bedriftsmeny
           history={history}
-          onOrganisasjonChange={(org: Organisasjon) => setArbeidsgiverId(org.OrganizationNumber)}
+          onOrganisasjonChange={(org: Organisasjon) => {
+            setArbeidsgiverId(org.OrganizationNumber);
+            setFirma(org.Name);
+          }}
           sidetittel={t(Keys.MY_PAGE)}
           organisasjoner={arbeidsgivere}
         />
+
+        <div className="limit"  style={{padding: "2rem 0rem 1rem 0rem"}}>
+          <a href="/min-side-arbeidsgiver/" className="lenke informasjonsboks__lenke" style={{paddingLeft: "1rem"}}>&lt;&lt;Min side arbeidsgiver</a>
+        </div>
+
         <div className="limit skjemabakgrunn">
           <div className="container">
             <Normaltekst>
@@ -60,11 +69,16 @@ const SykepengerBulk = () => {
               <div className="container">
                 <div className="sykepenger--periode-velger form-group">
                   <Undertittel className="sykepenger--undertittel">
-                    Hvilken periode har den ansatte vært fraværende?
+                    Oppgi ansatte, arbeidsgiverperiode og beløp
                   </Undertittel>
-                  <Undertekst className="sykepenger--undertekst">
-                    NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
-                  </Undertekst>
+                  <Normaltekst>
+                    Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
+                    <Link to="../"> skal du bruke et eget skjema som du finner her.</Link>
+                  </Normaltekst>
+                  <Normaltekst>
+                    Har dere svært mange ansatte kan det om ønskelig
+                    <Link to="../excel/"> benyttes Excel-opplasting.</Link>
+                  </Normaltekst>
                   <Ansatte/>
                 </div>
               </div>

@@ -25,16 +25,16 @@ export const Periode = (props: AnsattID) => {
     }
     return (<div className={`skjemaelement ${errorClass}`}>
         <Flatpickr
-            placeholder='yyyy.mm.dd til yyyy.mm.dd'
+            placeholder='dd.mm.yyyy til dd.mm.yyyy'
             className={"skjemaelement__input"}
             options={{
                 minDate: min,
                 maxDate: max,
                 mode: 'range',
                 enableTime: false,
-                dateFormat: 'Y-m-d',
+                dateFormat: 'd.m.Y',
                 altInput: true,
-                altFormat: 'Y-m-d',
+                altFormat: 'd.m.Y',
                 locale: Norwegian,
                 allowInput: true,
                 clickOpens: true,

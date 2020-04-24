@@ -1,10 +1,10 @@
 export const validateMaksBeloep = (value?: number): string | undefined => {
   if (value === undefined) {
-    return 'Må fylles ut';
+    return 'Feltet må fylles ut';
   } else if (value > 1000000) {
-    return 'Kan ikke overskride 1 MNOK';
+    return 'Beløpet er for høyt';
   } else if (value < 0) {
-    return 'Må være et positivt tall';
+    return 'Antall må være positivt';
   }
   return undefined;
 };

@@ -6,8 +6,8 @@ import { Fnr } from "./Fnr";
 import { Periode } from "./Periode";
 import { useAppStore } from "../../data/store/AppStore";
 import { byggAnsatt, SkjemaStatus, AnsattID } from "../../data/types/sporenstreksTypes";
-import Lukknapp from "nav-frontend-lukknapp";
 import { ByggValideringsFeil } from "./ByggValideringsFeil";
+import Slettknapp from './Slettknapp';
 
 export const AnsattRad = ({ id }: AnsattID) => {
   const { ansatte, setAnsatte, setFeil } = useAppStore();
@@ -32,7 +32,7 @@ export const AnsattRad = ({ id }: AnsattID) => {
   }
   return (
     <tr key={a?.id}>
-      <td>{ansatte.indexOf(a) + 1}</td>
+      <td><span className="radnr">{ansatte.indexOf(a) + 1}</span></td>
       <td><Fnr id={a?.id} /></td>
       <td><Periode id={a?.id} /></td>
       <td><Dager id={a?.id} /></td>
@@ -40,7 +40,7 @@ export const AnsattRad = ({ id }: AnsattID) => {
       <td>
         {
           ansatte.length > 1 &&
-          <Lukknapp onClick={handleClick} />
+          <Slettknapp onClick={handleClick} />
         }
       </td>
     </tr>

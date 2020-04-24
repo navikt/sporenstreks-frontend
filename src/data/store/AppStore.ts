@@ -6,6 +6,7 @@ import {ValideringsFeil} from "../../components/ansatte/ValideringsFeil";
 
 export const [ AppStoreProvider, useAppStore ] = constate(() => {
   const [ unleash, setUnleash ] = useState<UnleashToggles>();
+  const [ firma, setFirma ] = useState<string>('');
   const [ arbeidsgivere, setArbeidsgivere ] = useState<Organisasjon[]>([]);
   const [ perioder, setPerioder ] = useState<Periode[]>([tomPeriode]);
   const [ ansatte, setAnsatte ] = useState<Ansatt[]>([
@@ -19,6 +20,7 @@ export const [ AppStoreProvider, useAppStore ] = constate(() => {
 
   return {
     unleash, setUnleash,
+    firma, setFirma,
     arbeidsgivere, setArbeidsgivere,
     perioder, setPerioder,
     ansatte, setAnsatte,

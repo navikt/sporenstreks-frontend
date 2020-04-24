@@ -37,8 +37,8 @@ const Sykepenger = () => {
   const { arbeidsgivere, setReferanseNummer } = useAppStore();
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
   const [ erklæringAkseptert, setErklæringAkseptert ] = useState<boolean>(false);
-  const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
-  const [ firma, setFirma ] = useState<string>('');
+  const { arbeidsgiverId, setArbeidsgiverId } = useAppStore();
+  const { firma, setFirma } = useAppStore();
   const [ sendSkjemaOpen, setSendSkjemaOpen ] = useState<boolean>(false);
   const [ formData, setFormData ] = useState<any>({});
   const [ fnrClassName, setFnrClassName ] = useState<string>(fnrErrorState.noError);

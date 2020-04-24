@@ -1,6 +1,6 @@
 import React from "react";
-import {Select} from "nav-frontend-skjema";
-import {useAppStore} from "../../data/store/AppStore";
+import { Select } from "nav-frontend-skjema";
+import { useAppStore } from "../../data/store/AppStore";
 import { AnsattID } from "../../data/types/sporenstreksTypes";
 
 export const Dager = (props: AnsattID) => {

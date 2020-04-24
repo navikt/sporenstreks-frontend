@@ -1,10 +1,20 @@
 @import '../../../node_modules/nav-frontend-core/less/_variabler';
 
+.AnsattTable {
+  width: 100%;
+}
+
 .AnsattTable TH {
   padding: 0.5rem;
   padding-bottom: 0rem;
   text-align: left;
   white-space: nowrap;
+  span {
+    display: inline-block;
+  }
+  .hjelpetekst{
+    vertical-align: top;
+  }
 }
 
 .AnsattTable TD {
@@ -12,7 +22,16 @@
   vertical-align: top;
 }
 
+.AnsattTable TD:nth-child(1) {
+  width: 3rem;
+  text-align: center;
+}
+
 .AnsattTable TD:nth-child(3) {
+  width: 14rem;
+  .skjemaelement__input{
+    width: 14rem;
+  }
 }
 
 .AnsattTable TD:nth-child(5) {
@@ -21,4 +40,13 @@
 
 .AnsattTable TD:nth-child(6) {
   width: 2rem;
+}
+
+.AnsattTable {
+  .slettknapp {
+    line-height: 38px;
+  }
+  .radnr{
+    line-height: 38px;
+  }
 }
