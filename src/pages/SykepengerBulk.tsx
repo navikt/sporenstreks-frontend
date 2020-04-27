@@ -14,6 +14,7 @@ import { History } from 'history';
 import Vis from '../components/Vis';
 import './SykepengerBulk.less';
 import Ansatte from '../components/ansatte/Ansatte';
+import TimeoutAdvarsel from "../components/ansatte/TimeoutAdvarsel";
 
 
 const SykepengerBulk = () => {
@@ -52,6 +53,8 @@ const SykepengerBulk = () => {
         <div className="limit"  style={{padding: "2rem 0rem 1rem 0rem"}}>
           <a href="/min-side-arbeidsgiver/" className="lenke informasjonsboks__lenke" style={{paddingLeft: "1rem"}}>&lt;&lt;Min side arbeidsgiver</a>
         </div>
+
+        <TimeoutAdvarsel/>
 
         <div className="limit skjemabakgrunn">
           <div className="container">
