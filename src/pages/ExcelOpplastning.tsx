@@ -264,7 +264,7 @@ const ExcelOpplastning = () => {
             <Innholdstittel>Last ned Excel-malen, fyll ut og last opp.</Innholdstittel>
             <Normaltekst>
               Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
-              <Link to="/" className="lenke">&nbsp;skal du bruke et eget skjema som du finner her</Link>.
+              <Link to="/enkel" className="lenke">&nbsp;skal du bruke et eget skjema som du finner her</Link>.
               Denne metoden er tiltenkt dere som har svært mange refusjonskrav.
               Vi har også et &nbsp;
               <Link to="/bulk" className="lenke">

@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 
 class Redirecter extends React.Component {
   render() {
-    return <Redirect to='/nettrefusjon' />
+    return <Redirect to='/bulk/' />
   }
 }
 
