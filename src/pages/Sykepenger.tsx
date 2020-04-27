@@ -181,8 +181,7 @@ const Sykepenger = () => {
               som arbeidsgiveren vanligvis betaler.
               Ordningen gjelder når den ansatte er smittet av koronaviruset,
               mistenkt smittet eller i pålagt karantene.
-              Her kan dere søke om refusjon for dager fra og med 16. mars.
-              <br/>
+              Her kan dere søke om refusjon for dager fra og med 16. mars. <span> </span>
               <Lenke href="https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/nyheter/refusjon-av-sykepenger-ved-koronavirus--hva-er-status">
                 Du finner mer informasjon på denne siden.
               </Lenke>
