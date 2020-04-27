@@ -1,4 +1,4 @@
-import fetchMock from 'fetch-mock-jest';
+import FetchMock, { MatcherUtils, SpyMiddleware, ResponseUtils, HandlerArgument } from 'yet-another-fetch-mock';
 import Innsending from './Innsending';
 import { SkjemaStatus, Ansatt, BackendStatus } from '../../data/types/sporenstreksTypes';
 
@@ -16,6 +16,20 @@ jest.mock('../../util/environment', () => ({
 const mockUrl = mockServer + '/api/v1/refusjonskrav/list';
 
 describe('Innsending', () => {
+  let mock: FetchMock;
+  let spy: SpyMiddleware;
+
+  beforeEach(() => {
+    spy = new SpyMiddleware();
+    mock = FetchMock.configure({
+      middleware: spy.middleware
+    });
+    expect(spy.size()).toBe(0);
+  });
+  afterEach(() => {
+    mock.restore();
+  });
+
   it("should handle a 404", async () => {
     const input: Ansatt[] = [
       {
@@ -36,12 +50,12 @@ describe('Innsending', () => {
       }
     ]
 
-    fetchMock
-      .post(mockUrl, 400);
+    mock
+      .post(mockUrl, ResponseUtils.statusCode(404));
 
     expect(await Innsending('arbeidsgiverId', input, jest.fn())).toEqual(input);
 
-    fetchMock.reset();
+
   })
 
   it("should handle a 200", async () => {
@@ -107,12 +121,10 @@ describe('Innsending', () => {
       }
     ]
 
-    fetchMock
-      .post(mockUrl, backendResponce, { overwriteRoutes: true });
+    mock
+      .post(mockUrl, [ ...backendResponce ]);
 
     expect(await Innsending('arbeidsgiverId', input, jest.fn())).toEqual(expected);
-
-    fetchMock.reset();
   })
 
   it("should handle a 401", async () => {
@@ -139,13 +151,11 @@ describe('Innsending', () => {
       value: new URL(mockUrl)
     });
 
-    fetchMock
-      .post(mockUrl, 401);
+    mock
+    .post(mockUrl, ResponseUtils.statusCode(401));
 
     await Innsending('arbeidsgiverId', input, jest.fn());
 
     expect(window.location.href).toEqual(mockServer + "/loginServer");
-
-    fetchMock.reset();
   })
 })

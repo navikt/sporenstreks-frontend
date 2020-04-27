@@ -104,9 +104,6 @@
     "@typescript-eslint/parser": "^2.29.0",
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^3.0.0",
-    "fetch-mock": "^9.4.0",
-    "fetch-mock-jest": "^1.2.7",
-    "node-fetch": "^2.6.0"
+    "eslint-plugin-react-hooks": "^3.0.0"
   }
 }
