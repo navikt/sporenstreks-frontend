@@ -19,11 +19,11 @@ const TimeoutAdvarsel = () => {
       contentLabel=""
     >
       <AlertStripeAdvarsel>
-        <Undertittel>Vær oppmerksom på følende</Undertittel>
-        <p>
-          Du vil bli logget ut én time etter at du logget inn. Det du skriver, vil
-          dessverre ikke bli lagret slik løsningen er nå.
-        </p>
+        <Undertittel>Du blir logget ut etter én time</Undertittel>
+        <ul>
+          <li>Én time etter at du logget inn hos NAV, blir du automatisk logget ut.</li>
+          <li>Tjenesten mellomlagrer dessverre ikke det du skriver</li>
+        </ul>
         <Lenke className={""} href="#" onClick={() => setOpen(false)}>Lukk</Lenke>
       </AlertStripeAdvarsel>
     </ModalWrapper>
