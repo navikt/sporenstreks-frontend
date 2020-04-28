@@ -18,8 +18,7 @@ import {byggAnsatt, Ansatt} from "../../data/types/sporenstreksTypes";
 import {Normaltekst} from "nav-frontend-typografi";
 import Advarsler from "./Advarsler";
 import EksempelBulk from './EksempelBulk';
-import getCookie from '../../util/get-cookie';
-import jwtDecode from 'jwt-decode';
+import RefreshToken from './RefreshToken';
 
 const Ansatte = () => {
   const {ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, setLoadingStatus } = useAppStore();
@@ -38,13 +37,6 @@ const Ansatte = () => {
       history.push('/kvitteringBulk')
     }
   };
-
-  const token = getCookie('selvbetjening-idtoken');
-  const decodedToken = jwtDecode(token);
-
-  const expire = new Date(decodedToken.exp *1000);
-
-  console.log(expire);
 
   return (
     <>
@@ -87,6 +79,7 @@ const Ansatte = () => {
           <Advarsler erklæringAkseptert={erklæringAkseptert} harFeil={feil.length > 0}/>
         </div>
       </form>
+      <RefreshToken/>
     </>
   );
 };
