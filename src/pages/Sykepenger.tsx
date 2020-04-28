@@ -174,7 +174,12 @@ const Sykepenger = () => {
           sidetittel={t(Keys.MY_PAGE)}
           organisasjoner={arbeidsgivere}
         />
-        <div className="limit">
+
+        <div className="limit"  style={{padding: "2rem 0rem 1rem 0rem"}}>
+          <a href="/min-side-arbeidsgiver/" className="lenke informasjonsboks__lenke" style={{paddingLeft: "1rem"}}>&lt;&lt;Min side arbeidsgiver</a>
+        </div>
+
+        <div className="limit skjemabakgrunn">
           <div className="container">
             <Normaltekst>
               <b>NAV dekker dager fra og med 16 mars</b> i inntil 13 av de 16 dagene
