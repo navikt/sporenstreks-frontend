@@ -13,7 +13,7 @@ const RefreshToken = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       toggleState();
-    }, 1800000);  // 30 minutter
+    }, 1200000);  // 20 minutter. Gir refresh av token hvert 40. minutt
     return () => clearInterval(interval);
   }, []);
 
