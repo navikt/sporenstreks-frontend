@@ -14,7 +14,7 @@ import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
 import {History} from 'history';
 import Vis from '../components/Vis';
 import env from '../util/environment';
-import './ExcelOpplastning.less';
+import './ExcelOpplasting.less';
 import Lenke from "nav-frontend-lenker";
 import excellogo from '../img/excel-logo.png';
 import save from 'save-file'
@@ -27,7 +27,7 @@ interface Feil {
   kolonne?: number
 }
 
-const ExcelOpplastning = () => {
+const ExcelOpplasting = () => {
   const {arbeidsgivere} = useAppStore();
   const [arbeidsgiverId, setArbeidsgiverId] = useState<string>('');
   const [ erklæringAkseptert, setErklæringAkseptert ] = useState<boolean>(false);
@@ -128,7 +128,7 @@ const ExcelOpplastning = () => {
 
   // @ts-ignore
   return (
-    <div className="excelOpplastning">
+    <div className="excelOpplasting">
       <Vis hvis={arbeidsgivere.length === 0}>
         <div className="limit">
           <AlertStripeAdvarsel>
@@ -227,4 +227,4 @@ const ExcelOpplastning = () => {
   );
 };
 
-export default ExcelOpplastning;
+export default ExcelOpplasting;
