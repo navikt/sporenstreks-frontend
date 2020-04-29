@@ -36,7 +36,7 @@ const RefreshToken = () => {
     };
   }, []);
 
-  return <>{displayIframe && <iframe name="jwt-refresh-token-iframe" className={"refresh-token-jwt"} src={env.loginServiceUrl} />}</>
+  return <>{displayIframe && <iframe name="jwt-refresh-token-iframe" data-testid="jwt-refresh-token-iframe" className="refresh-token-jwt" src={env.loginServiceUrl} />}</>
 }
 
 export default RefreshToken;
