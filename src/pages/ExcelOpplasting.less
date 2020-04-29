@@ -68,6 +68,11 @@
   .filKnapp {
     margin: 1rem 0rem;
   }
+
+  .filKnapp[disabled] {
+    pointer-events:none
+  }
+
   .hjelpetekst__ikon {
     vertical-align: bottom
   }
@@ -127,6 +132,11 @@
 
       &:last-child {
         padding: 2.5rem 0 4rem;
+        border-bottom: none;
+      }
+
+      &:first-child {
+        padding-top: 0;
         border-bottom: none;
       }
     }

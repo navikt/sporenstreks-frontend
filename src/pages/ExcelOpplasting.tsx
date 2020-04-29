@@ -38,6 +38,7 @@ const ExcelOpplasting = () => {
   const [file, setFile] = useState(undefined);
   const [feil, setFeil] = useState<Feil[]>([]);
   const [visAlleFeil, setVisAlleFeil] = useState(false)
+  const [hasTriedSubmit, setHasTriedSubmit] = useState(false)
   const FILEUPLOAD_MAX_SIZE = 250000;
 
   const setUploadFile = (event: any) => {
@@ -149,6 +150,15 @@ const ExcelOpplasting = () => {
           sidetittel={t(Keys.MY_PAGE)}
           organisasjoner={arbeidsgivere}
         />
+
+        <div className="limit"  style={{padding: "2rem 0rem 1rem 0rem"}}>
+          <a href="/min-side-arbeidsgiver/"
+             className="lenke informasjonsboks__lenke"
+             style={{paddingLeft: "1rem"}}>
+            &lt;&lt;Min side arbeidsgiver
+          </a>
+        </div>
+
         <div className="limit bakgrunn">
           <Ingress className="container">
             Vanligvis skal arbeidsgiveren betale sykepenger de første
@@ -203,15 +213,19 @@ const ExcelOpplasting = () => {
               handleSetVisAlleFeil={visAlleFeil => setVisAlleFeil(visAlleFeil)}/>
           </div>
           <FormContext {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)} className="excelform container">
+            <form onSubmit={methods.handleSubmit(onSubmit)}
+                  className="excelform container"
+                  onClick={e => setHasTriedSubmit(true)}>
             <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)}/>
               <Hovedknapp disabled={!(erklæringAkseptert && file !== undefined)} className="knapp filKnapp">
                 Send søknad om refusjon</Hovedknapp>
-              <Vis hvis={!erklæringAkseptert && file !== undefined}>
-                <Normaltekst className="advarsel">Du må huke av erklæringen før du kan sende inn</Normaltekst>
-              </Vis>
-              <Vis hvis={file === undefined}>
-                <Normaltekst className="advarsel">Du må laste opp Excel-skjemaet som skal sendes inn</Normaltekst>
+              <Vis hvis={hasTriedSubmit}>
+                <Vis hvis={!erklæringAkseptert}>
+                  <Normaltekst className="advarsel">Du må huke av erklæringen før du kan sende inn</Normaltekst>
+                </Vis>
+                <Vis hvis={file === undefined}>
+                  <Normaltekst className="advarsel">Du må laste opp Excel-skjemaet som skal sendes inn</Normaltekst>
+                </Vis>
               </Vis>
             </form>
           </FormContext>
