@@ -150,12 +150,6 @@ const ExcelOpplasting = () => {
           organisasjoner={arbeidsgivere}
         />
         <div className="limit bakgrunn">
-          <AlertStripeAdvarsel>
-            <Lenke
-              href="https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/nyheter/refusjon-av-sykepenger-ved-koronavirus--hva-er-status">
-              Vi ber offentlig sektor vente med å søke.
-            </Lenke>
-          </AlertStripeAdvarsel>
           <Ingress className="container">
             Vanligvis skal arbeidsgiveren betale sykepenger de første
             16 kalenderdagene (arbeidsgiverperioden) av et sykefravær.
