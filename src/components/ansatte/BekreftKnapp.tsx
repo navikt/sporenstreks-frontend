@@ -51,7 +51,7 @@ export const BekreftKnapp = ({ onSubmit, erklæringAkseptert }: bekreftKnappProp
           Send søknad om refusjon
         </Knapp>
         <div className="sykepenger__modal-avbrytt lenke" onClick={() => setOpen(false)}>
-          Avbrytt
+          Avbryt
         </div>
       </ModalWrapper>
     </>

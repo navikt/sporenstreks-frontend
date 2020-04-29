@@ -172,8 +172,9 @@ const ExcelOpplastning = () => {
             <Innholdstittel>Last ned Excel-malen, fyll ut og last opp.</Innholdstittel>
             <Normaltekst>
               Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
-              <Link to="/" className="lenke">&nbsp;skal du bruke et eget skjema</Link>.
+              <Link to="/enkel" className="lenke">&nbsp;skal du bruke et eget skjema</Link>.
               Excel-opplasting er tiltenkt dere som har svært mange refusjonskrav.
+
               Vi har også et &nbsp;
               <Link to="/bulk" className="lenke">
                 eget skjema for å søke om refusjonskrav for flere ansatte</Link>

@@ -20,12 +20,12 @@ const App = () => {
         <Amplitude>
           <I18nextProvider i18n={i18n}>
             <Switch>
-              <Route exact path="/" render={() => <Sykepenger />} />
-              <Route exact path="/bulk" render={() => <SykepengerBulk />} />
-              <Route exact path="/kvittering" render={() => <Kvittering />} />
-              <Route exact path="/excel" render={() => <ExcelOpplastning />} />
-              <Route exact path="/kvitteringExcel" render={() => <KvitteringExcel />} />
-              <Route exact path="/kvitteringBulk" render={() => <KvitteringBulk />} />
+              <Route path="/enkel" render={() => <Sykepenger />} />
+              <Route path="/bulk" render={() => <SykepengerBulk />} />
+              <Route path="/kvittering" render={() => <Kvittering />} />
+              <Route path="/excel" render={() => <ExcelOpplastning />} />
+              <Route path="/kvitteringExcel" render={() => <KvitteringExcel />} />
+              <Route path="/kvitteringBulk" render={() => <KvitteringBulk />} />
               <Route path="/" render={() => <Redirecter />} />
             </Switch>
           </I18nextProvider>

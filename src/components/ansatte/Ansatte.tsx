@@ -17,6 +17,7 @@ import {useHistory} from "react-router-dom";
 import {byggAnsatt, Ansatt} from "../../data/types/sporenstreksTypes";
 import {Normaltekst} from "nav-frontend-typografi";
 import Advarsler from "./Advarsler";
+import EksempelBulk from './EksempelBulk';
 
 const Ansatte = () => {
   const {ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, setLoadingStatus } = useAppStore();
@@ -56,7 +57,7 @@ const Ansatte = () => {
             </th>
             <th>
               <span>Beløp</span>
-              {HjelpetekstRefusjon()}
+                <EksempelBulk/>
             </th>
             <th></th>
           </tr>

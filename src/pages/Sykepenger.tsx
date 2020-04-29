@@ -161,7 +161,7 @@ const Sykepenger = () => {
         <p className="sykepenger__modal-tekst">Organisasjonsnummer: {arbeidsgiverId}</p>
         <Knapp className="sykepenger__modal-btn" onClick={() => submitForm()}>Send søknad om refusjon</Knapp>
         <div className="sykepenger__modal-avbrytt lenke" onClick={() => setSendSkjemaOpen(false)}>
-          Avbrytt
+          Avbryt
         </div>
       </ModalWrapper>
       <Vis hvis={arbeidsgivere.length > 0}>
@@ -174,22 +174,28 @@ const Sykepenger = () => {
           sidetittel={t(Keys.MY_PAGE)}
           organisasjoner={arbeidsgivere}
         />
-        <div className="limit">
-          <AlertStripeAdvarsel>
-            En ny versjon av dette skjemaet er under utvikling. Der blir det mulig å søke om refusjon for flere ansatte
-            samtidig.
-          </AlertStripeAdvarsel>
+
+        <div className="limit"  style={{padding: "2rem 0rem 1rem 0rem"}}>
+          <a href="/min-side-arbeidsgiver/" className="lenke informasjonsboks__lenke" style={{paddingLeft: "1rem"}}>&lt;&lt;Min side arbeidsgiver</a>
+        </div>
+
+        <div className="limit skjemabakgrunn">
           <div className="container">
             <Normaltekst>
               <b>NAV dekker dager fra og med 16 mars</b> i inntil 13 av de 16 dagene
               som arbeidsgiveren vanligvis betaler.
               Ordningen gjelder når den ansatte er smittet av koronaviruset,
               mistenkt smittet eller i pålagt karantene.
-              Her kan dere søke om refusjon for dager fra og med 16. mars.
-              <br/>
+              Her kan dere søke om refusjon for dager fra og med 16. mars. <span> </span>
               <Lenke href="https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/nyheter/refusjon-av-sykepenger-ved-koronavirus--hva-er-status">
                 Du finner mer informasjon på denne siden.
               </Lenke>
+            </Normaltekst>
+
+            <Normaltekst style={{marginTop: "1rem"}}>
+              <Link to="/nettrefusjon/enkel" className="lenke informasjonsboks__lenke">
+                Her kan du sende søknad for flere personer om gangen
+              </Link>
             </Normaltekst>
           </div>
           <FormContext {...methods}>

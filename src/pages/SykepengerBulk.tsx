@@ -14,6 +14,7 @@ import { History } from 'history';
 import Vis from '../components/Vis';
 import './SykepengerBulk.less';
 import Ansatte from '../components/ansatte/Ansatte';
+import TimeoutAdvarsel from "../components/ansatte/TimeoutAdvarsel";
 
 
 const SykepengerBulk = () => {
@@ -53,6 +54,8 @@ const SykepengerBulk = () => {
           <a href="/min-side-arbeidsgiver/" className="lenke informasjonsboks__lenke" style={{paddingLeft: "1rem"}}>&lt;&lt;Min side arbeidsgiver</a>
         </div>
 
+        <TimeoutAdvarsel/>
+
         <div className="limit skjemabakgrunn">
           <div className="container">
             <Normaltekst>
@@ -73,12 +76,12 @@ const SykepengerBulk = () => {
                   </Undertittel>
                   <Normaltekst>
                     Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
-                    <Link to="../"> skal du bruke et eget skjema som du finner her.</Link>
+                    <Link to="../enkel/"> skal du bruke et eget skjema som du finner her.</Link>
                   </Normaltekst>
-                  <Normaltekst>
-                    Har dere svært mange ansatte kan det om ønskelig
-                    <Link to="../excel/"> benyttes Excel-opplasting.</Link>
-                  </Normaltekst>
+                  {/*<Normaltekst>*/}
+                  {/*  Har dere svært mange ansatte kan det om ønskelig*/}
+                  {/*  <Link to="../excel/"> benyttes Excel-opplasting.</Link>*/}
+                  {/*</Normaltekst>*/}
                   <Ansatte/>
                 </div>
               </div>
