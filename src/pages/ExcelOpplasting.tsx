@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import 'nav-frontend-tabell-style';
 import {FormContext, useForm} from 'react-hook-form';
-import {Hovedknapp, Knapp} from 'nav-frontend-knapper';
+import {Hovedknapp} from 'nav-frontend-knapper';
 import {Link, useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {Ingress, Innholdstittel, Normaltekst} from 'nav-frontend-typografi';
@@ -126,8 +126,6 @@ const ExcelOpplasting = () => {
     });
   };
 
-
-  // @ts-ignore
   return (
     <div className="excelOpplasting">
       <Vis hvis={arbeidsgivere.length === 0}>
@@ -186,7 +184,10 @@ const ExcelOpplasting = () => {
             </Normaltekst>
             <br/><br/>
             <Normaltekst>
-              <img src={excellogo} width="35" className="excelLogo"/>
+              <img src={excellogo}
+                   width="35"
+                   className="excelLogo"
+              alt="Excel-symbol"/>
               <Lenke href={env.baseUrl + "/api/v1/bulk/template"}>
                 Last ned malen her</Lenke>, og fyll ut.
               Det er ikke mulig å benytte ditt eget excel-dokument,

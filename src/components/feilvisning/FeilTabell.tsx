@@ -20,7 +20,7 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
   const gruppertFeil = feil.reduce(
     function (gruppert, feil) {
       let feilGruppering = gruppert.find((el) => {
-        return (el.kolonne == feil.kolonne && el.melding == feil.melding)
+        return (el.kolonne === feil.kolonne && el.melding === feil.melding)
       })
       if (feilGruppering) {
         feilGruppering.indeks += 1
