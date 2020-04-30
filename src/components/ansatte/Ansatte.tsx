@@ -36,7 +36,7 @@ const Ansatte = () => {
   };
 
   return (
-    <div className="Ansatte">
+    <div className="ansatte">
 
       <Skillelinje/>
 
