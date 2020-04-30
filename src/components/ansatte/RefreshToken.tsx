@@ -1,13 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import env from '../../util/environment';
 import './RefreshToken.less';
 
 const RefreshToken = () => {
   const [displayIframe, setDisplayIframe] = useState(true);
-  const [haveInteraction, setHaveInteraction] = useState(true);
+  const [haveInteraction, setHaveInteraction] = useState(false);
+  const [haveInteractionLastPeriod, setHaveInteractionLastPeriod] = useState(true);
+
+  const haveInteractionRef = useRef(haveInteraction);
+  haveInteractionRef.current = haveInteraction;
+
+  const haveInteractionLastPeriodRef = useRef(haveInteractionLastPeriod);
+  haveInteractionLastPeriodRef.current = haveInteractionLastPeriod;
 
   const toggleState = () => {
     setDisplayIframe(displayIframe => !displayIframe);
+    setHaveInteractionLastPeriod(haveInteractionRef.current);
     setHaveInteraction(false);
   }
 
@@ -17,10 +25,9 @@ const RefreshToken = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if(haveInteraction) {
-        toggleState();
-      }
+      toggleState();
     }, 1200000);  // 20 minutter. Gir refresh av token hvert 40. minutt
+
     return () => clearInterval(interval);
   }, []);
 
@@ -36,7 +43,7 @@ const RefreshToken = () => {
     };
   }, []);
 
-  return <>{displayIframe && <iframe name="jwt-refresh-token-iframe" data-testid="jwt-refresh-token-iframe" className="refresh-token-jwt" src={env.loginServiceUrl} />}</>
+  return <>{displayIframe && haveInteractionLastPeriod && <iframe name="jwt-refresh-token-iframe" data-testid="jwt-refresh-token-iframe" className="refresh-token-jwt" src={env.loginServiceUrl} />}</>
 }
 
 export default RefreshToken;
