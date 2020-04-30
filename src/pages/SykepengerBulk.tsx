@@ -3,7 +3,6 @@ import 'nav-frontend-tabell-style';
 import { FormContext, useForm } from 'react-hook-form';
 import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
 import { Keys } from '../locales/keys';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
@@ -15,6 +14,7 @@ import Vis from '../components/Vis';
 import './SykepengerBulk.less';
 import Ansatte from '../components/ansatte/Ansatte';
 import TimeoutAdvarsel from "../components/ansatte/TimeoutAdvarsel";
+import {CoronaTopptekst} from "../components/CoronaTopptekst";
 
 
 const SykepengerBulk = () => {
@@ -57,34 +57,15 @@ const SykepengerBulk = () => {
         <TimeoutAdvarsel/>
 
         <div className="limit skjemabakgrunn">
-          <div className="container">
-            <Normaltekst>
-              I forbindelse med korona dekker NAV sykepenger fra dag 4 i perioden på 16 dager som arbeidsgiveren
-              vanligvis betaler (arbeidsgiverperioden). Forutsetningen er at den ansatte er smittet av korona,
-              mistenkt smittet eller i pålagt karantene. Her kan dere søke om refusjon for dager fra og med 16. mars.
-              <span> </span>
-              <a className="lenke informasjonsboks__lenke" href="https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/nyheter/refusjon-av-sykepenger-ved-koronavirus--hva-er-status">
-                Du finner mer informasjon på denne siden.
-              </a>
-            </Normaltekst>
-          </div>
+          <CoronaTopptekst/>
           <FormContext {...methods}>
-              <div className="container">
-                <div className="sykepenger--periode-velger form-group">
-                  <Undertittel className="sykepenger--undertittel">
-                    Oppgi ansatte, arbeidsgiverperiode og beløp
-                  </Undertittel>
-                  <Normaltekst>
-                    Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
-                    <Link to="../enkel/"> skal du bruke et eget skjema som du finner her.</Link>
-                  </Normaltekst>
-                  {/*<Normaltekst>*/}
-                  {/*  Har dere svært mange ansatte kan det om ønskelig*/}
-                  {/*  <Link to="../excel/"> benyttes Excel-opplasting.</Link>*/}
-                  {/*</Normaltekst>*/}
-                  <Ansatte/>
-                </div>
-              </div>
+            <div className="sykepenger--periode-velger form-group">
+              {/*<Normaltekst>*/}
+              {/*  Har dere svært mange ansatte kan det om ønskelig*/}
+              {/*  <Link to="../excel/"> benyttes Excel-opplasting.</Link>*/}
+              {/*</Normaltekst>*/}
+              <Ansatte/>
+            </div>
           </FormContext>
         </div>
       </Vis>

@@ -21,12 +21,12 @@ import { History } from 'history';
 import Vis from '../components/Vis';
 import env from '../util/environment';
 import './Sykepenger.less';
-import Lenke from "nav-frontend-lenker";
 import ModalWrapper from 'nav-frontend-modal';
 import Eksempel from '../components/Eksempel';
 import formToJSON from '../util/formToJSON';
 import convertSkjemaToRefusjonsKrav from '../util/convertSkjemaToRefusjonsKrav';
 import { Erklaring } from '../components/ansatte/Erklaring';
+import {CoronaTopptekst} from "../components/CoronaTopptekst";
 
 const fnrErrorState = {
   hasError: '',
@@ -176,28 +176,11 @@ const Sykepenger = () => {
         />
 
         <div className="limit"  style={{padding: "2rem 0rem 1rem 0rem"}}>
-          <a href="/min-side-arbeidsgiver/" className="lenke informasjonsboks__lenke" style={{paddingLeft: "1rem"}}>&lt;&lt;Min side arbeidsgiver</a>
+          <a href="/" className="lenke informasjonsboks__lenke" style={{paddingLeft: "1rem"}}>&lt;&lt;Tilbake</a>
         </div>
 
         <div className="limit skjemabakgrunn">
-          <div className="container">
-            <Normaltekst>
-              <b>NAV dekker dager fra og med 16 mars</b> i inntil 13 av de 16 dagene
-              som arbeidsgiveren vanligvis betaler.
-              Ordningen gjelder når den ansatte er smittet av koronaviruset,
-              mistenkt smittet eller i pålagt karantene.
-              Her kan dere søke om refusjon for dager fra og med 16. mars. <span> </span>
-              <Lenke href="https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/nyheter/refusjon-av-sykepenger-ved-koronavirus--hva-er-status">
-                Du finner mer informasjon på denne siden.
-              </Lenke>
-            </Normaltekst>
-
-            <Normaltekst style={{marginTop: "1rem"}}>
-              <Link to="/nettrefusjon/enkel" className="lenke informasjonsboks__lenke">
-                Her kan du sende søknad for flere personer om gangen
-              </Link>
-            </Normaltekst>
-          </div>
+          <CoronaTopptekst/>
           <FormContext {...methods}>
             <form onSubmit={methods.handleSubmit(setForm)} ref={refRefusjonsform}>
               <div className="container">
