@@ -199,7 +199,7 @@ const Sykepenger = () => {
 
           <FormContext {...methods}>
             <form onSubmit={methods.handleSubmit(setForm)} ref={refRefusjonsform}>
-              <div className="container">
+              <Container className="limit">
                 <div className="sykepenger--arbeidstaker">
                   <Undertittel className="sykepenger--undertittel">
                     Hvilken arbeidstaker gjelder søknaden?
@@ -223,9 +223,9 @@ const Sykepenger = () => {
                     <span>{methods.errors['fnr'] && methods.errors['fnr'].type}</span>
                   </Vis>
                 </Normaltekst>
-              </div>
+              </Container>
 
-              <div className="container">
+              <Container className="limit">
                 <div className="sykepenger--periode-velger form-group">
                   <Undertittel className="sykepenger--undertittel">
                     Hvilken periode har den ansatte vært fraværende?
@@ -237,19 +237,19 @@ const Sykepenger = () => {
                   <Perioder/>
 
                 </div>
-              </div>
+              </Container>
 
               <FeilOppsummering errors={methods.errors} />
 
-              <div className="container">
-                <div className="container">
+              <Container className="limit">
+                <Container>
                   <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)}/>
-                </div>
-              </div>
+                </Container>
+              </Container>
 
-              <div className="container">
+              <Container>
                 <Knapp disabled={!erklæringAkseptert} type="hoved"> Send søknad om refusjon </Knapp>
-              </div>
+              </Container>
             </form>
           </FormContext>
         </div>
