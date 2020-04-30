@@ -159,16 +159,16 @@ const ExcelOpplasting = () => {
 
         <div className="limit bakgrunn">
           <Ingress className="container">
-            Vanligvis skal arbeidsgiveren betale sykepenger de første
-            16 kalenderdagene (arbeidsgiverperioden) av et sykefravær.
-            I forbindelse med korona-pandemien kan arbeidsgiveren søke om refusjon
-            fra og med fjerde dag i arbeidsgiverperioden.
-            Dette gjelder hvis den ansatte enten er smittet, mistenkt smittet eller i pålagt karantene.
+            Når sykefraværet handler om korona, dekker NAV sykepenger fra dag 4 i de 16 dagene
+            arbeidsgiveren vanligvis skal betale. Den ansatte må være smittet,
+            mistenkt smittet eller i pålagt karantene.
+            Refusjon kan gis for dager fra og med 16. mars.&nbsp;
+            <Lenke
+              href="https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/nyheter/refusjon-av-sykepenger-ved-koronavirus--hva-er-status">
+              Se mer informasjon om refusjonsordningen.
+            </Lenke>
             <br/><br/>
-            Det kan ikke søkes om refusjon for fravær på grunn av stengte skoler eller barnehager.
-            <br/><br/>
-            <b>Her kan du laste opp en Excel-oversikt over de ansatte det gjelder,
-              for å søke om refusjon for de siste 13 dagene av arbeidsgiverperioden.</b>
+            <b>Det kan ikke søkes om refusjon for fravær på grunn av stengte skoler eller barnehager.</b>
           </Ingress>
           <div className="container">
             <Innholdstittel>Last ned Excel-malen, fyll ut og last opp.</Innholdstittel>
