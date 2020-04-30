@@ -10,12 +10,14 @@ import { BekreftKnapp } from "./BekreftKnapp";
 import { Erklaring } from "./Erklaring";
 import { ValideringOppsummering } from "./ValideringOppsummering";
 import {History} from 'history';
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {byggAnsatt, Ansatt} from "../../data/types/sporenstreksTypes";
 import Advarsler from "./Advarsler";
 import { Column, Row } from "nav-frontend-grid";
 import Panel from "nav-frontend-paneler";
 import Skillelinje from "./Skillelinje";
+import {Normaltekst, Undertittel} from "nav-frontend-typografi";
+import {FormContext} from "react-hook-form";
 
 const Ansatte = () => {
   const {ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, setLoadingStatus } = useAppStore();
@@ -41,6 +43,20 @@ const Ansatte = () => {
       <Skillelinje/>
 
       <form onSubmit={handleSubmit}>
+        <Row>
+          <Column>
+            <Panel>
+              <Undertittel>
+                Oppgi ansatte, arbeidsgiverperiode og beløp
+              </Undertittel>
+              <Normaltekst>
+                Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
+                <Link to="../enkel/"> skal du bruke et eget skjema som du finner her.</Link>
+              </Normaltekst>
+            </Panel>
+          </Column>
+        </Row>
+
         {
           ansatte.map((ansatt) => <AnsattRad id={ansatt.id} key={ansatt.id} />)
         }

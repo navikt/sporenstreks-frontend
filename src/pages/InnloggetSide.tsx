@@ -13,7 +13,9 @@ import './InnloggetSide.less';
 
 interface SideProps {
   children: React.ReactNode,
-  className?: string;
+  className?: string,
+  lenke?: string,
+  lenketekst?: string
 }
 
 const InnloggetSide = (props: SideProps) => {
@@ -47,7 +49,7 @@ const InnloggetSide = (props: SideProps) => {
               <Row>
                 <Column>
                   <div className={"innloggetside__minside_arbeidsgiver"}>
-                    <Link to="/min-side-arbeidsgiver/">&lt;&lt;Min side arbeidsgiver</Link>
+                    <Link to={props.lenke?? "/min-side-arbeidsgiver/" }>&lt;&lt;{props.lenketekst?? "Min side arbeidsgiver"}</Link>
                   </div>
                 </Column>
               </Row>
