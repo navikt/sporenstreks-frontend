@@ -3,6 +3,7 @@ import {Input} from "nav-frontend-skjema";
 import {useAppStore} from "../../data/store/AppStore";
 import { AnsattID } from "../../data/types/sporenstreksTypes";
 import {filterStringToNumbersOnly} from "../../util/filterStringToNumbersOnly";
+import {HjelpetekstRefusjon} from "./HjelpetekstRefusjon";
 
 export const Refusjon = (props: AnsattID) => {
   const {ansatte, setAnsatte} = useAppStore();
@@ -19,6 +20,11 @@ export const Refusjon = (props: AnsattID) => {
       <Input feil={a?.beloepError}
              value={a?.beloep ? a?.beloep : ''}
              bredde={"S"}
+             label={
+               <div style={{display: 'flex'}}>
+                 Beløp
+                 <HjelpetekstRefusjon/>
+               </div>}
              placeholder="Beløp"
              inputMode={"numeric"}
              onChange={handleChange}/>
