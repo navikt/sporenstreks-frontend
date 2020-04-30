@@ -13,7 +13,7 @@ import './InnloggetSide.less';
 
 interface SideProps {
   children: React.ReactNode,
-  className: string;
+  className?: string;
 }
 
 const InnloggetSide = (props: SideProps) => {
@@ -46,8 +46,8 @@ const InnloggetSide = (props: SideProps) => {
             <Container>
               <Row>
                 <Column>
-                  <div style={{padding: "2rem 0rem 1rem 0rem"}}>
-                    <Link to="/min-side-arbeidsgiver/" style={{paddingLeft: "1rem"}}>&lt;&lt;Min side arbeidsgiver</Link>
+                  <div className={"innloggetside__minside_arbeidsgiver"}>
+                    <Link to="/min-side-arbeidsgiver/">&lt;&lt;Min side arbeidsgiver</Link>
                   </div>
                 </Column>
               </Row>

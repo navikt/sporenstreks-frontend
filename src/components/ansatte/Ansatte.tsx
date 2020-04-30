@@ -45,9 +45,7 @@ const Ansatte = () => {
           ansatte.map((ansatt) => <AnsattRad id={ansatt.id} key={ansatt.id} />)
         }
 
-        <div style={{marginTop: "2rem"}}> </div>
-
-        <Row>
+        <Row className={"ansatte__leggtilknapp"}>
           <Column md="1" sm="12"> </Column>
           <Column sm="10"><LeggTilKnapp /></Column>
         </Row>

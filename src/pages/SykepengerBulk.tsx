@@ -13,7 +13,7 @@ import Panel from "nav-frontend-paneler";
 const SykepengerBulk = () => {
   const methods = useForm();
   return (
-      <InnloggetSide className="sykepenger_bulk2">
+      <InnloggetSide>
 
         <Row>
           <Column>
