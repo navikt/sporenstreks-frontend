@@ -2,6 +2,7 @@ import React from "react";
 import { Select } from "nav-frontend-skjema";
 import { useAppStore } from "../../data/store/AppStore";
 import { AnsattID } from "../../data/types/sporenstreksTypes";
+import { HjelpetekstDager } from "./HjelpetekstDager";
 
 export const Dager = (props: AnsattID) => {
     const {ansatte, setAnsatte} = useAppStore();
@@ -13,7 +14,14 @@ export const Dager = (props: AnsattID) => {
         setAnsatte([...ansatte]);
     }
     return (
-            <Select feil={a?.dagerError} onChange={handleChange} selected={a?.antallDagerMedRefusjon}>
+            <Select feil={a?.dagerError}
+                    onChange={handleChange}
+                    label={
+                      <div style={{display: 'flex'}}>
+                        Antall dager
+                        <HjelpetekstDager/>
+                      </div>}
+                    selected={a?.antallDagerMedRefusjon}>
                 <option value="0">-</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
