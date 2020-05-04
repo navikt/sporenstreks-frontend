@@ -33,8 +33,8 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
 
   const feilvisningsTabellVanlig = () => {
     return (
-      <span className="feiloppsummeringTabell feiloppsummering">
-        <div className="tabellOverflow">
+      <span className="feilvisningstabell feiloppsummering">
+        <div className="tabell--overflow">
           <Ingress>Følgende feil i dokumentet må utbedres før du laster det opp på nytt:</Ingress>
             <table className="tabell tabell--stripet">
               <tbody>
@@ -49,7 +49,7 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
             </table>
           </div>
         <Vis hvis={feil.length > 10}>
-          <Knapp className="toggleFeilvisning"
+          <Knapp className="feilvisningstypeknapp"
                  onClick={() => handleSetVisAlleFeil(!visAlleFeil)}>
             Vis feilmeldingsammendrag</Knapp>
         </Vis>
@@ -59,7 +59,7 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
 
   const feilvisningsTabellGruppert = (gruppertFeil: tabellFeil[]) => {
     return (
-      <span className="feiloppsummeringTabell feiloppsummering">
+      <span className="feilvisningstabell feiloppsummering">
               <Ingress>{feil.length} feil i dokumentet må utbedres før du laster det opp på nytt:</Ingress>
               <table className="tabell tabell--stripet">
                 <thead>
@@ -92,7 +92,7 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
 
   return (
     <Vis hvis={feil.length > 0}>
-      { (feil.length < 10 || visAlleFeil) ?
+      { (feil.length <= 10 || visAlleFeil) ?
            feilvisningsTabellVanlig() : feilvisningsTabellGruppert(gruppertFeil)}
     </Vis>
   )

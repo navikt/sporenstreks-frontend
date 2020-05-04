@@ -122,7 +122,7 @@ const ExcelOpplasting = () => {
   };
 
   return (
-    <div className="excelOpplasting">
+    <div className="excelopplasting">
       <Vis hvis={arbeidsgivere.length === 0}>
         <div className="limit">
           <AlertStripeAdvarsel>
@@ -181,7 +181,7 @@ const ExcelOpplasting = () => {
             <Normaltekst>
               <img src={excellogo}
                    width="35"
-                   className="excelLogo"
+                   className="excellogo"
               alt="Excel-symbol"/>
               <Lenke href={env.baseUrl + "/api/v1/bulk/template"}>
                 Last ned malen her</Lenke>, og fyll ut.
@@ -194,7 +194,7 @@ const ExcelOpplasting = () => {
               NB, det kan maks legges inn 5000 linjer per excel-doc.
               Om det ikke er tilstrekkelig, må dere gjøre dette i flere omganger.
             </Normaltekst>
-            <label className="knapp filKnapp">
+            <label className="knapp filknapp">
               <input className="fileinput"
                      type="file"
                      id="fileUploader"
@@ -213,7 +213,7 @@ const ExcelOpplasting = () => {
                   className="excelform container"
                   onClick={e => setHasTriedSubmit(true)}>
             <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)}/>
-              <Hovedknapp disabled={!(erklæringAkseptert && file !== undefined)} className="knapp filKnapp">
+              <Hovedknapp disabled={!(erklæringAkseptert && file !== undefined)} className="knapp filknapp">
                 Send søknad om refusjon</Hovedknapp>
               <Vis hvis={hasTriedSubmit}>
                 <Vis hvis={!erklæringAkseptert}>
