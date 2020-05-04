@@ -12,7 +12,7 @@ describe('RefreshToken', () => {
   it('should show the iframe (refresh the token) when component loads', () => {
     const component = render(<RefreshToken />);
 
-    const iframes = component.queryByTestId('jwt-refresh-token-iframe');
+    const iframes = component.queryByTestId('refreshtoken-iframe');
 
     expect(iframes).toBeTruthy();
   })
@@ -22,7 +22,7 @@ describe('RefreshToken', () => {
     act(() => {
       jest.advanceTimersToNextTimer();
     });
-    const iframes = component.queryByTestId('jwt-refresh-token-iframe');
+    const iframes = component.queryByTestId('refreshtoken-iframe');
 
     expect(iframes).toBeFalsy();
   })
@@ -36,7 +36,7 @@ describe('RefreshToken', () => {
     });
 
 
-    const iframes = component.queryByTestId('jwt-refresh-token-iframe');
+    const iframes = component.queryByTestId('refreshtoken-iframe');
 
     expect(iframes).toBeFalsy();
   })
@@ -60,7 +60,7 @@ describe('RefreshToken', () => {
       jest.advanceTimersToNextTimer();
     });
 
-    const iframes = component.queryByTestId('jwt-refresh-token-iframe');
+    const iframes = component.queryByTestId('refreshtoken-iframe');
 
     expect(iframes).toBeTruthy();
   })
@@ -92,7 +92,7 @@ describe('RefreshToken', () => {
       jest.advanceTimersToNextTimer();
     });
 
-    const iframes = component.queryByTestId('jwt-refresh-token-iframe');
+    const iframes = component.queryByTestId('refreshtoken-iframe');
 
     expect(iframes).toBeFalsy();
   })

@@ -43,11 +43,15 @@ const RefreshToken = () => {
     };
   }, []);
 
-  if ( window.location !== window.parent.location ) {
+  if (window.location !== window.parent.location) {
     return null;
   }
 
-  return <>{displayIframe && haveInteractionLastPeriod && <iframe title="Invisible" name="jwt-refresh-token-iframe" data-testid="jwt-refresh-token-iframe" className="refresh-token-jwt" src={env.loginServiceUrl} />}</>
+  if (!displayIframe || !haveInteractionLastPeriod) {
+    return null;
+  }
+
+  return <iframe title="Invisible" name="refreshtoken-iframe" data-testid="refreshtoken-iframe" className="refreshtoken" src={env.loginServiceUrl} />;
 }
 
 export default RefreshToken;
