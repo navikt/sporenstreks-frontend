@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import env from '../../util/environment';
-import './RefreshToken.less';
+// import './RefreshToken.less';
 
 const RefreshToken = () => {
   const [displayIframe, setDisplayIframe] = useState(true);
@@ -43,7 +43,11 @@ const RefreshToken = () => {
     };
   }, []);
 
-  return <>{displayIframe && haveInteractionLastPeriod && <iframe name="jwt-refresh-token-iframe" data-testid="jwt-refresh-token-iframe" className="refresh-token-jwt" src={env.loginServiceUrl} />}</>
+  if ( window.location !== window.parent.location ) {
+    return null;
+  }
+
+  return <>{displayIframe && haveInteractionLastPeriod && <iframe title="Invisible" name="jwt-refresh-token-iframe" data-testid="jwt-refresh-token-iframe" className="refresh-token-jwt" src={env.loginServiceUrl} />}</>
 }
 
 export default RefreshToken;
