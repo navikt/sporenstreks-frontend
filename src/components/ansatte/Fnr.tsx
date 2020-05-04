@@ -1,8 +1,9 @@
 import React from "react";
-import { FnrInput } from "nav-frontend-skjema";
+import {FnrInput, Select} from "nav-frontend-skjema";
 import { useAppStore } from "../../data/store/AppStore";
 import { filterIdentityNumberInput } from '../../util/filterIndentityNumberInput';
 import { AnsattID } from "../../data/types/sporenstreksTypes";
+import {HjelpetekstDager} from "./HjelpetekstDager";
 
 export const Fnr = ({ id }: AnsattID) => {
   const { ansatte, setAnsatte } = useAppStore();
@@ -16,6 +17,10 @@ export const Fnr = ({ id }: AnsattID) => {
 
   return <FnrInput
     id={"fnr_" + id}
+    label={
+      <div style={{display: 'flex'}}>
+        Fødselsnummer
+      </div>}
     bredde="M"
     value={a?.fnr}
     placeholder="11 siffer"

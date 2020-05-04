@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@navikt/bedriftsmeny": "^2.0.6",
-    "@navikt/fnrvalidator": "^1.1.0",
+    "@navikt/fnrvalidator": "^1.1.2",
     "@testing-library/jest-dom": "^5.5.0",
     "@testing-library/react": "^10.0.3",
     "@testing-library/user-event": "^10.0.2",
@@ -80,6 +80,8 @@
     "nav-frontend-veileder-style": "^2.0.13",
     "nav-frontend-veilederpanel": "^0.1.22",
     "nav-frontend-veilederpanel-style": "0.0.25",
+    "nav-frontend-grid": "^1.0.27",
+    "nav-frontend-grid-style": "^0.2.20",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",

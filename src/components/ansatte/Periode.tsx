@@ -5,8 +5,11 @@ import Flatpickr from 'react-flatpickr';
 import {Norwegian} from 'flatpickr/dist/l10n/no.js';
 import { AnsattID } from "../../data/types/sporenstreksTypes";
 import "./Periode.less";
+import {Label, SkjemaelementFeilmelding} from "nav-frontend-skjema";
+import {HjelpetekstDager} from "./HjelpetekstDager";
+import {HjelpetekstPeriode} from "./HjelpetekstPeriode";
 
-export const Periode = (props: AnsattID) => {
+const Periode = (props: AnsattID) => {
     const {ansatte, setAnsatte} = useAppStore();
     const a = ansatte.find(a => a.id === props.id)
     let errorClass = '';
@@ -24,9 +27,16 @@ export const Periode = (props: AnsattID) => {
       errorClass = 'dato-har-feil';
     }
     return (<div className={`skjemaelement ${errorClass}`}>
+      <Label htmlFor={"periode"}>
+        <div style={{display: 'flex'}}>
+          Periode
+          <HjelpetekstPeriode/>
+        </div>
+      </Label>
         <Flatpickr
+            id="periode"
             placeholder='dd.mm.yyyy til dd.mm.yyyy'
-            className={"skjemaelement__input"}
+            className={"skjemaelement__input periode"}
             options={{
                 minDate: min,
                 maxDate: max,
@@ -41,12 +51,7 @@ export const Periode = (props: AnsattID) => {
                 onClose: (selectedDates) => handleClose(selectedDates)
             }}
         />
-
-        <div aria-live="polite">
-            <span className={"skjemaelement__feilmelding"}>
-                <p className={"typo-feilmelding"}>{a?.periodeError}</p>
-            </span>
-        </div>
+        <SkjemaelementFeilmelding>{a?.periodeError}</SkjemaelementFeilmelding>
     </div>)
 }
 

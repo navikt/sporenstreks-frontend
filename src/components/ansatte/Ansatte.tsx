@@ -7,18 +7,17 @@ import { ByggValideringsFeil } from "./ByggValideringsFeil";
 import Innsending from "./Innsending";
 import { LeggTilKnapp } from "./LeggTilKnapp";
 import { BekreftKnapp } from "./BekreftKnapp";
-import { HjelpetekstRefusjon } from "./HjelpetekstRefusjon";
-import { HjelpetekstDager } from "./HjelpetekstDager";
-import { HjelpetekstPeriode } from "./HjelpetekstPeriode";
 import { Erklaring } from "./Erklaring";
 import { ValideringOppsummering } from "./ValideringOppsummering";
 import {History} from 'history';
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {byggAnsatt, Ansatt} from "../../data/types/sporenstreksTypes";
-import {Normaltekst} from "nav-frontend-typografi";
 import Advarsler from "./Advarsler";
-import EksempelBulk from './EksempelBulk';
 import RefreshToken from './RefreshToken';
+import { Column, Row } from "nav-frontend-grid";
+import Panel from "nav-frontend-paneler";
+import Skillelinje from "./Skillelinje";
+import {Normaltekst, Undertittel} from "nav-frontend-typografi";
 
 const Ansatte = () => {
   const {ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, setLoadingStatus } = useAppStore();
@@ -39,48 +38,61 @@ const Ansatte = () => {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit} className="sykepengerbulkform">
-        <table className="AnsattTable">
-          <tbody>
-          <tr>
-            <th><span>Rad</span></th>
-            <th>
-              <span>Fødselsnummer</span>
-            </th>
-            <th>
-              <span>Periode</span>
-              {HjelpetekstPeriode()}
-            </th>
-            <th>
-              <span>Antall dager</span>
-              {HjelpetekstDager()}
-            </th>
-            <th>
-              <span>Beløp</span>
-                <EksempelBulk/>
-            </th>
-            <th></th>
-          </tr>
-          {
-            ansatte.map((ansatt) => <AnsattRad id={ansatt.id} key={ansatt.id} />)
-          }
-          </tbody>
-        </table>
-        <LeggTilKnapp />
+    <div className="ansatte">
 
-        <ValideringOppsummering />
+      <Skillelinje/>
 
-        <div className="container container__erklaring">
-          <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)}/>
-        </div>
-        <div className="container">
-          <BekreftKnapp onSubmit={handleSubmit} erklæringAkseptert={erklæringAkseptert} />
-          <Advarsler erklæringAkseptert={erklæringAkseptert} harFeil={feil.length > 0}/>
-        </div>
+      <form onSubmit={handleSubmit}>
+        <Row>
+          <Column>
+            <Panel>
+              <Undertittel>
+                Oppgi ansatte, arbeidsgiverperiode og beløp
+              </Undertittel>
+              <Normaltekst>
+                Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
+                <Link to="../enkel/"> skal du bruke et eget skjema som du finner her.</Link>
+              </Normaltekst>
+            </Panel>
+          </Column>
+        </Row>
+
+        {
+          ansatte.map((ansatt) => <AnsattRad id={ansatt.id} key={ansatt.id} />)
+        }
+
+        <Row className={"ansatte__leggtilknapp"}>
+          <Column md="1" sm="12"> </Column>
+          <Column sm="10"><LeggTilKnapp /></Column>
+        </Row>
+
+        <Skillelinje/>
+
+        <Row>
+          <Column sm="12">
+            <ValideringOppsummering />
+          </Column>
+        </Row>
+
+        <Row>
+          <Column sm="12">
+            <Panel>
+              <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)}/>
+            </Panel>
+          </Column>
+        </Row>
+
+        <Row>
+          <Column>
+            <Panel>
+              <BekreftKnapp onSubmit={handleSubmit} erklæringAkseptert={erklæringAkseptert} />
+              <Advarsler erklæringAkseptert={erklæringAkseptert} harFeil={feil.length > 0}/>
+            </Panel>
+          </Column>
+        </Row>
       </form>
       <RefreshToken/>
-    </>
+    </div>
   );
 };
 

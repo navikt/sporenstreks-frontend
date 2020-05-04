@@ -13,12 +13,7 @@ const history = createMemoryHistory();
 
 describe('Kvittering', () => {
   it("should render the component and display a warning text", () => {
-    mockUseAppStore.mockReturnValue({
-      referanseNummer: '1234'
-  });
     const rendered = render(<Router history={history}><Kvittering /></Router>);
-
-    expect(rendered.queryAllByText(/Referansenummer/).length).toBe(1);
-    expect(rendered.queryAllByText(/1234/).length).toBe(1);
+    expect(rendered.queryAllByText(/fødselsnummeret/).length).toBe(1);
   })
 });
