@@ -19,13 +19,8 @@ import Lenke from "nav-frontend-lenker";
 import excellogo from '../img/excel-logo.png';
 import save from 'save-file'
 import { Erklaring } from '../components/ansatte/Erklaring';
-import { FeilTabell } from '../components/feilvisning/FeilTabell';
+import { FeilTabell, tabellFeil } from '../components/feilvisning/FeilTabell';
 
-interface Feil {
-  melding: string,
-  indeks: number,
-  kolonne?: number
-}
 
 const ExcelOpplasting = () => {
   const {arbeidsgivere} = useAppStore();
@@ -36,7 +31,7 @@ const ExcelOpplasting = () => {
   const history: History = useHistory();
   const [fileName, setFileName] = useState('Last opp utfylt Excel-mal');
   const [file, setFile] = useState(undefined);
-  const [feil, setFeil] = useState<Feil[]>([]);
+  const [feil, setFeil] = useState<tabellFeil[]>([]);
   const [visAlleFeil, setVisAlleFeil] = useState(false)
   const [hasTriedSubmit, setHasTriedSubmit] = useState(false)
   const FILEUPLOAD_MAX_SIZE = 250000;
@@ -93,7 +88,7 @@ const ExcelOpplasting = () => {
             }
             case 422: {
               response.json().then(data => {
-                let f: Feil[] =
+                let f: tabellFeil[] =
                   data.problemDetails.map(violation => ({
                     indeks: violation.row,
                     kolonne: violation.column,
@@ -110,7 +105,7 @@ const ExcelOpplasting = () => {
               break;
             }
             default: {
-              let f: Feil = {melding: "Feil ved innsending av skjema.", indeks: -1}
+              let f: tabellFeil = {melding: "Feil ved innsending av skjema.", indeks: -1}
               setFeil([f])
               break;
             }
@@ -121,7 +116,7 @@ const ExcelOpplasting = () => {
         reject(err);
       });
     }).catch(err => {
-      let f: Feil = {melding: "Feil ved innsending av skjema.", indeks: -1}
+      let f: tabellFeil = {melding: "Feil ved innsending av skjema.", indeks: -1}
       setFeil([f])
     });
   };

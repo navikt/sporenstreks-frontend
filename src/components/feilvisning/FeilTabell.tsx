@@ -4,12 +4,12 @@ import {Ingress} from "nav-frontend-typografi";
 import Vis from "../Vis";
 
 interface feilTabellProps {
-  feil : Feil[]
+  feil : tabellFeil[]
   visAlleFeil: boolean
   handleSetVisAlleFeil: (passedValue: boolean) => void
 }
 
-interface Feil {
+export interface tabellFeil {
   melding: string,
   indeks: number,
   kolonne?: number
@@ -29,7 +29,7 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
         gruppert.push({indeks: 1, melding: feil.melding, kolonne: feil.kolonne})
       }
       return gruppert
-    }, [] as Feil[])
+    }, [] as tabellFeil[])
 
   const feilvisningsTabellVanlig = () => {
     return (
@@ -57,7 +57,7 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
     )
   }
 
-  const feilvisningsTabellGruppert = (gruppertFeil: Feil[]) => {
+  const feilvisningsTabellGruppert = (gruppertFeil: tabellFeil[]) => {
     return (
       <span className="feiloppsummeringTabell feiloppsummering">
               <Ingress>{feil.length} feil i dokumentet må utbedres før du laster det opp på nytt:</Ingress>
