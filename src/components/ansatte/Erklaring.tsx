@@ -12,9 +12,7 @@ export const Erklaring = ({value, handleSetErklæring}: erklaringProps) => {
     <Checkbox
       checked={value}
       onChange={() => handleSetErklæring(!value)}
-      label="Vi erklærer at det ikke er søkt om omsorgspenger og at arbeidstakeren ikke er permittert.
-      Kravet er basert på arbeidstakerens opplysninger om at arbeidstakeren enten er smittet av koronaviruset,
-      mistenkt smittet eller i lovpålagt karantene. Vær oppmerksom på at NAV kan foreta kontroller."
+      label="Vi erklærer at det ikke er søkt om omsorgspenger og at arbeidstakeren ikke har vært permittert i løpet av perioden som det søkes om refusjon for. Kravet er basert på arbeidstakerens opplysninger om at arbeidstakeren enten er smittet av koronaviruset, mistenkt smittet eller i lovpålagt karantene. Vær oppmerksom på at NAV kan foreta kontroller."
     />
   )
 };
