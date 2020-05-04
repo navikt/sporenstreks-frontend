@@ -22,7 +22,7 @@ function berikAnsatte(Ansatte: Ansatt[], data: BackendStatus[]): Ansatt[] {
       kopiAnsatte[idx].status = SkjemaStatus.VALIDERINGSFEIL
       recievedLine.validationErrors?.forEach((validationError) => {
         const errorField = validationError.propertyPath;
-        const errorMessage = validationError.message.endsWith('.') ? validationError.message : validationError.message + '.';
+
         switch (errorField) {
           case 'identitetsnummer':
             kopiAnsatte[idx].fnrError = errConcat(kopiAnsatte[idx].fnrError, validationError.message);

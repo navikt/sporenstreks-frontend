@@ -13,11 +13,11 @@ import {History} from 'history';
 import {Link, useHistory} from "react-router-dom";
 import {byggAnsatt, Ansatt} from "../../data/types/sporenstreksTypes";
 import Advarsler from "./Advarsler";
+import RefreshToken from './RefreshToken';
 import { Column, Row } from "nav-frontend-grid";
 import Panel from "nav-frontend-paneler";
 import Skillelinje from "./Skillelinje";
 import {Normaltekst, Undertittel} from "nav-frontend-typografi";
-import {FormContext} from "react-hook-form";
 
 const Ansatte = () => {
   const {ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, setLoadingStatus } = useAppStore();
@@ -91,6 +91,7 @@ const Ansatte = () => {
           </Column>
         </Row>
       </form>
+      <RefreshToken/>
     </div>
   );
 };
