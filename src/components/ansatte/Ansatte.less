@@ -17,21 +17,28 @@
 @media (min-width: @screen-lg) {
   /* Desktop */
   .ansatte {
-    .AnsattRad .skjemaelement__label {
-      display: none;
+    .AnsattRad ~ .AnsattRad {
+      .skjemaelement__label {
+        display: none;
+      }
+      .slettknapp{
+        margin-top: 0;
+      }
     }
-    .AnsattRad:first-child .skjemaelement__label{
-      display: block;
-      margin-bottom: 10px;
+    .AnsattRad {
+      .skjemaelement__label{
+        display: block;
+        margin-bottom: 10px;
+      }
+      .slettknapp{
+        margin-top: 34px;
+      }
     }
     .AnsattRad {
       .col{
         padding-top: 1rem;
       }
     }
-  }
-  .AnsattRad:first-child .slettknapp{
-    margin-top: 34px !important;
   }
 }
 
