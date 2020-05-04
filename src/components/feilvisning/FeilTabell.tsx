@@ -2,6 +2,7 @@ import React from "react";
 import {Knapp} from "nav-frontend-knapper";
 import {Ingress} from "nav-frontend-typografi";
 import Vis from "../Vis";
+import './FeilTabell.less';
 
 interface feilTabellProps {
   feil : tabellFeil[]
@@ -49,7 +50,7 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
             </table>
           </div>
         <Vis hvis={feil.length > 10}>
-          <Knapp className="feilvisningstypeknapp"
+          <Knapp className="feilvisningstabell__knapp"
                  onClick={() => handleSetVisAlleFeil(!visAlleFeil)}>
             Vis feilmeldingsammendrag</Knapp>
         </Vis>

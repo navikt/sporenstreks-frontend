@@ -6,18 +6,6 @@
     padding: 0.7rem;
   }
 
-  &--header {
-    margin-top: 1rem;
-  }
-
-  &--undertittel {
-    margin-bottom: 0.7rem;
-  }
-
-  &--undertekst {
-    margin-bottom: 0.7rem;
-  }
-
   &--loading-spinner {
     margin: 1.4rem;
   }
@@ -36,25 +24,8 @@
     max-width: @desktopLimitWidth;
   }
 
-
-  .feilvisningstabell {
-    .typo-ingress {
-      padding-bottom: 1rem;
-    }
-  }
-
-  .tabell--overflow {
-    overflow-y: scroll;
-    max-height: 52rem;
-  }
-
-  .feilvisningstypeknapp {
-    margin-top: 1rem;
-  }
-
-  .excellogo {
-    margin: 5px;
-    float: left;
+  &__excellogo {
+    margin: 0.3rem;
   }
 
   .typo-innholdstittel {
@@ -73,31 +44,18 @@
     pointer-events:none
   }
 
-  .hjelpetekst__ikon {
-    vertical-align: bottom
-  }
-
   .bakgrunn{
     background-color: white;
     .container {
       margin: 1rem;
     }
   }
+
   .advarsel {
     color: @redError;
     font-style: italic;
   }
 }
-
-
-.hjelpetekst {
-  margin-left: 0.5rem;
-
-  &__innhold {
-    width: 35rem;
-  }
-}
-
 
 @media (min-width: @screen-md) {
   .excelopplasting {

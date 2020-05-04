@@ -181,7 +181,7 @@ const ExcelOpplasting = () => {
             <Normaltekst>
               <img src={excellogo}
                    width="35"
-                   className="excellogo"
+                   className="excelopplasting__excellogo"
               alt="Excel-symbol"/>
               <Lenke href={env.baseUrl + "/api/v1/bulk/template"}>
                 Last ned malen her</Lenke>, og fyll ut.
