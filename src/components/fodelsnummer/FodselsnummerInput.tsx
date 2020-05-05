@@ -1,10 +1,10 @@
 import React from "react";
 
-interface FodslesnummerInputProps {
+interface FodselsnummerInputProps {
 
 }
 
-export const FodslesnummerInput = ({}: FodslesnummerInputProps) => {
+export const FodselsnummerInput = ({}: FodselsnummerInputProps) => {
   return (<>
   </>)
 }
