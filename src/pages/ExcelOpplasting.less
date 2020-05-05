@@ -10,18 +10,8 @@
     margin: 1.4rem;
   }
 
-  &--arbeidstaker {
-    label {
-      font-weight: 400;
-    }
-  }
-
   .alertstripe {
     margin-top: 1.4rem;
-  }
-
-  .bedriftsmeny__inner {
-    max-width: @desktopLimitWidth;
   }
 
   &__excellogo {
@@ -57,25 +47,13 @@
   }
 }
 
-@media (min-width: @screen-md) {
-  .excelopplasting {
-    .bedriftsmeny {
-      .virksomhetsvelger {
-        margin-left: 1rem;
-      }
-
-      .virksomhetsvelger__dropdownwrapper--apen {
-        top: -1rem;
-      }
-    }
-  }
-}
-
 @media (min-width: @screen-sm ) {
   .excelopplasting {
     .container {
       padding: 2.5rem 0 2rem;
       border-bottom: 1px solid @navMorkGra;
+      max-width: fit-content;
+      margin: inherit;
 
       &:last-child {
         padding: 2.5rem 0 4rem;

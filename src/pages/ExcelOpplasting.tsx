@@ -20,6 +20,7 @@ import excellogo from '../img/excel-logo.png';
 import save from 'save-file'
 import { Erklaring } from '../components/ansatte/Erklaring';
 import { FeilTabell, tabellFeil } from '../components/feilvisning/FeilTabell';
+import InnloggetSide from "./InnloggetSide";
 
 
 const ExcelOpplasting = () => {
@@ -122,37 +123,8 @@ const ExcelOpplasting = () => {
   };
 
   return (
+    <InnloggetSide>
     <div className="excelopplasting">
-      <Vis hvis={arbeidsgivere.length === 0}>
-        <div className="limit">
-          <AlertStripeAdvarsel>
-            <div>Du har ikke rettigheter til å søke om refusjon for noen bedrifter</div>
-            <div>Tildeling av roller foregår i Altinn</div>
-            <Link to="/min-side-arbeidsgiver/informasjon-om-tilgangsstyring"
-                  className="lenke informasjonsboks__lenke">
-              Les mer om roller og tilganger.
-            </Link>
-          </AlertStripeAdvarsel>
-        </div>
-      </Vis>
-
-      <Vis hvis={arbeidsgivere.length > 0}>
-        <Bedriftsmeny
-          history={history}
-          onOrganisasjonChange={(org: Organisasjon) => setArbeidsgiverId(org.OrganizationNumber)}
-          sidetittel={t(Keys.MY_PAGE)}
-          organisasjoner={arbeidsgivere}
-        />
-
-        <div className="limit"  style={{padding: "2rem 0rem 1rem 0rem"}}>
-          <a href="/min-side-arbeidsgiver/"
-             className="lenke informasjonsboks__lenke"
-             style={{paddingLeft: "1rem"}}>
-            &lt;&lt;Min side arbeidsgiver
-          </a>
-        </div>
-
-        <div className="limit bakgrunn">
           <Ingress className="container">
             Når sykefraværet handler om korona, dekker NAV sykepenger fra dag 4 i de 16 dagene
             arbeidsgiveren vanligvis skal betale. Den ansatte må være smittet,
@@ -165,7 +137,7 @@ const ExcelOpplasting = () => {
             <br/><br/>
             <b>Det kan ikke søkes om refusjon for fravær på grunn av stengte skoler eller barnehager.</b>
           </Ingress>
-          <div className="container">
+          <div className="container limit">
             <Innholdstittel>Last ned Excel-malen, fyll ut og last opp.</Innholdstittel>
             <Normaltekst>
               Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
@@ -189,7 +161,7 @@ const ExcelOpplasting = () => {
               alt må fylles ut i denne malen før du laster opp.
             </Normaltekst>
           </div>
-          <div className="container">
+          <div className="container limit">
             <Normaltekst>
               NB, det kan maks legges inn 5000 linjer per excel-doc.
               Om det ikke er tilstrekkelig, må dere gjøre dette i flere omganger.
@@ -210,7 +182,7 @@ const ExcelOpplasting = () => {
           </div>
           <FormContext {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)}
-                  className="excelform container"
+                  className="excelform container limit"
                   onClick={e => setHasTriedSubmit(true)}>
             <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)}/>
               <Hovedknapp disabled={!(erklæringAkseptert && file !== undefined)} className="knapp filknapp">
@@ -225,9 +197,8 @@ const ExcelOpplasting = () => {
               </Vis>
             </form>
           </FormContext>
-        </div>
-      </Vis>
     </div>
+    </InnloggetSide>
   );
 };
 
