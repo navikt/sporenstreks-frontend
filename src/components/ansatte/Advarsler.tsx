@@ -1,5 +1,6 @@
-import {Normaltekst} from "nav-frontend-typografi";
+import { Feilmelding } from "nav-frontend-typografi";
 import React from "react";
+import './Advarsler.less';
 
 interface advarslerProps {
   erklæringAkseptert: boolean
@@ -8,12 +9,12 @@ interface advarslerProps {
 
 const Advarsler = ({erklæringAkseptert, harFeil} : advarslerProps) => {
   return (
-    <div className="Advarsler">
+    <div className="advarsler">
       {harFeil &&
-      <Normaltekst>Du må rette feilene før du kan sende inn skjema</Normaltekst>
+      <Feilmelding>Du må rette feilene før du kan sende inn skjema</Feilmelding>
       }
       {!erklæringAkseptert &&
-      <Normaltekst>Du må krysse av avkrysningsboksen over send-knappen før du sender inn skjema</Normaltekst>
+      <Feilmelding>Du må krysse av avkrysningsboksen over send-knappen før du sender inn skjema</Feilmelding>
       }
     </div>
   )
