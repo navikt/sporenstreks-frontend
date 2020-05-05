@@ -5,27 +5,20 @@ import {Hovedknapp} from 'nav-frontend-knapper';
 import {Link, useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {Ingress, Innholdstittel, Normaltekst} from 'nav-frontend-typografi';
-import {Keys} from '../locales/keys';
-import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
-import {Organisasjon} from '@navikt/bedriftsmeny/lib/Organisasjon';
 import {useAppStore} from '../data/store/AppStore';
-import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
 import {History} from 'history';
 import Vis from '../components/Vis';
 import env from '../util/environment';
 import './ExcelOpplasting.less';
 import Lenke from "nav-frontend-lenker";
 import excellogo from '../img/excel-logo.png';
-import save from 'save-file'
 import { Erklaring } from '../components/ansatte/Erklaring';
 import { FeilTabell, tabellFeil } from '../components/feilvisning/FeilTabell';
 import InnloggetSide from "./InnloggetSide";
 
 
 const ExcelOpplasting = () => {
-  const {arbeidsgivere} = useAppStore();
-  const [arbeidsgiverId, setArbeidsgiverId] = useState<string>('');
   const [ erklæringAkseptert, setErklæringAkseptert ] = useState<boolean>(false);
   const methods = useForm();
   const {t} = useTranslation();
@@ -80,8 +73,7 @@ const ExcelOpplasting = () => {
             }
             case 200: {
               response.blob().then(data => {
-                  save(data, "nav_refusjon_kvittering.xlsx")
-                  history.push('/kvitteringExcel')
+                history.push( '/kvitteringExcel')
                   setFeil([])
                 }
               )
