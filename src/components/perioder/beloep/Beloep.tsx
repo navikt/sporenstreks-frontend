@@ -27,8 +27,12 @@ const Beloep = (props: BeloepProps) => {
       .replace(/\s/g, '')
       .replace(',', '.');
     const numval = Number(value);
-
     let msg = '';
+
+    if(value.length === 0) {
+      msg = t(Keys.MISSINGAMOUNT);
+    }
+
     if (numval < 0) {
       msg = t(Keys.TOOLOWAMOUNT);
     }

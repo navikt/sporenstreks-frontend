@@ -83,6 +83,7 @@ export enum ErrorType {
   UNKNOWN = 'UNKNOWN',
   TOOLOWAMOUNT = 'TOOLOWAMOUNT',
   TOOHIGHAMOUNT = 'TOOHIGHAMOUNT',
+  MISSINGAMOUNT = 'MISSINGAMOUNT',
 }
 
 export enum Status {
