@@ -29,7 +29,7 @@ export enum SkjemaStatus {
 }
 
 export interface AnsattID {
-  id: number
+  id: number | string
 }
 
 export interface Ansatt extends AnsattID {
