@@ -34,7 +34,7 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
 
   const tabellSortAscending = (x: tabellFeil, y: tabellFeil) => x.indeks - y.indeks;
 
-  const tabellSortDescending = (x: tabellFeil, y: tabellFeil) => y.indeks - x.indeks
+  const tabellSortDescending = (x: tabellFeil, y: tabellFeil) => y.indeks - x.indeks;
 
   const toggleFeilvisning = () => handleSetVisAlleFeil(!visAlleFeil)
 
