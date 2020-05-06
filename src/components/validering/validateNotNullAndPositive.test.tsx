@@ -9,9 +9,9 @@ describe('validateNotNullAndPositive', () => {
     expect(validateNotNullAndPositive(input)).toEqual(expected);
   });
 
-  it('should return undefined when we have zero as number', () => {
+  it('should return "Antall må være positivt" when we have zero as number', () => {
     const input: number = 0;
-    const expected = undefined;
+    const expected = 'Antall må være positivt';
 
     expect(validateNotNullAndPositive(input)).toEqual(expected);
   });
