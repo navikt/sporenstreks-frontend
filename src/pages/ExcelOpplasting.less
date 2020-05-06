@@ -1,0 +1,68 @@
+@import '../../node_modules/nav-frontend-core/less/core';
+@import '../../src/basic';
+
+.excelopplasting {
+  &--alertstripe {
+    padding: 0.7rem;
+  }
+
+  &--loading-spinner {
+    margin: 1.4rem;
+  }
+
+  .alertstripe {
+    margin-top: 1.4rem;
+  }
+
+  &__excellogo {
+    margin: 0.3rem;
+  }
+
+  .typo-innholdstittel {
+    margin-bottom: 1rem;
+  }
+
+  .fileinput {
+    display: none
+  }
+
+  .filknapp {
+    margin: 1rem 0rem;
+  }
+
+  .filknapp[disabled] {
+    pointer-events:none
+  }
+
+  .bakgrunn{
+    background-color: white;
+    .container {
+      margin: 1rem;
+    }
+  }
+
+  .advarsel {
+    color: @redError;
+    font-style: italic;
+  }
+}
+
+@media (min-width: @screen-sm ) {
+  .excelopplasting {
+    .container {
+      padding: 2.5rem 0 2rem;
+      border-bottom: 1px solid @navMorkGra;
+      max-width: fit-content;
+      margin: inherit;
+
+      &:last-child {
+        padding: 2.5rem 0 4rem;
+        border-bottom: none;
+      }
+
+      &:first-child {
+        padding-top: 0;
+      }
+    }
+  }
+}
