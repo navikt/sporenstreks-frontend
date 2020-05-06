@@ -1,7 +1,7 @@
 import fnrvalidator from '@navikt/fnrvalidator';
 import { Ansatt } from '../../data/types/sporenstreksTypes';
 
-export const validateFnrSingle = (fnr?: string): string | undefined => {
+export const validateFnrLengthAndValidity = (fnr?: string): string | undefined => {
   if (!fnr) {
     return 'Fødselsnummer må fylles ut';
   } else if (fnr.length !== 11) {
@@ -12,4 +12,4 @@ export const validateFnrSingle = (fnr?: string): string | undefined => {
   return undefined;
 };
 
-export default validateFnrSingle;
+export default validateFnrLengthAndValidity;

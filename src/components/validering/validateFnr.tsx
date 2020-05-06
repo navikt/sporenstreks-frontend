@@ -1,9 +1,8 @@
-import fnrvalidator from '@navikt/fnrvalidator';
 import { Ansatt } from '../../data/types/sporenstreksTypes';
-import validateFnrSingle from './validateFnrSingle';
+import validateFnrLengthAndValidity from './validateFnrLengthAndValidity';
 
 export const validateFnr = (ansatte: Ansatt[], ansatt: Ansatt): string | undefined => {
-  const validertEnkeltfelt = validateFnrSingle(ansatt.fnr)
+  const validertEnkeltfelt = validateFnrLengthAndValidity(ansatt.fnr)
   if (validertEnkeltfelt)
    {
     return validertEnkeltfelt;

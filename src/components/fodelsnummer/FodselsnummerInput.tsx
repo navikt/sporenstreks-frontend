@@ -1,7 +1,7 @@
 import React, { useEffect, useState, FormEvent } from "react";
 import { FnrInput } from "nav-frontend-skjema";
 import { filterIdentityNumberInput } from "../../util/filterIndentityNumberInput";
-import validateFnrSingle from "../validering/validateFnrSingle";
+import validateFnrSingle from "../validering/validateFnrLengthAndValidity";
 import uuid from 'uuid/v4';
 
 
