@@ -32,6 +32,12 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
       return gruppert
     }, [] as tabellFeil[])
 
+  const tabellSortAscending = (x: tabellFeil, y: tabellFeil) => x.indeks - y.indeks;
+
+  const tabellSortDescending = (x: tabellFeil, y: tabellFeil) => y.indeks - x.indeks
+
+  const toggleFeilvisning = () => handleSetVisAlleFeil(!visAlleFeil)
+
   const feilvisningsTabellVanlig = () => {
     return (
       <div className="feilvisningstabell feiloppsummering">
@@ -39,7 +45,7 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
           <Ingress>Følgende feil i dokumentet må utbedres før du laster det opp på nytt:</Ingress>
             <table className="tabell tabell--stripet">
               <tbody>
-              {feil.sort((x, y) => x.indeks - y.indeks).map((f, index) => (
+              {feil.sort(tabellSortAscending).map((f, index) => (
                 <tr key={index}>
                   <td>{(f.indeks < 0 ? "" : "Rad " + f.indeks)}</td>
                   <td>{(f.kolonne && f.kolonne < 0 ? "" : f.kolonne)}</td>
@@ -51,7 +57,7 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
           </div>
         <Vis hvis={feil.length > 10}>
           <Knapp className="feilvisningstabell__knapp"
-                 onClick={() => handleSetVisAlleFeil(!visAlleFeil)}>
+                 onClick={toggleFeilvisning}>
             Vis feilmeldingsammendrag</Knapp>
         </Vis>
       </div>
@@ -73,7 +79,7 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
                 </thead>
 
                   <tbody>
-                  {gruppertFeil.sort((x, y) => y.indeks - x.indeks).map((f, index) => (
+                  {gruppertFeil.sort(tabellSortDescending).map((f, index) => (
                     <tr key={index}>
                       <td>{f.melding}</td>
                       <td>{f.kolonne}</td>
@@ -84,7 +90,7 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
                 <tfoot>
                   <tr>
                     <th>
-                      <Knapp onClick={() => handleSetVisAlleFeil(!visAlleFeil)}>Vis alle rader med feilmelding</Knapp>
+                      <Knapp onClick={toggleFeilvisning}>Vis alle rader med feilmelding</Knapp>
                     </th>
                   </tr>
                 </tfoot>
