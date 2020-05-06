@@ -3,24 +3,24 @@ import { PeriodeFormatter } from "./PeriodeFormatter";
 
 describe("PeriodeFormatter", () => {
 
-  it("skal returnere tom string", () => {
+  it("should return undefined", () => {
     expect(PeriodeFormatter()).toBeUndefined();
   })
 
-  it("skal returnere riktig format", () => {
+  it("should format correctly with to dates", () => {
     expect(PeriodeFormatter(
       new Date(2020,5,5,17,25),
       new Date(2021,6,6,18, 5))
     ).toBe("2020-06-05 til 2021-07-06");
   })
 
-  it("skal returnere riktig format uten tom", () => {
+  it("should format with only fom", () => {
     expect(PeriodeFormatter(
       new Date(2020,5,5,17,25))
     ).toBe("2020-06-05");
   })
 
-  it("skal returnere riktig format uten fom", () => {
+  it("should format without fom", () => {
     expect(PeriodeFormatter(
       undefined,
       new Date(2021,6,6,18, 5))

@@ -3,16 +3,16 @@ import { Maximum, Feilmelding, isValidFom, isValidTom } from "./PeriodeValidator
 
 describe("PeriodeValidator", () => {
 
-  it("skal returnere Maximum (ett år frem)", () => {
+  it("should return maximum date - one year from now", () => {
     expect(Maximum(new Date(2020,5,5,0,0)).getTime()).toBe(new Date(2021,5,5,0,0).getTime());
   })
 
-  it("skal validere fom", () => {
+  it("should validate fom", () => {
     expect(isValidFom(new Date(2020,5,5,17,25))).toBe(true);
     expect(isValidFom()).toBe(false);
   })
 
-  it("skal validere tom", () => {
+  it("should validate tom", () => {
     expect(isValidTom(new Date(2020,5,5,17,25))).toBe(true);
     expect(isValidTom()).toBe(false);
   })
@@ -20,23 +20,23 @@ describe("PeriodeValidator", () => {
 
 describe("Feilmelding", () => {
 
-  it("skal ikke returnere feilmelding når fom og tom er satt", () => {
+  it("should not return feilmleding when fom and tom is given", () => {
     expect(Feilmelding(false, new Date(), new Date())).toBe(undefined);
   })
 
-  it("skal ikke returnere feilmelding når ikke påkrevet", () => {
+  it("should not return feilmelding when not required", () => {
     expect(Feilmelding(false, undefined, undefined)).toBe(undefined);
   })
 
-  it("skal returnere feilmelding ved påkrevet", () => {
+  it("should return feilmelding when required", () => {
     expect(Feilmelding(true, undefined, undefined)).toBe('Må fylles ut');
   })
 
-  it("skal returnere feilmelding uten påkrevet", () => {
+  it("should return undefined when not required", () => {
     expect(Feilmelding(false, undefined, undefined)).toBe(undefined);
   })
 
-  it("skal returnere feilmelding hvor fom er påkrevet", () => {
+  it("should return feilmelding when fom is required", () => {
     expect(Feilmelding(false, undefined, new Date())).toBe('Velg fom dato');
   })
 

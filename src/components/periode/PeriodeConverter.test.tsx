@@ -3,11 +3,11 @@ import { PeriodeConverter } from "./PeriodeConverter";
 
 describe("PeriodeConverter", () => {
 
-  it("skal returnere tom string", () => {
+  it("should return undefined", () => {
     expect(PeriodeConverter()).toBeUndefined();
   })
 
-  it("skal returnere riktig format", () => {
+  it("should return correctly converted date", () => {
     expect(PeriodeConverter(new Date(2020,5,5,17,25))).toBe("2020-06-05");
   })
 
