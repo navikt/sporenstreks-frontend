@@ -20,8 +20,11 @@ describe("PeriodeInput", () => {
     expect(PeriodeInputClassName('DummyFeilmelding')).toBe("periodeinput periodeinput--invalid")
   })
 
-  // Todo Test handleClose
-  //  1). Feilmelding
-  //  2). handleChange blir kalt
+  it("skal kalle handleChange når handleClose blir kalt", () => {
+    // TODO - Implementere test som sjekker at handleChange blir kalt
+  })
+  it("skal sette feilmelding", () => {
+    // TODO - Implementere test som sjekker at feilmelding blir satt i state
+  })
 
 })
