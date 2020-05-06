@@ -1,13 +1,13 @@
 import React from 'react';
 import {AlertStripeInfo} from 'nav-frontend-alertstriper';
-import {Ingress, Innholdstittel, Normaltekst} from 'nav-frontend-typografi';
+import {Innholdstittel, Normaltekst} from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
-import {useAppStore} from '../data/store/AppStore';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import './Kvittering.less';
 import Lenke from "nav-frontend-lenker";
 
 const Kvittering = () => {
+  const historyState = useLocation().state
     return (
         <div className="kvittering">
             <div className="limit">
@@ -35,8 +35,8 @@ const Kvittering = () => {
                     <div><a id="logout"
                             href="https://loginservice.nav.no/slo" className="lenke informasjonsboks__lenke">Logg ut</a>
                     </div>
-                    <Link to="/" className="lenke informasjonsboks__lenke">
-                        Opprett en ny søknad
+                    <Link to={ (historyState && historyState["from"]) ||"/"} className="lenke informasjonsboks__lenke">
+                      {(historyState && historyState["message"]) ||"Opprett en ny søknad"}
                     </Link>
                     <div><a href="https://arbeidsgiver.nav.no/min-side-arbeidsgiver/"
                             className="lenke informasjonsboks__lenke">
