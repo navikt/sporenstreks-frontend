@@ -18,7 +18,6 @@ import { Column, Row } from "nav-frontend-grid";
 import Panel from "nav-frontend-paneler";
 import Skillelinje from "./Skillelinje";
 import {Normaltekst, Undertittel} from "nav-frontend-typografi";
-import FodselsnummerInput from '../fodelsnummer/FodselsnummerInput';
 
 const Ansatte = () => {
   const {ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, setLoadingStatus } = useAppStore();
@@ -50,7 +49,6 @@ const Ansatte = () => {
               <Undertittel>
                 Oppgi ansatte, arbeidsgiverperiode og beløp
               </Undertittel>
-              <FodselsnummerInput handleChange={(val:any) => console.log(val)}/>
               <Normaltekst>
                 Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
                 <Link to="../enkel/"> skal du bruke et eget skjema som du finner her.</Link>
