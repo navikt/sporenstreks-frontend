@@ -34,7 +34,7 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
 
   const feilvisningsTabellVanlig = () => {
     return (
-      <span className="feilvisningstabell feiloppsummering">
+      <div className="feilvisningstabell feiloppsummering">
         <div className="tabell--overflow">
           <Ingress>Følgende feil i dokumentet må utbedres før du laster det opp på nytt:</Ingress>
             <table className="tabell tabell--stripet">
@@ -54,15 +54,16 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
                  onClick={() => handleSetVisAlleFeil(!visAlleFeil)}>
             Vis feilmeldingsammendrag</Knapp>
         </Vis>
-      </span>
+      </div>
     )
   }
 
   const feilvisningsTabellGruppert = (gruppertFeil: tabellFeil[]) => {
     return (
-      <span className="feilvisningstabell feiloppsummering">
+      <div className="feilvisningstabell feiloppsummering">
               <Ingress>{feil.length} feil i dokumentet må utbedres før du laster det opp på nytt:</Ingress>
-              <table className="tabell tabell--stripet">
+            <div className="tabell--overflow">
+        <table className="tabell tabell--stripet">
                 <thead>
                 <tr>
                   <th>Feilmelding</th>
@@ -70,6 +71,7 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
                   <th>Antall feil</th>
                 </tr>
                 </thead>
+
                   <tbody>
                   {gruppertFeil.sort((x, y) => y.indeks - x.indeks).map((f, index) => (
                     <tr key={index}>
@@ -87,7 +89,8 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
                   </tr>
                 </tfoot>
               </table>
-          </span>
+          </div>
+          </div>
     )
   }
 
