@@ -10,7 +10,7 @@ import { BekreftKnapp } from "./BekreftKnapp";
 import { Erklaring } from "./Erklaring";
 import { ValideringOppsummering } from "./ValideringOppsummering";
 import {History} from 'history';
-import {Link, useHistory, useLocation} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {byggAnsatt, Ansatt} from "../../data/types/sporenstreksTypes";
 import Advarsler from "./Advarsler";
 import RefreshToken from './RefreshToken';
@@ -22,7 +22,6 @@ import {Normaltekst, Undertittel} from "nav-frontend-typografi";
 const Ansatte = () => {
   const {ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, setLoadingStatus } = useAppStore();
   const history: History = useHistory();
-  const pathname = useLocation().pathname
   const [ erklæringAkseptert, setErklæringAkseptert ] = useState<boolean>(false);
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
@@ -34,11 +33,7 @@ const Ansatte = () => {
     if(!innsendteAnsatte.find((ansatt: Ansatt) => !ansatt.referenceNumber)) {
       setAnsatte([byggAnsatt()])
       setFeil([])
-      history.push('/kvittering',
-      {
-        from: pathname,
-        message: "Send inn flere"
-      })
+      history.push('/kvitteringBulk')
     }
   };
 

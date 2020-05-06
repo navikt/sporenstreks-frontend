@@ -10,6 +10,8 @@ import { Amplitude } from './components/amplitude/AmplitudeProvider';
 import Kvittering from './pages/Kvittering';
 import SykepengerBulk from './pages/SykepengerBulk';
 import ExcelOpplasting from "./pages/ExcelOpplasting";
+import KvitteringExcel from "./pages/KvitteringExcel";
+import KvitteringBulk from "./pages/KvitteringBulk";
 
 const App = () => {
   return (
@@ -22,6 +24,8 @@ const App = () => {
               <Route path="/bulk" render={() => <SykepengerBulk />} />
               <Route path="/kvittering" render={() => <Kvittering />} />
               <Route path="/excel" render={() => <ExcelOpplasting />} />
+              <Route path="/kvitteringExcel" render={() => <KvitteringExcel />} />
+              <Route path="/kvitteringBulk" render={() => <KvitteringBulk />} />
               <Route path="/" render={() => <Redirecter />} />
             </Switch>
           </I18nextProvider>

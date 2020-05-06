@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import 'nav-frontend-tabell-style';
 import {FormContext, useForm} from 'react-hook-form';
 import {Hovedknapp} from 'nav-frontend-knapper';
-import {Link, useHistory, useLocation} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {Ingress, Innholdstittel, Normaltekst} from 'nav-frontend-typografi';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
@@ -29,7 +29,6 @@ const ExcelOpplasting = () => {
   const [visAlleFeil, setVisAlleFeil] = useState(false)
   const [hasTriedSubmit, setHasTriedSubmit] = useState(false)
   const FILEUPLOAD_MAX_SIZE = 250000;
-  const pathname = useLocation().pathname
 
   const setUploadFile = (event: any) => {
     if (event.target.files[0] && event.target.files[0].size > FILEUPLOAD_MAX_SIZE) {
@@ -74,12 +73,7 @@ const ExcelOpplasting = () => {
             }
             case 200: {
               response.blob().then(data => {
-                history.push( '/kvittering',
-                    {
-                      from: pathname,
-                      message: "Last opp en ny fil"
-                    }
-                    )
+                history.push( '/kvitteringExcel')
                   setFeil([])
                 }
               )
