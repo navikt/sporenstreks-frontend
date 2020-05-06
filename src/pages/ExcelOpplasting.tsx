@@ -6,7 +6,6 @@ import {Link, useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {Ingress, Innholdstittel, Normaltekst, Undertittel} from 'nav-frontend-typografi';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
-import {useAppStore} from '../data/store/AppStore';
 import {History} from 'history';
 import Vis from '../components/Vis';
 import env from '../util/environment';
@@ -19,7 +18,6 @@ import InnloggetSide from "./InnloggetSide";
 import Panel from "nav-frontend-paneler";
 import Skillelinje from "../components/ansatte/Skillelinje";
 import {Column, Row} from "nav-frontend-grid";
-
 
 const ExcelOpplasting = () => {
   const [erklæringAkseptert, setErklæringAkseptert] = useState<boolean>(false);
