@@ -9,7 +9,7 @@ import StoreProvider from './data/store/StoreProvider';
 import { Amplitude } from './components/amplitude/AmplitudeProvider';
 import Kvittering from './pages/Kvittering';
 import SykepengerBulk from './pages/SykepengerBulk';
-import ExcelOpplastning from "./pages/ExcelOpplastning";
+import ExcelOpplasting from "./pages/ExcelOpplasting";
 import KvitteringExcel from "./pages/KvitteringExcel";
 import KvitteringBulk from "./pages/KvitteringBulk";
 
@@ -23,7 +23,7 @@ const App = () => {
               <Route path="/enkel" render={() => <Sykepenger />} />
               <Route path="/bulk" render={() => <SykepengerBulk />} />
               <Route path="/kvittering" render={() => <Kvittering />} />
-              <Route path="/excel" render={() => <ExcelOpplastning />} />
+              <Route path="/excel" render={() => <ExcelOpplasting />} />
               <Route path="/kvitteringExcel" render={() => <KvitteringExcel />} />
               <Route path="/kvitteringBulk" render={() => <KvitteringBulk />} />
               <Route path="/" render={() => <Redirecter />} />
