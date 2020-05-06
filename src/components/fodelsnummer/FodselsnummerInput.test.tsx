@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import FodselsnummerInput from './FodselsnummerInput';
 import { act } from 'react-dom/test-utils';
@@ -25,9 +25,8 @@ describe('FodselsnummerInput', () => {
 
     fireEvent.change(inputField, { target: { value: "5" } });
     fireEvent.blur(inputField, { target: { value: "5" } });
-    expect(mockCallback).toHaveBeenCalledWith("5");
 
-    // const test = component.getByText('Fddødselsnummer');
+    expect(mockCallback).toHaveBeenCalledWith("5");
     expect(component.getByText('Fødselsnummer')).toBeInTheDocument();
     expect(component.getByText('Fødselsnummer må ha 11 siffer')).toBeInTheDocument();
   })
@@ -45,5 +44,11 @@ describe('FodselsnummerInput', () => {
     expect(component.getByText('Fødselsnummer er ugyldig')).toBeInTheDocument();
   })
 
+  it('should render an inputfield with the correct id', () => {
+    const mockCallback = jest.fn();
 
+    render(<FodselsnummerInput id={12345678} handleChange={mockCallback}/>);
+
+    expect(screen.getByLabelText('Fødselsnummer')).toHaveAttribute('id','fnr_12345678')
+  })
 })
