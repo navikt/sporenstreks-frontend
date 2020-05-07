@@ -25,15 +25,17 @@
 
   .filknapp {
     margin: 1rem 0rem;
+    width: 100%;
+    overflow: hidden;
   }
 
   .filknapp[disabled] {
     pointer-events:none
   }
 
-  @media (max-width: @screen-sm) {
+  @media (min-width: @screen-md) {
     .filknapp {
-      width: 100%
+      width: auto;
     }
   }
 
