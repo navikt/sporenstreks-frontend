@@ -15,11 +15,8 @@
   }
 
   &__excellogo {
-    margin: 0.3rem;
-  }
-
-  .typo-innholdstittel {
-    margin-bottom: 1rem;
+    margin: 0.5rem;
+    float: left;
   }
 
   .fileinput {
@@ -28,16 +25,17 @@
 
   .filknapp {
     margin: 1rem 0rem;
+    width: 100%;
+    overflow: hidden;
   }
 
   .filknapp[disabled] {
     pointer-events:none
   }
 
-  .bakgrunn{
-    background-color: white;
-    .container {
-      margin: 1rem;
+  @media (min-width: @screen-md) {
+    .filknapp {
+      width: auto;
     }
   }
 
@@ -45,24 +43,9 @@
     color: @redError;
     font-style: italic;
   }
-}
 
-@media (min-width: @screen-sm ) {
-  .excelopplasting {
-    .container {
-      padding: 2.5rem 0 2rem;
-      border-bottom: 1px solid @navMorkGra;
-      max-width: fit-content;
-      margin: inherit;
-
-      &:last-child {
-        padding: 2.5rem 0 4rem;
-        border-bottom: none;
-      }
-
-      &:first-child {
-        padding-top: 0;
-      }
-    }
+  hr {
+    margin: 2rem 0;
   }
 }
+

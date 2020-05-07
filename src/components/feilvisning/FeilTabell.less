@@ -1,3 +1,4 @@
+@import '../../../node_modules/nav-frontend-core/less/_variabler';
 
 .feilvisningstabell {
     .typo-ingress {
@@ -11,5 +12,14 @@
 
   &__knapp {
     margin-top: 1rem;
+    width: 100%
+  }
+
+  @media (min-width: @screen-md) {
+    &__knapp {
+      width: auto;
+    }
   }
 }
+
+
