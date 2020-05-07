@@ -21,6 +21,7 @@ export enum Keys {
 	PREVIOUS = 'PREVIOUS',
   TOOLOWAMOUNT = 'TOOLOWAMOUNT',
   TOOHIGHAMOUNT = 'TOOHIGHAMOUNT',
+  MISSINGAMOUNT = 'MISSINGAMOUNT',
 }
 
 const translatedKeys: IncludedKeys = {
@@ -143,6 +144,12 @@ const translatedKeys: IncludedKeys = {
     nn: 'Beløpet er for høgt',
     en: 'Amount is too hight.',
   },
+
+  [Keys.MISSINGAMOUNT]: {
+    nb: 'Beløpet mangler.',
+    nn: 'Beløpet mangler.',
+    en: 'Ammount is missing.'
+  }
 };
 
 const translatedStatus: IncludedStatus = {
@@ -207,7 +214,13 @@ const translatedErrors: IncludedErrors = {
 		nb: 'En feil har skjedd. Prøv igjen senere.',
 		nn: 'Ein feil har skjedd. Prøv igjen seinare',
 		en: 'An error occurred. Try again later.',
-	},
+  },
+
+  [Keys.MISSINGAMOUNT]: {
+    nb: 'Beløpet mangler.',
+    nn: 'Beløpet mangler.',
+    en: 'Ammount is missing.'
+  },
 };
 
 type IncludedKeys = {
