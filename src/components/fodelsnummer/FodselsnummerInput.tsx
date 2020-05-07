@@ -28,12 +28,12 @@ export const FodselsnummerInput = ({ feilmelding, fnr, handleChange, id }: Fodse
     setLokalFeil(feilmelding);
   }, [feilmelding])
 
-  const componentId = id ? id : uuid();
+  const componentId = "fnr_".concat(id ? String(id) : uuid());
 
   const feilmeldingstekst = feilmelding ? feilmelding : lokalFeil;
 
   return <FnrInput
-    id={"fnr_" + componentId}
+    id={componentId}
     label={
       <div style={{ display: 'flex' }}>
         Fødselsnummer
