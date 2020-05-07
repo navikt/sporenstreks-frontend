@@ -10,10 +10,19 @@ interface RefusjonInputProps {
   handleChange: any
 }
 
+export const Convert = (value?: string) => {
+  if (!value){
+    return;
+  }
+  if (value.trim().length == 0){
+    return;
+  }
+  return filterStringToNumbersOnly(value, 20);
+}
+
 export const RefusjonInput = ({beloep, feilmelding, handleChange} : RefusjonInputProps) => {
   const handleChangeLocal = (evt) => {
-    const s = filterStringToNumbersOnly(evt.target.value ? evt.target.value : "", 20);
-    handleChange(s.length === 0 ? undefined : parseInt(evt.target.value))
+    handleChange(Convert(evt.target.value));
   }
   return (
     <div>
