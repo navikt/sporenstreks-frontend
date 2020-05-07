@@ -40,7 +40,11 @@
             "functions": "only-multiline"
         }],
         "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
-        "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
+        "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
+        "object-curly-spacing":  ["warn", "always"],
+        "no-duplicate-imports": "error",
+        "quotes": ["error", "single"],
+        "no-unused-vars": "warn"
     },
     "settings": {
         "react": {

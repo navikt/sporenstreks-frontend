@@ -5,7 +5,7 @@ import { Refusjon } from "./Refusjon";
 import { Fnr } from "./Fnr";
 import Periode from "./Periode";
 import { useAppStore } from "../../data/store/AppStore";
-import { byggAnsatt, SkjemaStatus, AnsattID } from "../../data/types/sporenstreksTypes";
+import { AnsattID, byggAnsatt, SkjemaStatus } from "../../data/types/sporenstreksTypes";
 import { ByggValideringsFeil } from "./ByggValideringsFeil";
 import Slettknapp from './Slettknapp';
 import { Column, Row } from "nav-frontend-grid";
@@ -18,7 +18,7 @@ export const AnsattRad = ({ id }: AnsattID) => {
     setAnsatte([...arr]);
     setFeil(ByggValideringsFeil([...arr]));
     evt.preventDefault();
-  }
+  };
   const a = ansatte.find(a => a.id === id) || byggAnsatt()
   if (a.status == SkjemaStatus.GODKJENT) {
     return (

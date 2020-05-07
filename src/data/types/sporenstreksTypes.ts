@@ -29,7 +29,7 @@ export enum SkjemaStatus {
 }
 
 export interface AnsattID {
-  id: number
+  id: number | string
 }
 
 export interface Ansatt extends AnsattID {
@@ -83,6 +83,7 @@ export enum ErrorType {
   UNKNOWN = 'UNKNOWN',
   TOOLOWAMOUNT = 'TOOLOWAMOUNT',
   TOOHIGHAMOUNT = 'TOOHIGHAMOUNT',
+  MISSINGAMOUNT = 'MISSINGAMOUNT',
 }
 
 export enum Status {
