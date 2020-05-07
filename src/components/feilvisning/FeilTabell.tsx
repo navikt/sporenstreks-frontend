@@ -45,6 +45,7 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
           <Ingress>Følgende feil i dokumentet må utbedres før du laster det opp på nytt:</Ingress>
             <table className="tabell tabell--stripet">
               <tbody>
+              {/* eslint-disable-next-line react/prop-types */}
               {feil.sort(tabellSortAscending).map((f, index) => (
                 <tr key={index}>
                   <td>{(f.indeks < 0 ? "" : "Rad " + f.indeks)}</td>
@@ -55,6 +56,7 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
               </tbody>
             </table>
           </div>
+        {/* eslint-disable-next-line react/prop-types */}
         <Vis hvis={feil.length > 10}>
           <Knapp className="feilvisningstabell__knapp"
                  onClick={toggleFeilvisning}>
@@ -67,6 +69,7 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
   const feilvisningsTabellGruppert = (gruppertFeil: tabellFeil[]) => {
     return (
       <div className="feilvisningstabell feiloppsummering">
+        {/* eslint-disable-next-line react/prop-types */}
               <Ingress>{feil.length} feil i dokumentet må utbedres før du laster det opp på nytt:</Ingress>
             <div className="tabell--overflow">
         <table className="tabell tabell--stripet">
