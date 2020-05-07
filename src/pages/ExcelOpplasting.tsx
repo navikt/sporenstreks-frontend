@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import 'nav-frontend-tabell-style';
 import {FormContext, useForm} from 'react-hook-form';
 import {Hovedknapp} from 'nav-frontend-knapper';
-import {Link, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {Ingress, Innholdstittel, Normaltekst, Undertittel} from 'nav-frontend-typografi';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
@@ -149,14 +149,14 @@ const ExcelOpplasting = () => {
           <Panel>
             <Normaltekst>
               Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
-              <Link to="/enkel" className="lenke">
+              <Lenke href="/enkel">
                 &nbsp;skal du bruke et eget skjema
-              </Link>.
+              </Lenke>.
               Excel-opplasting er tiltenkt dere som har svært mange refusjonskrav.
               Vi har også et &nbsp;
-              <Link to="/bulk" className="lenke">
+              <Lenke href="/bulk">
                 eget skjema for å søke om refusjonskrav for flere ansatte
-              </Link>
+              </Lenke>
               &nbsp; dersom dere foretrekker å gjøre det på den måten.
             </Normaltekst>
           </Panel>
