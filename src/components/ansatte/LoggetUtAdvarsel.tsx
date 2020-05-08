@@ -31,7 +31,7 @@ const LoggetUtAdvarsel = () => {
         <Innholdstittel>Du er blitt logget ut, følg instruksjonene for ikke å miste data</Innholdstittel>
         <ul>
           <li>Ikke lukk dette vinduet</li>
-          <li><a href={env.loginServiceUrl + '?test=true'} target="_blank">Åpne ID-Porten (innlogging) i nytt vindu ved å klikke på denne lenken.</a></li>
+          <li><a href={env.loginServiceUrl + '?refresh=true'} target="_blank">Åpne ID-Porten (innlogging) i nytt vindu ved å klikke på denne lenken.</a></li>
           <li>Logg inn på nytt i ID-porten.</li>
           <li>Returner til dette vinduet.</li>
           <li>Lukk denne meldingen og klikk igjen på knappen “Send søknad om refusjon”</li>
