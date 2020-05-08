@@ -1,6 +1,6 @@
 import constate from 'constate';
 import { useState } from 'react';
-import {Ansatt, byggAnsatt, byggPeriode, Periode, tomPeriode, UnleashToggles} from '../types/sporenstreksTypes';
+import {Ansatt, byggAnsatt, byggPeriode, Periode, UnleashToggles} from '../types/sporenstreksTypes';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
 import {ValideringsFeil} from "../../components/ansatte/ValideringsFeil";
 
@@ -8,7 +8,7 @@ export const [ AppStoreProvider, useAppStore ] = constate(() => {
   const [ unleash, setUnleash ] = useState<UnleashToggles>();
   const [ firma, setFirma ] = useState<string>('');
   const [ arbeidsgivere, setArbeidsgivere ] = useState<Organisasjon[]>([]);
-  const [ perioder, setPerioder ] = useState<Periode[]>([byggPeriode(), byggPeriode(), byggPeriode()]);
+  const [ perioder, setPerioder ] = useState<Periode[]>([byggPeriode()]);
   const [ ansatte, setAnsatte ] = useState<Ansatt[]>([
       byggAnsatt()
   ]);

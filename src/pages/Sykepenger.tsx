@@ -18,7 +18,7 @@ import { useAppStore } from '../data/store/AppStore';
 import { InnsendingSpinner } from '../components/felles/InnsendingSpinner';
 import { ValideringOppsummering } from '../components/ansatte/ValideringOppsummering';
 import { mapValideringOppsummering } from '../components/enkel/ValideringMapper';
-import {ByggFeilmeldinger} from "../components/enkel/ByggFeilmeldinger";
+import { Validering } from '../components/enkel/Validering';
 
 const Sykepenger = () => {
   const { arbeidsgiverId, identityNumberInput, perioder, setSpinner, feil, setFeil } = useAppStore();
@@ -35,7 +35,7 @@ const Sykepenger = () => {
     setSendSkjemaOpen(false)
   }
   const handleSubmit = (evt) => {
-    const valideringsFeil = ByggFeilmeldinger(arbeidsgiverId, identityNumberInput, perioder);
+    const valideringsFeil = Validering(arbeidsgiverId, identityNumberInput, perioder);
     setFeil(valideringsFeil);
     if (valideringsFeil.length == 0){
       setSendSkjemaOpen(true);

@@ -1,7 +1,7 @@
 import { FeiloppsummeringFeil } from 'nav-frontend-skjema';
 import { Periode } from '../../data/types/sporenstreksTypes';
 
-export const ByggFeilmeldinger = (arbeidsgiverId: string, identityNumberInput: string, perioder: Periode[]) => {
+export const Validering = (arbeidsgiverId: string, identityNumberInput: string, perioder: Periode[]) => {
   let liste : FeiloppsummeringFeil[] = []
   if (!arbeidsgiverId) {
     let v = {} as FeiloppsummeringFeil;
@@ -12,6 +12,12 @@ export const ByggFeilmeldinger = (arbeidsgiverId: string, identityNumberInput: s
   if (!identityNumberInput) {
     let v = {} as FeiloppsummeringFeil;
     v.feilmelding = 'Fødselsnummer må fylles ut';
+    v.skjemaelementId = 'fnr';
+    liste.push(v);
+  }
+  if (identityNumberInput.length != 11) {
+    let v = {} as FeiloppsummeringFeil;
+    v.feilmelding = 'Fyll ut riktig fødselsnummer';
     v.skjemaelementId = 'fnr';
     liste.push(v);
   }

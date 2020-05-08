@@ -6,18 +6,22 @@ export interface RefusjonsKrav {
   perioder: Periode[];
 }
 
-export interface Periode {
-  id?: string,
+export interface PeriodeID {
+  id: string
+}
+
+export interface Periode extends PeriodeID {
+  id: string,
   fom?: Date;
   tom?: Date;
   antallDagerMedRefusjon: number;
   beloep: number;
+  errorMessage?: string;
 }
 
 export const byggPeriode = () => {
   let p = {} as Periode;
   p.id = uuid();
-  p.fom = new Date();
   p.beloep = 200;
   p.antallDagerMedRefusjon = 3;
   return p;

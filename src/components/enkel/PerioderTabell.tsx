@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Column, Row } from 'nav-frontend-grid';
-import { Periode } from '../../data/types/sporenstreksTypes';
 import { useAppStore } from '../../data/store/AppStore';
+import PeriodeEnkel from './PeriodeEnkel';
+import DagerEnkel from './DagerEnkel';
+import RefusjonEnkel from './RefusjonEnkel';
+import SlettEnkel from './SlettEnkel';
+import LeggTilKnappEnkel from './LeggTilKnappEnkel';
 
-export const PerioderRad = (periode: Periode) => {
+interface PerioderRadProps {
+  id: string
+}
+
+export const PerioderRad = ({ id }: PerioderRadProps) => {
   return (
     <Row className="periodertabell--rad">
-      <Column md="3">{periode.fom?.toDateString()}</Column>
-      <Column md="3">{periode.antallDagerMedRefusjon}</Column>
-      <Column md="3">{periode.beloep}</Column>
-      <Column md="3">
-      </Column>
+      <Column md="4"><PeriodeEnkel id={id}/></Column>
+      <Column md="3"><DagerEnkel id={id}/></Column>
+      <Column md="2"><RefusjonEnkel id={id}/></Column>
+      <Column md="3"><SlettEnkel id={id}/></Column>
     </Row>
   );
 }
@@ -19,7 +26,8 @@ export const PerioderTabell = () => {
   const { perioder } = useAppStore();
   return (
     <div className="periodertabell">
-      {perioder?.map(p => <PerioderRad key={p.id} fom={p.fom} tom={p.tom} beloep={p.beloep} antallDagerMedRefusjon={p.antallDagerMedRefusjon} />)}
+      {perioder?.map(p => <PerioderRad key={p.id} id={p.id} />)}
+      <LeggTilKnappEnkel />
     </div>
   );
 }

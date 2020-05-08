@@ -9,6 +9,7 @@ import { PeriodeConverter } from './PeriodeConverter';
 import './PeriodeInput.less';
 
 interface PeriodeInputProps {
+  id?: string,
   label?: string,
   feilmelding?: string,
   fom?: Date,
@@ -39,7 +40,7 @@ export const PeriodeInput = (props : PeriodeInputProps) => {
         </div>
       </Label>
       <Flatpickr
-        id="periode"
+        id={props.id}
         placeholder='dd.mm.yyyy til dd.mm.yyyy'
         value={PeriodeFormatter(props.fom, props.tom)}
         className={'periodeinput-input'}
@@ -52,6 +53,7 @@ export const PeriodeInput = (props : PeriodeInputProps) => {
           altInput: true,
           altFormat: 'd.m.Y',
           locale: Norwegian,
+          onValidate: () => {},
           allowInput: true,
           clickOpens: true,
           onClose: (selectedDates) => handleClose(selectedDates)
