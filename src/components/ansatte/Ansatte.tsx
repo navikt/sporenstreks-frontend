@@ -13,7 +13,6 @@ import {History} from 'history';
 import {Link, useHistory} from "react-router-dom";
 import {byggAnsatt, Ansatt} from "../../data/types/sporenstreksTypes";
 import Advarsler from "./Advarsler";
-import RefreshToken from './RefreshToken';
 import { Column, Row } from "nav-frontend-grid";
 import Panel from "nav-frontend-paneler";
 import Skillelinje from "./Skillelinje";
@@ -92,7 +91,6 @@ const Ansatte = () => {
           </Column>
         </Row>
       </form>
-      <RefreshToken/>
       { loadingStatus === 401 && <LoggetUtAdvarsel/>}
     </div>
   );
