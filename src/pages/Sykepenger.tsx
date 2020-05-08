@@ -204,6 +204,15 @@ const Sykepenger = () => {
                   <Undertittel className="sykepenger--undertittel">
                     Hvilken arbeidstaker gjelder søknaden?
                   </Undertittel>
+
+                  <Normaltekst>
+                    Vi har også et eget <Lenke href="../bulk/"> skjema for å sende inn flere ansatte samtidig </Lenke>
+                    (kun enkeltperioder per ansatt), og for dere som har mer enn 50 ansatte å rapportere inn har vi
+                    mulighet for <Lenke href="../excel/"> excel-opplasting av kravet.</Lenke>
+                  </Normaltekst>
+
+                  <div>&nbsp;</div>
+
                   <Input
                     id="fnr"
                     name="fnr"
