@@ -18,11 +18,10 @@ import { useAppStore } from '../data/store/AppStore';
 import { InnsendingSpinner } from '../components/felles/InnsendingSpinner';
 import { ValideringOppsummering } from '../components/ansatte/ValideringOppsummering';
 import { mapValideringOppsummering } from '../components/enkel/ValideringMapper';
-
-
+import {ByggFeilmeldinger} from "../components/enkel/ByggFeilmeldinger";
 
 const Sykepenger = () => {
-  const { arbeidsgiverId, identityNumberInput, perioder, setSpinner, setFeil } = useAppStore();
+  const { arbeidsgiverId, identityNumberInput, perioder, setSpinner, feil, setFeil } = useAppStore();
   const [erklæringAkseptert, setErklæringAkseptert] = useState<boolean>(false);
   const [sendSkjemaOpen, setSendSkjemaOpen] = useState<boolean>(false);
   const onSubmit = async () => {
@@ -36,8 +35,11 @@ const Sykepenger = () => {
     setSendSkjemaOpen(false)
   }
   const handleSubmit = (evt) => {
-    // Todo - validate
-    setSendSkjemaOpen(true);
+    const valideringsFeil = ByggFeilmeldinger(arbeidsgiverId, identityNumberInput, perioder);
+    setFeil(valideringsFeil);
+    if (valideringsFeil.length == 0){
+      setSendSkjemaOpen(true);
+    }
     evt.preventDefault()
   }
   return (
