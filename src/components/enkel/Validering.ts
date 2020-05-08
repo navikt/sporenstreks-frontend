@@ -21,6 +21,12 @@ export const Validering = (arbeidsgiverId: string, identityNumberInput: string, 
     v.skjemaelementId = 'fnr';
     liste.push(v);
   }
+  if (perioder.length == 0){
+    let v = {} as FeiloppsummeringFeil;
+    v.feilmelding = 'Velg minst en periode';
+    v.skjemaelementId = '';
+    liste.push(v);
+  }
   perioder.forEach( p => {
     if (!p.fom || !p.tom){
       let v = {} as FeiloppsummeringFeil;
