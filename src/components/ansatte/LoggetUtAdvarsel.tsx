@@ -17,7 +17,7 @@ const LoggetUtAdvarsel = () => {
   }
 
   if (!isOpen){
-       return (<></>)
+       return null;
   }
   return (
     <ModalWrapper
