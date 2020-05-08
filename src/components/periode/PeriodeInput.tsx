@@ -1,13 +1,15 @@
-import React, { useState } from "react";
-import { Label, SkjemaelementFeilmelding } from "nav-frontend-skjema";
-import { HjelpetekstPeriode } from "../ansatte/HjelpetekstPeriode";
+import React, { useState } from 'react';
+import { Label, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
+import { HjelpetekstPeriode } from './HjelpetekstPeriode';
 import Flatpickr from 'react-flatpickr';
 import { Norwegian } from 'flatpickr/dist/l10n/no.js';
-import { PeriodeFormatter } from "./PeriodeFormatter";
-import { Minimum, Maximum, Feilmelding } from "./PeriodeValidator";
-import { PeriodeConverter } from "./PeriodeConverter";
+import { PeriodeFormatter } from './PeriodeFormatter';
+import { Minimum, Maximum, Feilmelding } from './PeriodeValidator';
+import { PeriodeConverter } from './PeriodeConverter';
+import './PeriodeInput.less';
 
 interface PeriodeInputProps {
+  label?: string,
   feilmelding?: string,
   fom?: Date,
   tom?: Date,
@@ -18,26 +20,28 @@ export const PeriodeInputClassName = (feilmelding?: string) => {
   return 'periodeinput ' + (feilmelding ? 'periodeinput--invalid' : 'periodeinput--valid')
 }
 
-export const PeriodeInput = ({fom, tom, feilmelding, handleChange}: PeriodeInputProps) => {
-  const [feilmeldingState, setFeilmeldingState] = useState(feilmelding);
+export const PeriodeInput = (props : PeriodeInputProps) => {
+  const [feilmeldingState, setFeilmeldingState] = useState(props.feilmelding);
   const handleClose = (selectedDates) => {
-    let fomChanged = PeriodeConverter(selectedDates[0])
-    let tomChanged = PeriodeConverter(selectedDates[1])
-    setFeilmeldingState(Feilmelding(false, selectedDates[0], selectedDates[1]));
-    handleChange(fomChanged, tomChanged);
+    const fom = selectedDates[0];
+    const tom = selectedDates[1];
+    let fomChanged = PeriodeConverter(fom)
+    let tomChanged = PeriodeConverter(tom)
+    setFeilmeldingState(Feilmelding(false, fom, tom));
+    props.handleChange(fomChanged, tomChanged);
   }
   return (
-    <div className={PeriodeInputClassName(feilmelding)}>
-      <Label htmlFor={"periode"}>
-        <div style={{display: 'flex'}}>
-          Periode
+    <div className={PeriodeInputClassName(props.feilmelding)}>
+      <Label htmlFor={'periode'}>
+        <div style={{ display: 'flex' }}>
+          {props.label || 'Periode'}
           <HjelpetekstPeriode/>
         </div>
       </Label>
       <Flatpickr
         id="periode"
         placeholder='dd.mm.yyyy til dd.mm.yyyy'
-        value={PeriodeFormatter(fom, tom)}
+        value={PeriodeFormatter(props.fom, props.tom)}
         className={'periodeinput-input'}
         options={{
           minDate: Minimum(),

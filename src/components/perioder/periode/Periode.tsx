@@ -1,18 +1,17 @@
 import React from 'react';
-import { Normaltekst } from 'nav-frontend-typografi';
-import { Controller, useFormContext } from 'react-hook-form';
-import { Norwegian } from 'flatpickr/dist/l10n/no.js';
-import Flatpickr from 'react-flatpickr';
-import Vis from '../../Vis';
+import { useFormContext } from 'react-hook-form';
 import dayjs from 'dayjs';
+import { useAppStore } from '../../../data/store/AppStore';
+import { PeriodeInput } from '../../periode/PeriodeInput';
 
 interface PeriodeProps {
+  id: number,
   index: number;
   min?: Date;
   max?: Date;
 }
 
-const Periode = (props: PeriodeProps) => {
+export const Periode = (props: PeriodeProps) => {
   const { errors, setError, clearError } = useFormContext();
   const perId = 'periode_' + props.index;
 
@@ -33,46 +32,18 @@ const Periode = (props: PeriodeProps) => {
     }
   };
 
-  return (
-    <div className="skjemaelement">
-      <label htmlFor={perId} className="fom skjemaelement__label">
-        <Normaltekst tag="span">
-          Fra og med første, til og med siste fraværsdag
-        </Normaltekst>
-      </label>
-      <Controller
-        as={Flatpickr}
-        rules={{
-          pattern: { value: /\d/, message: 'Feil datoformat' }
-        }}
-        id={perId}
-        name={perId}
-        className='skjemaelement__input input--m'
-        placeholder='dd.mm.yyyy til dd.mm.yyyy'
-        options={{
-          minDate: min,
-          maxDate: max,
-          mode: 'range',
-          enableTime: false,
-          dateFormat: 'Y-m-d',
-          altInput: true,
-          altFormat: 'Y-m-d',
-          locale: Norwegian,
-          allowInput: true,
-          clickOpens: true,
-          onClose: (selectedDates) => validatePeriode(selectedDates)
-        }}
-      />
+  const { ansatte, setAnsatte } = useAppStore();
+  const a = ansatte.find(a => a.id === props.id)
+  const handleChange = (fom, tom) => {
+    if (a) {
+      a.fom = fom;
+      a.tom = tom;
+      validatePeriode([fom, tom]);
+    }
+    setAnsatte([...ansatte]);
+  }
+  return (<PeriodeInput fom={a?.fom} tom={a?.tom} feilmelding={a?.beloepError} handleChange={handleChange}/>)
+}
 
-      <Normaltekst tag='div' role='alert' aria-live='assertive'
-        className={'skjemaelement__feilmelding tom periode_' + props.index}
-      >
-        <Vis hvis={errors[perId]}>
-          <span>{errors[perId] && errors[perId].type}</span>
-        </Vis>
-      </Normaltekst>
-    </div>
-  );
-};
 
 export default Periode;

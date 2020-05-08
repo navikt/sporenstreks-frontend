@@ -7,15 +7,24 @@ export interface RefusjonsKrav {
 }
 
 export interface Periode {
-  fom: string;
-  tom: string;
+  id?: string,
+  fom?: Date;
+  tom?: Date;
   antallDagerMedRefusjon: number;
   beloep: number;
 }
 
+export const byggPeriode = () => {
+  let p = {} as Periode;
+  p.id = uuid();
+  p.fom = new Date();
+  p.beloep = 200;
+  p.antallDagerMedRefusjon = 3;
+  return p;
+}
+
 export const tomPeriode: Periode = {
-  fom: '',
-  tom: '',
+  id: uuid(),
   antallDagerMedRefusjon: 0,
   beloep: 0
 };
@@ -39,8 +48,8 @@ export interface Ansatt extends AnsattID {
   refusjonError?: string,
   periodeError?: string,
   dagerError?: string,
-  fom: string;
-  tom: string;
+  fom?: Date;
+  tom?: Date;
   antallDagerMedRefusjon?: number;
   beloep?: number;
   status: SkjemaStatus;
@@ -52,8 +61,8 @@ export const byggAnsatt = () => {
   let a = {} as Ansatt;
   a.id = uuid();
   a.fnr = '';
-  a.fom = '';
-  a.tom = '';
+  a.fom = undefined;
+  a.tom = undefined;
   a.antallDagerMedRefusjon = undefined;
   a.beloep = undefined;
   a.status = SkjemaStatus.NY;

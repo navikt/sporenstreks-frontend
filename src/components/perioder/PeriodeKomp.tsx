@@ -5,6 +5,7 @@ import Periode from './periode/Periode';
 import Antall from './antall/Antall';
 import Beloep from './beloep/Beloep';
 import './Flatpickr.less';
+import { Column, Row } from 'nav-frontend-grid';
 
 interface PeriodeKompProps {
   index: number;
@@ -16,22 +17,28 @@ interface PeriodeKompProps {
 const PeriodeKomp = (props: PeriodeKompProps) => {
 
   return (
-    <div className="periode" role="group">
-
-      <Periode index={props.index} min={props.min} max={props.max} />
-      <Antall index={props.index} />
-      <Beloep index={props.index} />
-
-      <Vis hvis={props.index > 0}>
-        <button role='link' id={'btn_' + props.index} className='periodeknapp lenke slett'
-          onClick={(e) => props.slettPeriode(e, props.index)}
-        >
-          <Normaltekst tag="span">
-            Slett periode
-          </Normaltekst>
-        </button>
-      </Vis>
-    </div>
+    <Row>
+      <Column md="3" sm="12">
+        <Periode id={props.index} index={props.index} min={props.min} max={props.max} />
+      </Column>
+      <Column md="3" sm="12">
+        <Antall index={props.index} />
+      </Column>
+      <Column md="3" sm="12">
+        <Beloep index={props.index} />
+      </Column>
+      <Column md="3" sm="12">
+        <Vis hvis={props.index > 0}>
+          <button role='link' id={'btn_' + props.index} className='periodeknapp lenke slett'
+                  onClick={(e) => props.slettPeriode(e, props.index)}
+          >
+            <Normaltekst tag="span">
+              Slett periode
+            </Normaltekst>
+          </button>
+        </Vis>
+      </Column>
+    </Row>
   )
 };
 

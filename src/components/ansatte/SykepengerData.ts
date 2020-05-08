@@ -4,8 +4,8 @@ export interface SykepengerData {
     "virksomhetsnummer"?: string;
     "perioder":[
         {
-            "fom"?: string;
-            "tom"?: string;
+            "fom"?: Date;
+            "tom"?: Date;
             "antallDagerMedRefusjon"?: number;
             "beloep"?: number;
         }
