@@ -13,7 +13,7 @@ interface MottattSoknadProps {
 export const MottattSoknad = ({ nySoknadLink } : MottattSoknadProps) => (
   <Row>
     <Panel>
-      <Innholdstittel>Søknaden er mottatt</Innholdstittel>
+      <Innholdstittel>Søknaden er mottatt.</Innholdstittel>
     </Panel>
     <Panel>
       <Normaltekst>
