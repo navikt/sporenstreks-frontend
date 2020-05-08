@@ -43,7 +43,7 @@ export const FodselsnummerInput = ({ feilmelding, fnr, handleChange, id }: Fodse
     placeholder="11 siffer"
     onChange={handleFnrChange}
     onBlur={handleFnrBlur}
-    onValidate={() => true}
+    onValidate={() => {}}
     feil={feilmeldingstekst}
   />
 }

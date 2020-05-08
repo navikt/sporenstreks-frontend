@@ -49,6 +49,6 @@ describe('FodselsnummerInput', () => {
 
     render(<FodselsnummerInput id={12345678} handleChange={mockCallback}/>);
 
-    expect(screen.getByLabelText('Fødselsnummer')).toHaveAttribute('id','fnr_12345678')
+    expect(screen.getByLabelText('Fødselsnummer')).toHaveAttribute('id','12345678')
   })
 })

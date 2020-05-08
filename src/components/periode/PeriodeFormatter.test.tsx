@@ -11,20 +11,20 @@ describe("PeriodeFormatter", () => {
     expect(PeriodeFormatter(
       new Date(2020,5,5,17,25),
       new Date(2021,6,6,18, 5))
-    ).toBe("2020-06-05 til 2021-07-06");
+    ).toBe("05-06-2020 til 06-07-2021");
   })
 
   it("should format with only fom", () => {
     expect(PeriodeFormatter(
       new Date(2020,5,5,17,25))
-    ).toBe("2020-06-05");
+    ).toBe("05-06-2020");
   })
 
   it("should format without fom", () => {
     expect(PeriodeFormatter(
       undefined,
       new Date(2021,6,6,18, 5))
-    ).toBe("2021-07-06");
+    ).toBe("06-07-2021");
   })
 
 })

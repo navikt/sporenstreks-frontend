@@ -8,7 +8,7 @@ describe("PeriodeConverter", () => {
   })
 
   it("should return correctly converted date", () => {
-    expect(PeriodeConverter(new Date(2020,5,5,17,25))).toBe("2020-06-05");
+    expect(PeriodeConverter(new Date(2020,5,5,17,25))).toBe("05-06-2020");
   })
 
 })
