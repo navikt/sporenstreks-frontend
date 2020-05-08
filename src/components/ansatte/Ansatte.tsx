@@ -18,9 +18,10 @@ import { Column, Row } from "nav-frontend-grid";
 import Panel from "nav-frontend-paneler";
 import Skillelinje from "./Skillelinje";
 import {Normaltekst, Undertittel} from "nav-frontend-typografi";
+import LoggetUtAdvarsel from './LoggetUtAdvarsel';
 
 const Ansatte = () => {
-  const {ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, setLoadingStatus } = useAppStore();
+  const {ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, loadingStatus, setLoadingStatus } = useAppStore();
   const history: History = useHistory();
   const [ erklæringAkseptert, setErklæringAkseptert ] = useState<boolean>(false);
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
@@ -92,6 +93,7 @@ const Ansatte = () => {
         </Row>
       </form>
       <RefreshToken/>
+      { loadingStatus === 401 && <LoggetUtAdvarsel/>}
     </div>
   );
 };
