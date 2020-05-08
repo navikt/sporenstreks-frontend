@@ -28,7 +28,7 @@ export const FodselsnummerInput = ({ feilmelding, fnr, handleChange, id }: Fodse
     setLokalFeil(feilmelding);
   }, [feilmelding])
 
-  const componentId = "fnr_".concat(id ? String(id) : uuid());
+  const componentId = id ? "" + id : "fnr_".concat(uuid());
 
   const feilmeldingstekst = feilmelding ? feilmelding : lokalFeil;
 

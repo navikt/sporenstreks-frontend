@@ -8,7 +8,7 @@ export const Fodselsnummer = () => {
     setIdentityNumberInput(fnr);
   };
   return (
-    <FodselsnummerInput handleChange={handleChange} fnr={identityNumberInput}
+    <FodselsnummerInput id="fnr" handleChange={handleChange} fnr={identityNumberInput}
     />
   );
 };

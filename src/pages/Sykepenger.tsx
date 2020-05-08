@@ -13,27 +13,30 @@ import Panel from 'nav-frontend-paneler';
 import Lenke from 'nav-frontend-lenker';
 import { PerioderTabell } from '../components/enkel/PerioderTabell';
 import Skillelinje from '../components/ansatte/Skillelinje';
-import { PostRefusjonskrav } from '../api/RefusjonskravAPI';
+import { PostRefusjonskrav } from '../api/API';
 import { useAppStore } from '../data/store/AppStore';
 import { InnsendingSpinner } from '../components/felles/InnsendingSpinner';
 import { ValideringOppsummering } from '../components/ansatte/ValideringOppsummering';
+import { mapValideringOppsummering } from '../components/enkel/ValideringMapper';
+
+
 
 const Sykepenger = () => {
-  const { arbeidsgiverId, identityNumberInput, perioder, setSpinner, feil, setFeil } = useAppStore();
+  const { arbeidsgiverId, identityNumberInput, perioder, setSpinner, setFeil } = useAppStore();
   const [erklæringAkseptert, setErklæringAkseptert] = useState<boolean>(false);
   const [sendSkjemaOpen, setSendSkjemaOpen] = useState<boolean>(false);
   const onSubmit = async () => {
     setSendSkjemaOpen(false)
     setSpinner(true);
     const response = await PostRefusjonskrav(arbeidsgiverId, identityNumberInput, perioder);
-    console.log('Skjema', response);
-    //setFeil( response );
+    setFeil(mapValideringOppsummering(response.violations));
     setSpinner(false);
   }
   const onClose = () => {
     setSendSkjemaOpen(false)
   }
   const handleSubmit = (evt) => {
+    // Todo - validate
     setSendSkjemaOpen(true);
     evt.preventDefault()
   }
