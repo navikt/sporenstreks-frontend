@@ -35,5 +35,6 @@ export const DagerInput = ({id}: DagerInputProps) => {
       </option>)
     }
   </Select>
-
 };
+
+export default DagerInput;
