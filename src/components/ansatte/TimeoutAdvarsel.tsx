@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import ModalWrapper from 'nav-frontend-modal';
 import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
-import { Innholdstittel, Undertittel } from "nav-frontend-typografi";
+import { Innholdstittel } from "nav-frontend-typografi";
 import './TimeoutAdvarsel.less';
 import Lenke from "nav-frontend-lenker";
+import TokenUtloper from "./TokenUtloper";
 
 const TimeoutAdvarsel = () => {
   const [ isOpen, setOpen ] = useState(true);

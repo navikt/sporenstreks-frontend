@@ -3,6 +3,7 @@ import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import '../../pages/Kvittering.less';
 import { Row, Container } from "nav-frontend-grid";
+import TokenUtloper from '../ansatte/TokenUtloper';
 
 export const LoginFornyet = () => (
   <Container className={"innloggetside__innhold"}>
@@ -12,8 +13,8 @@ export const LoginFornyet = () => (
       </Panel>
       <Panel>
         <Normaltekst>
-          Du har nå fornyet innloggingen med en time.
-      </Normaltekst>
+          Du har nå fornyet innloggingen med en time. Denne innloggingen utløper kl: <TokenUtloper/>
+        </Normaltekst>
         <Normaltekst>
           Dette vinduet kan nå lukkes.
       </Normaltekst>

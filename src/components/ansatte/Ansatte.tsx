@@ -21,13 +21,13 @@ import {Normaltekst, Undertittel} from "nav-frontend-typografi";
 import Lenke from "nav-frontend-lenker";
 
 const Ansatte = () => {
-  const {ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, setLoadingStatus } = useAppStore();
+  const {ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, loadingStatus, setLoadingStatus, setTokenExpired } = useAppStore();
   const history: History = useHistory();
   const [ erklæringAkseptert, setErklæringAkseptert ] = useState<boolean>(false);
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     const validerteAnsatte = Validering(ansatte);
-    const innsendteAnsatte = await Innsending(arbeidsgiverId, validerteAnsatte, setLoadingStatus);
+    const innsendteAnsatte = await Innsending(arbeidsgiverId, validerteAnsatte, setLoadingStatus, setTokenExpired);
     setFeil(
       ByggValideringsFeil(innsendteAnsatte)
     );
@@ -95,7 +95,9 @@ const Ansatte = () => {
           </Column>
         </Row>
       </form>
-      <RefreshToken/>
+
+      <LoggetUtAdvarsel/>
+
     </div>
   );
 };

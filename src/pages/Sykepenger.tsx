@@ -36,7 +36,7 @@ const fnrErrorState = {
 }
 
 const Sykepenger = () => {
-  const { arbeidsgivere, setReferanseNummer } = useAppStore();
+  const { arbeidsgivere, setReferanseNummer, setTokenExpired } = useAppStore();
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
   const [ erklæringAkseptert, setErklæringAkseptert ] = useState<boolean>(false);
   const { arbeidsgiverId, setArbeidsgiverId } = useAppStore();
@@ -85,6 +85,7 @@ const Sykepenger = () => {
         clearTimeout(timeout);
         if(!didTimeOut) {
           if (response.status === 401) {
+            setTokenExpired(true)
             window.location.href = env.loginServiceUrl;
           } else if (response.status === 200) {
             response.json().then(data => {

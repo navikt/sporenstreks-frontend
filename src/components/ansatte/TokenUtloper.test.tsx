@@ -1,18 +1,46 @@
 import '@testing-library/jest-dom';
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-
+import timezone_mock from 'timezone-mock';
 import TokenUtloper from './TokenUtloper';
 
-jest.mock('../../util/getCookie', () => ({
-  __esModule: true, // this property makes it work
-  default: jest.fn().mockReturnValue('eyJraWQiOiJsb2NhbGhvc3Qtc2lnbmVyIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxMjMyMSIsImF1ZCI6ImF1ZC1sb2NhbGhvc3QiLCJhY3IiOiJMZXZlbDQiLCJ2ZXIiOiIxLjAiLCJuYmYiOjE1ODkxODQzNjEsImF1dGhfdGltZSI6MTU4OTE4NDM2MSwiaXNzIjoiaXNzLWxvY2FsaG9zdCIsImV4cCI6MjM2Njc4NDM2MSwibm9uY2UiOiJteU5vbmNlIiwiaWF0IjoxNTg5MTg0MzYxLCJqdGkiOiI3MjA4NDI2ZS02YjIzLTRhZmMtYWZjNi1jYTJiYTliNDZiNzAifQ.aM4hkKAVHDR-n8_MRQoRHGxWVb3PMaXDEiBNCoUhSsDZCZwPdkWoRnPir6gfEkDdESPGX38fWoAxDyF6Q-1GsnN-uSPIOdytNKX-UWLLbgfQrXsevpd6DJ5XMGM-3gJkS5VTnwIe9aSuXDIuQ8ga7yJ4K_aaOV4hQtNfvSroDwsrAEZQPjN5_xKwY-Pv2FWdyeq15IGqar5Cv3QOKwSMkM_PqhNb5BY6AhNYt3Ui0j65Rvd7QWC3YuKtM_r3A-brdBHbwJDdTFWtd--HrMAbr4Di2SmmHUhUBtbxaleuni-D8DX5jsiy0gxegaEEqm-lc2cjsjyqhTamih_Gl_Ku4g'),
-}));
+jest.mock('./hentInnloggingUtlop');
+import hentInnloggingUtløp from './hentInnloggingUtlop';
 
+const mockHentInnloggingUtløp = hentInnloggingUtløp as jest.Mock;
+
+timezone_mock.register('UTC');
 
 describe('TokenUtloper', () => {
-  it('should display the time', () => {
+  it('should display the time', async () => {
+    mockHentInnloggingUtløp.mockResolvedValue({ status: 200, utcDTstring: '2020-01-01T08:55:34.000+0000' });
     render(<TokenUtloper />);
-    expect(screen.getByText('09:06')).toBeInTheDocument();
+
+    const timestamp = await screen.findByText('08:55')
+    expect(timestamp).toBeInTheDocument();
+  })
+
+  it('should display nothing when the timestamp is missing', async () => {
+    mockHentInnloggingUtløp.mockResolvedValue({status: 200, utcDTstring: ''});
+    render(<TokenUtloper />);
+    expect(screen.queryAllByText(/[0-9a-z]/).length).toBe(0);
+  })
+
+  it('should display nothing when the token is returned as undefined', () => {
+    mockHentInnloggingUtløp.mockResolvedValue({ status: 200, utcDTstring: undefined});
+    render(<TokenUtloper />);
+    expect(screen.queryAllByText(/[0-9a-z]/).length).toBe(0);
+  })
+
+  it('should display nothing when the token is invalid', () => {
+    mockHentInnloggingUtløp.mockResolvedValue({ status: 200, utcDTstring: 'invalid-token'});
+    render(<TokenUtloper />);
+    expect(screen.queryAllByText(/[0-9a-z]/).length).toBe(0);
+  })
+
+  it('should display nothing when the status is 404', () => {
+    mockHentInnloggingUtløp.mockResolvedValue({ status: 404, utcDTstring: ''});
+    render(<TokenUtloper />);
+    expect(screen.queryAllByText(/[0-9a-z]/).length).toBe(0);
   })
 })
