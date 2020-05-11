@@ -3,7 +3,7 @@ name: Deploy til prod
 on:
   push:
     tags:
-      - 'prod/**'
+      - prod/*
 
 env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/sporenstreks-frontend:${{ github.sha }}
@@ -39,7 +39,6 @@ jobs:
   deploy:
     name: Deploy to PREPROD
     needs: build
-    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
