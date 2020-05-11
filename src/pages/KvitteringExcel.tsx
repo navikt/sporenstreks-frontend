@@ -1,13 +1,12 @@
 import React from 'react';
-import './Kvittering.less';
-import InnloggetSide from "./InnloggetSide";
 import {MottattSoknad} from "../components/kvittering/MottattSoknad";
-
+import {Container} from "nav-frontend-grid";
+import './KvitteringExcel.less';
 const KvitteringExcel = () => {
   return (
-    <InnloggetSide>
+    <Container className="kvittering-excel">
       <MottattSoknad nySoknadLink="/nettrefusjon/excel"/>
-    </InnloggetSide>
+    </Container>
   );
 };
 export default KvitteringExcel;
