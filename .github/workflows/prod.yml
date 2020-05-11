@@ -1,9 +1,9 @@
-name: Bygg og deploy master
+name: Deploy til prod
 
 on:
   push:
     tags:
-      - prod/*
+      - 'prod/**'
 
 env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/sporenstreks-frontend:${{ github.sha }}
