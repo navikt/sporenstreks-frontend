@@ -21,7 +21,7 @@ export default (arbeidsgiverId: string, validerteAnsatte: Ansatt[], setLoadingSt
   }).then(response => {
     setLoadingStatus(response.status)
     if (response.status === 401) {
-      return validerteAnsatte;
+      window.location.href = env.loginServiceUrl;
     } else if (response.status === 200) {
       return response.json().then(data =>
         mergeAnsattlister(validerteAnsatte, berikAnsatte(filtrerteAnsatte, data))

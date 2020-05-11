@@ -156,6 +156,6 @@ describe('Innsending', () => {
 
     await Innsending('arbeidsgiverId', input, jest.fn());
 
-    expect(window.location.href).toEqual(mockUrl);
+    expect(window.location.href).toEqual(mockServer + "/loginServer");
   })
 })

@@ -1,13 +1,10 @@
 import React from 'react';
-import { Redirect, useLocation } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
-const Redirecter = () => {
-  const location: any = useLocation();
-  if(location && location.search.includes('refresh=true')) {
-    return <Redirect to={`/loginFornyet`} />
+class Redirecter extends React.Component {
+  render() {
+    return <Redirect to='/bulk/' />
   }
-  const params = location && location.search ? location.search : '';
-  return <Redirect to={`/bulk/${params}`} />
 }
 
-export default Redirecter;
+export default (Redirecter);
