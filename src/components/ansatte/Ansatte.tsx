@@ -13,15 +13,15 @@ import {History} from 'history';
 import {Link, useHistory} from "react-router-dom";
 import {byggAnsatt, Ansatt} from "../../data/types/sporenstreksTypes";
 import Advarsler from "./Advarsler";
+import RefreshToken from './RefreshToken';
 import { Column, Row } from "nav-frontend-grid";
 import Panel from "nav-frontend-paneler";
 import Skillelinje from "./Skillelinje";
 import {Normaltekst, Undertittel} from "nav-frontend-typografi";
-import LoggetUtAdvarsel from './LoggetUtAdvarsel';
 import Lenke from "nav-frontend-lenker";
 
 const Ansatte = () => {
-  const {ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, loadingStatus, setLoadingStatus } = useAppStore();
+  const {ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, setLoadingStatus } = useAppStore();
   const history: History = useHistory();
   const [ erklæringAkseptert, setErklæringAkseptert ] = useState<boolean>(false);
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
@@ -95,7 +95,7 @@ const Ansatte = () => {
           </Column>
         </Row>
       </form>
-      { loadingStatus === 401 && <LoggetUtAdvarsel/>}
+      <RefreshToken/>
     </div>
   );
 };
