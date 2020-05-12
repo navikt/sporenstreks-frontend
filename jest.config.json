@@ -1,5 +1,9 @@
 {
-  "testPathIgnorePatterns" : [
-  ],
-  "coveragePathIgnorePatterns": ["KvitteringExcel.tsx"]
+  "coveragePathIgnorePatterns": [
+    "index.tsx",
+    "App.tsx",
+    "serviceWorker.tsx",
+    "KvitteringExcel.tsx",
+    "SykepengerBulk.tsx",
+  ]
 }
