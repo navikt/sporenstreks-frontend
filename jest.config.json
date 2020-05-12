@@ -1,0 +1,5 @@
+{
+  "testPathIgnorePatterns" : [
+  ],
+  "coveragePathIgnorePatterns": ["KvitteringExcel.tsx"]
+}
