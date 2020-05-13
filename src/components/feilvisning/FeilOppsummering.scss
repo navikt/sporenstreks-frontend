@@ -1,4 +1,4 @@
-@import '../../../node_modules/nav-frontend-core/less/_variabler';
+@import '../../variabler.scss';
 
 .feiloppsummering {
     margin: 2rem 0;
@@ -10,16 +10,16 @@
     animation-fill-mode: forwards;
     animation-duration: .25s;
     animation-delay: .3s;
-    background-color: @white;
+    background-color: $white;
 
     &:focus {
         outline: 0;
-        box-shadow: 0 0 0 3px @fokusFarge;
+        box-shadow: 0 0 0 3px $fokusFarge;
     }
 
     a:focus {
-        color: @navMorkGra;
-        background-color: @fokusFarge;
+        color: $navMorkGra;
+        background-color: $fokusFarge;
     }
 }
 

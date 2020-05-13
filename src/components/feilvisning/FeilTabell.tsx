@@ -2,7 +2,7 @@ import React from "react";
 import {Knapp} from "nav-frontend-knapper";
 import {Ingress} from "nav-frontend-typografi";
 import Vis from "../Vis";
-import './FeilTabell.less';
+import './FeilTabell.scss';
 
 interface feilTabellProps {
   feil : tabellFeil[]

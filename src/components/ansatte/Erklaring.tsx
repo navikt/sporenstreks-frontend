@@ -1,6 +1,6 @@
 import React from "react";
 import { Checkbox } from 'nav-frontend-skjema';
-import './Erklaring.less';
+import './Erklaring.scss';
 
 interface erklaringProps {
   value: boolean

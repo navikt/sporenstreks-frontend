@@ -1,5 +1,5 @@
 import React, { FormEvent } from 'react';
-import './Ansatte.less';
+import './Ansatte.scss';
 import { Dager } from "./Dager";
 import { Refusjon } from "./Refusjon";
 import { Fnr } from "./Fnr";

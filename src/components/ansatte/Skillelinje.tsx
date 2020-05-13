@@ -1,5 +1,5 @@
 import React from "react";
-import './Skillelinje.less';
+import './Skillelinje.scss';
 
 const Skillelinje = () => {
   return (

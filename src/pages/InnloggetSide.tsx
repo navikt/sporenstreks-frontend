@@ -9,7 +9,7 @@ import {useTranslation} from "react-i18next";
 import {History} from "history";
 import TimeoutAdvarsel from "../components/ansatte/TimeoutAdvarsel";
 import {Container, Row, Column} from "nav-frontend-grid";
-import './InnloggetSide.less';
+import './InnloggetSide.scss';
 
 interface SideProps {
   children: React.ReactNode,

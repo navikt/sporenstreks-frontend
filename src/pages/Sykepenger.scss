@@ -1,5 +1,4 @@
-@import '../../node_modules/nav-frontend-core/less/core';
-@import '../../src/basic';
+@import '../variabler.scss';
 
 .sykepenger {
   &--alertstripe {
@@ -33,12 +32,12 @@
   }
 
   .bedriftsmeny__inner {
-    max-width: @desktopLimitWidth;
+    max-width: $desktopLimitWidth;
   }
 
   .container {
 
-    border-bottom: 1px solid @navMorkGra;
+    border-bottom: 1px solid $navMorkGra;
     padding: 1rem 0 2rem;
 
     &:nth-child(4) {
@@ -53,7 +52,7 @@
   }
   .skjemaelement__feilmelding {
     margin-top: 0.5rem;
-    color: @redError;
+    color: $redError;
     font-weight: bold;
     font-style: italic;
     overflow: hidden;
@@ -84,11 +83,11 @@
     text-decoration: underline;
     background: none;
     border: 0;
-    color: @navBla;
+    color: $navBla;
     text-align: center;
 
     &:focus {
-      color: @white;
+      color: $white;
     }
   }
 }

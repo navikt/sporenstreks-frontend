@@ -1,10 +1,10 @@
-@import '../../../node_modules/nav-frontend-core/less/_variabler';
+@import '../../variabler.scss';
 
-@media (max-width: @screen-lg) {
+@media (max-width: $screen-lg) {
   /* Mobil */
   .ansatte {
     .AnsattRad {
-      border: 1px solid @navGra60;
+      border: 1px solid $navGra60;
       margin-bottom: 1rem;
       padding: 1rem;
       .col{
@@ -14,7 +14,7 @@
   }
 }
 
-@media (min-width: @screen-lg) {
+@media (min-width: $screen-lg) {
   /* Desktop */
   .ansatte {
     .AnsattRad ~ .AnsattRad {

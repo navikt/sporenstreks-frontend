@@ -1,9 +1,9 @@
-@import '../../../node_modules/nav-frontend-core/less/_variabler';
+@import '../../variabler.scss';
 
 .slettknapp {
   white-space: nowrap;
   >svg {
-    fill: @redError;
+    fill: $redError;
     stroke: transparent;
     height: 1.5em;
     width: 1.5em;

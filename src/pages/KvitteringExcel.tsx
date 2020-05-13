@@ -1,7 +1,7 @@
 import React from 'react';
 import {MottattSoknad} from "../components/kvittering/MottattSoknad";
 import {Container} from "nav-frontend-grid";
-import './KvitteringExcel.less';
+import './KvitteringExcel.scss';
 const KvitteringExcel = () => {
   return (
     <Container className="kvittering-excel">

@@ -1,4 +1,4 @@
-@import '../../../node_modules/nav-frontend-core/less/_variabler';
+@import '../../variabler.scss';
 
 .periodeliste {
   list-style: none;
@@ -6,7 +6,7 @@
   margin: 1rem 0;
 
   .periode {
-    border: 1px solid @navGra40;
+    border: 1px solid $navGra40;
     border-radius: 4px;
     padding: 0.5rem;
 
@@ -27,11 +27,11 @@
     }
 
     .input {
-      border: 1px solid @navGra60;
+      border: 1px solid $navGra60;
 
       &:focus {
         outline: 0;
-        box-shadow: 0 0 0 3px @fokusFarge;
+        box-shadow: 0 0 0 3px $fokusFarge;
       }
     }
 
@@ -51,10 +51,10 @@
   text-decoration: underline;
   background: none;
   border: 0;
-  color: @navBla;
+  color: $navBla;
 
   &:focus {
-    color: @white;
+    color: $white;
   }
 }
 

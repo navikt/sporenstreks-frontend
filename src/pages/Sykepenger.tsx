@@ -20,7 +20,7 @@ import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { History } from 'history';
 import Vis from '../components/Vis';
 import env from '../util/environment';
-import './Sykepenger.less';
+import './Sykepenger.scss';
 import Lenke from "nav-frontend-lenker";
 import ModalWrapper from 'nav-frontend-modal';
 import Eksempel from '../components/Eksempel';

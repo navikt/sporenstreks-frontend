@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ModalWrapper from 'nav-frontend-modal';
 import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
 import { Innholdstittel, Undertittel } from "nav-frontend-typografi";
-import './TimeoutAdvarsel.less';
+import './TimeoutAdvarsel.scss';
 import Lenke from "nav-frontend-lenker";
 
 const TimeoutAdvarsel = () => {

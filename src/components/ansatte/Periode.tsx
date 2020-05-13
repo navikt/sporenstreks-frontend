@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import Flatpickr from 'react-flatpickr';
 import { Norwegian } from 'flatpickr/dist/l10n/no.js';
 import { AnsattID } from "../../data/types/sporenstreksTypes";
-import "./Periode.less";
+import "./Periode.scss";
 import { Label, SkjemaelementFeilmelding } from "nav-frontend-skjema";
 import { HjelpetekstPeriode } from "./HjelpetekstPeriode";
 import { validatePerioder } from '../validering/validatePerioder';

@@ -4,7 +4,7 @@ import {Ingress, Innholdstittel, Normaltekst} from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import {useAppStore} from '../data/store/AppStore';
 import {Link} from 'react-router-dom';
-import './Kvittering.less';
+import './Kvittering.scss';
 import Lenke from "nav-frontend-lenker";
 
 const Kvittering = () => {

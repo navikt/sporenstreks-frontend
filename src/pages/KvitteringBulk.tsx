@@ -3,7 +3,7 @@ import {AlertStripeInfo} from 'nav-frontend-alertstriper';
 import {Innholdstittel, Normaltekst} from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import {Link, useHistory} from 'react-router-dom';
-import './Kvittering.less';
+import './Kvittering.scss';
 import Lenke from "nav-frontend-lenker";
 import Vis from "../components/Vis";
 import Bedriftsmeny from "@navikt/bedriftsmeny";

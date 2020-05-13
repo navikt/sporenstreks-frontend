@@ -4,7 +4,7 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import Periode from './periode/Periode';
 import Antall from './antall/Antall';
 import Beloep from './beloep/Beloep';
-import './Flatpickr.less';
+import './Flatpickr.scss';
 
 interface PeriodeKompProps {
   index: number;

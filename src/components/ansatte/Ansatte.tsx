@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Ansatte.less';
+import './Ansatte.scss';
 import { useAppStore } from '../../data/store/AppStore';
 import { AnsattRad } from "./AnsattRad";
 import { Validering } from "../validering/Validering";

@@ -5,7 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import './app.less';
+import './index.css';
 import env from './util/environment';
 
 ReactDOM.render(

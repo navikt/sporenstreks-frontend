@@ -1,5 +1,5 @@
-@import '../../node_modules/nav-frontend-core/less/core';
-@import '../../src/basic';
+//@import '../../node_modules/nav-frontend-core/less/core';
+//@import '../../src/basic';
 
 .excelopplasting {
   &--alertstripe {
@@ -33,19 +33,18 @@
     pointer-events:none
   }
 
-  @media (min-width: @screen-md) {
-    .filknapp {
-      width: auto;
-    }
-  }
-
-  .advarsel {
-    color: @redError;
-    font-style: italic;
-  }
+  //@media (min-width: @screen-md) {
+  //  .filknapp {
+  //    width: auto;
+  //  }
+  //}
+  //
+  //.advarsel {
+  //  color: @redError;
+  //  font-style: italic;
+  //}
 
   hr {
     margin: 2rem 0;
   }
 }
-

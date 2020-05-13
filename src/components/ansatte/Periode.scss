@@ -1,0 +1,6 @@
+@import '../../variabler.scss';
+
+.skjemaelement.dato-har-feil > input {
+    border-color: $redError;
+    box-shadow: 0 0 0 1px $redError;
+}

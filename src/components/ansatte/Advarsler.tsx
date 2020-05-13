@@ -1,6 +1,6 @@
 import { Feilmelding } from "nav-frontend-typografi";
 import React from "react";
-import './Advarsler.less';
+import './Advarsler.scss';
 
 interface advarslerProps {
   erklæringAkseptert: boolean
