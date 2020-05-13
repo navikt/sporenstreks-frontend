@@ -22,10 +22,10 @@ const TimeoutAdvarsel = () => {
       <AlertStripeAdvarsel className="timeout-advarsel__innhold">
         <Innholdstittel>Du blir automatisk logget ut etter én time</Innholdstittel>
         <ul>
-          <li>Én time etter at du logget inn hos NAV, blir du automatisk logget ut.</li>
+          <li><strong>Denne innloggingen utløper kl: <TokenUtloper/></strong></li>
           <li>Tjenesten mellomlagrer dessverre ikke det du skriver.</li>
-          <li>Bli ferdig med skjema senest en time innen du logget inn.</li>
-          <li>Er du i tvil - logg ut og inn igjen for å ha lengst mulig tid til utfylling.</li>
+          <li>Gjør deg ferdig med det du holder på med innen timen er gått.</li>
+          <li>Del eventuelt opp det du skal gjøre i mindre bolker, og logg inn på nytt for å bli ferdig med alle.</li>
         </ul>
         <Lenke className={""} href="#" onClick={() => setOpen(false)}>Lukk</Lenke>
       </AlertStripeAdvarsel>

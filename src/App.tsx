@@ -12,6 +12,7 @@ import SykepengerBulk from './pages/SykepengerBulk';
 import ExcelOpplasting from "./pages/ExcelOpplasting";
 import KvitteringExcel from "./pages/KvitteringExcel";
 import KvitteringBulk from "./pages/KvitteringBulk";
+import LoginFornyet from './components/loginFornyet/LoginFornyet';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
               <Route path="/excel" render={() => <ExcelOpplasting />} />
               <Route path="/kvitteringExcel" render={() => <KvitteringExcel />} />
               <Route path="/kvitteringBulk" render={() => <KvitteringBulk />} />
+              <Route path="/loginFornyet" render={() => <LoginFornyet />} />
               <Route path="/" render={() => <Redirecter />} />
             </Switch>
           </I18nextProvider>

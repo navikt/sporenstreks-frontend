@@ -19,6 +19,7 @@ import Panel from "nav-frontend-paneler";
 import Skillelinje from "./Skillelinje";
 import {Normaltekst, Undertittel} from "nav-frontend-typografi";
 import Lenke from "nav-frontend-lenker";
+import LoggetUtAdvarsel from './LoggetUtAdvarsel';
 
 const Ansatte = () => {
   const {ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, loadingStatus, setLoadingStatus, setTokenExpired } = useAppStore();
@@ -95,9 +96,7 @@ const Ansatte = () => {
           </Column>
         </Row>
       </form>
-
       <LoggetUtAdvarsel/>
-
     </div>
   );
 };
