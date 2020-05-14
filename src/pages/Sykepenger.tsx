@@ -10,7 +10,7 @@ import { Keys } from '../locales/keys';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import fnrvalidator from '@navikt/fnrvalidator';
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
+import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import Perioder from '../components/perioder/Perioder';
 import { filterStringToNumbersOnly } from '../util/filterStringToNumbersOnly';
 import { identityNumberSeparation } from '../util/identityNumberSeparation';

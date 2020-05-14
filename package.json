@@ -26,7 +26,7 @@
     ]
   },
   "dependencies": {
-    "@navikt/bedriftsmeny": "^2.0.6",
+    "@navikt/bedriftsmeny": "^2.1.0",
     "@navikt/fnrvalidator": "^1.1.2",
     "@testing-library/jest-dom": "^5.5.0",
     "@testing-library/react": "^10.0.3",
