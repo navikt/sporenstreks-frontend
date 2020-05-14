@@ -21,14 +21,13 @@ import { History } from 'history';
 import Vis from '../components/Vis';
 import env from '../util/environment';
 import './Sykepenger.less';
-import Lenke from "nav-frontend-lenker";
+import Lenke from 'nav-frontend-lenker';
 import ModalWrapper from 'nav-frontend-modal';
 import Eksempel from '../components/Eksempel';
 import formToJSON from '../util/formToJSON';
 import convertSkjemaToRefusjonsKrav from '../util/convertSkjemaToRefusjonsKrav';
 import { Erklaring } from '../components/ansatte/Erklaring';
-import Panel from "nav-frontend-paneler";
-import {Container} from "nav-frontend-grid";
+import { Container } from 'nav-frontend-grid';
 
 const fnrErrorState = {
   hasError: '',
@@ -178,8 +177,8 @@ const Sykepenger = () => {
           organisasjoner={arbeidsgivere}
         />
 
-        <div className="limit"  style={{padding: "2rem 0rem 1rem 0rem"}}>
-          <a href="/" className="lenke informasjonsboks__lenke" style={{paddingLeft: "1rem"}}>&lt;&lt;Tilbake</a>
+        <div className="limit"  style={{padding: '2rem 0rem 1rem 0rem'}}>
+          <Lenke href="/min-side-arbeidsgiver/" style={{paddingLeft: '1rem'}}>&lt;&lt; Min side arbeidsgiver</Lenke>
         </div>
 
         <div className="limit skjemabakgrunn">
