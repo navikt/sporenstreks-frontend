@@ -1,11 +1,11 @@
 import env from "../../util/environment";
 
-export interface HentInnggingUtløpInterface {
+export interface HentInnloggingUtlopInterface {
   status: number,
   utcDTstring: string
 }
 
-const hentInnloggingUtløp = (): Promise<HentInnggingUtløpInterface> => {
+const hentInnloggingUtlop = (): Promise<HentInnloggingUtlopInterface> => {
   return fetch(env.baseUrl + '/api/v1/login-expiry', {
     headers: {
       'Accept': 'application/json',
@@ -29,4 +29,4 @@ const hentInnloggingUtløp = (): Promise<HentInnggingUtløpInterface> => {
   });
 }
 
-export default hentInnloggingUtløp;
+export default hentInnloggingUtlop;

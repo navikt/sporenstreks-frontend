@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
-import hentInnloggingUtløp, {HentInnggingUtløpInterface} from './hentInnloggingUtlop';
+import hentInnloggingUtlop, {HentInnloggingUtlopInterface} from './hentInnloggingUtlop';
 
 const TokenUtloper = () => {
   const [utloper, setUtloper] = useState<string>('');
 
   useEffect(() => {
     const fetchData = async () => {
-      const innloggingUtloperTid: HentInnggingUtløpInterface = await hentInnloggingUtløp();
+      const innloggingUtloperTid: HentInnloggingUtlopInterface = await hentInnloggingUtlop();
 
       if(!innloggingUtloperTid || innloggingUtloperTid.status !== 200) {
         setUtloper('');
