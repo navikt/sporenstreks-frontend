@@ -18,6 +18,8 @@ export const [ AppStoreProvider, useAppStore ] = constate(() => {
   const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
   const [ loadingStatus, setLoadingStatus ] = useState<number>(-1);
 
+  const [ tokenExpired, setTokenExpired ] = useState<boolean>(false);
+
   return {
     unleash, setUnleash,
     firma, setFirma,
@@ -28,6 +30,7 @@ export const [ AppStoreProvider, useAppStore ] = constate(() => {
     identityNumberInput, setIdentityNumberInput,
     feil, setFeil,
     arbeidsgiverId, setArbeidsgiverId,
-    loadingStatus, setLoadingStatus
+    loadingStatus, setLoadingStatus,
+    tokenExpired, setTokenExpired
   };
 });
