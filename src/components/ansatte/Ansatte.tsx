@@ -13,7 +13,6 @@ import {History} from 'history';
 import {Link, useHistory} from "react-router-dom";
 import {byggAnsatt, Ansatt} from "../../data/types/sporenstreksTypes";
 import Advarsler from "./Advarsler";
-import RefreshToken from './RefreshToken';
 import { Column, Row } from "nav-frontend-grid";
 import Panel from "nav-frontend-paneler";
 import Skillelinje from "./Skillelinje";
@@ -25,10 +24,12 @@ const Ansatte = () => {
   const {ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, loadingStatus, setLoadingStatus, setTokenExpired } = useAppStore();
   const history: History = useHistory();
   const [ erklæringAkseptert, setErklæringAkseptert ] = useState<boolean>(false);
+  const [ harTrykketSubmitMinstEnGang, setHarTrykketSubmitMinstEnGang ] = useState<boolean>(false);
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     const validerteAnsatte = Validering(ansatte);
     const innsendteAnsatte = await Innsending(arbeidsgiverId, validerteAnsatte, setLoadingStatus, setTokenExpired);
+    setHarTrykketSubmitMinstEnGang(true);
     setFeil(
       ByggValideringsFeil(innsendteAnsatte)
     );
@@ -38,6 +39,10 @@ const Ansatte = () => {
       history.push('/kvitteringBulk')
     }
   };
+
+  const handleBekreftKlikk = (e: React.FormEvent) => {
+    setHarTrykketSubmitMinstEnGang(true);
+  }
 
   return (
     <div className="ansatte">
@@ -90,8 +95,8 @@ const Ansatte = () => {
         <Row>
           <Column>
             <Panel>
-              <BekreftKnapp onSubmit={handleSubmit} erklæringAkseptert={erklæringAkseptert} />
-              <Advarsler erklæringAkseptert={erklæringAkseptert} harFeil={feil.length > 0}/>
+              <BekreftKnapp onSubmit={handleSubmit} onClick={handleBekreftKlikk} erklæringAkseptert={erklæringAkseptert} />
+              <Advarsler erklæringAkseptert={erklæringAkseptert} harFeil={feil.length > 0} visFeil={harTrykketSubmitMinstEnGang}/>
             </Panel>
           </Column>
         </Row>
