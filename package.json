@@ -5,13 +5,14 @@
   "homepage": "/nettrefusjon/",
   "proxy": "http://localhost:8080",
   "scripts": {
-    "start:js": "react-scripts start",
+    "start:js": "react-scripts start --development",
     "build:js": "react-scripts build",
     "start:css": "less-watch-compiler --config less.json",
     "build:css": "less-watch-compiler --run-once --config less.json",
     "start": "npm-run-all -p start:*",
     "build": "npm run build:css && npm run build:js",
-    "test": "react-scripts test --env=jsdom"
+    "test": "react-scripts test --color --watchAll=false --coverage --env=jest-environment-jsdom-sixteen",
+    "lint": "eslint src/**/*.ts*"
   },
   "browserslist": {
     "production": [
@@ -46,6 +47,7 @@
     "dayjs": "^1.8.27",
     "env-cmd": "^10.1.0",
     "i18next": "^19.4.4",
+    "jest-environment-jsdom-sixteen": "^1.0.3",
     "jwt-decode": "^2.2.0",
     "kind-of": "^6.0.3",
     "less": "^3.11.1",
@@ -99,6 +101,7 @@
     "react-number-format": "^4.4.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "timezone-mock": "^1.1.0",
     "typescript": "^3.9.2",
     "use-force-update": "^1.0.7",
     "uuid": "^7.0.3",
