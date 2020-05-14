@@ -1,8 +1,7 @@
 import React from 'react';
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import {Innholdstittel, Normaltekst} from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
-import '../../pages/Kvittering.less';
-import { Row, Container } from "nav-frontend-grid";
+import {Container, Row} from "nav-frontend-grid";
 import TokenUtloper from '../ansatte/TokenUtloper';
 
 export const LoginFornyet = () => (

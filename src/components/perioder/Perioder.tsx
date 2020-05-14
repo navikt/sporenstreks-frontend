@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import useForceUpdate from 'use-force-update';
 import PeriodeKomp from './PeriodeKomp';
-import './Perioder.less';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 
 interface PerioderProps {

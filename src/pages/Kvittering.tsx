@@ -1,10 +1,8 @@
 import React from 'react';
 import {AlertStripeInfo} from 'nav-frontend-alertstriper';
-import {Ingress, Innholdstittel, Normaltekst} from 'nav-frontend-typografi';
+import {Innholdstittel, Normaltekst} from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
-import {useAppStore} from '../data/store/AppStore';
 import {Link} from 'react-router-dom';
-import './Kvittering.less';
 import Lenke from "nav-frontend-lenker";
 
 const Kvittering = () => {

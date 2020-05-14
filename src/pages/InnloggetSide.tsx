@@ -1,15 +1,14 @@
-import { useAppStore } from '../data/store/AppStore';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
-import { Link, useHistory } from 'react-router-dom';
+import {useAppStore} from '../data/store/AppStore';
+import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
+import {Link, useHistory} from 'react-router-dom';
 import React from 'react';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
-import { Keys } from '../locales/keys';
-import { useTranslation } from 'react-i18next';
-import { History } from 'history';
+import {Organisasjon} from '@navikt/bedriftsmeny/lib/organisasjon';
+import {Keys} from '../locales/keys';
+import {useTranslation} from 'react-i18next';
+import {History} from 'history';
 import TimeoutAdvarsel from '../components/ansatte/TimeoutAdvarsel';
-import { Container, Row, Column } from 'nav-frontend-grid';
-import './InnloggetSide.less';
+import {Column, Container, Row} from 'nav-frontend-grid';
 import Lenke from 'nav-frontend-lenker';
 
 interface SideProps {
