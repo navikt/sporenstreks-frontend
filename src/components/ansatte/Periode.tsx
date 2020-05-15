@@ -42,7 +42,7 @@ const Periode = (props: AnsattID) => {
   return (<div className={`skjemaelement ${errorClass}`}>
     <Label htmlFor={'periode'}>
       <div style={{ display: 'flex' }}>
-        Periode
+        Hvilken periode var den ansatte borte?
         <HjelpetekstPeriode/>
       </div>
     </Label>
