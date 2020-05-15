@@ -4,10 +4,15 @@ import './Advarsler.less';
 
 interface advarslerProps {
   erklæringAkseptert: boolean
-  harFeil: boolean
+  harFeil: boolean,
+  visFeil: boolean
 }
 
-const Advarsler = ({erklæringAkseptert, harFeil} : advarslerProps) => {
+const Advarsler = ({erklæringAkseptert, harFeil, visFeil} : advarslerProps) => {
+  if (!visFeil) {
+    return null;
+  }
+
   return (
     <div className="advarsler">
       {harFeil &&
