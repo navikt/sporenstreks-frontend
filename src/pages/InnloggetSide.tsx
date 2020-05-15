@@ -3,7 +3,7 @@ import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Link, useHistory } from 'react-router-dom';
 import React from 'react';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
+import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import { Keys } from '../locales/keys';
 import { useTranslation } from 'react-i18next';
 import { History } from 'history';
