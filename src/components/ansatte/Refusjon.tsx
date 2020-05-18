@@ -25,7 +25,7 @@ export const Refusjon = (props: AnsattID) => {
         bredde={"S"}
         label={
           <div style={{display: 'flex'}}>
-            Beløp
+            Beløp:
             <HjelpetekstRefusjon/>
           </div>}
         placeholder="Beløp"

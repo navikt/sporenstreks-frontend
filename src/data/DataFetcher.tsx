@@ -4,8 +4,8 @@ import useFetch from './rest/use-fetch';
 import {FetchState, hasAny401, hasAnyFailed, hasData, isAnyNotStartedOrPending, isNotStarted} from './rest/utils';
 import {useAppStore} from './store/AppStore';
 import IngenData from '../pages/IngenData';
-import {Organisasjon} from '@navikt/bedriftsmeny/lib/organisasjon';
-import {convertResponseDataToOrganisasjon} from './convertResponse';
+import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
+import { convertResponseDataToOrganisasjon } from './convertResponse';
 import env from '../util/environment';
 
 export function DataFetcher(props: { children: any }) {

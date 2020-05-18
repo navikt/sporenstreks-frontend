@@ -1,4 +1,4 @@
-import {Organisasjon} from '@navikt/bedriftsmeny/lib/organisasjon';
+import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 
 export const convertResponseDataToOrganisasjon = (data): Organisasjon[] => data.map(organisasjon => ({
   Name: organisasjon.name,

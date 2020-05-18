@@ -10,14 +10,14 @@ import {BekreftKnapp} from './BekreftKnapp';
 import {Erklaring} from './Erklaring';
 import {ValideringOppsummering} from './ValideringOppsummering';
 import {History} from 'history';
-import {useHistory} from 'react-router-dom';
-import {Ansatt, byggAnsatt} from '../../data/types/sporenstreksTypes';
-import Advarsler from './Advarsler';
-import {Column, Row} from 'nav-frontend-grid';
-import Panel from 'nav-frontend-paneler';
-import Skillelinje from './Skillelinje';
-import {Normaltekst, Undertittel} from 'nav-frontend-typografi';
-import Lenke from 'nav-frontend-lenker';
+import {Link, useHistory} from "react-router-dom";
+import {byggAnsatt, Ansatt} from "../../data/types/sporenstreksTypes";
+import Advarsler from "./Advarsler";
+import { Column, Row } from "nav-frontend-grid";
+import Panel from "nav-frontend-paneler";
+import Skillelinje from "./Skillelinje";
+import {Normaltekst, Undertittel} from "nav-frontend-typografi";
+import Lenke from "nav-frontend-lenker";
 import LoggetUtAdvarsel from './LoggetUtAdvarsel';
 
 const Ansatte = () => {

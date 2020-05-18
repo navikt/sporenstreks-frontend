@@ -1,17 +1,16 @@
 import React from 'react';
-import {AlertStripeInfo} from 'nav-frontend-alertstriper';
-import {Innholdstittel, Normaltekst} from 'nav-frontend-typografi';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
-import {Link, useHistory} from 'react-router-dom';
-import './Kvittering.less';
+import { Link, useHistory } from 'react-router-dom';
 import Lenke from 'nav-frontend-lenker';
 import Vis from '../components/Vis';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
-import {Organisasjon} from '@navikt/bedriftsmeny/lib/organisasjon';
-import {Keys} from '../locales/keys';
-import {useAppStore} from '../data/store/AppStore';
-import {History} from 'history';
-import {useTranslation} from 'react-i18next';
+import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
+import { Keys } from '../locales/keys';
+import { useAppStore } from '../data/store/AppStore';
+import { History } from 'history';
+import { useTranslation } from 'react-i18next';
 
 const KvitteringBulk = () => {
   const { arbeidsgivere, setArbeidsgiverId } = useAppStore();

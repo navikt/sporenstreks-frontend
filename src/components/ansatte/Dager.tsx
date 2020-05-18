@@ -22,7 +22,7 @@ export const Dager = (props: AnsattID) => {
       onChange={handleChange}
       label={
         <div style={{display: 'flex'}}>
-          Antall dager
+          Antall dager:
           <HjelpetekstDager/>
         </div>}
       selected={a?.antallDagerMedRefusjon}>
