@@ -1,33 +1,32 @@
-import React, { useState, useRef } from 'react';
+import React, {useRef, useState} from 'react';
 import 'nav-frontend-tabell-style';
-import { Input } from 'nav-frontend-skjema';
-import { FormContext, useForm } from 'react-hook-form';
-import { Knapp } from 'nav-frontend-knapper';
-import { Link, useHistory } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
-import { Keys } from '../locales/keys';
+import {Input} from 'nav-frontend-skjema';
+import {FormContext, useForm} from 'react-hook-form';
+import {Knapp} from 'nav-frontend-knapper';
+import {Link, useHistory} from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
+import {Normaltekst, Undertekst, Undertittel} from 'nav-frontend-typografi';
+import {Keys} from '../locales/keys';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import fnrvalidator from '@navikt/fnrvalidator';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import Perioder from '../components/perioder/Perioder';
-import { filterStringToNumbersOnly } from '../util/filterStringToNumbersOnly';
-import { identityNumberSeparation } from '../util/identityNumberSeparation';
+import {filterStringToNumbersOnly} from '../util/filterStringToNumbersOnly';
+import {identityNumberSeparation} from '../util/identityNumberSeparation';
 import FeilOppsummering from '../components/feilvisning/FeilOppsummering';
-import { useAppStore } from '../data/store/AppStore';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
-import { History } from 'history';
+import {useAppStore} from '../data/store/AppStore';
+import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
+import {History} from 'history';
 import Vis from '../components/Vis';
 import env from '../util/environment';
-import './Sykepenger.less';
 import Lenke from 'nav-frontend-lenker';
 import ModalWrapper from 'nav-frontend-modal';
 import Eksempel from '../components/Eksempel';
 import formToJSON from '../util/formToJSON';
 import convertSkjemaToRefusjonsKrav from '../util/convertSkjemaToRefusjonsKrav';
-import { Erklaring } from '../components/ansatte/Erklaring';
-import { Container } from 'nav-frontend-grid';
+import {Erklaring} from '../components/ansatte/Erklaring';
+import {Container} from 'nav-frontend-grid';
 
 const fnrErrorState = {
   hasError: '',

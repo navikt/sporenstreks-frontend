@@ -1,14 +1,13 @@
-import React, { FormEvent } from 'react';
-import './Ansatte.less';
-import { Dager } from "./Dager";
-import { Refusjon } from "./Refusjon";
-import { Fnr } from "./Fnr";
+import React, {FormEvent} from 'react';
+import {Dager} from "./Dager";
+import {Refusjon} from "./Refusjon";
+import {Fnr} from "./Fnr";
 import Periode from "./Periode";
-import { useAppStore } from "../../data/store/AppStore";
-import { AnsattID, byggAnsatt, SkjemaStatus } from "../../data/types/sporenstreksTypes";
-import { ByggValideringsFeil } from "./ByggValideringsFeil";
+import {useAppStore} from "../../data/store/AppStore";
+import {AnsattID, byggAnsatt, SkjemaStatus} from "../../data/types/sporenstreksTypes";
+import {ByggValideringsFeil} from "./ByggValideringsFeil";
 import Slettknapp from './Slettknapp';
-import { Column, Row } from "nav-frontend-grid";
+import {Column, Row} from "nav-frontend-grid";
 import RadNr from "./RadNr";
 
 export const AnsattRad = ({ id }: AnsattID) => {

@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import ModalWrapper from 'nav-frontend-modal';
 import {AlertStripeFeil} from 'nav-frontend-alertstriper';
-import { Innholdstittel } from "nav-frontend-typografi";
-import './LoggetUtAdvarsel.less';
+import {Innholdstittel} from "nav-frontend-typografi";
 import Lenke from "nav-frontend-lenker";
-import { useAppStore } from "../../data/store/AppStore";
+import {useAppStore} from "../../data/store/AppStore";
 import env from '../../util/environment';
 
 const LoggetUtAdvarsel = () => {

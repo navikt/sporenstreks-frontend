@@ -3,10 +3,9 @@ import 'react-app-polyfill/stable';
 import * as serviceWorker from './serviceWorker';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 import App from './App';
-import './app.less';
-import env from './util/environment';
+import './index.css';
 
 ReactDOM.render(
   <BrowserRouter basename="nettrefusjon">
@@ -14,8 +13,5 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById('root') as HTMLElement
 );
-
-console.log(env.baseUrl); // eslint-disable-line
-console.log(env.loginServiceUrl); // eslint-disable-line
 
 serviceWorker.unregister();

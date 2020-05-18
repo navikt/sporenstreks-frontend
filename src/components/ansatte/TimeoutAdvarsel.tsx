@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import ModalWrapper from 'nav-frontend-modal';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
-import { Innholdstittel } from "nav-frontend-typografi";
-import './TimeoutAdvarsel.less';
+import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
+import {Innholdstittel} from "nav-frontend-typografi";
 import Lenke from "nav-frontend-lenker";
 import TokenUtloper from "./TokenUtloper";
 
