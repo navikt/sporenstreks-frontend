@@ -6,7 +6,7 @@
   "proxy": "http://localhost:8080",
   "scripts": {
     "start:js": "react-scripts start --development",
-    "build:js": "react-scripts build --no-audit",
+    "build:js": "react-scripts build",
     "start:css": "less-watch-compiler --config less.json",
     "build:css": "less-watch-compiler --run-once --config less.json",
     "start": "npm-run-all -p start:*",
