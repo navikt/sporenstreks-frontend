@@ -6,5 +6,5 @@ export const convertResponseDataToOrganisasjon = (data): Organisasjon[] => data.
   OrganizationNumber: organisasjon.organizationNumber,
   OrganizationForm: organisasjon.organizationForm,
   Status: organisasjon.status,
-  ParentOrganizationNumber: organisasjon.parentOrganizationNumber,
+  ParentOrganizationNumber: organisasjon.parentOrganizationNumber
 }));

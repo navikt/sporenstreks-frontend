@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface erklaringProps {
   value: boolean
@@ -15,7 +15,6 @@ export const Erklaring = ({ value, handleSetErklæring }: erklaringProps) => {
             className="skjemaelement__input checkboks"
             id="068968250-22063-09960-4345-94072797192842"
             aria-invalid="false"
-            name="erklaring-checkbox2"
             onChange={() => handleSetErklæring(!value)} />
           <label className="skjemaelement__label" htmlFor="068968250-22063-09960-4345-94072797192842"></label>
         </div>
@@ -25,7 +24,8 @@ export const Erklaring = ({ value, handleSetErklæring }: erklaringProps) => {
           <ul>
               <li>Det er ikke søkt om omsorgspenger i kombinasjon med 100 % sykefravær.</li>
               <li>Arbeidstakeren har ikke vært 100 % permittert i løpet av perioden som det søkes om refusjon for.</li>
-              <li>Kravet er basert på arbeidstakerens opplysninger om at arbeidstakeren enten er smittet av koronaviruset, mistenkt smittet eller i lovpålagt karantene.</li>
+              <li>Kravet er basert på arbeidstakerens opplysninger om at arbeidstakeren enten er smittet av
+                koronaviruset, mistenkt smittet eller i lovpålagt karantene.</li>
             </ul>
           Vær oppmerksom på at NAV kan foreta kontroller.
         </label>

@@ -9,6 +9,7 @@ import {useTranslation} from 'react-i18next';
 import {History} from 'history';
 import TimeoutAdvarsel from '../components/ansatte/TimeoutAdvarsel';
 import {Column, Container, Row} from 'nav-frontend-grid';
+import './InnloggetSide.less';
 import Lenke from 'nav-frontend-lenker';
 
 interface SideProps {
