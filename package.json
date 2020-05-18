@@ -6,11 +6,12 @@
   "proxy": "http://localhost:8080",
   "scripts": {
     "start:js": "react-scripts start --development",
-    "build:js": "react-scripts build",
+    "build:js": "react-scripts build --no-audit",
     "start:css": "less-watch-compiler --config less.json",
     "build:css": "less-watch-compiler --run-once --config less.json",
     "start": "npm-run-all -p start:*",
     "build": "npm run build:css && npm run build:js",
+    "install": "npm run-script build",
     "test": "react-scripts test --color --watchAll=false --coverage --env=jest-environment-jsdom-sixteen",
     "lint": "eslint src/**/*.ts*"
   },
@@ -82,7 +83,7 @@
     "nav-frontend-veileder": "^2.0.16",
     "nav-frontend-veileder-style": "^2.0.13",
     "nav-frontend-veilederpanel": "^0.1.23",
-    "nav-frontend-veilederpanel-style": "0.0.25",
+    "nav-frontend-veilederpanel-style": "0.0.27",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
@@ -106,7 +107,6 @@
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^3.0.0",
-    "less": "^3.5.2",
     "less-plugin-npm-import": "^2.1.0",
     "less-watch-compiler": "^1.11.3",
     "npm-run-all": "^4.0.2"
