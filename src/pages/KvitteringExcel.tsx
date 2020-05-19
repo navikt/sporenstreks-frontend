@@ -1,12 +1,6 @@
 import React from 'react';
-import {MottattSoknad} from "../components/kvittering/MottattSoknad";
-import {Container} from "nav-frontend-grid";
+import { MottattSoknad } from "../components/kvittering/MottattSoknad";
 
-const KvitteringExcel = () => {
-  return (
-    <Container className="kvittering-excel">
-      <MottattSoknad nySoknadLink="/nettrefusjon/excel"/>
-    </Container>
-  );
-};
+const KvitteringExcel = () => <MottattSoknad nySoknadLink="/nettrefusjon/excel"/>
+
 export default KvitteringExcel;
