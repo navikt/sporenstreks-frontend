@@ -1,9 +1,8 @@
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
-import * as serviceWorker from './serviceWorker';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter} from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './index.css';
 
@@ -13,5 +12,3 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById('root') as HTMLElement
 );
-
-serviceWorker.unregister();
