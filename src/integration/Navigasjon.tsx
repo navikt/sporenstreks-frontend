@@ -2,7 +2,10 @@ import React from 'react'
 
 describe('App', () => {
 
-  it('skal vise default', () => {
+  it('skal redirectes til default siden', () => {
+  })
+
+  it('skal redirectes til LoginFornyet dersom refresh=true', () => {
   })
 
   it('skal vise Sykepenger', () => {
@@ -18,7 +21,6 @@ describe('App', () => {
 
   it('skal vise KvitteringExcel', () => {
   })
-
   it('skal vise KvitteringBulk', () => {
   })
 
