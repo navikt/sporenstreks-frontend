@@ -23,7 +23,7 @@ describe('Skjema: Bulk', () => {
   it('skal ikke kunne trykke HovedKnapp når feilmeldinger vises', () => {
   })
 
-  it('skal håndtere token expired', () => {
+  it('skal håndtere unauthorized', () => {
   })
 
   it('skal håndtere timeout ved innsending', () => {
