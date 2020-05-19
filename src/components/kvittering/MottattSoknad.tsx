@@ -3,14 +3,15 @@ import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import Lenke from "nav-frontend-lenker";
-import { Container, Row } from "nav-frontend-grid";
+import { Row } from "nav-frontend-grid";
+import InnloggetSide from '../../pages/InnloggetSide';
 
 interface MottattSoknadProps {
   nySoknadLink: string,
 }
 
 export const MottattSoknad = ({ nySoknadLink } : MottattSoknadProps) => (
-  <Container>
+  <InnloggetSide>
     <Row>
       <Panel>
         <Innholdstittel>Søknaden er mottatt.</Innholdstittel>
@@ -54,5 +55,5 @@ export const MottattSoknad = ({ nySoknadLink } : MottattSoknadProps) => (
         </Normaltekst>
       </Panel>
     </Row>
-  </Container>
+  </InnloggetSide>
 )
