@@ -1,21 +1,20 @@
-import {useAppStore} from "../data/store/AppStore";
-import {AlertStripeAdvarsel} from "nav-frontend-alertstriper";
-import {Link, useHistory} from "react-router-dom";
-import React from "react";
-import Bedriftsmeny from "@navikt/bedriftsmeny";
-import {Organisasjon} from "@navikt/bedriftsmeny/lib/Organisasjon";
-import {Keys} from "../locales/keys";
-import {useTranslation} from "react-i18next";
-import {History} from "history";
-import TimeoutAdvarsel from "../components/ansatte/TimeoutAdvarsel";
-import {Container, Row, Column} from "nav-frontend-grid";
+import {useAppStore} from '../data/store/AppStore';
+import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
+import {Link, useHistory} from 'react-router-dom';
+import React from 'react';
+import Bedriftsmeny from '@navikt/bedriftsmeny';
+import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
+import { Keys } from '../locales/keys';
+import { useTranslation } from 'react-i18next';
+import { History } from 'history';
+import TimeoutAdvarsel from '../components/ansatte/TimeoutAdvarsel';
+import {Column, Container, Row} from 'nav-frontend-grid';
 import './InnloggetSide.less';
+import Lenke from 'nav-frontend-lenker';
 
 interface SideProps {
   children: React.ReactNode,
-  className?: string,
-  lenke?: string,
-  lenketekst?: string
+  className?: string
 }
 
 const InnloggetSide = (props: SideProps) => {
@@ -23,7 +22,7 @@ const InnloggetSide = (props: SideProps) => {
   const { t } = useTranslation();
   const history: History = useHistory();
   return (
-    <div className={"innloggetside " + props.className}>
+    <div className={'innloggetside ' + props.className}>
         {arbeidsgivere.length === 0 &&
           <AlertStripeAdvarsel>
             <p>Du har ikke rettigheter til å søke om refusjon for noen bedrifter</p>
@@ -48,8 +47,8 @@ const InnloggetSide = (props: SideProps) => {
             <Container>
               <Row>
                 <Column>
-                  <div className={"innloggetside__minside_arbeidsgiver"}>
-                    <Link to={props.lenke?? "/min-side-arbeidsgiver/" }>&lt;&lt;{props.lenketekst?? "Min side arbeidsgiver"}</Link>
+                  <div className={'innloggetside__minside_arbeidsgiver'}>
+                    <Lenke href="/min-side-arbeidsgiver/">&lt;&lt; Min side arbeidsgiver</Lenke>
                   </div>
                 </Column>
               </Row>
@@ -57,7 +56,7 @@ const InnloggetSide = (props: SideProps) => {
 
             <TimeoutAdvarsel/>
 
-            <Container className={"innloggetside__innhold"}>
+            <Container className={'innloggetside__innhold'}>
                 { props.children }
             </Container>
 

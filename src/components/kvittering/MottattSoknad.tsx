@@ -1,10 +1,9 @@
 import React from 'react';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import {AlertStripeInfo} from 'nav-frontend-alertstriper';
+import {Innholdstittel, Normaltekst} from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
-import '../../pages/Kvittering.less';
 import Lenke from "nav-frontend-lenker";
-import { Row } from "nav-frontend-grid";
+import {Row} from "nav-frontend-grid";
 
 interface MottattSoknadProps {
   nySoknadLink: string,

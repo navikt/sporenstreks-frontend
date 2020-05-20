@@ -16,4 +16,8 @@ describe('Kvittering', () => {
     const rendered = render(<Router history={history}><Kvittering /></Router>);
     expect(rendered.queryAllByText(/fødselsnummeret/).length).toBe(1);
   })
+  it('skal vise kvittering', () => {
+  })
+  it('skal vise link til ny soknad', () => {
+  })
 });

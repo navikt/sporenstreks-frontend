@@ -1,7 +1,6 @@
-import React, { useRef } from 'react';
+import React, {useRef} from 'react';
 import Vis from '../Vis';
-import { Undertittel } from 'nav-frontend-typografi';
-import './FeilOppsummering.less';
+import {Undertittel} from 'nav-frontend-typografi';
 
 interface FeiloppsummeringProps {
   settFokus?: boolean;

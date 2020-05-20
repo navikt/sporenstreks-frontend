@@ -1,24 +1,28 @@
 import React, { useState } from "react";
-import { Knapp } from "nav-frontend-knapper";
+import { Knapp, Hovedknapp } from "nav-frontend-knapper";
 import ModalWrapper from "nav-frontend-modal";
 import { Undertittel } from "nav-frontend-typografi";
 import { useAppStore } from "../../data/store/AppStore";
 import { IsValid, Validering } from "../validering/Validering";
 import { ByggValideringsFeil } from "./ByggValideringsFeil";
+import './BekreftKnapp.less';
 
 interface bekreftKnappProps {
   onSubmit: any
-  erklæringAkseptert: boolean
+  erklæringAkseptert: boolean,
+  onClick: any
 }
 
-export const BekreftKnapp = ({ onSubmit, erklæringAkseptert }: bekreftKnappProps) => {
+export const BekreftKnapp = ({ onSubmit, erklæringAkseptert, onClick }: bekreftKnappProps) => {
   const { ansatte, setAnsatte, setFeil } = useAppStore();
   const { firma } = useAppStore();
   const { arbeidsgiverId } = useAppStore();
   const { loadingStatus } = useAppStore();
   const [open, setOpen] = useState<boolean>(false);
+
   const handleOpen = (evt) => {
     evt.preventDefault()
+    onClick(evt);
     const validerteAnsatte = Validering(ansatte)
     setAnsatte([...validerteAnsatte]);
     if (IsValid(validerteAnsatte)) {
@@ -36,8 +40,9 @@ export const BekreftKnapp = ({ onSubmit, erklæringAkseptert }: bekreftKnappProp
   };
 
   return (
-    <>
-      <Knapp disabled={!erklæringAkseptert} type="hoved" onClick={handleOpen}>Send søknad om refusjon</Knapp>
+    <form onSubmit={e => handleOpen(e)}
+      onClick={e => onClick(e)}>
+      <Hovedknapp disabled={!erklæringAkseptert} className="bekreft-knapp" type="hoved">Send søknad om refusjon</Hovedknapp>
       <ModalWrapper
         isOpen={open}
         onRequestClose={() => setOpen(false)}
@@ -54,6 +59,8 @@ export const BekreftKnapp = ({ onSubmit, erklæringAkseptert }: bekreftKnappProp
           Avbryt
         </div>
       </ModalWrapper>
-    </>
+    </form>
   )
 };
+
+export default BekreftKnapp;

@@ -20,7 +20,7 @@ export const Fnr = ({ id }: AnsattID) => {
     id={"fnr_" + id}
     label={
       <div style={{display: 'flex'}}>
-        Fødselsnummer
+        Fødselsnummer:
       </div>}
     bredde="M"
     value={a?.fnr}

@@ -50,12 +50,15 @@ describe('Innsending', () => {
       }
     ]
 
+    const mockSetTokenExpired = jest.fn();
+    const setLoadingStatus = jest.fn();
+
     mock
       .post(mockUrl, ResponseUtils.statusCode(404));
 
-    expect(await Innsending('arbeidsgiverId', input, jest.fn())).toEqual(input);
-
-
+    expect(await Innsending('arbeidsgiverId', input, setLoadingStatus, mockSetTokenExpired)).toEqual(input);
+    expect(mockSetTokenExpired).toHaveBeenCalledWith(false);
+    expect(setLoadingStatus).toHaveBeenCalledWith(404);
   })
 
   it("should handle a 200", async () => {
@@ -121,10 +124,15 @@ describe('Innsending', () => {
       }
     ]
 
+    const mockSetTokenExpired = jest.fn();
+    const setLoadingStatus = jest.fn();
+
     mock
       .post(mockUrl, [ ...backendResponce ]);
 
-    expect(await Innsending('arbeidsgiverId', input, jest.fn())).toEqual(expected);
+    expect(await Innsending('arbeidsgiverId', input, setLoadingStatus, mockSetTokenExpired)).toEqual(expected);
+    expect(mockSetTokenExpired).toHaveBeenCalledWith(false);
+    expect(setLoadingStatus).toHaveBeenCalledWith(200);
   })
 
   it("should handle a 401", async () => {
@@ -154,8 +162,13 @@ describe('Innsending', () => {
     mock
     .post(mockUrl, ResponseUtils.statusCode(401));
 
-    await Innsending('arbeidsgiverId', input, jest.fn());
+    const mockSetTokenExpired = jest.fn();
+    const setLoadingStatus = jest.fn();
 
-    expect(window.location.href).toEqual(mockServer + "/loginServer");
+    await Innsending('arbeidsgiverId', input, setLoadingStatus, mockSetTokenExpired);
+
+    expect(window.location.href).toEqual(mockUrl);
+    expect(mockSetTokenExpired).toHaveBeenCalledWith(true);
+    expect(setLoadingStatus).toHaveBeenCalledWith(401);
   })
 })

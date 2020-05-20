@@ -1,34 +1,32 @@
-import React, { useState, useRef } from 'react';
+import React, {useRef, useState} from 'react';
 import 'nav-frontend-tabell-style';
-import { Input } from 'nav-frontend-skjema';
-import { FormContext, useForm } from 'react-hook-form';
-import { Knapp } from 'nav-frontend-knapper';
-import { Link, useHistory } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
-import { Keys } from '../locales/keys';
+import {Input} from 'nav-frontend-skjema';
+import {FormContext, useForm} from 'react-hook-form';
+import {Knapp} from 'nav-frontend-knapper';
+import {Link, useHistory} from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
+import {Normaltekst, Undertekst, Undertittel} from 'nav-frontend-typografi';
+import {Keys} from '../locales/keys';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import fnrvalidator from '@navikt/fnrvalidator';
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
+import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import Perioder from '../components/perioder/Perioder';
-import { filterStringToNumbersOnly } from '../util/filterStringToNumbersOnly';
-import { identityNumberSeparation } from '../util/identityNumberSeparation';
+import {filterStringToNumbersOnly} from '../util/filterStringToNumbersOnly';
+import {identityNumberSeparation} from '../util/identityNumberSeparation';
 import FeilOppsummering from '../components/feilvisning/FeilOppsummering';
-import { useAppStore } from '../data/store/AppStore';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
-import { History } from 'history';
+import {useAppStore} from '../data/store/AppStore';
+import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
+import {History} from 'history';
 import Vis from '../components/Vis';
 import env from '../util/environment';
-import './Sykepenger.less';
-import Lenke from "nav-frontend-lenker";
+import Lenke from 'nav-frontend-lenker';
 import ModalWrapper from 'nav-frontend-modal';
 import Eksempel from '../components/Eksempel';
 import formToJSON from '../util/formToJSON';
 import convertSkjemaToRefusjonsKrav from '../util/convertSkjemaToRefusjonsKrav';
-import { Erklaring } from '../components/ansatte/Erklaring';
-import Panel from "nav-frontend-paneler";
-import {Container} from "nav-frontend-grid";
+import {Erklaring} from '../components/ansatte/Erklaring';
+import {Container} from 'nav-frontend-grid';
 
 const fnrErrorState = {
   hasError: '',
@@ -36,7 +34,7 @@ const fnrErrorState = {
 }
 
 const Sykepenger = () => {
-  const { arbeidsgivere, setReferanseNummer } = useAppStore();
+  const { arbeidsgivere, setReferanseNummer, setTokenExpired } = useAppStore();
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
   const [ erklæringAkseptert, setErklæringAkseptert ] = useState<boolean>(false);
   const { arbeidsgiverId, setArbeidsgiverId } = useAppStore();
@@ -85,6 +83,7 @@ const Sykepenger = () => {
         clearTimeout(timeout);
         if(!didTimeOut) {
           if (response.status === 401) {
+            setTokenExpired(true)
             window.location.href = env.loginServiceUrl;
           } else if (response.status === 200) {
             response.json().then(data => {
@@ -177,8 +176,8 @@ const Sykepenger = () => {
           organisasjoner={arbeidsgivere}
         />
 
-        <div className="limit"  style={{padding: "2rem 0rem 1rem 0rem"}}>
-          <a href="/" className="lenke informasjonsboks__lenke" style={{paddingLeft: "1rem"}}>&lt;&lt;Tilbake</a>
+        <div className="limit"  style={{padding: '2rem 0rem 1rem 0rem'}}>
+          <Lenke href="/min-side-arbeidsgiver/" style={{paddingLeft: '1rem'}}>&lt;&lt; Min side arbeidsgiver</Lenke>
         </div>
 
         <div className="limit skjemabakgrunn">

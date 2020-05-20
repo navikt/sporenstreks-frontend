@@ -9,7 +9,6 @@ import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import {History} from 'history';
 import Vis from '../components/Vis';
 import env from '../util/environment';
-import './ExcelOpplasting.less';
 import Lenke from "nav-frontend-lenker";
 import excellogo from '../img/excel-logo.png';
 import {Erklaring} from '../components/ansatte/Erklaring';

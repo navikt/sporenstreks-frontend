@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import env from '../../util/environment';
-import './RefreshToken.less';
 
 const RefreshToken = () => {
   const [displayIframe, setDisplayIframe] = useState(true);

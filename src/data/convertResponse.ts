@@ -1,4 +1,4 @@
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/Organisasjon';
+import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 
 export const convertResponseDataToOrganisasjon = (data): Organisasjon[] => data.map(organisasjon => ({
   Name: organisasjon.name,
@@ -6,5 +6,5 @@ export const convertResponseDataToOrganisasjon = (data): Organisasjon[] => data.
   OrganizationNumber: organisasjon.organizationNumber,
   OrganizationForm: organisasjon.organizationForm,
   Status: organisasjon.status,
-  ParentOrganizationNumber: organisasjon.parentOrganizationNumber,
+  ParentOrganizationNumber: organisasjon.parentOrganizationNumber
 }));

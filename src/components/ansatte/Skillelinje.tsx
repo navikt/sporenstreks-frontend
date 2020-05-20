@@ -1,5 +1,4 @@
 import React from "react";
-import './Skillelinje.less';
 
 const Skillelinje = () => {
   return (

@@ -1,17 +1,16 @@
 import React from 'react';
-import {AlertStripeInfo} from 'nav-frontend-alertstriper';
-import {Innholdstittel, Normaltekst} from 'nav-frontend-typografi';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
-import {Link, useHistory} from 'react-router-dom';
-import './Kvittering.less';
-import Lenke from "nav-frontend-lenker";
-import Vis from "../components/Vis";
-import Bedriftsmeny from "@navikt/bedriftsmeny";
-import {Organisasjon} from "@navikt/bedriftsmeny/lib/Organisasjon";
-import {Keys} from "../locales/keys";
-import {useAppStore} from "../data/store/AppStore";
-import {History} from "history";
-import {useTranslation} from "react-i18next";
+import { Link, useHistory } from 'react-router-dom';
+import Lenke from 'nav-frontend-lenker';
+import Vis from '../components/Vis';
+import Bedriftsmeny from '@navikt/bedriftsmeny';
+import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
+import { Keys } from '../locales/keys';
+import { useAppStore } from '../data/store/AppStore';
+import { History } from 'history';
+import { useTranslation } from 'react-i18next';
 
 const KvitteringBulk = () => {
   const { arbeidsgivere, setArbeidsgiverId } = useAppStore();
@@ -38,12 +37,12 @@ const KvitteringBulk = () => {
                     </div>
                   <div>
                   </div>
-                    <div style={{margin: "1rem 0rem"}}>
+                    <div style={{ margin: '1rem 0rem' }}>
                       <Normaltekst>
                         Trenger du å kontakte oss, er det tilstrekkelig å oppgi fødselsnummeret til den ansatte.
                       </Normaltekst>
                     </div>
-                    <div style={{marginBottom: "3rem"}}>
+                    <div style={{ marginBottom: '3rem' }}>
                         <Normaltekst>
                             <Lenke
                                 href="https://www.nav.no/no/bedrift/tjenester-og-skjemaer/aa-registeret-og-a-meldingen/relatert-informasjon/bankkontonummer-refusjoner-fra-nav-til-arbeidsgiver">
