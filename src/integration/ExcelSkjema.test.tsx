@@ -7,7 +7,8 @@ describe('Skjema: Excel opplasting', () => {
   })
   it('skal vise link til Bulk skjema', () => {
   })
-
+  it('skal vise link til MinSideArbeidsgiver', () => {
+  })
 
 
   it('skal vise rett link til Excel malen', () => {
