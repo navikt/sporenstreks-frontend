@@ -1,24 +1,11 @@
-import { filterStringToNumbersOnly } from "../../util/filterStringToNumbersOnly";
 import { Input } from "nav-frontend-skjema";
-import { HjelpetekstRefusjon } from "../ansatte/HjelpetekstRefusjon";
-import Eksempel from "../Eksempel";
-import React, { useState, useEffect } from "react";
-import EksempelBulk from "../ansatte/EksempelBulk";
+import React, { useState, useEffect, ReactNode } from "react";
 
 interface RefusjonInputProps {
   feilmelding?: string,
   beloep?: number,
-  handleChange: any
-}
-
-export const Convert = (value?: string) => {
-  if (!value) {
-    return '';
-  }
-  if (value.trim().length == 0) {
-    return '';
-  }
-  return filterStringToNumbersOnly(value, 20);
+  handleChange: any,
+  label: ReactNode
 }
 
 export const formatNumber = (inputNum?: number): string => {
@@ -29,20 +16,30 @@ export const formatNumber = (inputNum?: number): string => {
   return formatter.format(inputNum);
 }
 
-export const RefusjonInput = ({ beloep, feilmelding, handleChange }: RefusjonInputProps) => {
-  const [localValue, setLocalValue] = useState(beloep);
+export const getSpecialCharsOnSides = (x: string, cursorPosition: number) => {
+  const specialCharsLeft = x.substring(0, cursorPosition).replace(/[0-9]/g, '').length;
+  const specialCharsRight = x.substring(cursorPosition).replace(/[0-9]/g, '').length;
+  return [specialCharsLeft, specialCharsRight]
+}
+
+export const prepareStringToInt = (strNumber: string): string => {
+  if (!strNumber) {
+    return '';
+  }
+
+  const val = strNumber.replace(/,/g, ".");
+  return val.replace(/\s/g, "");
+}
+
+export const RefusjonInput = ({ beloep, feilmelding, handleChange, label }: RefusjonInputProps) => {
+  let formatertBelop = '';
+  if(beloep) {
+    formatertBelop= formatNumber(beloep);
+  }
+  const [localValue, setLocalValue] = useState(formatertBelop);
   let currentVal = 0;
 
-  const getSpecialCharsOnSides = (x: string, cursorPosition: number) => {
-    const specialCharsLeft = x.substring(0, cursorPosition).replace(/[0-9]/g, '').length;
-    const specialCharsRight = x.substring(cursorPosition).replace(/[0-9]/g, '').length;
-    return [specialCharsLeft, specialCharsRight]
-  }
 
-  const cleanNumber = (strNumber: string): string => {
-    const val = strNumber.replace(/,/g, ".");
-    return val.replace(/\s/g, "");
-  }
 
   const handleChangeLocal = (event) => {
     let caret: number = event && event.target ? Number(event.target.selectionStart) : 0;
@@ -54,12 +51,12 @@ export const RefusjonInput = ({ beloep, feilmelding, handleChange }: RefusjonInp
 
     // -- Stop cursor jumping when formatting number in React
     const specialCharsBefore = getSpecialCharsOnSides(event.target.value, caret);
-    let val = cleanNumber(event.target.value);
+    let val = prepareStringToInt(event.target.value);
 
     let x = Number(val);
 
     if (isNaN(x)) {
-      val = cleanNumber(localValue);
+      val = prepareStringToInt(localValue);
       x = Number(val);
     }
 
@@ -81,7 +78,7 @@ export const RefusjonInput = ({ beloep, feilmelding, handleChange }: RefusjonInp
       caret -= specialCharsBefore[1] - specialCharsAfter[1];
     }
 
-    handleChange(Convert(localValue));
+    handleChange(x);
   }
 
   return (
@@ -90,11 +87,7 @@ export const RefusjonInput = ({ beloep, feilmelding, handleChange }: RefusjonInp
         feil={feilmelding}
         value={localValue}
         bredde={"S"}
-        label={
-          <div style={{ display: 'flex' }}>
-            Beløp
-            <EksempelBulk />
-          </div>}
+        label={label}
         placeholder="Beløp"
         inputMode={"decimal"}
         onChange={handleChangeLocal} />

@@ -165,13 +165,13 @@ describe('Refusjon', () => {
     expect(mockSetAnsatte).toHaveBeenCalledWith(expected)
   })
 
-  it('shold give an error if the amount is too high', () => {
+  it('shold just return the list of ansatte if we try to update a non existing ansatt', () => {
     const mockUseAppStore = useAppStore as jest.Mock
     const mockSetAnsatte = jest.fn();
     const expected: Ansatt[] = [
       {
-        "beloep": 1234567,
-        "beloepError": "Beløpet er for høyt",
+        "beloep": 5,
+        "beloepError": undefined,
         "fnr": "1",
         "fom": "2020-02-02",
         "id": "ansatt1",
@@ -195,13 +195,14 @@ describe('Refusjon', () => {
       setAnsatte: mockSetAnsatte
     });
 
-    render(<Refusjon id="ansatt1" />);
+    render(<Refusjon id="ansatt007" />);
 
     const inputFelt = screen.getByRole('textbox');
 
-    fireEvent.change(inputFelt, { target: { value: "1 234 567" } });
+    fireEvent.change(inputFelt, { target: { value: "5" } });
 
-    expect(screen.getByText(/Beløpet er for høyt/)).toBeInTheDocument();
-    expect(mockSetAnsatte).toHaveBeenCalledWith(expected)
+    expect(screen.getByText(/Beløp/)).toBeInTheDocument();
+    expect(mockSetAnsatte).toHaveBeenCalledWith(mockAnsatte)
   })
+
 })
