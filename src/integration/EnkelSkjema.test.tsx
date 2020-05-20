@@ -7,15 +7,17 @@ describe('Skjema: Flere perioder', () => {
   })
   it('skal vise link til Excel skjema', () => {
   })
-
-  it('skal kunne velge fil med størrelse inntil MAX verdi', () => {
-  })
-  it('skal vise feilmelding dersom man velger filer over MAX verdi', () => {
-  })
-  it('skal vise feilmelding dersom man velger filer som ikke er XLS og XLSX', () => {
+  it('skal vise link til MinSideArbeidsgiver', () => {
   })
 
-  it('skal ikke kunne trykke HovedKnapp før gyldig fil er valgt', () => {
+  it('skal kunne legge til ny periode', () => {
+  })
+  it('skal kunne slette periode unntatt - den siste', () => {
+  })
+
+  it('skal ikke kunne trykke HovedKnapp før fødselsnummer er gyldig', () => {
+  })
+  it('skal ikke kunne trykke HovedKnapp før alle rader er gyldig', () => {
   })
   it('skal ikke kunne trykke HovedKnapp før Erklaring er akseptert', () => {
   })
