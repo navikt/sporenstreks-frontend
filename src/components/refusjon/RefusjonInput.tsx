@@ -1,5 +1,5 @@
 import { Input } from "nav-frontend-skjema";
-import React, { useState, useEffect, ReactNode } from "react";
+import React, { useState, ReactNode } from "react";
 
 interface RefusjonInputProps {
   feilmelding?: string,
