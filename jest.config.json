@@ -3,7 +3,6 @@
   "coveragePathIgnorePatterns": [
     "index.tsx",
     "App.tsx",
-    "serviceWorker.tsx",
     "Kvittering.tsx",
     "KvitteringExcel.tsx",
     "SykepengerBulk.tsx",
