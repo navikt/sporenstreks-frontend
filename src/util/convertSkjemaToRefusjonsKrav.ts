@@ -1,8 +1,8 @@
 import { Periode, RefusjonsKrav } from '../data/types/sporenstreksTypes';
-import dayjs from 'dayjs';
 
 const mapDate = (str) => {
-  return dayjs(str).format('YYYY-MM-DD');
+  let arr = str.split('.');
+  return arr[2] + '-' + arr[1] + '-' + arr[0];
 }
 
 const mapDates = (dates) => {
@@ -23,8 +23,6 @@ const convertSkjemaToRefusjonsKrav = (data, identityNumberInput: string, arbeids
           .replace(/\s/g, '')
           .replace(',', '.'),
       };
-      console.log('days: ', days) // eslint-disable-line no-console
-
       perioder.push(periode)
     }
 
