@@ -4,12 +4,22 @@ import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
 import {Innholdstittel} from "nav-frontend-typografi";
 import Lenke from "nav-frontend-lenker";
 import TokenUtloper from "./TokenUtloper";
+import { useAppStore } from "../../data/store/AppStore";
 
 const TimeoutAdvarsel = () => {
   const [isOpen, setOpen] = useState(true);
-  if (!isOpen) {
+  const { timeoutAdvarselHarBlittVist, setTimeoutAdvarselHarBlittVist } = useAppStore();
+
+  if (!isOpen || timeoutAdvarselHarBlittVist) {
     return null;
   }
+
+  const handleOKClick  = (evt: React.FormEvent) => {
+    evt.preventDefault();
+    setOpen(false);
+    setTimeoutAdvarselHarBlittVist(true);
+  }
+
   return (
     <ModalWrapper
       isOpen={true}
@@ -25,7 +35,7 @@ const TimeoutAdvarsel = () => {
           <li>Blir du logget ut, får du mer informasjon om hva du skal gjøre, slik at du ikke mister det du har skrevet.</li>
           <li><strong>Denne innloggingen utløper kl: <TokenUtloper /></strong></li>
         </ul>
-        <Lenke className={""} href="#" onClick={() => setOpen(false)}>Lukk</Lenke>
+        <Lenke className={""} href="#" onClick={(e) => handleOKClick(e)}>Lukk</Lenke>
       </AlertStripeAdvarsel>
     </ModalWrapper>
   )

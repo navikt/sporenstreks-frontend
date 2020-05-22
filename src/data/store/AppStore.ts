@@ -20,6 +20,8 @@ export const [ AppStoreProvider, useAppStore ] = constate(() => {
 
   const [ tokenExpired, setTokenExpired ] = useState<boolean>(false);
 
+  const [ timeoutAdvarselHarBlittVist, setTimeoutAdvarselHarBlittVist ] = useState<boolean>(false);
+
   return {
     unleash, setUnleash,
     firma, setFirma,
@@ -31,6 +33,7 @@ export const [ AppStoreProvider, useAppStore ] = constate(() => {
     feil, setFeil,
     arbeidsgiverId, setArbeidsgiverId,
     loadingStatus, setLoadingStatus,
-    tokenExpired, setTokenExpired
+    tokenExpired, setTokenExpired,
+    timeoutAdvarselHarBlittVist, setTimeoutAdvarselHarBlittVist
   };
 });
