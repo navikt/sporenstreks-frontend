@@ -1,11 +1,20 @@
 import { Periode, RefusjonsKrav } from '../data/types/sporenstreksTypes';
+import dayjs from 'dayjs';
+
+const mapDate = (str) => {
+  return dayjs(str).format('YYYY-MM-DD');
+}
+
+const mapDates = (dates) => {
+  return [mapDate(dates[0]), mapDate(dates[1])];
+}
 
 const convertSkjemaToRefusjonsKrav = (data, identityNumberInput: string, arbeidsgiverId: string): RefusjonsKrav => {
     const antallPerioder = (Object.keys(data).length - 2) / 3;
     let perioder: Periode[] = [];
 
     for (let i = 0; i < antallPerioder; i++) {
-      const days = data['periode_' + i].split(' til ');
+      const days = mapDates(data['periode_' + i].split(' til '));
       const periode: Periode = {
         fom: days[0],
         tom: days[1] ?? days[0],
