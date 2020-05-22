@@ -20,12 +20,12 @@ import {Normaltekst, Undertittel} from "nav-frontend-typografi";
 import Lenke from "nav-frontend-lenker";
 import LoggetUtAdvarsel from './LoggetUtAdvarsel';
 
-const Ansatte = () => {
+const Ansatte: React.FC = () => {
   const { ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, loadingStatus, setLoadingStatus, setTokenExpired } = useAppStore();
   const history: History = useHistory();
   const [ erklæringAkseptert, setErklæringAkseptert ] = useState<boolean>(false);
   const [ harTrykketSubmitMinstEnGang, setHarTrykketSubmitMinstEnGang ] = useState<boolean>(false);
-  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
+  const handleBekreftSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     const validerteAnsatte = Validering(ansatte);
     const innsendteAnsatte = await Innsending(arbeidsgiverId, validerteAnsatte, setLoadingStatus, setTokenExpired);
@@ -39,7 +39,9 @@ const Ansatte = () => {
       history.push('/kvitteringBulk')
     }
   };
-
+  const handleSubmit = (evt: React.FormEvent) => {
+    evt.preventDefault();
+  }
   const handleBekreftKlikk = (e: React.FormEvent) => {
     setHarTrykketSubmitMinstEnGang(true);
   }
@@ -95,7 +97,7 @@ const Ansatte = () => {
         <Row>
           <Column>
             <Panel>
-              <BekreftKnapp onSubmit={handleSubmit} onClick={handleBekreftKlikk} erklæringAkseptert={erklæringAkseptert} />
+              <BekreftKnapp onSubmit={handleBekreftSubmit} onClick={handleBekreftKlikk} erklæringAkseptert={erklæringAkseptert} />
               <Advarsler erklæringAkseptert={erklæringAkseptert} harFeil={feil.length > 0} visFeil={harTrykketSubmitMinstEnGang}/>
             </Panel>
           </Column>
