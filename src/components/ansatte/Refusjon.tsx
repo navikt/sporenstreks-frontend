@@ -1,35 +1,34 @@
 import React from "react";
-import { Input } from "nav-frontend-skjema";
 import { useAppStore } from "../../data/store/AppStore";
 import { AnsattID } from "../../data/types/sporenstreksTypes";
-import { filterStringToNumbersOnly } from "../../util/filterStringToNumbersOnly";
-import { HjelpetekstRefusjon } from "./HjelpetekstRefusjon";
 import { validateMaksBeloep } from '../validering/validateMaksBeloep';
+import { RefusjonInput } from "../refusjon/RefusjonInput";
+import EksempelBulk from "../ansatte/EksempelBulk";
 
 export const Refusjon = (props: AnsattID) => {
-  const {ansatte, setAnsatte} = useAppStore();
+  const { ansatte, setAnsatte } = useAppStore();
   const a = ansatte.find(a => a.id === props.id);
-  const handleChange = (evt) => {
+
+  const handleChange = (val: number) => {
     if (a) {
-      const s = filterStringToNumbersOnly(evt.target.value ? evt.target.value : "", 20);
-      a.beloep = s.length === 0 ? undefined : parseInt(evt.target.value);
+      a.beloep = val;
       a.beloepError = validateMaksBeloep(a.beloep);
     }
     setAnsatte([...ansatte]);
   };
+
   return (
     <div>
-      <Input
-        feil={a?.beloepError}
-        value={a?.beloep ? a?.beloep : ''}
-        bredde={"S"}
+      <RefusjonInput
+        feilmelding={a?.beloepError}
+        beloep={a?.beloep}
+        handleChange={handleChange}
         label={
-          <div style={{display: 'flex'}}>
-            Beløp:
-            <HjelpetekstRefusjon/>
-          </div>}
-        placeholder="Beløp"
-        inputMode={"numeric"}
-        onChange={handleChange}/>
+          <div style={{ display: 'flex' }}>
+            Beløp
+            <EksempelBulk />
+          </div>} />
     </div>)
 };
+
+export default Refusjon;

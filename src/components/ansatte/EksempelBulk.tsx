@@ -72,7 +72,7 @@ const EksempelBulk = () => {
       <ModalWrapper
         isOpen={eksempelOpen}
         onRequestClose={() => setEksempelOpen(false)}
-        closeButton={true}
+        closeButton={false}
         contentLabel="Eksempel visning"
       >
         <Veilederpanel svg={VeilederIkon}
