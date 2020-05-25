@@ -14,8 +14,8 @@ const TimeoutAdvarsel = () => {
     return null;
   }
 
-  const handleOKClick  = (evt: React.FormEvent) => {
-    evt.preventDefault();
+  const handleOKClick  = (evt?: React.FormEvent) => {
+    evt?.preventDefault();
     setOpen(false);
     setTimeoutAdvarselHarBlittVist(true);
   }
@@ -23,7 +23,7 @@ const TimeoutAdvarsel = () => {
   return (
     <ModalWrapper
       isOpen={true}
-      onRequestClose={() => setOpen(false)}
+      onRequestClose={() => handleOKClick()}
       closeButton={false}
       className={"timeout-advarsel"}
       contentLabel=""
