@@ -13,6 +13,7 @@ import Lenke from "nav-frontend-lenker";
 import excellogo from '../img/excel-logo.png';
 import {Erklaring} from '../components/ansatte/Erklaring';
 import {FeilTabell, tabellFeil} from '../components/feilvisning/FeilTabell';
+import innsendingExcelFil from "../components/InnsendingExcelFil";
 import InnloggetSide from "./InnloggetSide";
 import Panel from "nav-frontend-paneler";
 import Skillelinje from "../components/ansatte/Skillelinje";
@@ -29,6 +30,17 @@ const ExcelOpplasting = () => {
   const [visAlleFeil, setVisAlleFeil] = useState(false)
   const [hasTriedSubmit, setHasTriedSubmit] = useState(false)
   const FILEUPLOAD_MAX_SIZE = 250000;
+
+  const handleSubmit = async  (e: React.FormEvent): Promise<any> => {
+    e.preventDefault();
+    const responsFeil = await innsendingExcelFil(createFormData())
+    if (responsFeil.length == 0) {
+      setFeil([])
+      history.push('/kvitteringExcel')
+    } else {
+      setFeil(responsFeil)
+    }
+  }
 
   const setUploadFile = (event: any) => {
     if (event.target.files[0] && event.target.files[0].size > FILEUPLOAD_MAX_SIZE) {
@@ -48,71 +60,6 @@ const ExcelOpplasting = () => {
     }
     return formData
   }
-
-  const onSubmit = async (e: any): Promise<void> => {
-
-    const FETCH_TIMEOUT = 5000;
-    let didTimeOut = false;
-
-    new Promise((resolve, reject) => {
-      const timeout = setTimeout(function () {
-        didTimeOut = true;
-        reject(new Error('Request timed out'));
-      }, FETCH_TIMEOUT);
-
-      fetch(env.baseUrl + '/api/v1/bulk/upload', {
-        method: 'POST',
-        body: createFormData(),
-      }).then((response: Response) => {
-        clearTimeout(timeout);
-        if (!didTimeOut) {
-          switch (response.status) {
-            case 401: {
-              window.location.href = env.loginServiceUrl;
-              break;
-            }
-            case 200: {
-              response.blob().then(data => {
-                  history.push('/kvitteringExcel')
-                  setFeil([])
-                }
-              )
-              break;
-            }
-            case 422: {
-              response.json().then(data => {
-                let f: tabellFeil[] =
-                  data.problemDetails.map(violation => ({
-                    indeks: violation.row,
-                    kolonne: violation.column,
-                    melding: violation.message
-
-                  }));
-
-                if (f.length > 0) {
-                  setFeil(f)
-                } else {
-                  setFeil([{indeks: -1, melding: data.detail}])
-                }
-              });
-              break;
-            }
-            default: {
-              let f: tabellFeil = {melding: "Feil ved innsending av skjema.", indeks: -1}
-              setFeil([f])
-              break;
-            }
-          }
-        }
-      }).catch(err => {
-        if (didTimeOut) return;
-        reject(err);
-      });
-    }).catch(err => {
-      let f: tabellFeil = {melding: "Feil ved innsending av skjema.", indeks: -1}
-      setFeil([f])
-    });
-  };
 
   return (
     <InnloggetSide className="excelopplasting">
@@ -204,7 +151,7 @@ const ExcelOpplasting = () => {
         <Column>
           <Panel>
             <FormContext {...methods}>
-              <form onSubmit={methods.handleSubmit(onSubmit)}
+              <form onSubmit={handleSubmit}
                     onClick={e => setHasTriedSubmit(true)}>
                 <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)}/>
                 <Hovedknapp disabled={!(erklæringAkseptert && file !== undefined)} className="knapp filknapp">
