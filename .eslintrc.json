@@ -5,7 +5,8 @@
         "node": true
     },
     "extends": [
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "plugin:jsx-a11y/recommended"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -20,7 +21,8 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react-hooks"
+        "react-hooks",
+        "@typescript-eslint"
     ],
     "rules": {
         "no-console": "error",
