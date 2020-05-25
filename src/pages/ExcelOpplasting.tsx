@@ -51,7 +51,6 @@ const ExcelOpplasting = () => {
   }
 
   const onSubmit = async (e: any): Promise<void> => {
-
     const FETCH_TIMEOUT = 5000;
     let didTimeOut = false;
 
@@ -114,6 +113,11 @@ const ExcelOpplasting = () => {
       setFeil([f])
     });
   };
+
+  const handleDisabledClick = (event: React.FormEvent) => {
+    event.preventDefault();
+    setHasTriedSubmit(true)
+  }
 
   return (
     <InnloggetSide className="excelopplasting">
@@ -205,11 +209,17 @@ const ExcelOpplasting = () => {
         <Column>
           <Panel>
             <FormContext {...methods}>
-              <form onSubmit={methods.handleSubmit(onSubmit)}
-                    onClick={e => setHasTriedSubmit(true)}>
+              <form onSubmit={methods.handleSubmit(onSubmit)}>
                 <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)}/>
+                {!(erklæringAkseptert && file !== undefined) &&
+                <button className={"disabled-button"} onClick={e => handleDisabledClick(e)} onKeyDown={e => handleDisabledClick(e)}>
                 <Hovedknapp disabled={!(erklæringAkseptert && file !== undefined)} className="knapp filknapp">
                   Send søknad om refusjon</Hovedknapp>
+                </button>}
+                {(erklæringAkseptert && file !== undefined) &&
+                <Hovedknapp disabled={!(erklæringAkseptert && file !== undefined)} className="knapp filknapp">
+                  Send søknad om refusjon</Hovedknapp>
+                }
                 <Vis hvis={hasTriedSubmit}>
                   <Vis hvis={!erklæringAkseptert}>
                     <Normaltekst className="advarsel">Du må huke av erklæringen før du kan sende inn</Normaltekst>
