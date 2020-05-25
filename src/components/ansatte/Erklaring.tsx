@@ -1,4 +1,5 @@
 import React from 'react';
+import uuid from 'uuid/v4';
 
 interface erklaringProps {
   value: boolean
@@ -6,6 +7,7 @@ interface erklaringProps {
 }
 
 export const Erklaring = ({ value, handleSetErklæring }: erklaringProps) => {
+  const componentid = 'erklaring_' + uuid();
   return (
     <>
       <div>
@@ -13,13 +15,13 @@ export const Erklaring = ({ value, handleSetErklæring }: erklaringProps) => {
           <input
             type="checkbox"
             className="skjemaelement__input checkboks"
-            id="068968250-22063-09960-4345-94072797192842"
+            id={componentid}
             aria-invalid="false"
             onChange={() => handleSetErklæring(!value)} />
-          <label className="skjemaelement__label" htmlFor="068968250-22063-09960-4345-94072797192842"></label>
+          <label className="skjemaelement__label" htmlFor={componentid}></label>
         </div>
         <div className="erklaring-label">
-          <label htmlFor="068968250-22063-09960-4345-94072797192842">
+          <label htmlFor={componentid}>
             <span className="erklaring-labeloverskrift">Vi erklærer:</span>
           <ul>
               <li>Det er ikke søkt om omsorgspenger i kombinasjon med 100 % sykefravær.</li>
