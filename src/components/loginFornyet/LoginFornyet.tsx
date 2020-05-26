@@ -5,7 +5,7 @@ import { Container, Row } from "nav-frontend-grid";
 import TokenUtloper from '../ansatte/TokenUtloper';
 
 export const LoginFornyet = () => (
-  <div role="main">
+  <main>
     <Container className={"innloggetside__innhold"}>
       <Row>
         <Panel>
@@ -21,7 +21,7 @@ export const LoginFornyet = () => (
         </Panel>
       </Row>
     </Container>
-  </div>
+  </main>
 )
 
 export default LoginFornyet;
