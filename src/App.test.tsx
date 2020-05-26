@@ -15,6 +15,7 @@ describe('App', () => {
 
     cleanup()
   })
+  // Dette er testen vi burde ha som mål å få til å virke!
   // it('should have no a11y violations', async () => {
   //   render(<App/>, document.body);
   //   const results = await axe(document.body);
