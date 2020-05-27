@@ -60,10 +60,10 @@ const Ansatte: React.FC = () => {
               </Undertittel>
               <Normaltekst>
                 Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
-                <Lenke href="../enkel/"> skal du bruke et eget skjema som du finner her.</Lenke>
+                <Link to="/enkel/"> skal du bruke et eget skjema som du finner her.</Link>
               </Normaltekst>
               <Normaltekst>
-                Har dere svært mange ansatte kan det om ønskelig <Lenke href="../excel/">benyttes Excel-opplasting.</Lenke>
+                Har dere svært mange ansatte kan det om ønskelig <Link to="/excel/">benyttes Excel-opplasting.</Link>
               </Normaltekst>
             </Panel>
           </Column>

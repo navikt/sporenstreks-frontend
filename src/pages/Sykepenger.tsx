@@ -205,9 +205,9 @@ const Sykepenger = () => {
                   </Undertittel>
 
                   <Normaltekst>
-                    Vi har også et eget <Lenke href="../bulk/"> skjema for å sende inn flere ansatte samtidig </Lenke>
+                    Vi har også et eget <Link to="/bulk/"> skjema for å sende inn flere ansatte samtidig </Link>
                     (kun enkeltperioder per ansatt), og for dere som har mer enn 50 ansatte å rapportere inn har vi
-                    mulighet for <Lenke href="../excel/"> excel-opplasting av kravet.</Lenke>
+                    mulighet for <Link to="/excel/"> excel-opplasting av kravet.</Link>
                   </Normaltekst>
 
                   <div>&nbsp;</div>
