@@ -1,4 +1,4 @@
-import { PeriodeConverter } from "./PeriodeConverter";
+import { PeriodeConverter } from './PeriodeConverter';
 
 export const PeriodeFormatter = (fom?: Date, tom?: Date) => {
   if (!fom && !tom) {

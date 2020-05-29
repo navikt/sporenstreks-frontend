@@ -1,6 +1,6 @@
-import {Feiloppsummering} from "nav-frontend-skjema";
-import React from "react";
-import {useAppStore} from "../../data/store/AppStore";
+import { Feiloppsummering } from 'nav-frontend-skjema';
+import React from 'react';
+import { useAppStore } from '../../data/store/AppStore';
 
 export const ValideringOppsummering = () => {
     const { feil } = useAppStore();

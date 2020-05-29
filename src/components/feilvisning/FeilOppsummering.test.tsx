@@ -4,36 +4,36 @@ import { render, fireEvent } from '@testing-library/react'
 import FeilOppsummering from './FeilOppsummering';
 
 describe('FeilOppsummering', () => {
-  it("should only show the wrapper when there are no errors", () => {
+  it('should only show the wrapper when there are no errors', () => {
     const input = {};
     const rendered = render(<FeilOppsummering errors={input} />);
 
     expect(rendered.queryByText(/feil i skjemaet/)).toBeFalsy();
   })
 
-  it("should show the error count when there is one error", () => {
-    const input = { "errror": "error" };
+  it('should show the error count when there is one error', () => {
+    const input = { 'errror': 'error' };
     const rendered = render(<FeilOppsummering errors={input} />);
 
     expect(rendered.queryByText(/Det er 1 feil i skjemaet/)).toBeTruthy();
   })
 
-  it("should show the error count and error descriptions when there is two errors", () => {
+  it('should show the error count and error descriptions when there is two errors', () => {
     const input = {
-      "fnr":
+      'fnr':
       {
-        "type": "Fødselsnummer må fylles ut",
-        "ref": {},
-        "isManual": true
+        'type': 'Fødselsnummer må fylles ut',
+        'ref': {},
+        'isManual': true
       },
-      "periode_0":
+      'periode_0':
       {
-        "type": "Perioden må ha to gyldige datoer",
-        "ref":
+        'type': 'Perioden må ha to gyldige datoer',
+        'ref':
         {
-          "name": "periode_0"
+          'name': 'periode_0'
         },
-        "isManual": true
+        'isManual': true
       }
     }
 
@@ -44,25 +44,25 @@ describe('FeilOppsummering', () => {
     expect(rendered.queryByText(/Perioden må ha to gyldige datoer/)).toBeTruthy();
   })
 
-  it("should scroll the corresponding input field into view on click", () => {
+  it('should scroll the corresponding input field into view on click', () => {
     const stub = jest.fn();
     window.HTMLElement.prototype.scrollIntoView = stub;
 
     const input = {
-      "fnr":
+      'fnr':
       {
-        "type": "Fødselsnummer må fylles ut",
-        "ref": {},
-        "isManual": true
+        'type': 'Fødselsnummer må fylles ut',
+        'ref': {},
+        'isManual': true
       },
-      "periode_0":
+      'periode_0':
       {
-        "type": "Perioden må ha to gyldige datoer",
-        "ref":
+        'type': 'Perioden må ha to gyldige datoer',
+        'ref':
         {
-          "name": "periode_0"
+          'name': 'periode_0'
         },
-        "isManual": true
+        'isManual': true
       }
     }
 
@@ -75,25 +75,25 @@ describe('FeilOppsummering', () => {
     expect(stub).toHaveBeenCalledTimes(1);
   })
 
-  it("should scroll the corresponding input field into view when enter has been clicked", () => {
+  it('should scroll the corresponding input field into view when enter has been clicked', () => {
     const stub = jest.fn();
     window.HTMLElement.prototype.scrollIntoView = stub;
 
     const input = {
-      "fnr":
+      'fnr':
       {
-        "type": "Fødselsnummer må fylles ut",
-        "ref": {},
-        "isManual": true
+        'type': 'Fødselsnummer må fylles ut',
+        'ref': {},
+        'isManual': true
       },
-      "periode_0":
+      'periode_0':
       {
-        "type": "Perioden må ha to gyldige datoer",
-        "ref":
+        'type': 'Perioden må ha to gyldige datoer',
+        'ref':
         {
-          "name": "periode_0"
+          'name': 'periode_0'
         },
-        "isManual": true
+        'isManual': true
       }
     }
 

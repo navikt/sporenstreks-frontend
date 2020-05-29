@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { Controller, useFormContext } from 'react-hook-form';
-import NumberFormat from "react-number-format";
+import NumberFormat from 'react-number-format';
 import Vis from '../../Vis';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 

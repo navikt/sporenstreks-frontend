@@ -1,6 +1,6 @@
 import React from 'react';
 import Vis from '../Vis';
-import {Normaltekst} from 'nav-frontend-typografi';
+import { Normaltekst } from 'nav-frontend-typografi';
 import Periode from './periode/Periode';
 import Antall from './antall/Antall';
 import Beloep from './beloep/Beloep';

@@ -19,7 +19,7 @@ describe('validateNotNullAndPositive', () => {
   it('should check that it is filled out', () => {
     const input = undefined;
 
-    const expected = "Feltet må fylles ut";
+    const expected = 'Feltet må fylles ut';
 
     expect(validateNotNullAndPositive(input)).toEqual(expected);
   });

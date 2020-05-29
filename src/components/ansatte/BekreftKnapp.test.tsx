@@ -18,9 +18,9 @@ const mockUseAppStore = useAppStore as jest.Mock
 const mockAnsatteOK: Ansatt[] = [
   {
     id: 123,
-    fnr: "27036405924",
-    fom: "2020-01-01",
-    tom: "2020-02-02",
+    fnr: '27036405924',
+    fom: '2020-01-01',
+    tom: '2020-02-02',
     antallDagerMedRefusjon: 1,
     beloep: 1234,
     status: SkjemaStatus.NY,
@@ -28,9 +28,9 @@ const mockAnsatteOK: Ansatt[] = [
   },
   {
     id: 1234,
-    fnr: "30040658641",
-    fom: "2020-03-03",
-    tom: "2020-04-04",
+    fnr: '30040658641',
+    fom: '2020-03-03',
+    tom: '2020-04-04',
     antallDagerMedRefusjon: 1,
     beloep: 123,
     status: SkjemaStatus.NY,
@@ -41,9 +41,9 @@ const mockAnsatteOK: Ansatt[] = [
 const mockAnsatteNotOK: Ansatt[] = [
   {
     id: 123,
-    fnr: "27036405924",
-    fom: "",
-    tom: "",
+    fnr: '27036405924',
+    fom: '',
+    tom: '',
     antallDagerMedRefusjon: 2,
     beloep: 123,
     status: SkjemaStatus.NY,
@@ -51,9 +51,9 @@ const mockAnsatteNotOK: Ansatt[] = [
   },
   {
     id: 123,
-    fnr: "30040658641",
-    fom: "",
-    tom: "",
+    fnr: '30040658641',
+    fom: '',
+    tom: '',
     antallDagerMedRefusjon: 2,
     beloep: 123,
     status: SkjemaStatus.NY,
@@ -194,12 +194,12 @@ describe('BekreftKnapp', () => {
 
     const expected = [
       {
-        "feilmelding": "Det er en feil i rad nr 1",
-        "skjemaelementId": "fnr_123",
+        'feilmelding': 'Det er en feil i rad nr 1',
+        'skjemaelementId': 'fnr_123',
       },
       {
-        "feilmelding": "Det er en feil i rad nr 2",
-        "skjemaelementId": "fnr_123",
+        'feilmelding': 'Det er en feil i rad nr 2',
+        'skjemaelementId': 'fnr_123',
       },
     ];
 
@@ -231,17 +231,6 @@ describe('BekreftKnapp', () => {
       arbeidsgiverId: 'organisasjonsnummer',
       loadingStatus: 1
     });
-
-    const expected = [
-      {
-        "feilmelding": "Det er en feil i rad nr 1",
-        "skjemaelementId": "fnr_123",
-      },
-      {
-        "feilmelding": "Det er en feil i rad nr 2",
-        "skjemaelementId": "fnr_123",
-      },
-    ];
 
     const { container } =  render(<BekreftKnapp onSubmit={mockOnSubmmit} onClick={mockOnClick} erklæringAkseptert={erklæringAkseptert} />);
 

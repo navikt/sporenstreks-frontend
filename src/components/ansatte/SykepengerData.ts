@@ -1,13 +1,13 @@
 
 export interface SykepengerData {
-    "identitetsnummer"?: string;
-    "virksomhetsnummer"?: string;
-    "perioder":[
+    'identitetsnummer'?: string;
+    'virksomhetsnummer'?: string;
+    'perioder':[
         {
-            "fom"?: string;
-            "tom"?: string;
-            "antallDagerMedRefusjon"?: number;
-            "beloep"?: number;
+            'fom'?: string;
+            'tom'?: string;
+            'antallDagerMedRefusjon'?: number;
+            'beloep'?: number;
         }
     ]
 }

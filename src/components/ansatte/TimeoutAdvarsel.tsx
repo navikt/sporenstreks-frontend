@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React, { useState } from 'react';
 import ModalWrapper from 'nav-frontend-modal';
-import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
-import {Innholdstittel} from "nav-frontend-typografi";
-import TokenUtloper from "./TokenUtloper";
-import { useAppStore } from "../../data/store/AppStore";
-import InternLenke from "../InternLenke";
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import { Innholdstittel } from 'nav-frontend-typografi';
+import TokenUtloper from './TokenUtloper';
+import { useAppStore } from '../../data/store/AppStore';
+import InternLenke from '../InternLenke';
 
 const TimeoutAdvarsel = () => {
   const [isOpen, setOpen] = useState(true);
@@ -25,7 +25,7 @@ const TimeoutAdvarsel = () => {
       isOpen={true}
       onRequestClose={() => handleOKClick()}
       closeButton={false}
-      className={"timeout-advarsel"}
+      className={'timeout-advarsel'}
       contentLabel=""
     >
       <AlertStripeAdvarsel className="timeout-advarsel__innhold">

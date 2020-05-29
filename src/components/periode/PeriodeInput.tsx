@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { Label, SkjemaelementFeilmelding } from "nav-frontend-skjema";
-import { HjelpetekstPeriode } from "../ansatte/HjelpetekstPeriode";
+import React, { useState } from 'react';
+import { Label, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
+import { HjelpetekstPeriode } from '../ansatte/HjelpetekstPeriode';
 import Flatpickr from 'react-flatpickr';
 import { Norwegian } from 'flatpickr/dist/l10n/no.js';
-import { PeriodeFormatter } from "./PeriodeFormatter";
-import { Minimum, Maximum, Feilmelding } from "./PeriodeValidator";
-import { PeriodeConverter } from "./PeriodeConverter";
+import { PeriodeFormatter } from './PeriodeFormatter';
+import { Minimum, Maximum, Feilmelding } from './PeriodeValidator';
+import { PeriodeConverter } from './PeriodeConverter';
 
 interface PeriodeInputProps {
   feilmelding?: string,
@@ -18,7 +18,7 @@ export const PeriodeInputClassName = (feilmelding?: string) => {
   return 'periodeinput ' + (feilmelding ? 'periodeinput--invalid' : 'periodeinput--valid')
 }
 
-export const PeriodeInput = ({fom, tom, feilmelding, handleChange}: PeriodeInputProps) => {
+export const PeriodeInput = ({ fom, tom, feilmelding, handleChange }: PeriodeInputProps) => {
   const [feilmeldingState, setFeilmeldingState] = useState(feilmelding);
   const handleClose = (selectedDates) => {
     let fomChanged = PeriodeConverter(selectedDates[0])
@@ -28,8 +28,8 @@ export const PeriodeInput = ({fom, tom, feilmelding, handleChange}: PeriodeInput
   }
   return (
     <div className={PeriodeInputClassName(feilmelding)}>
-      <Label htmlFor={"periode"}>
-        <div style={{display: 'flex'}}>
+      <Label htmlFor={'periode'}>
+        <div style={{ display: 'flex' }}>
           Periode
           <HjelpetekstPeriode/>
         </div>

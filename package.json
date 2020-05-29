@@ -112,6 +112,7 @@
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^3.0.0",
+    "eslint-plugin-typescript": "^0.14.0",
     "less-plugin-npm-import": "^2.1.0",
     "less-watch-compiler": "^1.11.3",
     "npm-run-all": "^4.0.2"

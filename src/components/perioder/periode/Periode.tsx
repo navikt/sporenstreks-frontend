@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Norwegian } from 'flatpickr/dist/l10n/no.js';
