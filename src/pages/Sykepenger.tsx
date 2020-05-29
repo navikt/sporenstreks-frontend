@@ -143,11 +143,11 @@ const Sykepenger = () => {
           <AlertStripeAdvarsel>
             <div>Du har ikke rettigheter til å søke om refusjon for noen bedrifter</div>
             <div>Tildeling av roller foregår i Altinn</div>
-            <InternLenke to="/min-side-arbeidsgiver/informasjon-om-tilgangsstyring"
+            <Lenke href="/min-side-arbeidsgiver/informasjon-om-tilgangsstyring"
               className="informasjonsboks__lenke"
             >
               Les mer om roller og tilganger.
-            </InternLenke>
+            </Lenke>
           </AlertStripeAdvarsel>
         </div>
       </Vis>
