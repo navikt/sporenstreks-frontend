@@ -6,7 +6,7 @@ import { useAppStore } from "../../data/store/AppStore";
 import { IsValid, Validering } from "../validering/Validering";
 import { ByggValideringsFeil } from "./ByggValideringsFeil";
 import './BekreftKnapp.less';
-import Lenke from "nav-frontend-lenker";
+import InternLenke from "../InternLenke";
 
 interface bekreftKnappProps {
   onSubmit: any
@@ -56,9 +56,9 @@ export const BekreftKnapp = ({ onSubmit, erklæringAkseptert, onClick }: bekreft
         <Knapp className="sykepenger__modal-btn" onClick={handleSubmit} spinner={loadingStatus === 0}>
           Send søknad om refusjon
         </Knapp>
-        <Lenke href="#" className="sykepenger__modal-avbrytt" onClick={() => setOpen(false)}>
+        <InternLenke className="sykepenger__modal-avbrytt" onClick={() => setOpen(false)}>
           Avbryt
-        </Lenke>
+        </InternLenke>
       </ModalWrapper>
     </form>
   )
