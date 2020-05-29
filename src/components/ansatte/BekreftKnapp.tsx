@@ -47,7 +47,6 @@ export const BekreftKnapp = ({ onSubmit, erklæringAkseptert, onClick }: bekreft
       <ModalWrapper
         isOpen={open}
         onRequestClose={() => setOpen(false)}
-        closeButton={false}
         contentLabel="Send skjema"
       >
         <Undertittel className="sykepenger__modal-tittel">Du søker om refusjon på vegne av:</Undertittel>
