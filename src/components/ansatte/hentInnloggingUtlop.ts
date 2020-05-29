@@ -1,4 +1,4 @@
-import env from "../../util/environment";
+import env from '../../util/environment';
 
 export interface HentInnloggingUtlopInterface {
   status: number,

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
-import { Container, Row } from "nav-frontend-grid";
+import { Container, Row } from 'nav-frontend-grid';
 import TokenUtloper from '../ansatte/TokenUtloper';
 
 export const LoginFornyet = () => (
   <main>
-    <Container className={"innloggetside__innhold"}>
+    <Container className={'innloggetside__innhold'}>
       <Row>
         <Panel>
           <Innholdstittel>Innloggingen er fornyet</Innholdstittel>
@@ -17,7 +17,7 @@ export const LoginFornyet = () => (
           </Normaltekst>
           <Normaltekst>
             Dette vinduet kan nå lukkes.
-      </Normaltekst>
+          </Normaltekst>
         </Panel>
       </Row>
     </Container>

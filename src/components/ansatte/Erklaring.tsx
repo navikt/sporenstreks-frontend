@@ -12,18 +12,20 @@ export const Erklaring = ({ value, handleSetErklæring }: erklaringProps) => {
     <>
       <div>
         <div>
-          <input
-            type="checkbox"
-            className="skjemaelement__input checkboks"
-            id={componentid}
-            aria-invalid="false"
-            onChange={() => handleSetErklæring(!value)} />
-          <label className="skjemaelement__label" htmlFor={componentid}></label>
+          <label className="skjemaelement__label" htmlFor={componentid}>
+            <input
+              type="checkbox"
+              className="skjemaelement__input checkboks"
+              id={componentid}
+              aria-invalid="false"
+              onChange={() => handleSetErklæring(!value)} />
+
+          </label>
         </div>
         <div className="erklaring-label">
           <label htmlFor={componentid}>
             <span className="erklaring-labeloverskrift">Vi erklærer:</span>
-          <ul>
+            <ul>
               <li>Det er ikke søkt om omsorgspenger i kombinasjon med 100 % sykefravær.</li>
               <li>Arbeidstakeren har ikke vært 100 % permittert i løpet av perioden som det søkes om refusjon for.</li>
               <li>Kravet er basert på arbeidstakerens opplysninger om at arbeidstakeren enten er smittet av

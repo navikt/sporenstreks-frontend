@@ -9,7 +9,7 @@ jest.mock('../../util/environment', () => ({
     return mockServer
   },
   get loginServiceUrl() {
-    return mockServer + "/loginServer"
+    return mockServer + '/loginServer'
   }
 }))
 
@@ -30,20 +30,20 @@ describe('Innsending', () => {
     mock.restore();
   });
 
-  it("should handle a 404", async () => {
+  it('should handle a 404', async () => {
     const input: Ansatt[] = [
       {
-        fnr: "1234",
-        fom: "fom",
-        tom: "tom",
+        fnr: '1234',
+        fom: 'fom',
+        tom: 'tom',
         id: 123,
         status: SkjemaStatus.AVVENTER,
         oppdatert: 1
       },
       {
-        fnr: "1234",
-        fom: "fom",
-        tom: "tom",
+        fnr: '1234',
+        fom: 'fom',
+        tom: 'tom',
         id: 234,
         status: SkjemaStatus.AVVENTER,
         oppdatert: 1
@@ -61,20 +61,20 @@ describe('Innsending', () => {
     expect(setLoadingStatus).toHaveBeenCalledWith(404);
   })
 
-  it("should handle a 200", async () => {
+  it('should handle a 200', async () => {
     const input: Ansatt[] = [
       {
-        fnr: "1234",
-        fom: "fom",
-        tom: "tom",
+        fnr: '1234',
+        fom: 'fom',
+        tom: 'tom',
         id: 123,
         status: SkjemaStatus.AVVENTER,
         oppdatert: 1
       },
       {
-        fnr: "2345",
-        fom: "fom2",
-        tom: "tom2",
+        fnr: '2345',
+        fom: 'fom2',
+        tom: 'tom2',
         id: 234,
         status: SkjemaStatus.AVVENTER,
         oppdatert: 1
@@ -83,19 +83,19 @@ describe('Innsending', () => {
 
     const backendResponce: BackendStatus[] = [
       {
-        status: "OK",
+        status: 'OK',
         validationErrors: null,
         genericMessage: null,
-        referenceNumber: "1234"
+        referenceNumber: '1234'
       },
       {
-        status: "VALIDATION_ERRORS",
+        status: 'VALIDATION_ERRORS',
         validationErrors: [
           {
-            validationType: "type",
-            message: "Validation periode error",
+            validationType: 'type',
+            message: 'Validation periode error',
             propertyPath: 'perioder[0].tom',
-            invalidValue: "fom"
+            invalidValue: 'fom'
           }
         ],
         genericMessage: null,
@@ -105,22 +105,22 @@ describe('Innsending', () => {
 
     const expected: Ansatt[] = [
       {
-        fnr: "1234",
-        fom: "fom",
-        tom: "tom",
+        fnr: '1234',
+        fom: 'fom',
+        tom: 'tom',
         id: 123,
         status: SkjemaStatus.GODKJENT,
-        referenceNumber: "1234",
+        referenceNumber: '1234',
         oppdatert: 1
       },
       {
-        fnr: "2345",
-        fom: "fom2",
-        tom: "tom2",
+        fnr: '2345',
+        fom: 'fom2',
+        tom: 'tom2',
         id: 234,
         status: SkjemaStatus.VALIDERINGSFEIL,
         oppdatert: 1,
-        periodeError: "Validation periode error.",
+        periodeError: 'Validation periode error.',
       }
     ]
 
@@ -135,27 +135,27 @@ describe('Innsending', () => {
     expect(setLoadingStatus).toHaveBeenCalledWith(200);
   })
 
-  it("should handle a 401", async () => {
+  it('should handle a 401', async () => {
     const input: Ansatt[] = [
       {
-        fnr: "1234",
-        fom: "fom",
-        tom: "tom",
+        fnr: '1234',
+        fom: 'fom',
+        tom: 'tom',
         id: 123,
         status: SkjemaStatus.AVVENTER,
         oppdatert: 1
       },
       {
-        fnr: "1234",
-        fom: "fom",
-        tom: "tom",
+        fnr: '1234',
+        fom: 'fom',
+        tom: 'tom',
         id: 234,
         status: SkjemaStatus.AVVENTER,
         oppdatert: 1
       }
     ]
 
-    Object.defineProperty(window, "location", {
+    Object.defineProperty(window, 'location', {
       value: new URL(mockUrl)
     });
 

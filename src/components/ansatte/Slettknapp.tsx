@@ -8,7 +8,7 @@ interface slettknappProps {
 }
 
 const Slettknapp = ({ onClick }: slettknappProps) => {
-  return (<InternLenke onClick={onClick} className={"slettknapp"}><DeleteIcon /><span>Slett</span></InternLenke >)
+  return (<InternLenke onClick={onClick} className={'slettknapp'}><DeleteIcon /><span>Slett</span></InternLenke >)
 }
 
 export default Slettknapp

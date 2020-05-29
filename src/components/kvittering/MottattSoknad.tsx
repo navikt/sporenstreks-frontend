@@ -2,8 +2,8 @@ import React from 'react';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
-import Lenke from "nav-frontend-lenker";
-import { Row } from "nav-frontend-grid";
+import Lenke from 'nav-frontend-lenker';
+import { Row } from 'nav-frontend-grid';
 import InnloggetSide from '../../pages/InnloggetSide';
 import InternLenke from '../InternLenke';
 

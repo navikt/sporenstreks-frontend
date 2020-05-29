@@ -9,15 +9,16 @@ import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { History } from 'history';
 import Vis from '../components/Vis';
 import env from '../util/environment';
-import Lenke from "nav-frontend-lenker";
+import Lenke from 'nav-frontend-lenker';
 import excellogo from '../img/excel-logo.png';
 import { Erklaring } from '../components/ansatte/Erklaring';
 import { FeilTabell, tabellFeil } from '../components/feilvisning/FeilTabell';
-import InnloggetSide from "./InnloggetSide";
-import Panel from "nav-frontend-paneler";
-import Skillelinje from "../components/ansatte/Skillelinje";
-import {Column, Row} from "nav-frontend-grid";
+import InnloggetSide from './InnloggetSide';
+import Panel from 'nav-frontend-paneler';
+import Skillelinje from '../components/ansatte/Skillelinje';
+import { Column, Row } from 'nav-frontend-grid';
 import InternLenke from '../components/InternLenke';
+import KnappMedVarsel from '../components/KnappMedVarsel';
 
 const ExcelOpplasting = () => {
   const [erklæringAkseptert, setErklæringAkseptert] = useState<boolean>(false);
@@ -33,7 +34,7 @@ const ExcelOpplasting = () => {
 
   const setUploadFile = (event: any) => {
     if (event.target.files[0] && event.target.files[0].size > FILEUPLOAD_MAX_SIZE) {
-      setFeil([{ indeks: -1, melding: "Du kan ikke laste opp filer større enn 250 kB." }])
+      setFeil([{ indeks: -1, melding: 'Du kan ikke laste opp filer større enn 250 kB.' }])
     } else {
       setFileName(event.target.files[0].name);
       setFile(event.target.files[0]);
@@ -98,7 +99,7 @@ const ExcelOpplasting = () => {
               break;
             }
             default: {
-              let f: tabellFeil = { melding: "Feil ved innsending av skjema.", indeks: -1 }
+              let f: tabellFeil = { melding: 'Feil ved innsending av skjema.', indeks: -1 }
               setFeil([f])
               break;
             }
@@ -109,7 +110,7 @@ const ExcelOpplasting = () => {
         reject(err);
       });
     }).catch(err => {
-      let f: tabellFeil = { melding: "Feil ved innsending av skjema.", indeks: -1 }
+      let f: tabellFeil = { melding: 'Feil ved innsending av skjema.', indeks: -1 }
       setFeil([f])
     });
   };
@@ -141,27 +142,27 @@ const ExcelOpplasting = () => {
               <Undertittel>
                 Det kan ikke søkes om refusjon for fravær på grunn av stengte skoler eller barnehager.
             </Undertittel>
-          </Panel>
-        </Column>
-      </Row>
+            </Panel>
+          </Column>
+        </Row>
 
-      <Skillelinje/>
+        <Skillelinje />
 
-      <Row>
-        <Column>
-          <Panel>
-            <Innholdstittel>Last ned Excel-malen, fyll ut og last opp.</Innholdstittel>
-          </Panel>
-          <Panel>
-            <Normaltekst>
-              Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
+        <Row>
+          <Column>
+            <Panel>
+              <Innholdstittel>Last ned Excel-malen, fyll ut og last opp.</Innholdstittel>
+            </Panel>
+            <Panel>
+              <Normaltekst>
+                Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
               <InternLenke to="/enkel">
-                &nbsp;skal du bruke et eget skjema
+                  &nbsp;skal du bruke et eget skjema
               </InternLenke>.
               Excel-opplasting er tiltenkt dere som har svært mange refusjonskrav.
               Vi har også et &nbsp;
               <InternLenke to="/bulk">
-                eget skjema for å søke om refusjonskrav for flere ansatte
+                  eget skjema for å søke om refusjonskrav for flere ansatte
               </InternLenke>
               &nbsp; dersom dere foretrekker å gjøre det på den måten.
             </Normaltekst>
@@ -172,7 +173,7 @@ const ExcelOpplasting = () => {
                   width="35"
                   className="excelopplasting__excellogo"
                   alt="Excel-symbol" />
-                <Lenke href={env.baseUrl + "/api/v1/bulk/template"}>
+                <Lenke href={env.baseUrl + '/api/v1/bulk/template'}>
                   Last ned malen her</Lenke>, og fyll ut.
               Det er ikke mulig å benytte ditt eget excel-dokument,
               alt må fylles ut i denne malen før du laster opp.
@@ -213,15 +214,11 @@ const ExcelOpplasting = () => {
               <FormContext {...methods}>
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
                   <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)} />
-                  {!(erklæringAkseptert && file !== undefined) &&
-                    <button className={"disabled-button"} onClick={e => handleDisabledClick(e)} onKeyDown={e => handleDisabledClick(e)}>
-                      <Hovedknapp disabled={!(erklæringAkseptert && file !== undefined)} className="knapp filknapp">
-                        Send søknad om refusjon</Hovedknapp>
-                    </button>}
-                  {(erklæringAkseptert && file !== undefined) &&
-                    <Hovedknapp disabled={!(erklæringAkseptert && file !== undefined)} className="knapp filknapp">
-                      Send søknad om refusjon</Hovedknapp>
-                  }
+                  <KnappMedVarsel
+                    disabled={!(erklæringAkseptert && file !== undefined)}
+                    disabledClick={handleDisabledClick} >
+                    Send søknad om refusjon
+                      </KnappMedVarsel>
                   <Vis hvis={hasTriedSubmit}>
                     <Vis hvis={!erklæringAkseptert}>
                       <Normaltekst className="advarsel">Du må huke av erklæringen før du kan sende inn</Normaltekst>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
-import hentInnloggingUtlop, {HentInnloggingUtlopInterface} from './hentInnloggingUtlop';
+import hentInnloggingUtlop, { HentInnloggingUtlopInterface } from './hentInnloggingUtlop';
 
 const TokenUtloper = () => {
   const [utloper, setUtloper] = useState<string>('');
@@ -15,7 +15,7 @@ const TokenUtloper = () => {
 
       try {
         if(dayjs(innloggingUtloperTid.utcDTstring).isValid()) {
-          setUtloper(dayjs(innloggingUtloperTid.utcDTstring).format("HH:mm"));
+          setUtloper(dayjs(innloggingUtloperTid.utcDTstring).format('HH:mm'));
         } else {
           setUtloper('');
         }

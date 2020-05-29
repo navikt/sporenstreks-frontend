@@ -9,8 +9,8 @@ interface InternLenkeProps {
   onClick?: any
 }
 
-export const InternLenke: React.FC<InternLenkeProps> = ({to, children, className, onClick}: InternLenkeProps) => {
-  const classes: string = ("lenke " + className).trim();
+export const InternLenke: React.FC<InternLenkeProps> = ({ to, children, className, onClick }: InternLenkeProps) => {
+  const classes: string = ('lenke ' + className).trim();
   const linkTo = to || ''
 
   if(to) {

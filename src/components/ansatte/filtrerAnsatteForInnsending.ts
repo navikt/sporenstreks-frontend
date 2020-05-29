@@ -1,5 +1,5 @@
-import {Ansatt} from "../../data/types/sporenstreksTypes";
-import {SykepengerData} from "./SykepengerData";
+import { Ansatt } from '../../data/types/sporenstreksTypes';
+import { SykepengerData } from './SykepengerData';
 
 function filtrerAnsatteForInnsending(validerteAnsatte: Ansatt[], arbeidsgiverId: string): SykepengerData[] {
   return validerteAnsatte.map((ansatt: Ansatt) => {

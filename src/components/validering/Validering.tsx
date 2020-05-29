@@ -1,8 +1,8 @@
-import { Ansatt } from "../../data/types/sporenstreksTypes";
+import { Ansatt } from '../../data/types/sporenstreksTypes';
 import { validateFnr } from './validateFnr';
 import { validatePerioder } from './validatePerioder';
 import { validateNotNullAndPositive } from './validateNotNullAndPositive';
-import { validateMaksBeloep } from "./validateMaksBeloep";
+import { validateMaksBeloep } from './validateMaksBeloep';
 
 export const Validering = (ansatte: Ansatt[]) => {
   ansatte.forEach(a => {

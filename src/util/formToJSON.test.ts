@@ -1,5 +1,3 @@
-import React from 'react';
-
 import formToJSON from './formToJSON';
 
 describe('formToJSON', () => {
@@ -12,17 +10,17 @@ describe('formToJSON', () => {
 
   it('returns an object when form is given.', () => {
     const input = [{
-      name: "test",
-      value: "value"
+      name: 'test',
+      value: 'value'
     },{
-      name: "test2",
-      value: "value2"
+      name: 'test2',
+      value: 'value2'
     }]
 
     const jsonData = formToJSON(input);
     expect(jsonData).toEqual({
-      test: "value",
-      test2: "value2"
+      test: 'value',
+      test2: 'value2'
     });
   });
 });

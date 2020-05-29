@@ -9,9 +9,9 @@ describe('validateFnr', () => {
     const input: Ansatt[] = [
       {
         id: 1,
-        fnr: "27036405924",
-        fom: "",
-        tom: "",
+        fnr: '27036405924',
+        fom: '',
+        tom: '',
         antallDagerMedRefusjon: 2,
         beloep: 123,
         status: SkjemaStatus.NY,
@@ -19,9 +19,9 @@ describe('validateFnr', () => {
       },
       {
         id: 2,
-        fnr: "30040658641",
-        fom: "",
-        tom: "",
+        fnr: '30040658641',
+        fom: '',
+        tom: '',
         antallDagerMedRefusjon: 2,
         beloep: 123,
         status: SkjemaStatus.NY,
@@ -39,8 +39,8 @@ describe('validateFnr', () => {
       {
         id: 1,
 
-        fom: "",
-        tom: "",
+        fom: '',
+        tom: '',
         antallDagerMedRefusjon: 2,
         beloep: 123,
         status: SkjemaStatus.NY,
@@ -48,9 +48,9 @@ describe('validateFnr', () => {
       },
       {
         id: 2,
-        fnr: "30040658641",
-        fom: "",
-        tom: "",
+        fnr: '30040658641',
+        fom: '',
+        tom: '',
         antallDagerMedRefusjon: 2,
         beloep: 123,
         status: SkjemaStatus.NY,
@@ -58,7 +58,7 @@ describe('validateFnr', () => {
       }
     ];
 
-    const expected = "Fødselsnummer må fylles ut";
+    const expected = 'Fødselsnummer må fylles ut';
 
     expect(validateFnr(input, input[0])).toEqual(expected);
   });
@@ -67,9 +67,9 @@ describe('validateFnr', () => {
     const input: Ansatt[] = [
       {
         id: 1,
-        fnr: "270364059200",
-        fom: "",
-        tom: "",
+        fnr: '270364059200',
+        fom: '',
+        tom: '',
         antallDagerMedRefusjon: 2,
         beloep: 123,
         status: SkjemaStatus.NY,
@@ -77,9 +77,9 @@ describe('validateFnr', () => {
       },
       {
         id: 2,
-        fnr: "30040658641",
-        fom: "",
-        tom: "",
+        fnr: '30040658641',
+        fom: '',
+        tom: '',
         antallDagerMedRefusjon: 2,
         beloep: 123,
         status: SkjemaStatus.NY,
@@ -87,7 +87,7 @@ describe('validateFnr', () => {
       }
     ];
 
-    const expected = "Fødselsnummer må ha 11 siffer";
+    const expected = 'Fødselsnummer må ha 11 siffer';
 
     expect(validateFnr(input, input[0])).toEqual(expected);
   });
@@ -96,9 +96,9 @@ describe('validateFnr', () => {
     const input: Ansatt[] = [
       {
         id: 1,
-        fnr: "27036405",
-        fom: "",
-        tom: "",
+        fnr: '27036405',
+        fom: '',
+        tom: '',
         antallDagerMedRefusjon: 2,
         beloep: 123,
         status: SkjemaStatus.NY,
@@ -106,9 +106,9 @@ describe('validateFnr', () => {
       },
       {
         id: 2,
-        fnr: "30040658641",
-        fom: "",
-        tom: "",
+        fnr: '30040658641',
+        fom: '',
+        tom: '',
         antallDagerMedRefusjon: 2,
         beloep: 123,
         status: SkjemaStatus.NY,
@@ -116,7 +116,7 @@ describe('validateFnr', () => {
       }
     ];
 
-    const expected = "Fødselsnummer må ha 11 siffer";
+    const expected = 'Fødselsnummer må ha 11 siffer';
 
     expect(validateFnr(input, input[0])).toEqual(expected);
   });
@@ -125,9 +125,9 @@ describe('validateFnr', () => {
     const input: Ansatt[] = [
       {
         id: 1,
-        fnr: "27036405000",
-        fom: "",
-        tom: "",
+        fnr: '27036405000',
+        fom: '',
+        tom: '',
         antallDagerMedRefusjon: 2,
         beloep: 123,
         status: SkjemaStatus.NY,
@@ -135,9 +135,9 @@ describe('validateFnr', () => {
       },
       {
         id: 2,
-        fnr: "30040658641",
-        fom: "",
-        tom: "",
+        fnr: '30040658641',
+        fom: '',
+        tom: '',
         antallDagerMedRefusjon: 2,
         beloep: 123,
         status: SkjemaStatus.NY,
@@ -145,7 +145,7 @@ describe('validateFnr', () => {
       }
     ];
 
-    const expected = "Fødselsnummer er ugyldig";
+    const expected = 'Fødselsnummer er ugyldig';
 
     expect(validateFnr(input, input[0])).toEqual(expected);
   });
@@ -154,9 +154,9 @@ describe('validateFnr', () => {
     const input: Ansatt[] = [
       {
         id: 1,
-        fnr: "30040658641",
-        fom: "",
-        tom: "",
+        fnr: '30040658641',
+        fom: '',
+        tom: '',
         antallDagerMedRefusjon: 2,
         beloep: 123,
         status: SkjemaStatus.NY,
@@ -164,9 +164,9 @@ describe('validateFnr', () => {
       },
       {
         id: 2,
-        fnr: "30040658641",
-        fom: "",
-        tom: "",
+        fnr: '30040658641',
+        fom: '',
+        tom: '',
         antallDagerMedRefusjon: 2,
         beloep: 123,
         status: SkjemaStatus.NY,
@@ -174,7 +174,7 @@ describe('validateFnr', () => {
       }
     ];
 
-    const expected = "Fødselsnummer er allerede brukt";
+    const expected = 'Fødselsnummer er allerede brukt';
 
     expect(validateFnr(input, input[0])).toEqual(expected);
   });

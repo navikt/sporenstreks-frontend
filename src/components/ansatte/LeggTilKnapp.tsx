@@ -1,11 +1,11 @@
-import React from "react";
-import {useAppStore} from "../../data/store/AppStore";
-import {byggAnsatt} from "../../data/types/sporenstreksTypes";
-import {Normaltekst} from "nav-frontend-typografi";
-import InternLenke from "../InternLenke";
+import React from 'react';
+import { useAppStore } from '../../data/store/AppStore';
+import { byggAnsatt } from '../../data/types/sporenstreksTypes';
+import { Normaltekst } from 'nav-frontend-typografi';
+import InternLenke from '../InternLenke';
 
 export const LeggTilKnapp = () => {
-    const {ansatte, setAnsatte} = useAppStore();
+    const { ansatte, setAnsatte } = useAppStore();
     const handleAddRad = (e: React.FormEvent) => {
         e.preventDefault();
         ansatte.push(byggAnsatt())

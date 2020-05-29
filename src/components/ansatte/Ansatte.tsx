@@ -1,27 +1,27 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './Ansatte.less';
-import {useAppStore} from '../../data/store/AppStore';
-import {AnsattRad} from './AnsattRad';
-import {Validering} from '../validering/Validering';
-import {ByggValideringsFeil} from './ByggValideringsFeil';
+import { useAppStore } from '../../data/store/AppStore';
+import { AnsattRad } from './AnsattRad';
+import { Validering } from '../validering/Validering';
+import { ByggValideringsFeil } from './ByggValideringsFeil';
 import Innsending from './Innsending';
-import {LeggTilKnapp} from './LeggTilKnapp';
-import {BekreftKnapp} from './BekreftKnapp';
-import {Erklaring} from './Erklaring';
-import {ValideringOppsummering} from './ValideringOppsummering';
-import {History} from 'history';
-import {useHistory} from "react-router-dom";
-import {byggAnsatt, Ansatt} from "../../data/types/sporenstreksTypes";
-import Advarsler from "./Advarsler";
-import { Column, Row } from "nav-frontend-grid";
-import Panel from "nav-frontend-paneler";
-import Skillelinje from "./Skillelinje";
-import {Normaltekst, Undertittel} from "nav-frontend-typografi";
+import { LeggTilKnapp } from './LeggTilKnapp';
+import { BekreftKnapp } from './BekreftKnapp';
+import { Erklaring } from './Erklaring';
+import { ValideringOppsummering } from './ValideringOppsummering';
+import { History } from 'history';
+import { useHistory } from 'react-router-dom';
+import { byggAnsatt, Ansatt } from '../../data/types/sporenstreksTypes';
+import Advarsler from './Advarsler';
+import { Column, Row } from 'nav-frontend-grid';
+import Panel from 'nav-frontend-paneler';
+import Skillelinje from './Skillelinje';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import LoggetUtAdvarsel from './LoggetUtAdvarsel';
 import InternLenke from '../InternLenke';
 
 const Ansatte: React.FC = () => {
-  const { ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, loadingStatus, setLoadingStatus, setTokenExpired } = useAppStore();
+  const { ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, setLoadingStatus, setTokenExpired } = useAppStore();
   const history: History = useHistory();
   const [ erklæringAkseptert, setErklæringAkseptert ] = useState<boolean>(false);
   const [ harTrykketSubmitMinstEnGang, setHarTrykketSubmitMinstEnGang ] = useState<boolean>(false);
@@ -42,7 +42,7 @@ const Ansatte: React.FC = () => {
   const handleSubmit = (evt: React.FormEvent) => {
     evt.preventDefault();
   }
-  const handleBekreftKlikk = (e: React.FormEvent) => {
+  const handleBekreftKlikk = () => {
     setHarTrykketSubmitMinstEnGang(true);
   }
 
