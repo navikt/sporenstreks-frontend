@@ -2,9 +2,9 @@ import React, {useState} from "react";
 import ModalWrapper from 'nav-frontend-modal';
 import {AlertStripeFeil} from 'nav-frontend-alertstriper';
 import {Innholdstittel} from "nav-frontend-typografi";
-import Lenke from "nav-frontend-lenker";
 import {useAppStore} from "../../data/store/AppStore";
 import env from '../../util/environment';
+import InternLenke from "../InternLenke";
 
 const LoggetUtAdvarsel = () => {
   const [ isOpen, setOpen ] = useState(true);
@@ -40,7 +40,7 @@ const LoggetUtAdvarsel = () => {
           <li>Returner til dette vinduet.</li>
           <li>Lukk denne meldingen og klikk igjen på knappen “Send søknad om refusjon”</li>
         </ul>
-        <Lenke className={""} href="#" onClick={() => handleCloseModal()}>Jeg har logget inn på nytt - lukk dette vinduet</Lenke>
+        <InternLenke onClick={() => handleCloseModal()}>Jeg har logget inn på nytt - lukk dette vinduet</InternLenke>
       </AlertStripeFeil>
     </ModalWrapper>
   )

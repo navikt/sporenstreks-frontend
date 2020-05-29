@@ -2,9 +2,9 @@ import React, {useState} from "react";
 import ModalWrapper from 'nav-frontend-modal';
 import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
 import {Innholdstittel} from "nav-frontend-typografi";
-import Lenke from "nav-frontend-lenker";
 import TokenUtloper from "./TokenUtloper";
 import { useAppStore } from "../../data/store/AppStore";
+import InternLenke from "../InternLenke";
 
 const TimeoutAdvarsel = () => {
   const [isOpen, setOpen] = useState(true);
@@ -35,7 +35,7 @@ const TimeoutAdvarsel = () => {
           <li>Blir du logget ut, får du mer informasjon om hva du skal gjøre, slik at du ikke mister det du har skrevet.</li>
           <li><strong>Denne innloggingen utløper kl: <TokenUtloper /></strong></li>
         </ul>
-        <Lenke className={""} href="#" onClick={(e) => handleOKClick(e)}>Lukk</Lenke>
+        <InternLenke onClick={(e) => handleOKClick(e)}>Lukk</InternLenke>
       </AlertStripeAdvarsel>
     </ModalWrapper>
   )
