@@ -2,7 +2,7 @@ import React from "react";
 import {useAppStore} from "../../data/store/AppStore";
 import {byggAnsatt} from "../../data/types/sporenstreksTypes";
 import {Normaltekst} from "nav-frontend-typografi";
-import Lenke from "nav-frontend-lenker";
+import InternLenke from "../InternLenke";
 
 export const LeggTilKnapp = () => {
     const {ansatte, setAnsatte} = useAppStore();
@@ -14,5 +14,5 @@ export const LeggTilKnapp = () => {
     if (ansatte.length == 50) {
       return (<Normaltekst>Det er ikke tillatt å sende inn flere enn 50 stk om gangen.</Normaltekst>)
     }
-    return (<Lenke href="#" onClick={handleAddRad}>+ Legg til enda en ansatt</Lenke>)
+    return (<InternLenke onClick={handleAddRad}>+ Legg til enda en ansatt</InternLenke>)
 }
