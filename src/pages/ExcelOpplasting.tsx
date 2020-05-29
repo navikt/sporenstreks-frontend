@@ -17,6 +17,7 @@ import InnloggetSide from "./InnloggetSide";
 import Panel from "nav-frontend-paneler";
 import Skillelinje from "../components/ansatte/Skillelinje";
 import {Column, Row} from "nav-frontend-grid";
+import InternLenke from '../components/InternLenke';
 
 const ExcelOpplasting = () => {
   const [erklæringAkseptert, setErklæringAkseptert] = useState<boolean>(false);
@@ -148,14 +149,14 @@ const ExcelOpplasting = () => {
           <Panel>
             <Normaltekst>
               Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
-              <Lenke href="/enkel">
+              <InternLenke to="/enkel">
                 &nbsp;skal du bruke et eget skjema
-              </Lenke>.
+              </InternLenke>.
               Excel-opplasting er tiltenkt dere som har svært mange refusjonskrav.
               Vi har også et &nbsp;
-              <Lenke href="/bulk">
+              <InternLenke to="/bulk">
                 eget skjema for å søke om refusjonskrav for flere ansatte
-              </Lenke>
+              </InternLenke>
               &nbsp; dersom dere foretrekker å gjøre det på den måten.
             </Normaltekst>
           </Panel>

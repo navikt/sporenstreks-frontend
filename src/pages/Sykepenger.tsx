@@ -3,7 +3,7 @@ import 'nav-frontend-tabell-style';
 import {Input} from 'nav-frontend-skjema';
 import {FormContext, useForm} from 'react-hook-form';
 import {Knapp} from 'nav-frontend-knapper';
-import {Link, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {Normaltekst, Undertekst, Undertittel} from 'nav-frontend-typografi';
 import {Keys} from '../locales/keys';
@@ -27,6 +27,7 @@ import formToJSON from '../util/formToJSON';
 import convertSkjemaToRefusjonsKrav from '../util/convertSkjemaToRefusjonsKrav';
 import {Erklaring} from '../components/ansatte/Erklaring';
 import {Container} from 'nav-frontend-grid';
+import InternLenke from '../components/InternLenke';
 
 const fnrErrorState = {
   hasError: '',
@@ -142,11 +143,11 @@ const Sykepenger = () => {
           <AlertStripeAdvarsel>
             <div>Du har ikke rettigheter til å søke om refusjon for noen bedrifter</div>
             <div>Tildeling av roller foregår i Altinn</div>
-            <Link to="/min-side-arbeidsgiver/informasjon-om-tilgangsstyring"
-              className="lenke informasjonsboks__lenke"
+            <Lenke href="/min-side-arbeidsgiver/informasjon-om-tilgangsstyring"
+              className="informasjonsboks__lenke"
             >
               Les mer om roller og tilganger.
-            </Link>
+            </Lenke>
           </AlertStripeAdvarsel>
         </div>
       </Vis>
@@ -154,16 +155,16 @@ const Sykepenger = () => {
       <ModalWrapper
         isOpen={sendSkjemaOpen}
         onRequestClose={() => setSendSkjemaOpen(false)}
-        closeButton={true}
+        closeButton={false}
         contentLabel="Send skjema"
       >
         <Undertittel className="sykepenger__modal-tittel">Du søker om refusjon på vegne av:</Undertittel>
         <p className="sykepenger__modal-tekst">{firma}</p>
         <p className="sykepenger__modal-tekst">Organisasjonsnummer: {arbeidsgiverId}</p>
         <Knapp className="sykepenger__modal-btn" onClick={() => submitForm()}>Send søknad om refusjon</Knapp>
-        <div className="sykepenger__modal-avbrytt lenke" onClick={() => setSendSkjemaOpen(false)}>
+        <InternLenke className="sykepenger__modal-avbrytt" onClick={() => setSendSkjemaOpen(false)}>
           Avbryt
-        </div>
+        </InternLenke>
       </ModalWrapper>
       <Vis hvis={arbeidsgivere.length > 0}>
         <Bedriftsmeny
@@ -186,10 +187,10 @@ const Sykepenger = () => {
             Når sykefraværet handler om korona, dekker NAV sykepenger fra dag 4 i de 16 dagene arbeidsgiveren vanligvis skal betale.
             Den ansatte må være smittet, mistenkt smittet eller i pålagt karantene. Refusjon kan gis for dager fra og med 16. mars.
             <span> </span>
-            <a className="lenke informasjonsboks__lenke"
+            <Lenke className="informasjonsboks__lenke"
                href="https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/nyheter/refusjon-av-sykepenger-ved-koronavirus--hva-er-status">
               Se mer informasjon om refusjonsordningen.
-            </a>
+            </Lenke>
           </Normaltekst>
           <Undertittel className="sykepenger--header">
             Det kan ikke søkes om refusjon for fravær på grunn av stengte skoler eller barnehager
@@ -205,9 +206,9 @@ const Sykepenger = () => {
                   </Undertittel>
 
                   <Normaltekst>
-                    Vi har også et eget <Lenke href="../bulk/"> skjema for å sende inn flere ansatte samtidig </Lenke>
+                    Vi har også et eget <InternLenke to="/bulk/"> skjema for å sende inn flere ansatte samtidig </InternLenke>
                     (kun enkeltperioder per ansatt), og for dere som har mer enn 50 ansatte å rapportere inn har vi
-                    mulighet for <Lenke href="../excel/"> excel-opplasting av kravet.</Lenke>
+                    mulighet for <InternLenke to="/excel/"> excel-opplasting av kravet.</InternLenke>
                   </Normaltekst>
 
                   <div>&nbsp;</div>
