@@ -1,11 +1,15 @@
 import '@testing-library/jest-dom';
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent, screen, cleanup } from '@testing-library/react';
+import { axe, toHaveNoViolations } from 'jest-axe';
 
 import { useAppStore } from '../../data/store/AppStore';
 
 import BekreftKnapp from './BekreftKnapp';
 import { Ansatt, SkjemaStatus } from '../../data/types/sporenstreksTypes';
+
+expect.extend(toHaveNoViolations)
+
 
 jest.mock('../../data/store/AppStore');
 
@@ -172,45 +176,88 @@ describe('BekreftKnapp', () => {
     expect(mockOnSubmmit).not.toHaveBeenCalled();
     expect(screen.queryAllByText(/Organisasjonsnummer/).length).toBe(0);
   });
-});
 
 
-it('should fire click, show modal snd fire submit when erklæringAkseptert is true, ansatte is invalid and modal submit button is clicked', () => {
-  const mockOnSubmmit = jest.fn();
-  const mockOnClick = jest.fn();
-  const mockSetFeil = jest.fn();
-  const erklæringAkseptert = true;
-  mockUseAppStore.mockReturnValue({
-    ansatte: mockAnsatteNotOK,
-    setAnsatte: jest.fn(),
-    setFeil: mockSetFeil,
-    firma: 'Testfirma',
-    arbeidsgiverId: 'organisasjonsnummer',
-    loadingStatus: 1
+  it('should fire click, show modal snd fire submit when erklæringAkseptert is true, ansatte is invalid and modal submit button is clicked', () => {
+    const mockOnSubmmit = jest.fn();
+    const mockOnClick = jest.fn();
+    const mockSetFeil = jest.fn();
+    const erklæringAkseptert = true;
+    mockUseAppStore.mockReturnValue({
+      ansatte: mockAnsatteNotOK,
+      setAnsatte: jest.fn(),
+      setFeil: mockSetFeil,
+      firma: 'Testfirma',
+      arbeidsgiverId: 'organisasjonsnummer',
+      loadingStatus: 1
+    });
+
+    const expected = [
+      {
+        "feilmelding": "Det er en feil i rad nr 1",
+        "skjemaelementId": "fnr_123",
+      },
+      {
+        "feilmelding": "Det er en feil i rad nr 2",
+        "skjemaelementId": "fnr_123",
+      },
+    ];
+
+    render(<BekreftKnapp onSubmit={mockOnSubmmit} onClick={mockOnClick} erklæringAkseptert={erklæringAkseptert} />);
+
+    const button = screen.getByText(/Send søknad om refusjon/);
+
+    fireEvent.click(button);
+
+    expect(mockOnClick).toHaveBeenCalled();
+    expect(mockOnSubmmit).not.toHaveBeenCalled();
+    expect(screen.queryAllByText(/Organisasjonsnummer/).length).toBe(0);
+
+    expect(mockSetFeil).toHaveBeenCalledWith(expected);
+    expect(mockOnClick).toHaveBeenCalled();
+    expect(mockOnSubmmit).not.toHaveBeenCalled();
   });
 
-  const expected = [
-    {
-      "feilmelding": "Det er en feil i rad nr 1",
-      "skjemaelementId": "fnr_123",
-    },
-    {
-      "feilmelding": "Det er en feil i rad nr 2",
-      "skjemaelementId": "fnr_123",
-    },
-  ];
+  it('should have no a11y violations', async () => {
+    const mockOnSubmmit = jest.fn();
+    const mockOnClick = jest.fn();
+    const mockSetFeil = jest.fn();
+    const erklæringAkseptert = true;
+    mockUseAppStore.mockReturnValue({
+      ansatte: mockAnsatteNotOK,
+      setAnsatte: jest.fn(),
+      setFeil: mockSetFeil,
+      firma: 'Testfirma',
+      arbeidsgiverId: 'organisasjonsnummer',
+      loadingStatus: 1
+    });
 
-  render(<BekreftKnapp onSubmit={mockOnSubmmit} onClick={mockOnClick} erklæringAkseptert={erklæringAkseptert} />);
+    const expected = [
+      {
+        "feilmelding": "Det er en feil i rad nr 1",
+        "skjemaelementId": "fnr_123",
+      },
+      {
+        "feilmelding": "Det er en feil i rad nr 2",
+        "skjemaelementId": "fnr_123",
+      },
+    ];
 
-  const button = screen.getByText(/Send søknad om refusjon/);
+    const { container } =  render(<BekreftKnapp onSubmit={mockOnSubmmit} onClick={mockOnClick} erklæringAkseptert={erklæringAkseptert} />);
 
-  fireEvent.click(button);
+    const button = screen.getByText(/Send søknad om refusjon/);
 
-  expect(mockOnClick).toHaveBeenCalled();
-  expect(mockOnSubmmit).not.toHaveBeenCalled();
-  expect(screen.queryAllByText(/Organisasjonsnummer/).length).toBe(0);
+    const resultsBeforeClick = await axe(container)
 
-  expect(mockSetFeil).toHaveBeenCalledWith(expected);
-  expect(mockOnClick).toHaveBeenCalled();
-  expect(mockOnSubmmit).not.toHaveBeenCalled();
+    expect(resultsBeforeClick).toHaveNoViolations()
+
+
+    fireEvent.click(button);
+
+    const results = await axe(container)
+
+    expect(results).toHaveNoViolations()
+
+    cleanup()
+  })
 });

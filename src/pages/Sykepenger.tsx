@@ -137,7 +137,7 @@ const Sykepenger = () => {
   };
 
   return (
-    <div className="sykepenger">
+    <main className="sykepenger">
       <Vis hvis={arbeidsgivere.length === 0}>
         <div className="limit">
           <AlertStripeAdvarsel>
@@ -263,7 +263,7 @@ const Sykepenger = () => {
           </FormContext>
         </div>
       </Vis>
-    </div>
+    </main>
   );
 };
 
