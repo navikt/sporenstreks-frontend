@@ -1,28 +1,28 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import 'nav-frontend-tabell-style';
-import {FormContext, useForm} from 'react-hook-form';
-import {Hovedknapp} from 'nav-frontend-knapper';
-import {useHistory} from 'react-router-dom';
-import {useTranslation} from 'react-i18next';
-import {Ingress, Innholdstittel, Normaltekst, Undertittel} from 'nav-frontend-typografi';
+import { FormContext, useForm } from 'react-hook-form';
+import { Hovedknapp } from 'nav-frontend-knapper';
+import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Ingress, Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
-import {History} from 'history';
+import { History } from 'history';
 import Vis from '../components/Vis';
 import env from '../util/environment';
-import Lenke from "nav-frontend-lenker";
+import Lenke from 'nav-frontend-lenker';
 import excellogo from '../img/excel-logo.png';
-import {Erklaring} from '../components/ansatte/Erklaring';
-import {FeilTabell, tabellFeil} from '../components/feilvisning/FeilTabell';
-import innsendingExcelFil from "../components/InnsendingExcelFil";
-import InnloggetSide from "./InnloggetSide";
-import Panel from "nav-frontend-paneler";
-import Skillelinje from "../components/ansatte/Skillelinje";
-import {Column, Row} from "nav-frontend-grid";
+import { Erklaring } from '../components/ansatte/Erklaring';
+import { FeilTabell, tabellFeil } from '../components/feilvisning/FeilTabell';
+import innsendingExcelFil from '../components/InnsendingExcelFil';
+import InnloggetSide from './InnloggetSide';
+import Panel from 'nav-frontend-paneler';
+import Skillelinje from '../components/ansatte/Skillelinje';
+import { Column, Row } from 'nav-frontend-grid';
 
 const ExcelOpplasting = () => {
   const [erklæringAkseptert, setErklæringAkseptert] = useState<boolean>(false);
   const methods = useForm();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const history: History = useHistory();
   const [fileName, setFileName] = useState('Last opp utfylt Excel-mal');
   const [file, setFile] = useState(undefined);
@@ -33,32 +33,26 @@ const ExcelOpplasting = () => {
 
   const handleSubmit = async  (e: React.FormEvent): Promise<any> => {
     e.preventDefault();
-    const responsFeil = await innsendingExcelFil(createFormData())
-    if (responsFeil.length == 0) {
-      setFeil([])
-      history.push('/kvitteringExcel')
-    } else {
-      setFeil(responsFeil)
+    if (file) {
+      // @ts-ignore
+      const responsFeil = await innsendingExcelFil(file)
+      if (responsFeil.length == 0) {
+        setFeil([])
+        history.push('/kvitteringExcel')
+      } else {
+        setFeil(responsFeil)
+      }
     }
   }
 
   const setUploadFile = (event: any) => {
     if (event.target.files[0] && event.target.files[0].size > FILEUPLOAD_MAX_SIZE) {
-      setFeil([{indeks: -1, melding: "Du kan ikke laste opp filer større enn 250 kB."}])
+      setFeil([{ indeks: -1, melding: 'Du kan ikke laste opp filer større enn 250 kB.' }])
     } else {
       setFileName(event.target.files[0].name);
       setFile(event.target.files[0]);
       setFeil([]);
     }
-  }
-
-  function createFormData() {
-    const formData = new FormData();
-    if (file) {
-      // @ts-ignore
-      formData.append(fileName, file)
-    }
-    return formData
   }
 
   return (
@@ -112,7 +106,7 @@ const ExcelOpplasting = () => {
                    width="35"
                    className="excelopplasting__excellogo"
                    alt="Excel-symbol"/>
-              <Lenke href={env.baseUrl + "/api/v1/bulk/template"}>
+              <Lenke href={env.baseUrl + '/api/v1/bulk/template'}>
                 Last ned malen her</Lenke>, og fyll ut.
               Det er ikke mulig å benytte ditt eget excel-dokument,
               alt må fylles ut i denne malen før du laster opp.

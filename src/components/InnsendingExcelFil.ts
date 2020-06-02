@@ -1,11 +1,20 @@
 import env from "../util/environment";
 import {tabellFeil} from "./feilvisning/FeilTabell";
 
-export default (formData: FormData): Promise<tabellFeil[]> => {
+export default (file: File): Promise<tabellFeil[]> => {
+
+  const formData = (file) => {
+    let formData = new FormData();
+    if (file) {
+      // @ts-ignore
+      formData.append(file.name, file)
+    }
+    return formData
+  }
 
   return fetch(env.baseUrl + '/api/v1/bulk/upload', {
     method: 'POST',
-    body: formData,
+    body: formData(file),
   }).then((response) => {
     switch (response.status) {
       case 401: {
