@@ -32,7 +32,7 @@ const FeilOppsummering = (props: FeilProps) => {
           <ul className='feiloppsummering__liste'>
             {entries.sort(list => list[0][0]).map((list, index) => (
               <li key={index}>
-                <InternLenke onClick={() => handleClick(list)}>
+                <InternLenke onClick={() => handleClick(list)} onKeyDown={() => handleClick(list)}>
 									{list[1].type === 'pattern' ? list[1].message : list[1].type}
                 </InternLenke>
               </li>
