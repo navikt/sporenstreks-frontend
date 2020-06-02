@@ -8,6 +8,10 @@ interface FeiloppsummeringProps {
   errors: any;
 }
 
+enum keyCodes {
+  'ENTER' = 13
+}
+
 type FeilProps = FeiloppsummeringProps;
 
 const FeilOppsummering = (props: FeilProps) => {
@@ -24,6 +28,12 @@ const FeilOppsummering = (props: FeilProps) => {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent, list: any) => {
+    if (e.keyCode === keyCodes.ENTER) {
+      handleClick(list);
+    }
+  }
+
   return (
     <div aria-live='polite' role='alert'>
       <Vis hvis={entries.length > 0}>
@@ -32,7 +42,7 @@ const FeilOppsummering = (props: FeilProps) => {
           <ul className='feiloppsummering__liste'>
             {entries.sort(list => list[0][0]).map((list, index) => (
               <li key={index}>
-                <InternLenke onClick={() => handleClick(list)} onKeyDown={() => handleClick(list)}>
+                <InternLenke onClick={() => handleClick(list)} onKeyDown={(e: React.KeyboardEvent<Element>) => handleKeyDown(e, list)}>
 									{list[1].type === 'pattern' ? list[1].message : list[1].type}
                 </InternLenke>
               </li>
