@@ -11,13 +11,13 @@ interface KnappMedVarselInterface {
 const KnappMedVarsel = ({ disabledClick, disabled, children }: KnappMedVarselInterface) => {
   return (
     <>
-      {(disabled) &&
+      {(disabled) ?
         <button className={'knapp-med-varsel-disabled-button'} onClick={e => disabledClick(e)} onKeyDown={e => disabledClick(e)}>
           <Hovedknapp disabled={disabled} className="knapp knapp-med-varsel-action">
             {children}
           </Hovedknapp>
-        </button>}
-      {(!disabled) &&
+        </button>
+        :
         <Hovedknapp disabled={disabled} className="knapp knapp-med-varsel-action">
           {children}
         </Hovedknapp>
