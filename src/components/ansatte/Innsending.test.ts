@@ -1,6 +1,6 @@
 import FetchMock, { MatcherUtils, SpyMiddleware, ResponseUtils, HandlerArgument } from 'yet-another-fetch-mock';
 import Innsending from './Innsending';
-import { SkjemaStatus, Ansatt, BackendStatus } from '../../data/types/sporenstreksTypes';
+import { SkjemaStatus, Ansatt, BackendStatus, BackendResponseState } from '../../data/types/sporenstreksTypes';
 
 const mockServer = 'http://mockserver.nav.no';
 
@@ -83,13 +83,13 @@ describe('Innsending', () => {
 
     const backendResponce: BackendStatus[] = [
       {
-        status: 'OK',
+        status: BackendResponseState.OK,
         validationErrors: null,
         genericMessage: null,
         referenceNumber: '1234'
       },
       {
-        status: 'VALIDATION_ERRORS',
+        status: BackendResponseState.VALIDATION_ERRORS,
         validationErrors: [
           {
             validationType: 'type',

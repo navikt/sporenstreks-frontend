@@ -61,8 +61,14 @@ export const byggAnsatt = () => {
   return a;
 };
 
+export enum BackendResponseState {
+  'OK' = 'OK',
+  'GENERIC_ERROR' = 'GENERIC_ERROR',
+  'VALIDATION_ERRORS' = 'VALIDATION_ERRORS'
+}
+
 export interface BackendStatus {
-  status: 'OK' | 'GENERIC_ERROR' | 'VALIDATION_ERRORS';
+  status: BackendResponseState;
   validationErrors: BackendValidation[] | null;
   genericMessage: string | null;
   referenceNumber: string | null;

@@ -1,5 +1,5 @@
 import berikAnsatte from './berikAnsatte';
-import { BackendStatus, Ansatt } from '../../data/types/sporenstreksTypes';
+import { BackendStatus, Ansatt, BackendResponseState } from '../../data/types/sporenstreksTypes';
 
 describe('berikAnsatte', () => {
   it('should add validation errors', () => {
@@ -31,13 +31,13 @@ describe('berikAnsatte', () => {
 
     const backendResponce: BackendStatus[] = [
       {
-        status: 'OK',
+        status: BackendResponseState.OK,
         validationErrors: null,
         genericMessage: null,
         referenceNumber: '1234'
       },
       {
-        status: 'VALIDATION_ERRORS',
+        status: BackendResponseState.VALIDATION_ERRORS,
         validationErrors: [
           {
             validationType: 'type',
@@ -50,7 +50,7 @@ describe('berikAnsatte', () => {
         referenceNumber: null
       },
       {
-        status: 'VALIDATION_ERRORS',
+        status: BackendResponseState.VALIDATION_ERRORS,
         validationErrors: [
           {
             validationType: 'type',
@@ -127,13 +127,13 @@ describe('berikAnsatte', () => {
 
     const backendResponce: BackendStatus[] = [
       {
-        status: 'OK',
+        status: BackendResponseState.OK,
         validationErrors: null,
         genericMessage: null,
         referenceNumber: '1234'
       },
       {
-        status: 'VALIDATION_ERRORS',
+        status: BackendResponseState.VALIDATION_ERRORS,
         validationErrors: [
           {
             validationType: 'type',
@@ -152,7 +152,7 @@ describe('berikAnsatte', () => {
         referenceNumber: null
       },
       {
-        status: 'VALIDATION_ERRORS',
+        status: BackendResponseState.VALIDATION_ERRORS,
         validationErrors: [
           {
             validationType: 'type',
@@ -229,13 +229,13 @@ describe('berikAnsatte', () => {
 
     const backendResponce: BackendStatus[] = [
       {
-        status: 'OK',
+        status: BackendResponseState.OK,
         validationErrors: null,
         genericMessage: null,
         referenceNumber: '1234'
       },
       {
-        status: 'GENERIC_ERROR',
+        status: BackendResponseState.GENERIC_ERROR,
         validationErrors: [
           {
             validationType: 'type',
@@ -254,7 +254,7 @@ describe('berikAnsatte', () => {
         referenceNumber: null
       },
       {
-        status: 'VALIDATION_ERRORS',
+        status: BackendResponseState.VALIDATION_ERRORS,
         validationErrors: [
           {
             validationType: 'type',
@@ -330,13 +330,13 @@ describe('berikAnsatte', () => {
 
     const backendResponce: BackendStatus[] = [
       {
-        status: 'OK',
+        status: BackendResponseState.OK,
         validationErrors: null,
         genericMessage: null,
         referenceNumber: '1234'
       },
       {
-        status: 'GENERIC_ERROR',
+        status: BackendResponseState.GENERIC_ERROR,
         validationErrors: [
           {
             validationType: 'type',
@@ -355,7 +355,7 @@ describe('berikAnsatte', () => {
         referenceNumber: null
       },
       {
-        status: 'VALIDATION_ERRORS',
+        status: BackendResponseState.VALIDATION_ERRORS,
         validationErrors: [
           {
             validationType: 'type',
