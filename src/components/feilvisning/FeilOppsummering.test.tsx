@@ -101,7 +101,7 @@ describe('FeilOppsummering', () => {
 
     const linkText = rendered.getByText(/Fødselsnummer må fylles ut/);
 
-    fireEvent.keyDown(linkText, { key: 'Enter', code: 'Enter' });
+    fireEvent.keyDown(linkText, { key: 'Enter', keyCode: 13 });
 
     expect(stub).toHaveBeenCalledTimes(1);
   })
