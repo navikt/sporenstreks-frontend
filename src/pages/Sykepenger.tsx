@@ -28,6 +28,7 @@ import convertSkjemaToRefusjonsKrav from '../util/convertSkjemaToRefusjonsKrav';
 import { Erklaring } from '../components/ansatte/Erklaring';
 import { Container } from 'nav-frontend-grid';
 import InternLenke from '../components/InternLenke';
+import { useArbeidsgiver } from '../context/ArbeidsgiverContext';
 
 const fnrErrorState = {
   hasError: '',
@@ -35,11 +36,11 @@ const fnrErrorState = {
 }
 
 const Sykepenger = () => {
-  const { arbeidsgivere, setReferanseNummer, setTokenExpired } = useAppStore();
+  const { arbeidsgivere, arbeidsgiverId, setArbeidsgiverId, firma, setFirma } = useArbeidsgiver();
+
+  const { setReferanseNummer, setTokenExpired } = useAppStore();
   const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
   const [ erklæringAkseptert, setErklæringAkseptert ] = useState<boolean>(false);
-  const { arbeidsgiverId, setArbeidsgiverId } = useAppStore();
-  const { firma, setFirma } = useAppStore();
   const [ sendSkjemaOpen, setSendSkjemaOpen ] = useState<boolean>(false);
   const [ formData, setFormData ] = useState<any>({});
   const [ fnrClassName, setFnrClassName ] = useState<string>(fnrErrorState.noError);

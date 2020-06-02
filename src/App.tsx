@@ -4,7 +4,6 @@ import i18n from './locales/i18n';
 import Sykepenger from './pages/Sykepenger';
 import { Switch, Route } from 'react-router-dom';
 import Redirecter from './components/Redirecter';
-import { ArbeidsgiverProvider } from './components/arbeidsgiver/ArbeidsgiverProvider';
 import StoreProvider from './data/store/StoreProvider';
 import Kvittering from './pages/Kvittering';
 import SykepengerBulk from './pages/SykepengerBulk';
@@ -12,11 +11,12 @@ import ExcelOpplasting from './pages/ExcelOpplasting';
 import KvitteringExcel from './pages/KvitteringExcel';
 import KvitteringBulk from './pages/KvitteringBulk';
 import LoginFornyet from './components/loginFornyet/LoginFornyet';
+import { ArbeidsgiverContextProvider } from './context/ArbeidsgiverContext';
 
 const App = () => {
   return (
     <StoreProvider>
-      <ArbeidsgiverProvider>
+      <ArbeidsgiverContextProvider>
           <I18nextProvider i18n={i18n}>
             <Switch>
               <Route path="/enkel" render={() => <Sykepenger />} />
@@ -29,7 +29,7 @@ const App = () => {
               <Route path="/" render={() => <Redirecter />} />
             </Switch>
           </I18nextProvider>
-      </ArbeidsgiverProvider>
+      </ArbeidsgiverContextProvider>
     </StoreProvider>
   );
 };

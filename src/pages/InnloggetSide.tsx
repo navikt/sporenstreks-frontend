@@ -1,4 +1,3 @@
-import { useAppStore } from '../data/store/AppStore';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Link, useHistory } from 'react-router-dom';
 import React from 'react';
@@ -11,6 +10,7 @@ import TimeoutAdvarsel from '../components/ansatte/TimeoutAdvarsel';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import './InnloggetSide.less';
 import Lenke from 'nav-frontend-lenker';
+import { useArbeidsgiver } from '../context/ArbeidsgiverContext';
 
 interface SideProps {
   children: React.ReactNode,
@@ -18,7 +18,7 @@ interface SideProps {
 }
 
 const InnloggetSide = (props: SideProps) => {
-  const { arbeidsgivere, setArbeidsgiverId, setFirma } = useAppStore();
+  const { arbeidsgivere, setArbeidsgiverId, setFirma } = useArbeidsgiver();
   const { t } = useTranslation();
   const history: History = useHistory();
   return (

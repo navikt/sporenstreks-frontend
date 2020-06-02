@@ -1,6 +1,6 @@
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 
-export const convertResponseDataToOrganisasjon = (data): Organisasjon[] => data.map(organisasjon => ({
+export const mapArbeidsgiver = (data): Organisasjon[] => data.map(organisasjon => ({
   Name: organisasjon.name,
   Type: organisasjon.type,
   OrganizationNumber: organisasjon.organizationNumber,
