@@ -19,7 +19,7 @@ export const AnsattRad = ({ id }: AnsattID) => {
     evt.preventDefault();
   };
   const a = ansatte.find(a => a.id === id) || byggAnsatt()
-  if (a.status == SkjemaStatus.GODKJENT) {
+  if (a.status === SkjemaStatus.GODKJENT) {
     return (
       <Row key={a?.id} className="AnsattRad">
         <Column><RadNr nr={ansatte.indexOf(a) + 1}/></Column>

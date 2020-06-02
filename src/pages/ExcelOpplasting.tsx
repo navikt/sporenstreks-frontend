@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import 'nav-frontend-tabell-style';
 import { FormContext, useForm } from 'react-hook-form';
-import { Hovedknapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { Ingress, Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { History } from 'history';
@@ -23,7 +21,6 @@ import KnappMedVarsel from '../components/KnappMedVarsel';
 const ExcelOpplasting = () => {
   const [erklæringAkseptert, setErklæringAkseptert] = useState<boolean>(false);
   const methods = useForm();
-  const { t } = useTranslation();
   const history: History = useHistory();
   const [fileName, setFileName] = useState('Last opp utfylt Excel-mal');
   const [file, setFile] = useState(undefined);
