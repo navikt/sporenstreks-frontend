@@ -10,6 +10,7 @@ import { tabellFeil } from '../components/feilvisning/FeilTabell';
 import Sykepenger from './Sykepenger';
 import { createMemoryHistory } from 'history';
 import 'mutationobserver-shim';
+import { act } from 'react-dom/test-utils';
 
 jest.mock('../data/store/AppStore');
 
@@ -58,46 +59,61 @@ describe('KvitteringExcel', () => {
 
   it('uploads file and redirects to kvittering when file is valid', () => {
 
-    jest.mock('../components/InnsendingExcelFil.ts', () => {
-      return new Promise((resolve, reject) => {
-        resolve([{ indeks: -1, melding: 'Noe gikk galt' }])
-
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        status: 200,
+        json: () => Promise.resolve([]),
       })
-    });
+    );
+
+    // jest.mock('../components/InnsendingExcelFil.ts', () => {
+    //   return new Promise((resolve, reject) => {
+    //     resolve([{ indeks: -1, melding: 'Noe gikk galt' }])
+    //
+    //   })
+    // });
 
       const mockHistoryPush = jest.fn();
 
       const mockFile = new File(['(⌐□_□)'], 'fil.xlsx', { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
-      jest.mock('react-router-dom', () => ({
-        // @ts-ignore
-        ...jest.requireActual('react-router-dom'),
-        useHistory: () => ({
-          push: mockHistoryPush,
-        }),
-      }));
+      // jest.mock('react-router-dom', () => ({
+      //   // @ts-ignore
+      //   ...jest.requireActual('react-router-dom'),
+      //   useHistory: () => ({
+      //     push: mockHistoryPush,
+      //   }),
+      // }));
 
-    global.MutationObserver = window.MutationObserver;
+    // global.MutationObserver = window.MutationObserver;
     const view = render(<MemoryRouter><ExcelOpplasting/></MemoryRouter>);
-      const uploadButton = view.getByLabelText(/Last opp utfylt Excel-mal/);
+    const uploadButton = view.getByLabelText(/Last opp utfylt Excel-mal/);
 
+    act(() => {
       userEvent.upload(uploadButton, mockFile)
+    });
 
-      // bruker får lastet opp .xlsx-fil
-      expect(screen.getByLabelText(/fil.xlsx/)).toBeInTheDocument();
 
-      // bruker får sendt inn skjema når erklæring er avhuket
+    // bruker får lastet opp .xlsx-fil
+    expect(screen.getByLabelText(/fil.xlsx/)).toBeInTheDocument();
+
+    // bruker får sendt inn skjema når erklæring er avhuket
+    act(() => {
       userEvent.click(view.getByRole('checkbox'));
+    });
 
-      expect(screen.getByRole('button', { name: 'Send søknad om refusjon' })).toBeEnabled();
 
+    expect(screen.getByRole('button', { name: 'Send søknad om refusjon' })).toBeEnabled();
+
+    act(() => {
       userEvent.click(screen.getByRole('button', { name: 'Send søknad om refusjon' }));
+    });
 
-      // bruker blir sendt til kvitteringside
+    // bruker blir sendt til kvitteringside
 
-      expect(mockHistoryPush).toBeCalledWith('/kvitteringExcel');
+    expect(mockHistoryPush).toBeCalledWith('/kvitteringExcel');
 
-      //TODO: få den til å svare sånn som jeg vil
+    //TODO: få den til å svare sånn som jeg vil
 
 
     }
