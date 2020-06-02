@@ -1,24 +1,24 @@
-import { BackendStatus, Ansatt, SkjemaStatus } from "../../data/types/sporenstreksTypes";
+import { BackendStatus, Ansatt, SkjemaStatus, BackendResponseState } from '../../data/types/sporenstreksTypes';
 
 const errConcat = (target: string | undefined, added: string): string => {
   const dottedText = added.endsWith('.') ? added : added + '.';
-  return ((target || "").concat(" " + dottedText)).trim();
+  return ((target || '').concat(' ' + dottedText)).trim();
 }
 
 function berikAnsatte(Ansatte: Ansatt[], data: BackendStatus[]): Ansatt[] {
   const kopiAnsatte: Ansatt[] = [...Ansatte];
 
   data.forEach((recievedLine: BackendStatus, idx) => {
-    if (recievedLine.status === "OK") {
+    if (recievedLine.status ===  BackendResponseState.OK) {
       kopiAnsatte[idx].status = SkjemaStatus.GODKJENT;
       kopiAnsatte[idx].referenceNumber = recievedLine.referenceNumber;
     }
 
-    if (recievedLine.status === "GENERIC_ERROR") {
+    if (recievedLine.status === BackendResponseState.GENERIC_ERROR) {
       kopiAnsatte[idx].status = SkjemaStatus.ERRORBACKEND
     }
 
-    if (recievedLine.status === "VALIDATION_ERRORS") {
+    if (recievedLine.status === BackendResponseState.VALIDATION_ERRORS) {
       kopiAnsatte[idx].status = SkjemaStatus.VALIDERINGSFEIL
       recievedLine.validationErrors?.forEach((validationError) => {
         const errorField = validationError.propertyPath;

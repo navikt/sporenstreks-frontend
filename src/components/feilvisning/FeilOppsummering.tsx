@@ -1,10 +1,15 @@
-import React, {useRef} from 'react';
+import React, { useRef } from 'react';
 import Vis from '../Vis';
-import {Undertittel} from 'nav-frontend-typografi';
+import { Undertittel } from 'nav-frontend-typografi';
+import InternLenke from '../InternLenke';
 
 interface FeiloppsummeringProps {
   settFokus?: boolean;
   errors: any;
+}
+
+enum keyCodes {
+  'ENTER' = 13
 }
 
 type FeilProps = FeiloppsummeringProps;
@@ -23,26 +28,23 @@ const FeilOppsummering = (props: FeilProps) => {
     }
   };
 
-  const handleKeyDown = (e: any, list: any) => {
-    if (e.key === 'Enter') {
+  const handleKeyDown = (e: React.KeyboardEvent, list: any) => {
+    if (e.keyCode === keyCodes.ENTER) {
       handleClick(list);
     }
-  };
+  }
 
   return (
     <div aria-live='polite' role='alert'>
       <Vis hvis={entries.length > 0}>
-        <div ref={oppsummering} tabIndex={0} role='region' className='feiloppsummering'>
+        <div ref={oppsummering} role='region' className='feiloppsummering'>
           <Undertittel>{'Det er ' + entries.length + ' feil i skjemaet'}</Undertittel>
           <ul className='feiloppsummering__liste'>
             {entries.sort(list => list[0][0]).map((list, index) => (
               <li key={index}>
-                <div role='link' className='lenke' tabIndex={0}
-                  onKeyDown={(e) => handleKeyDown(e, list)}
-                  onClick={() => handleClick(list)}
-                >
+                <InternLenke onClick={() => handleClick(list)} onKeyDown={(e: React.KeyboardEvent<Element>) => handleKeyDown(e, list)}>
 									{list[1].type === 'pattern' ? list[1].message : list[1].type}
-                </div>
+                </InternLenke>
               </li>
             ))}
           </ul>

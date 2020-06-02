@@ -1,6 +1,6 @@
-import Hjelpetekst from "nav-frontend-hjelpetekst";
-import React from "react";
-import {PopoverOrientering} from "nav-frontend-popover";
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
+import React from 'react';
+import { PopoverOrientering } from 'nav-frontend-popover';
 
 export const HjelpetekstDager = () => {
   return (

@@ -1,14 +1,14 @@
-import React, {FormEvent} from 'react';
-import {Dager} from "./Dager";
-import {Refusjon} from "./Refusjon";
-import {Fnr} from "./Fnr";
-import Periode from "./Periode";
-import {useAppStore} from "../../data/store/AppStore";
-import {AnsattID, byggAnsatt, SkjemaStatus} from "../../data/types/sporenstreksTypes";
-import {ByggValideringsFeil} from "./ByggValideringsFeil";
+import React, { FormEvent } from 'react';
+import { Dager } from './Dager';
+import { Refusjon } from './Refusjon';
+import { Fnr } from './Fnr';
+import Periode from './Periode';
+import { useAppStore } from '../../data/store/AppStore';
+import { AnsattID, byggAnsatt, SkjemaStatus } from '../../data/types/sporenstreksTypes';
+import { ByggValideringsFeil } from './ByggValideringsFeil';
 import Slettknapp from './Slettknapp';
-import {Column, Row} from "nav-frontend-grid";
-import RadNr from "./RadNr";
+import { Column, Row } from 'nav-frontend-grid';
+import RadNr from './RadNr';
 
 export const AnsattRad = ({ id }: AnsattID) => {
   const { ansatte, setAnsatte, setFeil } = useAppStore();
@@ -19,7 +19,7 @@ export const AnsattRad = ({ id }: AnsattID) => {
     evt.preventDefault();
   };
   const a = ansatte.find(a => a.id === id) || byggAnsatt()
-  if (a.status == SkjemaStatus.GODKJENT) {
+  if (a.status === SkjemaStatus.GODKJENT) {
     return (
       <Row key={a?.id} className="AnsattRad">
         <Column><RadNr nr={ansatte.indexOf(a) + 1}/></Column>

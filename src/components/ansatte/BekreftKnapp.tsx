@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { Knapp, Hovedknapp } from "nav-frontend-knapper";
-import ModalWrapper from "nav-frontend-modal";
-import { Undertittel } from "nav-frontend-typografi";
-import { useAppStore } from "../../data/store/AppStore";
-import { IsValid, Validering } from "../validering/Validering";
-import { ByggValideringsFeil } from "./ByggValideringsFeil";
+import React, { useState } from 'react';
+import { Knapp } from 'nav-frontend-knapper';
+import ModalWrapper from 'nav-frontend-modal';
+import { Undertittel } from 'nav-frontend-typografi';
+import { useAppStore } from '../../data/store/AppStore';
+import { IsValid, Validering } from '../validering/Validering';
+import { ByggValideringsFeil } from './ByggValideringsFeil';
 import './BekreftKnapp.less';
-import InternLenke from "../InternLenke";
+import InternLenke from '../InternLenke';
+import KnappMedVarsel from '../KnappMedVarsel';
 
 interface bekreftKnappProps {
   onSubmit: any
@@ -41,13 +42,15 @@ export const BekreftKnapp = ({ onSubmit, erklæringAkseptert, onClick }: bekreft
   };
 
   return (
-    <form onSubmit={e => handleOpen(e)}
-      onClick={e => onClick(e)}>
-      <Hovedknapp disabled={!erklæringAkseptert} className="bekreft-knapp" type="hoved">Send søknad om refusjon</Hovedknapp>
+    <form onSubmit={e => handleOpen(e)}>
+      <KnappMedVarsel disabled={!erklæringAkseptert} disabledClick={onClick}>
+      Send søknad om refusjon
+      </KnappMedVarsel>
       <ModalWrapper
         isOpen={open}
         onRequestClose={() => setOpen(false)}
         contentLabel="Send skjema"
+        closeButton={false}
       >
         <Undertittel className="sykepenger__modal-tittel">Du søker om refusjon på vegne av:</Undertittel>
         <p className="sykepenger__modal-tekst">{firma}</p>

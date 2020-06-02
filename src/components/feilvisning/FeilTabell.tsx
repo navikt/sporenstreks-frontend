@@ -1,7 +1,7 @@
-import React from "react";
-import {Knapp} from "nav-frontend-knapper";
-import {Ingress} from "nav-frontend-typografi";
-import Vis from "../Vis";
+import React from 'react';
+import { Knapp } from 'nav-frontend-knapper';
+import { Ingress } from 'nav-frontend-typografi';
+import Vis from '../Vis';
 
 interface feilTabellProps {
   feil : tabellFeil[]
@@ -15,7 +15,7 @@ export interface tabellFeil {
   kolonne?: number
 }
 
-export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabellProps) => {
+export const FeilTabell = ({ feil , visAlleFeil, handleSetVisAlleFeil }: feilTabellProps) => {
 
   const gruppertFeil = feil.reduce(
     function (gruppert, feil) {
@@ -26,7 +26,7 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
         feilGruppering.indeks += 1
 
       } else {
-        gruppert.push({indeks: 1, melding: feil.melding, kolonne: feil.kolonne})
+        gruppert.push({ indeks: 1, melding: feil.melding, kolonne: feil.kolonne })
       }
       return gruppert
     }, [] as tabellFeil[])
@@ -47,8 +47,8 @@ export const FeilTabell = ({feil , visAlleFeil, handleSetVisAlleFeil}: feilTabel
               {/* eslint-disable-next-line react/prop-types */}
               {feil.sort(tabellSortAscending).map((f, index) => (
                 <tr key={index}>
-                  <td>{(f.indeks < 0 ? "" : "Rad " + f.indeks)}</td>
-                  <td>{(f.kolonne && f.kolonne < 0 ? "" : f.kolonne)}</td>
+                  <td>{(f.indeks < 0 ? '' : 'Rad ' + f.indeks)}</td>
+                  <td>{(f.kolonne && f.kolonne < 0 ? '' : f.kolonne)}</td>
                   <td>{f.melding}</td>
                 </tr>
               ))}

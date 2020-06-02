@@ -1,46 +1,46 @@
-import React from "react";
-import { Maximum, Feilmelding, isValidFom, isValidTom } from "./PeriodeValidator";
+import React from 'react';
+import { Maximum, Feilmelding, isValidFom, isValidTom } from './PeriodeValidator';
 
-describe("PeriodeValidator", () => {
+describe('PeriodeValidator', () => {
 
-  it("should return maximum date - one year from now", () => {
+  it('should return maximum date - one year from now', () => {
     expect(Maximum(new Date(2020,5,5,0,0)).getTime()).toBe(new Date(2021,5,5,0,0).getTime());
   })
 
-  it("should validate fom", () => {
+  it('should validate fom', () => {
     expect(isValidFom(new Date(2020,5,5,17,25))).toBe(true);
     expect(isValidFom()).toBe(false);
   })
 
-  it("should validate tom", () => {
+  it('should validate tom', () => {
     expect(isValidTom(new Date(2020,5,5,17,25))).toBe(true);
     expect(isValidTom()).toBe(false);
   })
 })
 
-describe("Feilmelding", () => {
+describe('Feilmelding', () => {
 
-  it("should not return feilmleding when fom and tom is given", () => {
+  it('should not return feilmleding when fom and tom is given', () => {
     expect(Feilmelding(false, new Date(), new Date())).toBe(undefined);
   })
 
-  it("should not return feilmelding when not required", () => {
+  it('should not return feilmelding when not required', () => {
     expect(Feilmelding(false, undefined, undefined)).toBe(undefined);
   })
 
-  it("should return feilmelding when required", () => {
+  it('should return feilmelding when required', () => {
     expect(Feilmelding(true, undefined, undefined)).toBe('Må fylles ut');
   })
 
-  it("should return undefined when not required", () => {
+  it('should return undefined when not required', () => {
     expect(Feilmelding(false, undefined, undefined)).toBe(undefined);
   })
 
-  it("should return feilmelding when fom is required", () => {
+  it('should return feilmelding when fom is required', () => {
     expect(Feilmelding(false, undefined, new Date())).toBe('Velg fom dato');
   })
 
-  it("skal returnere feilmelding hvor tom er påkrevet", () => {
+  it('skal returnere feilmelding hvor tom er påkrevet', () => {
     expect(Feilmelding(false, new Date(), undefined)).toBe('Velg tom dato');
   })
 })

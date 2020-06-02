@@ -6,7 +6,7 @@ export const validateFnr = (ansatte: Ansatt[], ansatt: Ansatt): string | undefin
   if (validertEnkeltfelt)
    {
     return validertEnkeltfelt;
-  } else if (ansatte.filter(a => a.fnr == ansatt.fnr).length > 1) {
+  } else if (ansatte.filter(a => a.fnr === ansatt.fnr).length > 1) {
     return 'Fødselsnummer er allerede brukt'
   }
   return undefined;

@@ -12,26 +12,26 @@ jest.mock('../data/store/AppStore');
 const mockUseAppStore = useAppStore as jest.Mock
 const mockArbeidsgiverValues = {
   arbeidsgivere: [{
-    Name: "Navn",
-    Type: "Type",
-    OrganizationNumber: "123456789",
-    OrganizationForm: "oform",
-    Status: "Status",
-    ParentOrganizationNumber: "3333344444"
+    Name: 'Navn',
+    Type: 'Type',
+    OrganizationNumber: '123456789',
+    OrganizationForm: 'oform',
+    Status: 'Status',
+    ParentOrganizationNumber: '3333344444'
   }, {
-    Name: "Navn",
-    Type: "Type",
-    OrganizationNumber: "223456789",
-    OrganizationForm: "oform",
-    Status: "Status",
-    ParentOrganizationNumber: "3333344444"
+    Name: 'Navn',
+    Type: 'Type',
+    OrganizationNumber: '223456789',
+    OrganizationForm: 'oform',
+    Status: 'Status',
+    ParentOrganizationNumber: '3333344444'
   }, {
-    Name: "Navn3",
-    Type: "Type",
-    OrganizationNumber: "323456789",
-    OrganizationForm: "oform",
-    Status: "Status",
-    ParentOrganizationNumber: "3333344444"
+    Name: 'Navn3',
+    Type: 'Type',
+    OrganizationNumber: '323456789',
+    OrganizationForm: 'oform',
+    Status: 'Status',
+    ParentOrganizationNumber: '3333344444'
   }],
   setReferanseNummer: jest.fn()
 };
