@@ -1,5 +1,6 @@
 import React from 'react';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import './KnappMedVarsel.scss';
 
 interface KnappMedVarselInterface {
   disabledClick: any,
@@ -11,13 +12,13 @@ const KnappMedVarsel = ({ disabledClick, disabled, children }: KnappMedVarselInt
   return (
     <>
       {(disabled) &&
-        <button className={'disabled-button'} onClick={e => disabledClick(e)} onKeyDown={e => disabledClick(e)}>
-          <Hovedknapp disabled={disabled} className="knapp filknapp">
+        <button className={'knapp-med-varsel-disabled-button'} onClick={e => disabledClick(e)} onKeyDown={e => disabledClick(e)}>
+          <Hovedknapp disabled={disabled} className="knapp knapp-med-varsel-action">
             {children}
           </Hovedknapp>
         </button>}
       {(!disabled) &&
-        <Hovedknapp disabled={disabled} className="knapp filknapp">
+        <Hovedknapp disabled={disabled} className="knapp knapp-med-varsel-action">
           {children}
         </Hovedknapp>
       }

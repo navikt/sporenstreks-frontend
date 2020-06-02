@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Knapp, Hovedknapp } from 'nav-frontend-knapper';
+import { Knapp } from 'nav-frontend-knapper';
 import ModalWrapper from 'nav-frontend-modal';
 import { Undertittel } from 'nav-frontend-typografi';
 import { useAppStore } from '../../data/store/AppStore';

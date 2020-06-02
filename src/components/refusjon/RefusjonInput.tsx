@@ -61,7 +61,7 @@ export const RefusjonInput = ({ beloep, feilmelding, handleChange, label }: Refu
     }
 
     let specialCharsAfter;
-    if (currentVal != x) {
+    if (currentVal !== x) {
       const strCurrentVal = formatNumber(x);
       setLocalValue(strCurrentVal);
       specialCharsAfter = getSpecialCharsOnSides(strCurrentVal, caret);

@@ -1,5 +1,4 @@
 import fnrvalidator from '@navikt/fnrvalidator';
-import { Ansatt } from '../../data/types/sporenstreksTypes';
 
 export const validateFnrLengthAndValidity = (fnr?: string): string | undefined => {
   if (!fnr) {
