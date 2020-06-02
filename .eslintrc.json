@@ -48,7 +48,6 @@
         "object-curly-spacing":  ["warn", "always"],
         "no-duplicate-imports": "warn",
         "quotes": ["warn", "single"],
-        // "no-unused-vars": "warn",
         "typescript/no-unused-vars": "warn"
     },
     "settings": {
