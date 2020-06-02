@@ -50,6 +50,7 @@ export const BekreftKnapp = ({ onSubmit, erklæringAkseptert, onClick }: bekreft
         isOpen={open}
         onRequestClose={() => setOpen(false)}
         contentLabel="Send skjema"
+        closeButton={false}
       >
         <Undertittel className="sykepenger__modal-tittel">Du søker om refusjon på vegne av:</Undertittel>
         <p className="sykepenger__modal-tekst">{firma}</p>
