@@ -1,8 +1,7 @@
 import FetchMock, { MatcherUtils, SpyMiddleware, ResponseUtils, HandlerArgument } from 'yet-another-fetch-mock';
-import LoginExpiryAPI from './LoginExpiryAPI';
+import LoginExpiryAPI, { ParseExpiryDate } from './LoginExpiryAPI';
 
 const mockServer = 'http://mockserver.nav.no';
-
 const mockUrl = mockServer + '/api/v1/login-expiry'
 
 jest.mock('../util/environment', () => ({
@@ -28,19 +27,16 @@ describe('loginExpiryAPI', () => {
   });
 
   it('should return status and a string when stuff is OK and it is a time string', async () => {
-    const expected = { 'status': 200, 'tidspunkt': '09:55' };
-    const input = '2045-01-01T08:55:34.000+0000';
-    mock
-      .get(mockUrl, input);
-
-    expect(await LoginExpiryAPI()).toStrictEqual(expected);
+    const expected = { 'status': 200, 'tidspunkt': '08:27' };
+    const input = '2045-01-23T08:27:57.000+0000';
+    mock.get(mockUrl, input);
+    const loginExpiry = await LoginExpiryAPI();
+    expect(loginExpiry.tidspunkt).toEqual(ParseExpiryDate(input));
   })
 
   it('should return a status and empty string when endpoint is not found', async () => {
-    const expected = { 'status': 404, 'tidspunkt': 'Klarte ikke hente utløpstidspunkt' };
-    mock
-      .get(mockUrl, ResponseUtils.statusCode(404));
-
-    expect(await LoginExpiryAPI()).toStrictEqual(expected);
+    mock.get(mockUrl, ResponseUtils.statusCode(404));
+    const loginExpiry = await LoginExpiryAPI();
+    expect(loginExpiry.tidspunkt).toBeUndefined();
   })
 })

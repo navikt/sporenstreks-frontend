@@ -3,8 +3,10 @@ import dayjs from 'dayjs';
 
 export interface LoginExpiryResponse {
   status: number,
-  tidspunkt: string
+  tidspunkt?: Date
 }
+
+export const ParseExpiryDate = (value) => dayjs(value, 'YYYY-MM-DDTHH:mm:ssZ[Z]', 'no').toDate()
 
 const LoginExpiryAPI = (): Promise<LoginExpiryResponse> => {
   return fetch(env.baseUrl + '/api/v1/login-expiry', {
@@ -18,13 +20,12 @@ const LoginExpiryAPI = (): Promise<LoginExpiryResponse> => {
       return response.json().then(data => {
         return {
           status: response.status,
-          tidspunkt: dayjs(data).format('HH:mm')
+          tidspunkt: ParseExpiryDate(data)
         };
       });
     }
     return {
-      status: response.status,
-      tidspunkt: 'Klarte ikke hente utløpstidspunkt'
+      status: response.status
     };
   });
 }

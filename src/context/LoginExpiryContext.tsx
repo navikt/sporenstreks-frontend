@@ -1,14 +1,14 @@
 import React, { createContext, useContext, useState } from 'react';
 import GetLoginExpiry from '../api/LoginExpiryAPI';
 
-export const buildLoginExpiryContext = (loginExpiry: string, timeoutAdvarselHarBlittVist: boolean) => ({
+export const buildLoginExpiryContext = (timeoutAdvarselHarBlittVist: boolean, loginExpiry?: Date) => ({
   loginExpiry,
   timeoutAdvarselHarBlittVist,
   setTimeoutAdvarselHarBlittVist: function (harBlittVist) {
   }
 })
 
-const LoginExpiryContext = createContext(buildLoginExpiryContext('', false));
+const LoginExpiryContext = createContext(buildLoginExpiryContext( false));
 
 interface LoginExpiryContextProviderProps {
   children: any
@@ -19,7 +19,7 @@ export const useLoginExpiry = () => useContext(LoginExpiryContext);
 export const LoginExpiryContextProvider = (props: LoginExpiryContextProviderProps) => {
   const [ status, setStatus ]  = useState<number>(0);
   const [ timeoutAdvarselHarBlittVist, setTimeoutAdvarselHarBlittVist ]  = useState<boolean>(false);
-  const [ loginExpiry, setLoginExpiry ] = useState('');
+  const [ loginExpiry, setLoginExpiry ] = useState<Date>();
   if (status === 0){
     GetLoginExpiry().then(
       res => {
