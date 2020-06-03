@@ -3,7 +3,7 @@ import 'nav-frontend-tabell-style';
 import { Undertittel } from 'nav-frontend-typografi';
 import ModalWrapper from 'nav-frontend-modal';
 import Veilederpanel from 'nav-frontend-veilederpanel';
-import './EksempelBulk.less'
+import './EksempelBulk.scss'
 
 const VeilederIkon = (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 54 93">
@@ -74,6 +74,7 @@ const EksempelBulk = () => {
         onRequestClose={() => setEksempelOpen(false)}
         closeButton={false}
         contentLabel="Eksempel visning"
+        className="eksempel-modal"
       >
         <Veilederpanel svg={VeilederIkon}
         >
