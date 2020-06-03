@@ -28,7 +28,7 @@ describe('hentInnloggingUtlop', () => {
   });
 
   it('should return status and a string when stuff is OK', async () => {
-    const expected = { "status": 200, "utcDTstring": "this is the time" };
+    const expected = { 'status': 200, 'utcDTstring': 'this is the time' };
     const input = 'this is the time';
     mock
       .get(mockUrl, input);
@@ -37,7 +37,7 @@ describe('hentInnloggingUtlop', () => {
   })
 
   it('should return status and a string when stuff is OK and it is a time string', async () => {
-    const expected = { "status": 200, "utcDTstring": "2045-01-01T08:55:34.000+0000" };
+    const expected = { 'status': 200, 'utcDTstring': '2045-01-01T08:55:34.000+0000' };
     const input = '2045-01-01T08:55:34.000+0000';
     mock
       .get(mockUrl, input);
@@ -46,7 +46,7 @@ describe('hentInnloggingUtlop', () => {
   })
 
   it('should return a status and empty string when endpoint is not found', async () => {
-    const expected = {"status": 404, "utcDTstring": ""};
+    const expected = { 'status': 404, 'utcDTstring': '' };
     mock
       .get(mockUrl, ResponseUtils.statusCode(404));
 

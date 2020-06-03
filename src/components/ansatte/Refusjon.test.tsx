@@ -2,28 +2,28 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import { useAppStore } from "../../data/store/AppStore";
+import { useAppStore } from '../../data/store/AppStore';
 
 import Refusjon from './Refusjon';
 import { Ansatt } from '../../data/types/sporenstreksTypes';
 
 const mockAnsatte: Ansatt[] = [
   {
-    id: "ansatt1",
-    fnr: "1",
-    fom: "2020-02-02",
-    tom: "2020-03-03",
+    id: 'ansatt1',
+    fnr: '1',
+    fom: '2020-02-02',
+    tom: '2020-03-03',
     status: 123,
     oppdatert: 1
   },
   {
     id: 1,
-    fnr: "1",
-    fom: "2020-02-02",
-    tom: "2020-03-03",
+    fnr: '1',
+    fom: '2020-02-02',
+    tom: '2020-03-03',
     status: 123,
     oppdatert: 1,
-    dagerError: "DagerError"
+    dagerError: 'DagerError'
   }
 ];
 
@@ -48,23 +48,23 @@ describe('Refusjon', () => {
     const mockSetAnsatte = jest.fn();
     const expected: Ansatt[] = [
       {
-        "beloep": 5,
-        "beloepError": undefined,
-        "fnr": "1",
-        "fom": "2020-02-02",
-        "id": "ansatt1",
-        "oppdatert": 1,
-        "status": 123,
-        "tom": "2020-03-03"
+        'beloep': 5,
+        'beloepError': undefined,
+        'fnr': '1',
+        'fom': '2020-02-02',
+        'id': 'ansatt1',
+        'oppdatert': 1,
+        'status': 123,
+        'tom': '2020-03-03'
       },
       {
-        "dagerError": "DagerError",
-        "fnr": "1",
-        "fom": "2020-02-02",
-        "id": 1,
-        "oppdatert": 1,
-        "status": 123,
-        "tom": "2020-03-03"
+        'dagerError': 'DagerError',
+        'fnr': '1',
+        'fom': '2020-02-02',
+        'id': 1,
+        'oppdatert': 1,
+        'status': 123,
+        'tom': '2020-03-03'
       }
     ];
 
@@ -77,7 +77,7 @@ describe('Refusjon', () => {
 
     const inputFelt = screen.getByRole('textbox');
 
-    fireEvent.change(inputFelt, { target: { value: "5" } });
+    fireEvent.change(inputFelt, { target: { value: '5' } });
 
     expect(screen.getByText(/Beløp/)).toBeInTheDocument();
     expect(mockSetAnsatte).toHaveBeenCalledWith(expected)
@@ -88,23 +88,23 @@ describe('Refusjon', () => {
     const mockSetAnsatte = jest.fn();
     const expected: Ansatt[] = [
       {
-        "beloep": 5,
-        "beloepError": undefined,
-        "fnr": "1",
-        "fom": "2020-02-02",
-        "id": "ansatt1",
-        "oppdatert": 1,
-        "status": 123,
-        "tom": "2020-03-03"
+        'beloep': 5,
+        'beloepError': undefined,
+        'fnr': '1',
+        'fom': '2020-02-02',
+        'id': 'ansatt1',
+        'oppdatert': 1,
+        'status': 123,
+        'tom': '2020-03-03'
       },
       {
-        "dagerError": "DagerError",
-        "fnr": "1",
-        "fom": "2020-02-02",
-        "id": 1,
-        "oppdatert": 1,
-        "status": 123,
-        "tom": "2020-03-03"
+        'dagerError': 'DagerError',
+        'fnr': '1',
+        'fom': '2020-02-02',
+        'id': 1,
+        'oppdatert': 1,
+        'status': 123,
+        'tom': '2020-03-03'
       }
     ];
 
@@ -117,9 +117,9 @@ describe('Refusjon', () => {
 
     const inputFelt = screen.getByRole('textbox');
 
-    fireEvent.change(inputFelt, { target: { value: "5" } });
+    fireEvent.change(inputFelt, { target: { value: '5' } });
 
-    fireEvent.change(inputFelt, { target: { value: "7kroner" } });
+    fireEvent.change(inputFelt, { target: { value: '7kroner' } });
 
     expect(screen.getByText(/Beløp/)).toBeInTheDocument();
     expect(mockSetAnsatte).toHaveBeenCalledWith(expected)
@@ -130,23 +130,23 @@ describe('Refusjon', () => {
     const mockSetAnsatte = jest.fn();
     const expected: Ansatt[] = [
       {
-        "beloep": 34567,
-        "beloepError": undefined,
-        "fnr": "1",
-        "fom": "2020-02-02",
-        "id": "ansatt1",
-        "oppdatert": 1,
-        "status": 123,
-        "tom": "2020-03-03"
+        'beloep': 34567,
+        'beloepError': undefined,
+        'fnr': '1',
+        'fom': '2020-02-02',
+        'id': 'ansatt1',
+        'oppdatert': 1,
+        'status': 123,
+        'tom': '2020-03-03'
       },
       {
-        "dagerError": "DagerError",
-        "fnr": "1",
-        "fom": "2020-02-02",
-        "id": 1,
-        "oppdatert": 1,
-        "status": 123,
-        "tom": "2020-03-03"
+        'dagerError': 'DagerError',
+        'fnr': '1',
+        'fom': '2020-02-02',
+        'id': 1,
+        'oppdatert': 1,
+        'status': 123,
+        'tom': '2020-03-03'
       }
     ];
 
@@ -159,7 +159,7 @@ describe('Refusjon', () => {
 
     const inputFelt = screen.getByRole('textbox');
 
-    fireEvent.change(inputFelt, { target: { value: "34 567" } });
+    fireEvent.change(inputFelt, { target: { value: '34 567' } });
 
     expect(screen.getByText(/Beløp/)).toBeInTheDocument();
     expect(mockSetAnsatte).toHaveBeenCalledWith(expected)
@@ -170,23 +170,23 @@ describe('Refusjon', () => {
     const mockSetAnsatte = jest.fn();
     const expected: Ansatt[] = [
       {
-        "beloep": 5,
-        "beloepError": undefined,
-        "fnr": "1",
-        "fom": "2020-02-02",
-        "id": "ansatt1",
-        "oppdatert": 1,
-        "status": 123,
-        "tom": "2020-03-03"
+        'beloep': 5,
+        'beloepError': undefined,
+        'fnr': '1',
+        'fom': '2020-02-02',
+        'id': 'ansatt1',
+        'oppdatert': 1,
+        'status': 123,
+        'tom': '2020-03-03'
       },
       {
-        "dagerError": "DagerError",
-        "fnr": "1",
-        "fom": "2020-02-02",
-        "id": 1,
-        "oppdatert": 1,
-        "status": 123,
-        "tom": "2020-03-03"
+        'dagerError': 'DagerError',
+        'fnr': '1',
+        'fom': '2020-02-02',
+        'id': 1,
+        'oppdatert': 1,
+        'status': 123,
+        'tom': '2020-03-03'
       }
     ];
 
@@ -199,7 +199,7 @@ describe('Refusjon', () => {
 
     const inputFelt = screen.getByRole('textbox');
 
-    fireEvent.change(inputFelt, { target: { value: "5" } });
+    fireEvent.change(inputFelt, { target: { value: '5' } });
 
     expect(screen.getByText(/Beløp/)).toBeInTheDocument();
     expect(mockSetAnsatte).toHaveBeenCalledWith(mockAnsatte)

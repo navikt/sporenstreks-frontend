@@ -1,7 +1,7 @@
-import React from "react";
-import {Normaltekst, Undertittel} from "nav-frontend-typografi";
-import {Column, Row} from "nav-frontend-grid";
-import Panel from "nav-frontend-paneler";
+import React from 'react';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Column, Row } from 'nav-frontend-grid';
+import Panel from 'nav-frontend-paneler';
 
 
 export const CoronaTopptekst = () => {

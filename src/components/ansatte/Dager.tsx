@@ -1,12 +1,12 @@
-import React from "react";
-import { Select } from "nav-frontend-skjema";
-import { useAppStore } from "../../data/store/AppStore";
-import { AnsattID } from "../../data/types/sporenstreksTypes";
-import { HjelpetekstDager } from "./HjelpetekstDager";
+import React from 'react';
+import { Select } from 'nav-frontend-skjema';
+import { useAppStore } from '../../data/store/AppStore';
+import { AnsattID } from '../../data/types/sporenstreksTypes';
+import { HjelpetekstDager } from './HjelpetekstDager';
 import { validateNotNullAndPositive } from '../validering/validateNotNullAndPositive';
 
 export const Dager = (props: AnsattID) => {
-  const {ansatte, setAnsatte} = useAppStore();
+  const { ansatte, setAnsatte } = useAppStore();
   const a = ansatte.find(a => a.id === props.id);
   const handleChange = (evt) => {
     if (a) {
@@ -21,7 +21,7 @@ export const Dager = (props: AnsattID) => {
       feil={a?.dagerError}
       onChange={handleChange}
       label={
-        <div style={{display: 'flex'}}>
+        <div style={{ display: 'flex' }}>
           Antall dager:
           <HjelpetekstDager/>
         </div>}

@@ -21,25 +21,25 @@ describe('TokenUtloper', () => {
   })
 
   it('should display nothing when the timestamp is missing', async () => {
-    mockHentInnloggingUtløp.mockResolvedValue({status: 200, utcDTstring: ''});
+    mockHentInnloggingUtløp.mockResolvedValue({ status: 200, utcDTstring: '' });
     render(<TokenUtloper />);
     expect(screen.queryAllByText(/[0-9a-z]/).length).toBe(0);
   })
 
   it('should display nothing when the token is returned as undefined', () => {
-    mockHentInnloggingUtløp.mockResolvedValue({ status: 200, utcDTstring: undefined});
+    mockHentInnloggingUtløp.mockResolvedValue({ status: 200, utcDTstring: undefined });
     render(<TokenUtloper />);
     expect(screen.queryAllByText(/[0-9a-z]/).length).toBe(0);
   })
 
   it('should display nothing when the token is invalid', () => {
-    mockHentInnloggingUtløp.mockResolvedValue({ status: 200, utcDTstring: 'invalid-token'});
+    mockHentInnloggingUtløp.mockResolvedValue({ status: 200, utcDTstring: 'invalid-token' });
     render(<TokenUtloper />);
     expect(screen.queryAllByText(/[0-9a-z]/).length).toBe(0);
   })
 
   it('should display nothing when the status is 404', () => {
-    mockHentInnloggingUtløp.mockResolvedValue({ status: 404, utcDTstring: ''});
+    mockHentInnloggingUtløp.mockResolvedValue({ status: 404, utcDTstring: '' });
     render(<TokenUtloper />);
     expect(screen.queryAllByText(/[0-9a-z]/).length).toBe(0);
   })

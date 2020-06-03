@@ -1,9 +1,9 @@
-import React from "react";
-import { useAppStore } from "../../data/store/AppStore";
-import { AnsattID } from "../../data/types/sporenstreksTypes";
+import React from 'react';
+import { useAppStore } from '../../data/store/AppStore';
+import { AnsattID } from '../../data/types/sporenstreksTypes';
 import { validateMaksBeloep } from '../validering/validateMaksBeloep';
-import { RefusjonInput } from "../refusjon/RefusjonInput";
-import EksempelBulk from "../ansatte/EksempelBulk";
+import { RefusjonInput } from '../refusjon/RefusjonInput';
+import EksempelBulk from '../ansatte/EksempelBulk';
 
 export const Refusjon = (props: AnsattID) => {
   const { ansatte, setAnsatte } = useAppStore();

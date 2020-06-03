@@ -23,10 +23,10 @@ describe('FodselsnummerInput', () => {
 
     const inputField = component.getByLabelText(/Fødselsnummer/);
 
-    fireEvent.change(inputField, { target: { value: "5" } });
-    fireEvent.blur(inputField, { target: { value: "5" } });
+    fireEvent.change(inputField, { target: { value: '5' } });
+    fireEvent.blur(inputField, { target: { value: '5' } });
 
-    expect(mockCallback).toHaveBeenCalledWith("5");
+    expect(mockCallback).toHaveBeenCalledWith('5');
     expect(component.getByText('Fødselsnummer')).toBeInTheDocument();
     expect(component.getByText('Fødselsnummer må ha 11 siffer')).toBeInTheDocument();
   })
@@ -36,10 +36,10 @@ describe('FodselsnummerInput', () => {
     const component = render(<FodselsnummerInput handleChange={mockCallback} />);
 
     const inputField = component.getByLabelText(/Fødselsnummer/);
-    fireEvent.change(inputField, { target: { value: "18060799943" } })
-    fireEvent.blur(inputField, { target: { value: "18060799943" } });
+    fireEvent.change(inputField, { target: { value: '18060799943' } })
+    fireEvent.blur(inputField, { target: { value: '18060799943' } });
 
-    expect(mockCallback).toHaveBeenCalledWith("18060799943");
+    expect(mockCallback).toHaveBeenCalledWith('18060799943');
     expect(component.getByText('Fødselsnummer')).toBeInTheDocument();
     expect(component.getByText('Fødselsnummer er ugyldig')).toBeInTheDocument();
   })

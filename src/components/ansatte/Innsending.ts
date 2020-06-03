@@ -1,9 +1,9 @@
-import { Ansatt } from "../../data/types/sporenstreksTypes";
-import { SykepengerData } from "./SykepengerData";
-import env from "../../util/environment";
+import { Ansatt } from '../../data/types/sporenstreksTypes';
+import { SykepengerData } from './SykepengerData';
+import env from '../../util/environment';
 import filtrerAnsatteForInnsending from './filtrerAnsatteForInnsending';
 import mergeAnsattlister from './mergeAnsattlister'
-import berikAnsatte from "./berikAnsatte";
+import berikAnsatte from './berikAnsatte';
 
 export default (arbeidsgiverId: string, validerteAnsatte: Ansatt[], setLoadingStatus: any, setTokenExpired: any): Promise<any> => {
   const filtrerteAnsatte = validerteAnsatte.filter((element) => {

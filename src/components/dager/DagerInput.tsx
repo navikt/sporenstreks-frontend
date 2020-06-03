@@ -24,7 +24,7 @@ export const DagerInput = ({ feilmelding, antallDagerMedRefusjon, handleChange, 
     setLokalFeil(feilmelding);
   }, [feilmelding])
 
-  const componentId = "dager_".concat(id ? String(id) : uuid());
+  const componentId = 'dager_'.concat(id ? String(id) : uuid());
 
   const feilmeldingstekst = feilmelding ? feilmelding : lokalFeil;
 
@@ -34,7 +34,7 @@ export const DagerInput = ({ feilmelding, antallDagerMedRefusjon, handleChange, 
     onChange={handleChange}
     onBlur={handleDagerBlur}
     label={
-      <div style={{display: 'flex'}}>
+      <div style={{ display: 'flex' }}>
         Antall dager
         <HjelpetekstDager/>
       </div>}

@@ -1,5 +1,5 @@
-import {Feilmelding} from "nav-frontend-typografi";
-import React from "react";
+import { Feilmelding } from 'nav-frontend-typografi';
+import React from 'react';
 
 interface advarslerProps {
   erklæringAkseptert: boolean
@@ -7,7 +7,7 @@ interface advarslerProps {
   visFeil: boolean
 }
 
-const Advarsler = ({erklæringAkseptert, harFeil, visFeil} : advarslerProps) => {
+const Advarsler = ({ erklæringAkseptert, harFeil, visFeil } : advarslerProps) => {
   if (!visFeil) {
     return null;
   }

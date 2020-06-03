@@ -1,0 +1,24 @@
+$screen-md: 992px;
+
+.knapp-med-varsel-disabled-button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+}
+
+.knapp-med-varsel-action {
+  margin: 1rem 0rem;
+  width: 100%;
+  overflow: hidden;
+}
+
+.knapp-med-varsel-action[disabled] {
+  pointer-events: none
+}
+
+@media (min-width: $screen-md) {
+  .knapp-med-varsel-action {
+    width: auto;
+  }
+}

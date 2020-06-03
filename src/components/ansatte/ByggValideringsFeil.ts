@@ -1,5 +1,5 @@
-import {Ansatt} from "../../data/types/sporenstreksTypes";
-import {ValideringsFeil} from "./ValideringsFeil";
+import { Ansatt } from '../../data/types/sporenstreksTypes';
+import { ValideringsFeil } from './ValideringsFeil';
 
 export const ByggValideringsFeil = (ansatte: Ansatt[]) => {
     let feil:ValideringsFeil[] = []
@@ -7,7 +7,7 @@ export const ByggValideringsFeil = (ansatte: Ansatt[]) => {
         if (a.fnrError || a.periodeError || a.dagerError || a.beloepError){
             feil.push(
                 {
-                    skjemaelementId: "fnr_" + a.id,
+                    skjemaelementId: 'fnr_' + a.id,
                     feilmelding: 'Det er en feil i rad nr ' + (index + 1)
                 }
             )

@@ -5,7 +5,8 @@
         "node": true
     },
     "extends": [
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "plugin:jsx-a11y/recommended"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -20,7 +21,10 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react-hooks"
+        "react-hooks",
+        "@typescript-eslint",
+        "react",
+        "typescript"
     ],
     "rules": {
         "no-console": "error",
@@ -44,7 +48,7 @@
         "object-curly-spacing":  ["warn", "always"],
         "no-duplicate-imports": "warn",
         "quotes": ["warn", "single"],
-        "no-unused-vars": "warn"
+        "typescript/no-unused-vars": "warn"
     },
     "settings": {
         "react": {

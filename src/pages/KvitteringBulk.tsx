@@ -1,6 +1,6 @@
 import React from 'react';
-import { MottattSoknad } from "../components/kvittering/MottattSoknad";
+import { MottattSoknad } from '../components/kvittering/MottattSoknad';
 
-const KvitteringBulk = () => <MottattSoknad nySoknadLink="/nettrefusjon/bulk"/>
+const KvitteringBulk = () => <MottattSoknad nySoknadLink="/bulk"/>
 
 export default KvitteringBulk;

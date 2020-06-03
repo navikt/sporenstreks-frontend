@@ -21,7 +21,7 @@ class Environment {
     switch (this.environmentMode) {
       case EnvironmentType.PROD : return 'https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/nettrefusjon/';
       case EnvironmentType.PREPROD : return 'https://loginservice-q.nav.no/login?redirect=https://arbeidsgiver-q.nav.no/nettrefusjon/';
-      default : return 'http://localhost:3000/local/cookie-please?subject=12321&redirect=http://localhost:3000/nettrefusjon/';
+      default : return 'http://localhost:8080/local/cookie-please?subject=12321&redirect=http://localhost:3000/nettrefusjon/';
     }
   }
 

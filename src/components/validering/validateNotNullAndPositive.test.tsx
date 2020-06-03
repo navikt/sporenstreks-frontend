@@ -3,7 +3,7 @@ import { validateNotNullAndPositive } from './validateNotNullAndPositive';
 
 describe('validateNotNullAndPositive', () => {
   it('should return undefined when we have a positive number', () => {
-    const input: number = Math.floor(Math.random()*1000);
+    const input: number = Math.ceil(Math.random()*1000);
     const expected = undefined;
 
     expect(validateNotNullAndPositive(input)).toEqual(expected);
@@ -19,7 +19,7 @@ describe('validateNotNullAndPositive', () => {
   it('should check that it is filled out', () => {
     const input = undefined;
 
-    const expected = "Feltet må fylles ut";
+    const expected = 'Feltet må fylles ut';
 
     expect(validateNotNullAndPositive(input)).toEqual(expected);
   });

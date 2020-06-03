@@ -1,5 +1,5 @@
-import { Input } from "nav-frontend-skjema";
-import React, { useState, ReactNode } from "react";
+import { Input } from 'nav-frontend-skjema';
+import React, { useState, ReactNode } from 'react';
 
 interface RefusjonInputProps {
   feilmelding?: string,
@@ -12,7 +12,7 @@ export const formatNumber = (inputNum?: number): string => {
   if (!inputNum) {
     return '';
   }
-  const formatter = new Intl.NumberFormat("nb-NO", { minimumFractionDigits: 2 });
+  const formatter = new Intl.NumberFormat('nb-NO', { minimumFractionDigits: 2 });
   return formatter.format(inputNum);
 }
 
@@ -27,8 +27,8 @@ export const prepareStringToInt = (strNumber: string): string => {
     return '';
   }
 
-  const val = strNumber.replace(/,/g, ".");
-  return val.replace(/\s/g, "");
+  const val = strNumber.replace(/,/g, '.');
+  return val.replace(/\s/g, '');
 }
 
 export const RefusjonInput = ({ beloep, feilmelding, handleChange, label }: RefusjonInputProps) => {
@@ -61,7 +61,7 @@ export const RefusjonInput = ({ beloep, feilmelding, handleChange, label }: Refu
     }
 
     let specialCharsAfter;
-    if (currentVal != x) {
+    if (currentVal !== x) {
       const strCurrentVal = formatNumber(x);
       setLocalValue(strCurrentVal);
       specialCharsAfter = getSpecialCharsOnSides(strCurrentVal, caret);
@@ -86,10 +86,10 @@ export const RefusjonInput = ({ beloep, feilmelding, handleChange, label }: Refu
       <Input
         feil={feilmelding}
         value={localValue}
-        bredde={"S"}
+        bredde={'S'}
         label={label}
         placeholder="Beløp"
-        inputMode={"decimal"}
+        inputMode={'decimal'}
         onChange={handleChangeLocal} />
     </div>
   )
