@@ -251,9 +251,7 @@ const Sykepenger = () => {
               <FeilOppsummering errors={methods.errors} />
 
               <Container className="limit">
-                <Container>
-                  <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)}/>
-                </Container>
+                <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)}/>
               </Container>
 
               <Container>
