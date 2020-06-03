@@ -12,11 +12,13 @@ import ExcelOpplasting from './pages/ExcelOpplasting';
 import KvitteringExcel from './pages/KvitteringExcel';
 import KvitteringBulk from './pages/KvitteringBulk';
 import LoginFornyet from './components/loginFornyet/LoginFornyet';
+import LoginExpiryProvider from './context/LoginExpiryContext';
 
 const App = () => {
   return (
     <StoreProvider>
       <ArbeidsgiverProvider>
+        <LoginExpiryProvider>
           <I18nextProvider i18n={i18n}>
             <Switch>
               <Route path="/enkel" render={() => <Sykepenger />} />
@@ -29,6 +31,7 @@ const App = () => {
               <Route path="/" render={() => <Redirecter />} />
             </Switch>
           </I18nextProvider>
+      </LoginExpiryProvider>
       </ArbeidsgiverProvider>
     </StoreProvider>
   );
