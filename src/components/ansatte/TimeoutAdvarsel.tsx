@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import ModalWrapper from 'nav-frontend-modal';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Innholdstittel } from 'nav-frontend-typografi';
-import TokenUtloper from './TokenUtloper';
+import TokenUtloper from '../login/TokenUtloper';
 import { useAppStore } from '../../data/store/AppStore';
 import InternLenke from '../InternLenke';
+import { useLoginExpiry } from '../../context/LoginExpiryContext';
 
 const TimeoutAdvarsel = () => {
   const [isOpen, setOpen] = useState(true);
-  const { timeoutAdvarselHarBlittVist, setTimeoutAdvarselHarBlittVist } = useAppStore();
+  const { timeoutAdvarselHarBlittVist, setTimeoutAdvarselHarBlittVist } = useLoginExpiry();
 
   if (!isOpen || timeoutAdvarselHarBlittVist) {
     return null;
