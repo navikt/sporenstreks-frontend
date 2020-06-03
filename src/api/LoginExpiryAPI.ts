@@ -1,11 +1,12 @@
-import env from '../../util/environment';
+import env from '../util/environment';
+import dayjs from 'dayjs';
 
-export interface HentInnloggingUtlopInterface {
+export interface LoginExpiryResponse {
   status: number,
-  utcDTstring: string
+  tidspunkt: string
 }
 
-const hentInnloggingUtlop = (): Promise<HentInnloggingUtlopInterface> => {
+const LoginExpiryAPI = (): Promise<LoginExpiryResponse> => {
   return fetch(env.baseUrl + '/api/v1/login-expiry', {
     headers: {
       'Accept': 'application/json',
@@ -17,16 +18,15 @@ const hentInnloggingUtlop = (): Promise<HentInnloggingUtlopInterface> => {
       return response.json().then(data => {
         return {
           status: response.status,
-          utcDTstring: String(data)
+          tidspunkt: dayjs(data).format('HH:mm')
         };
       });
-    } else {
-      return {
-        status: response.status,
-        utcDTstring: ''
-      };
     }
+    return {
+      status: response.status,
+      tidspunkt: 'Klarte ikke hente utløpstidspunkt'
+    };
   });
 }
 
-export default hentInnloggingUtlop;
+export default LoginExpiryAPI;

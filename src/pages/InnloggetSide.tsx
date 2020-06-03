@@ -11,6 +11,7 @@ import TimeoutAdvarsel from '../components/ansatte/TimeoutAdvarsel';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import './InnloggetSide.less';
 import Lenke from 'nav-frontend-lenker';
+import LoginExpiryContextProvider from '../context/LoginExpiryContext';
 
 interface SideProps {
   children: React.ReactNode,
@@ -54,7 +55,9 @@ const InnloggetSide = (props: SideProps) => {
               </Row>
             </Container>
 
-            <TimeoutAdvarsel/>
+            <LoginExpiryContextProvider>
+              <TimeoutAdvarsel/>
+            </LoginExpiryContextProvider>
 
             <Container className={'innloggetside__innhold'}>
                 { props.children }
