@@ -12,7 +12,7 @@ export const formatNumber = (inputNum?: number): string => {
   if (!inputNum) {
     return '';
   }
-  const formatter = new Intl.NumberFormat('nb-NO', { minimumFractionDigits: 2 });
+  const formatter = new Intl.NumberFormat('NO', { minimumFractionDigits: 2 });
   return formatter.format(inputNum);
 }
 
