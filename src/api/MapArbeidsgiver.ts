@@ -1,6 +1,6 @@
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 
-export const mapArbeidsgiver = (data): Organisasjon[] => data.map(organisasjon => ({
+ const MapArbeidsgiver = (data): Organisasjon[] => data.map(organisasjon => ({
   Name: organisasjon.name,
   Type: organisasjon.type,
   OrganizationNumber: organisasjon.organizationNumber,
@@ -8,3 +8,5 @@ export const mapArbeidsgiver = (data): Organisasjon[] => data.map(organisasjon =
   Status: organisasjon.status,
   ParentOrganizationNumber: organisasjon.parentOrganizationNumber
 }));
+
+export default MapArbeidsgiver;

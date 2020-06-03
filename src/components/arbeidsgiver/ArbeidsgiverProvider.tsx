@@ -5,7 +5,7 @@ import { FetchState, hasAny401, hasAnyFailed, hasData, isAnyNotStartedOrPending,
 import { useAppStore } from '../../data/store/AppStore';
 import IngenData from '../../pages/IngenData';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import { mapArbeidsgiver } from '../../api/ArbeidsgiverMapper';
+import MapArbeidsgiver from '../../api/MapArbeidsgiver';
 import env from '../../util/environment';
 
 export function ArbeidsgiverProvider(props: { children: any }) {
@@ -21,7 +21,7 @@ export function ArbeidsgiverProvider(props: { children: any }) {
         credentials: 'include',
       }, (fetchState: FetchState<Organisasjon[]>) => {
         if (hasData(fetchState)) {
-          setArbeidsgivere(mapArbeidsgiver(fetchState.data));
+          setArbeidsgivere(MapArbeidsgiver(fetchState.data));
         }
       })
     }
