@@ -19,6 +19,7 @@ import Skillelinje from '../components/ansatte/Skillelinje';
 import { Column, Row } from 'nav-frontend-grid';
 import InternLenke from '../components/InternLenke';
 import KnappMedVarsel from '../components/KnappMedVarsel';
+import { useTranslation } from 'react-i18next';
 
 const ExcelOpplasting = () => {
   const [erklæringAkseptert, setErklæringAkseptert] = useState<boolean>(false);
