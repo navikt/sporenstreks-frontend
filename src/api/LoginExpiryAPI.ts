@@ -6,7 +6,7 @@ export interface LoginExpiryResponse {
   tidspunkt?: Date
 }
 
-export const ParseExpiryDate = (value) => dayjs(value, 'YYYY-MM-DDTHH:mm:ssZ[Z]', 'no').toDate()
+export const ParseExpiryDate = (value) => dayjs(value.replace(/([+-]\d{2})(\d{2})$/g, '$1:$2'), 'YYYY-MM-DDTHH:mm:ssZ[Z]','no').toDate()
 
 const LoginExpiryAPI = (): Promise<LoginExpiryResponse> => {
   return fetch(env.baseUrl + '/api/v1/login-expiry', {
