@@ -2,7 +2,7 @@ import React from 'react';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import { Container, Row } from 'nav-frontend-grid';
-import TokenUtloper from '../ansatte/TokenUtloper';
+import TokenUtloper from '../login/TokenUtloper';
 
 export const LoginFornyet = () => (
   <main>
