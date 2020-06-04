@@ -3,15 +3,17 @@ import ModalWrapper from 'nav-frontend-modal';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import TokenUtloper from '../login/TokenUtloper';
-import { useAppStore } from '../../data/store/AppStore';
-import InternLenke from '../InternLenke';
 import { useLoginExpiry } from '../../context/LoginExpiryContext';
+import InternLenke from '../InternLenke';
+import { useLocation } from 'react-router-dom';
 
 const TimeoutAdvarsel = () => {
   const [isOpen, setOpen] = useState(true);
   const { timeoutAdvarselHarBlittVist, setTimeoutAdvarselHarBlittVist } = useLoginExpiry();
+  const location = useLocation();
+  const erKvitteringside = location.pathname.indexOf('kvittering') > -1;
 
-  if (!isOpen || timeoutAdvarselHarBlittVist) {
+  if (!isOpen || timeoutAdvarselHarBlittVist || erKvitteringside) {
     return null;
   }
 
