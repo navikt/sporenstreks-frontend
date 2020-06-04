@@ -12,11 +12,11 @@ const KnappMedVarsel = ({ disabledClick, disabled, children }: KnappMedVarselInt
   return (
     <>
       {(disabled) ?
-        <button className={'knapp-med-varsel-disabled-button'} onClick={e => disabledClick(e)} onKeyDown={e => disabledClick(e)}>
+      //  <button className={'knapp-med-varsel-disabled-button'} onClick={e => disabledClick(e)} onKeyDown={e => disabledClick(e)}>
           <Hovedknapp disabled={disabled} className="knapp knapp-med-varsel-action">
             {children}
           </Hovedknapp>
-        </button>
+        //</button>
         :
         <Hovedknapp disabled={disabled} className="knapp knapp-med-varsel-action">
           {children}
