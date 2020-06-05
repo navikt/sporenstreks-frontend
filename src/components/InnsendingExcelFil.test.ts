@@ -1,5 +1,5 @@
-import FetchMock, {MatcherUtils, SpyMiddleware, ResponseUtils, HandlerArgument} from 'yet-another-fetch-mock';
-import InnsendingExcelFil from "./InnsendingExcelFil";
+import FetchMock, { SpyMiddleware, ResponseUtils } from 'yet-another-fetch-mock';
+import InnsendingExcelFil from './InnsendingExcelFil';
 
 const mockServer = 'http://mockserver.nav.no';
 
@@ -8,49 +8,45 @@ jest.mock('../util/environment', () => ({
     return mockServer
   },
   get loginServiceUrl() {
-    return mockServer + "/loginServer"
+    return mockServer + '/loginServer'
   }
 }))
 
 const mockUrl = mockServer + '/api/v1/bulk/upload';
 
-const file = new File(['(⌐□_□)'], 'fil.xlsx', {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-
-
-const response200 = "Søknaden er mottatt."
-
+const file = new File(['(⌐□_□)'], 'fil.xlsx', { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+const response200 = 'Søknaden er mottatt.'
 const response500 = {
-  "type": "urn:sporenstreks:uventet-feil",
-  "title": "Uventet feil",
-  "status": 500,
-  "detail": null,
-  "instance": "urn:sporenstreks:uventent-feil:1f447140-6d6c-403c-bbc5-7e0f400bc684"
+  'type': 'urn:sporenstreks:uventet-feil',
+  'title': 'Uventet feil',
+  'status': 500,
+  'detail': null,
+  'instance': 'urn:sporenstreks:uventent-feil:1f447140-6d6c-403c-bbc5-7e0f400bc684'
 }
-
 const response422 = {
-  "problemDetails": [{
-    "message": "Antall refusjonsdager kan ikke være flere enn dagene i perioden",
-    "row": "1",
-    "column": "Arbeidsgiverperioden (fom+tom)"
+  'problemDetails': [{
+    'message': 'Antall refusjonsdager kan ikke være flere enn dagene i perioden',
+    'row': '1',
+    'column': 'Arbeidsgiverperioden (fom+tom)'
   }, {
-    "message": "Du har ikke korrekte tilganger for denne virksomheten",
-    "row": "2",
-    "column": "Virksomhetsnummer"
+    'message': 'Du har ikke korrekte tilganger for denne virksomheten',
+    'row': '2',
+    'column': 'Virksomhetsnummer'
   }, {
-    "message": "Feil ved lesing av tall. Påse at formatet er riktig.",
-    "row": "3",
-    "column": "Beløp"
+    'message': 'Feil ved lesing av tall. Påse at formatet er riktig.',
+    'row': '3',
+    'column': 'Beløp'
   }, {
-    "message": "Ugyldig virksomhetsnummer",
-    "row": "4",
-    "column": "Virksomhetsnummer"
+    'message': 'Ugyldig virksomhetsnummer',
+    'row': '4',
+    'column': 'Virksomhetsnummer'
   }],
-  "message": "En eller flere rader/kolonner har feil.",
-  "type": "urn:sporenstreks:excel-error",
-  "title": "Det var en eller flere feil med excelarket",
-  "status": 422,
-  "detail": "En eller flere rader/kolonner har feil.",
-  "instance": "about:blank"
+  'message': 'En eller flere rader/kolonner har feil.',
+  'type': 'urn:sporenstreks:excel-error',
+  'title': 'Det var en eller flere feil med excelarket',
+  'status': 422,
+  'detail': 'En eller flere rader/kolonner har feil.',
+  'instance': 'about:blank'
 }
 
 describe('InnsendingExcelFil', () => {
@@ -102,6 +98,6 @@ describe('InnsendingExcelFil', () => {
       response500
     ));
 
-    expect(await InnsendingExcelFil(file)).toEqual([{indeks: -1, melding: "Feil ved innsending av skjema."}]);
+    expect(await InnsendingExcelFil(file)).toEqual([{ indeks: -1, melding: 'Feil ved innsending av skjema.' }]);
   });
 });
