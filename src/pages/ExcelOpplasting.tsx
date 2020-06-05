@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import 'nav-frontend-tabell-style';
 import { FormContext, useForm } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
+import {  useHistory } from 'react-router-dom';
 import { Ingress, Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { History } from 'history';
@@ -9,6 +9,7 @@ import Vis from '../components/Vis';
 import env from '../util/environment';
 import Lenke from 'nav-frontend-lenker';
 import excellogo from '../img/excel-logo.png';
+import innsendingExcelFil from '../components/InnsendingExcelFil';
 import { Erklaring } from '../components/ansatte/Erklaring';
 import { FeilTabell, tabellFeil } from '../components/feilvisning/FeilTabell';
 import InnloggetSide from './InnloggetSide';
@@ -17,10 +18,12 @@ import Skillelinje from '../components/ansatte/Skillelinje';
 import { Column, Row } from 'nav-frontend-grid';
 import InternLenke from '../components/InternLenke';
 import KnappMedVarsel from '../components/KnappMedVarsel';
+import { useTranslation } from 'react-i18next';
 
 const ExcelOpplasting = () => {
   const [erklæringAkseptert, setErklæringAkseptert] = useState<boolean>(false);
   const methods = useForm();
+  const { t } = useTranslation();
   const history: History = useHistory();
   const [fileName, setFileName] = useState('Last opp utfylt Excel-mal');
   const [file, setFile] = useState(undefined);
@@ -28,6 +31,20 @@ const ExcelOpplasting = () => {
   const [visAlleFeil, setVisAlleFeil] = useState(false)
   const [hasTriedSubmit, setHasTriedSubmit] = useState(false)
   const FILEUPLOAD_MAX_SIZE = 250000;
+
+  const handleSubmit = async  (e: React.FormEvent): Promise<any> => {
+    e.preventDefault();
+    if (file) {
+      // @ts-ignore
+      const responsFeil = await innsendingExcelFil(file)
+      if (responsFeil.length == 0) {
+        setFeil([])
+        history.push('/kvitteringExcel')
+      } else {
+        setFeil(responsFeil)
+      }
+    }
+  }
 
   const setUploadFile = (event: any) => {
     if (event.target.files[0] && event.target.files[0].size > FILEUPLOAD_MAX_SIZE) {
@@ -38,79 +55,6 @@ const ExcelOpplasting = () => {
       setFeil([]);
     }
   }
-
-  function createFormData() {
-    const formData = new FormData();
-    if (file) {
-      // @ts-ignore
-      formData.append(fileName, file)
-    }
-    return formData
-  }
-
-  const onSubmit = async (e: any): Promise<void> => {
-    const FETCH_TIMEOUT = 5000;
-    let didTimeOut = false;
-
-    new Promise((resolve, reject) => {
-      const timeout = setTimeout(function () {
-        didTimeOut = true;
-        reject(new Error('Request timed out'));
-      }, FETCH_TIMEOUT);
-
-      fetch(env.baseUrl + '/api/v1/bulk/upload', {
-        method: 'POST',
-        body: createFormData(),
-      }).then((response: Response) => {
-        clearTimeout(timeout);
-        if (!didTimeOut) {
-          switch (response.status) {
-            case 401: {
-              window.location.href = env.loginServiceUrl;
-              break;
-            }
-            case 200: {
-              response.blob().then(data => {
-                history.push('/kvitteringExcel')
-                setFeil([])
-              }
-              )
-              break;
-            }
-            case 422: {
-              response.json().then(data => {
-                let f: tabellFeil[] =
-                  data.problemDetails.map(violation => ({
-                    indeks: violation.row,
-                    kolonne: violation.column,
-                    melding: violation.message
-
-                  }));
-
-                if (f.length > 0) {
-                  setFeil(f)
-                } else {
-                  setFeil([{ indeks: -1, melding: data.detail }])
-                }
-              });
-              break;
-            }
-            default: {
-              let f: tabellFeil = { melding: 'Feil ved innsending av skjema.', indeks: -1 }
-              setFeil([f])
-              break;
-            }
-          }
-        }
-      }).catch(err => {
-        if (didTimeOut) return;
-        reject(err);
-      });
-    }).catch(err => {
-      let f: tabellFeil = { melding: 'Feil ved innsending av skjema.', indeks: -1 }
-      setFeil([f])
-    });
-  };
 
   const handleDisabledClick = (event: React.FormEvent) => {
     event.preventDefault();
@@ -209,7 +153,7 @@ const ExcelOpplasting = () => {
           <Column>
             <Panel>
               <FormContext {...methods}>
-                <form onSubmit={methods.handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit}>
                   <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)} />
                   <KnappMedVarsel
                     disabled={!(erklæringAkseptert && file !== undefined)}
