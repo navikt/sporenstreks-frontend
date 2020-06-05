@@ -159,11 +159,16 @@ describe('ExcelOpplasting', () => {
     // bruker får lastet opp .xlsx-fil
     expect(screen.getByLabelText(/fil.xlsx/)).toBeInTheDocument();
 
-    //submit-knapp er disablet selv om fil er lastet opp
 
-    expect(screen.getByRole('button', { name: 'Send søknad om refusjon' })).toBeDisabled();
+
+    userEvent.click(screen.getByRole('button', { name: 'Send søknad om refusjon' }));
+
+    //klikk på submit-knapp viser feilmelding om å huke av erklæring
+
+    expect(screen.getByText('Du må huke av erklæringen før du kan sende inn')).toBeInTheDocument();
 
   })
+
   it('does not accept file upload over 250kB', () => {
     const mockFile = {
       size: 260000,
