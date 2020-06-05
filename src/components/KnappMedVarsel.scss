@@ -1,24 +1,36 @@
 $screen-md: 992px;
 
 .knapp-med-varsel-disabled-button {
-  background-color: transparent;
-  border: none;
-  outline: none;
-  padding: 0;
+  top: 0;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+  font-size: 1em;
+  white-space: nowrap;
+  border-radius: 0.125em;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  letter-spacing: 0.0625em;
+  line-height: 1.375rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: calc(.475rem - 1px) 2.5rem calc(.525rem - 1px) 2.5rem;
+  min-height: 2.5rem;
+  vertical-align: middle;
 }
 
-.knapp-med-varsel-action {
-  margin: 1rem 0rem;
-  width: 100%;
-  overflow: hidden;
-}
+// .knapp-med-varsel-action {
+//   margin: 1rem 0rem;
+//   // width: 100%;
+//   overflow: hidden;
+// }
 
-.knapp-med-varsel-action[disabled] {
-  pointer-events: none
-}
-
-@media (min-width: $screen-md) {
-  .knapp-med-varsel-action {
-    width: auto;
-  }
-}
+// @media (min-width: $screen-md) {
+//   .knapp-med-varsel-action {
+//     width: auto;
+//   }
+// }
