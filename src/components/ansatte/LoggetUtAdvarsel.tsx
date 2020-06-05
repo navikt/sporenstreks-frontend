@@ -36,7 +36,9 @@ const LoggetUtAdvarsel = () => {
         <ul>
           <li>Ikke lukk dette vinduet</li>
           <li>
-            <a href={loginServiceUrlAfterRedirect} rel="noopener noreferrer" target="_blank">Åpne ID-Porten (innlogging) i nytt vindu ved å klikke på denne lenken.</a>
+            <a href={loginServiceUrlAfterRedirect} rel="noopener noreferrer" target="_blank">
+              Åpne ID-Porten (innlogging) i nytt vindu ved å klikke på denne lenken.
+            </a>
           </li>
           <li>Logg inn på nytt i ID-porten.</li>
           <li>Returner til dette vinduet.</li>

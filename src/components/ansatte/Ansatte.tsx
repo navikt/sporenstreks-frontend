@@ -42,7 +42,8 @@ const Ansatte: React.FC = () => {
   const handleSubmit = (evt: React.FormEvent) => {
     evt.preventDefault();
   }
-  const handleBekreftKlikk = () => {
+  const handleBekreftKlikk = (evt: React.FormEvent) => {
+    evt.preventDefault();
     setHarTrykketSubmitMinstEnGang(true);
   }
 

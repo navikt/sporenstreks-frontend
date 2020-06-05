@@ -1,24 +1,22 @@
 $screen-md: 992px;
 
-.knapp-med-varsel-disabled-button {
-  background-color: transparent;
-  border: none;
-  outline: none;
-  padding: 0;
-}
+.knapp.knapp-med-varsel-disabled-button {
+  background-color: #B7B1A9;
+  border-color: #B7B1A9;
+  color: #FFF;
+  box-shadow: none;
+  transform: none;
+  cursor: not-allowed;
 
-.knapp-med-varsel-action {
-  margin: 1rem 0rem;
-  width: 100%;
-  overflow: hidden;
-}
-
-.knapp-med-varsel-action[disabled] {
-  pointer-events: none
-}
-
-@media (min-width: $screen-md) {
-  .knapp-med-varsel-action {
-    width: auto;
+  &:focus, 
+  &:hover,
+  &:active,
+  &:focus:active {
+    background-color: #B7B1A9;
+    border-color: #B7B1A9;
+    color: #FFF;
+    box-shadow: none;
+    transform: none;
+    cursor: not-allowed;
   }
 }
