@@ -1,5 +1,5 @@
-import env from "../util/environment";
-import {tabellFeil} from "./feilvisning/FeilTabell";
+import env from '../util/environment';
+import { tabellFeil } from './feilvisning/FeilTabell';
 
 export default (file: File): Promise<tabellFeil[]> => {
 
@@ -38,13 +38,13 @@ export default (file: File): Promise<tabellFeil[]> => {
           if (f.length > 0) {
             return f
           } else {
-            return [{indeks: -1, melding: data.detail}]
+            return [{ indeks: -1, melding: data.detail }]
           }
         });
       }
       default: {
-        return [{melding: "Feil ved innsending av skjema.", indeks: -1}]
+        return [{ melding: 'Feil ved innsending av skjema.', indeks: -1 }]
       }
     }
-  })
+  });
 };

@@ -1,11 +1,10 @@
 import '@testing-library/jest-dom'
 import React from 'react'
 import { render, screen, act } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
+import { MemoryRouter, Route } from 'react-router-dom'
 import { useAppStore } from '../data/store/AppStore';
 import ExcelOpplasting from './ExcelOpplasting';
 import userEvent from '@testing-library/user-event';
-import { Route } from 'react-router-dom';
 import KvitteringExcel from './KvitteringExcel';
 
 jest.mock('../data/store/AppStore');
