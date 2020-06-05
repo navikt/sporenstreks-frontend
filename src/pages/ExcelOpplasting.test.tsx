@@ -66,7 +66,7 @@ const response422 = {
 
 const mockFile = new File(['(⌐□_□)'], 'fil.xlsx', { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
-describe('KvitteringExcel', () => {
+describe('ExcelOpplasting', () => {
   let mockUseAppStore;
 
   beforeEach(() => {
