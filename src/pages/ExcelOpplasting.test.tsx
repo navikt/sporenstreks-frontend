@@ -1,16 +1,12 @@
 import '@testing-library/jest-dom'
 import React from 'react'
-import { render, fireEvent, screen, waitFor } from '@testing-library/react'
-import { MemoryRouter, Router } from 'react-router-dom'
+import { render, screen, act } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 import { useAppStore } from '../data/store/AppStore';
 import ExcelOpplasting from './ExcelOpplasting';
 import userEvent from '@testing-library/user-event';
-import InnsendingExcelFil from '../components/InnsendingExcelFil';
-import { tabellFeil } from '../components/feilvisning/FeilTabell';
-import Sykepenger from './Sykepenger';
-import { createMemoryHistory } from 'history';
-import 'mutationobserver-shim';
-import { act } from 'react-dom/test-utils';
+import { Route } from 'react-router-dom';
+import KvitteringExcel from './KvitteringExcel';
 
 jest.mock('../data/store/AppStore');
 
@@ -40,8 +36,35 @@ const mockArbeidsgiverValues = {
   setReferanseNummer: jest.fn()
 };
 
-const mockServer = 'http://mockserver.nav.no';
+const response200 = 'Søknaden er mottatt.'
 
+const response422 = {
+  'problemDetails': [{
+    'message': 'Antall refusjonsdager kan ikke være flere enn dagene i perioden',
+    'row': '1',
+    'column': 'Arbeidsgiverperioden (fom+tom)'
+  }, {
+    'message': 'Du har ikke korrekte tilganger for denne virksomheten',
+    'row': '2',
+    'column': 'Virksomhetsnummer'
+  }, {
+    'message': 'Feil ved lesing av tall. Påse at formatet er riktig.',
+    'row': '3',
+    'column': 'Beløp'
+  }, {
+    'message': 'Ugyldig virksomhetsnummer',
+    'row': '4',
+    'column': 'Virksomhetsnummer'
+  }],
+  'message': 'En eller flere rader/kolonner har feil.',
+  'type': 'urn:sporenstreks:excel-error',
+  'title': 'Det var en eller flere feil med excelarket',
+  'status': 422,
+  'detail': 'En eller flere rader/kolonner har feil.',
+  'instance': 'about:blank'
+}
+
+const mockFile = new File(['(⌐□_□)'], 'fil.xlsx', { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
 describe('KvitteringExcel', () => {
   let mockUseAppStore;
@@ -49,93 +72,70 @@ describe('KvitteringExcel', () => {
   beforeEach(() => {
     mockUseAppStore = useAppStore as jest.Mock;
     mockUseAppStore.mockReturnValue(mockArbeidsgiverValues);
-    window.MutationObserver = MutationObserver;
-
   })
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it('uploads file and redirects to kvittering when file is valid', () => {
+  it('uploads file and redirects to kvittering when file is valid', async () => {
 
-    global.fetch = jest.fn(() =>
-      Promise.resolve({
-        status: 200,
-        json: () => Promise.resolve([]),
-      })
-    );
+      const jsonPromise = Promise.resolve(response200)
 
-    // jest.mock('../components/InnsendingExcelFil.ts', () => {
-    //   return new Promise((resolve, reject) => {
-    //     resolve([{ indeks: -1, melding: 'Noe gikk galt' }])
-    //
-    //   })
-    // });
+      // @ts-ignore
+      global.fetch = jest.fn(() =>
+        Promise.resolve({
+          status: 200,
+          blob: () => jsonPromise
+        })
+      );
 
-      const mockHistoryPush = jest.fn();
+      const view = render(
+        <MemoryRouter initialEntries={['/excel']}>
+          <Route path='/excel'><ExcelOpplasting/></Route>
+          <Route path='/kvitteringExcel'><KvitteringExcel/></Route>
+        </MemoryRouter>);
 
-      const mockFile = new File(['(⌐□_□)'], 'fil.xlsx', { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const uploadButton = view.getByLabelText(/Last opp utfylt Excel-mal/);
 
-      // jest.mock('react-router-dom', () => ({
-      //   // @ts-ignore
-      //   ...jest.requireActual('react-router-dom'),
-      //   useHistory: () => ({
-      //     push: mockHistoryPush,
-      //   }),
-      // }));
-
-    // global.MutationObserver = window.MutationObserver;
-    const view = render(<MemoryRouter><ExcelOpplasting/></MemoryRouter>);
-    const uploadButton = view.getByLabelText(/Last opp utfylt Excel-mal/);
-
-    act(() => {
       userEvent.upload(uploadButton, mockFile)
-    });
 
+      expect(screen.getByLabelText(/fil.xlsx/)).toBeInTheDocument();
 
-    // bruker får lastet opp .xlsx-fil
-    expect(screen.getByLabelText(/fil.xlsx/)).toBeInTheDocument();
-
-    // bruker får sendt inn skjema når erklæring er avhuket
-    act(() => {
       userEvent.click(view.getByRole('checkbox'));
-    });
 
+      // bruker får sendt inn skjema når erklæring er avhuket
+      expect(screen.getByRole('button', { name: 'Send søknad om refusjon' })).toBeEnabled();
 
-    expect(screen.getByRole('button', { name: 'Send søknad om refusjon' })).toBeEnabled();
-
-    act(() => {
       userEvent.click(screen.getByRole('button', { name: 'Send søknad om refusjon' }));
-    });
 
-    // bruker blir sendt til kvitteringside
+      // @ts-ignore
+      await act(() => jsonPromise)
 
-    expect(mockHistoryPush).toBeCalledWith('/kvitteringExcel');
-
-    //TODO: få den til å svare sånn som jeg vil
-
+      // bruker blir sendt til kvitteringside
+      expect(screen.getByText('Søknaden er mottatt.'))
 
     }
   )
 
   it('displays errors when uploaded file is not accepted', async () => {
 
+    const jsonPromise = Promise.resolve(response422)
 
-    const errors = [{ indeks: -1, melding: 'Noe har gått skikkelig galt' }]
+    // @ts-ignore
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        status: 422,
+        json: () => jsonPromise
+      })
+    );
 
-    jest.mock('../components/InnsendingExcelFil.ts');
-
-    const mockFile = new File(['(⌐□_□)'], 'errorfil.xlsx', { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-
-    global.MutationObserver = window.MutationObserver;
     const view = render(<MemoryRouter><ExcelOpplasting/></MemoryRouter>);
     const uploadButton = view.getByLabelText(/Last opp utfylt Excel-mal/);
-
     userEvent.upload(uploadButton, mockFile)
 
     // bruker får lastet opp .xlsx-fil
-    expect(screen.getByLabelText('errorfil.xlsx')).toBeInTheDocument();
+    expect(screen.getByLabelText('fil.xlsx')).toBeInTheDocument();
 
     // bruker får sendt inn skjema når erklæring er avhuket
     userEvent.click(view.getByRole('checkbox'));
@@ -144,20 +144,14 @@ describe('KvitteringExcel', () => {
 
     userEvent.click(screen.getByRole('button', { name: 'Send søknad om refusjon' }));
 
-    await waitFor(() => {})
-    expect(screen.getByText('Følgende feil i dokumentet må utbedres')).toBeInTheDocument();
+    // @ts-ignore
+    await act(() => jsonPromise)
 
     // bruker får feilmeldinger
-    expect(screen.getByText('Følgende feil i dokumentet må utbedres')).toBeInTheDocument();
-
-    //TODO: få den til å svare sånn som jeg vil
-
+    expect(screen.getByText('Følgende feil i dokumentet må utbedres før du laster det opp på nytt:')).toBeInTheDocument();
   })
 
   it('disables submit when Erklæring is unchecked', () => {
-    const mockFile = new File(['(⌐□_□)'], 'fil.xlsx', { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-
-    global.MutationObserver = window.MutationObserver;
     const view = render(<MemoryRouter><ExcelOpplasting/></MemoryRouter>);
     const uploadButton = view.getByLabelText(/Last opp utfylt Excel-mal/);
 
@@ -178,29 +172,18 @@ describe('KvitteringExcel', () => {
       type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     } as unknown as File
 
-    global.MutationObserver = window.MutationObserver;
     const view = render(<MemoryRouter><ExcelOpplasting/></MemoryRouter>);
     const uploadButton = view.getByLabelText(/Last opp utfylt Excel-mal/);
 
     userEvent.upload(uploadButton, mockFile);
 
     //opplastingsknappen får samme navn som fil hvis den er lastet opp
-    expect(view.queryByText('tooLarge')).not.toBeInTheDocument();
+    expect(view.queryByText('fil.xlsx')).not.toBeInTheDocument();
 
     //feilmeldinger skal vises dersom opplasting gikk galt
 
     expect(view.getByText(/Følgende feil i dokumentet må utbedres før du laster det opp på nytt/)).toBeInTheDocument();
     expect(view.getByText('Du kan ikke laste opp filer større enn 250 kB.')).toBeInTheDocument();
-  })
-
-  it('actually mocks', async () => {
-    jest.mock('../components/InnsendingExcelFil.ts', () => {
-      return new Promise((resolve, reject) => {
-        resolve([{ indeks: -1, melding: 'Noe gikk galt' }])
-
-      })
-    });
-    expect(await InnsendingExcelFil(new File(['(⌐□_□)'], 'fil.xlsx'))).toBe('something');
   })
 });
 
