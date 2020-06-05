@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import 'nav-frontend-tabell-style';
 import { FormContext, useForm } from 'react-hook-form';
 import {  useHistory } from 'react-router-dom';
-
 import { Ingress, Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { History } from 'history';
