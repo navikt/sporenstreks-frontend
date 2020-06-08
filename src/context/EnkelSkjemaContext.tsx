@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 import { Ansatt, Periode } from '../data/types/sporenstreksTypes';
 
-export const buildEnkelSkjemaContext = (perioder: Periode[] = [], identityNumberInput: string) => ({
+export const buildEnkelSkjemaContext = (perioder: Periode[] = [], identityNumberInput: string = '') => ({
   perioder,
   setPerioder: function(perioder: Periode[]){},
   identityNumberInput,
@@ -18,8 +18,9 @@ export const useEnkelSkjema = () => useContext(EnkelSkjemaContext);
 
 export const EnkelSkjemaProvider = (props: EnkelSkjemaContextProviderProps) => {
   const [ perioder, setPerioder ] = useState<Periode[]>([]);
+  const [ identityNumberInput, setIdentityNumberInput ] = useState('');
   return (
-    <EnkelSkjemaContext.Provider value={{ perioder, setPerioder }}>
+    <EnkelSkjemaContext.Provider value={{ perioder, setPerioder, identityNumberInput, setIdentityNumberInput }}>
       { props.children }
     </EnkelSkjemaContext.Provider>
   )
