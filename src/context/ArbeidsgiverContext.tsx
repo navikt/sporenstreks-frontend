@@ -7,11 +7,11 @@ import env from '../util/environment';
 
 export const buildArbeidsgiverContext = (firma: string, arbeidsgiverId: string, arbeidsgivere: Organisasjon[]) => ({
   arbeidsgivere,
-  setArbeidsgivere: function(arbeidsgivere: Organisasjon[]){},
+  setArbeidsgivere: (arbeidsgivere: Organisasjon[]) => {},
   firma,
-  setFirma: function(firma: string){},
+  setFirma: (firma: string) => {},
   arbeidsgiverId,
-  setArbeidsgiverId: function(arbeidsgiverId: string){}
+  setArbeidsgiverId: (arbeidsgiverId: string) => {}
 })
 
 const ArbeidsgiverContext = createContext(buildArbeidsgiverContext('', '', []));

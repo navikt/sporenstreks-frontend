@@ -5,15 +5,15 @@ import { Ansatt, byggAnsatt, Periode } from '../data/types/sporenstreksTypes';
 export const buildBulkSkjemaContext = (ansatte: Ansatt[] = [byggAnsatt()], feil: ValideringsFeil[] = [], loadingStatus: number = -1,
                                        tokenExpired: boolean = false, identityNumberInput: string = '' ) => ({
   ansatte,
-  setAnsatte: function(ansatte: Ansatt[]){},
+  setAnsatte: (ansatte: Ansatt[]) => {},
   feil,
-  setFeil: function(feil: ValideringsFeil[]){},
+  setFeil: (feil: ValideringsFeil[]) => {},
   loadingStatus,
-  setLoadingStatus: function(status: number){},
+  setLoadingStatus: (status: number) => {},
   tokenExpired,
-  setTokenExpired: function(isExpired: boolean){},
+  setTokenExpired: (isExpired: boolean) => {},
   identityNumberInput,
-  setIdentityNumberInput: function(identityNumberInput: string){},
+  setIdentityNumberInput: (identityNumberInput: string) => {},
 })
 
 const BulkSkjemaContext = createContext(buildBulkSkjemaContext());

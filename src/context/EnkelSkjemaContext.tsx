@@ -3,9 +3,9 @@ import { Ansatt, Periode } from '../data/types/sporenstreksTypes';
 
 export const buildEnkelSkjemaContext = (perioder: Periode[] = [], identityNumberInput: string = '') => ({
   perioder,
-  setPerioder: function(perioder: Periode[]){},
+  setPerioder: (perioder: Periode[]) => {},
   identityNumberInput,
-  setIdentityNumberInput: function(identityNumber: string){}
+  setIdentityNumberInput: (identityNumber: string) => {}
 })
 
 const EnkelSkjemaContext = createContext(buildEnkelSkjemaContext());

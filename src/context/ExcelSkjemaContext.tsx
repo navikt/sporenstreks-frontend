@@ -4,15 +4,15 @@ import { tabellFeil } from '../components/feilvisning/FeilTabell';
 export const buildExcelSkjemaContext = (fileName: string = '', visAlleFeil: boolean = false, hasTriedSubmit: boolean = false,
                                         feil: tabellFeil[] = [], file?: File ) => ({
   fileName,
-  setFileName: function(filename: string){},
+  setFileName: (filename: string) => {},
   file,
-  setFile: function(file: File){},
+  setFile: (file: File) => {},
   visAlleFeil,
-  setVisAlleFeil: function(visAlleFeil:boolean){},
+  setVisAlleFeil: (visAlleFeil:boolean) => {},
   hasTriedSubmit,
-  setHasTriedSubmit: function(hasTriedSubmit:boolean){},
+  setHasTriedSubmit: (hasTriedSubmit:boolean) => {},
   feil,
-  setFeil: function(feil: tabellFeil[]){}
+  setFeil: (feil: tabellFeil[]) => {}
 })
 
 const ExcelSkjemaContext = createContext(buildExcelSkjemaContext('', false, false, []));
