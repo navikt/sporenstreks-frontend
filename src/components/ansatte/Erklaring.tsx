@@ -8,7 +8,7 @@ interface erklaringProps {
 
 export const Erklaring = ({ value, handleSetErklæring }: erklaringProps) => {
   return (
-    <BekreftCheckboksPanel label="Ja, jeg samtykker" checked={value} onChange={() => handleSetErklæring(!value)}>
+    <BekreftCheckboksPanel label="Ja, jeg erklærer" checked={value} onChange={() => handleSetErklæring(!value)}>
 
       <span className="erklaring-labeloverskrift">Vi erklærer:</span>
       <ul>
