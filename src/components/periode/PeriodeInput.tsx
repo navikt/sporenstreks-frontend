@@ -6,19 +6,21 @@ import { Norwegian } from 'flatpickr/dist/l10n/no.js';
 import { PeriodeFormatter } from './PeriodeFormatter';
 import { Minimum, Maximum, Feilmelding } from './PeriodeValidator';
 import { PeriodeConverter } from './PeriodeConverter';
+import uuid from 'uuid/v4';
 
 interface PeriodeInputProps {
   feilmelding?: string,
   fom?: Date,
   tom?: Date,
-  handleChange: any
+  handleChange: any,
+  id?: number | string
 }
 
 export const PeriodeInputClassName = (feilmelding?: string) => {
   return 'periodeinput ' + (feilmelding ? 'periodeinput--invalid' : 'periodeinput--valid')
 }
 
-export const PeriodeInput = ({ fom, tom, feilmelding, handleChange }: PeriodeInputProps) => {
+export const PeriodeInput = ({ fom, tom, feilmelding, handleChange, id }: PeriodeInputProps) => {
   const [feilmeldingState, setFeilmeldingState] = useState(feilmelding);
   const handleClose = (selectedDates) => {
     let fomChanged = PeriodeConverter(selectedDates[0])
@@ -26,19 +28,23 @@ export const PeriodeInput = ({ fom, tom, feilmelding, handleChange }: PeriodeInp
     setFeilmeldingState(Feilmelding(false, selectedDates[0], selectedDates[1]));
     handleChange(fomChanged, tomChanged);
   }
+
+  const elementId = String(id) || 'periode'.concat(uuid());
+
   return (
     <div className={PeriodeInputClassName(feilmelding)}>
-      <Label htmlFor={'periode'}>
+      <Label htmlFor={elementId}>
         <div style={{ display: 'flex' }}>
-          Periode
+          Hvilken periode var den ansatte borte?
           <HjelpetekstPeriode/>
         </div>
       </Label>
       <Flatpickr
-        id="periode"
+        id={elementId}
+        name={elementId}
         placeholder='dd.mm.yyyy til dd.mm.yyyy'
         value={PeriodeFormatter(fom, tom)}
-        className={'periodeinput-input'}
+        className={'periodeinput-input  skjemaelement__input'}
         options={{
           minDate: Minimum(),
           maxDate: Maximum(),

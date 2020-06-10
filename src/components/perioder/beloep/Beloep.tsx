@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Normaltekst, Element } from 'nav-frontend-typografi';
 import { Controller, useFormContext } from 'react-hook-form';
 import NumberFormat from 'react-number-format';
 import Vis from '../../Vis';
@@ -48,9 +48,9 @@ const Beloep = (props: BeloepProps) => {
   };
 
   return (
-    <div className="skjemaelement">
+    <div className="ikke-skjemaelement">
       <label htmlFor={belId} className="skjemaelement__label">
-        <Normaltekst tag="span">Brutto beløp som søkes refundert</Normaltekst>
+        <Element tag="span">Beløp:</Element>
       </label>
       <Controller
         id={belId}

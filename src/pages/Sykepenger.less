@@ -94,7 +94,7 @@
   }
 }
 
-@media (min-width: 769px) {
+@media (min-width: @desktopLimitWidth ) {
   .sykepenger {
     .container {
       padding: 1rem 0 2rem;
@@ -130,7 +130,11 @@
 
 .skjemabakgrunn{
   background-color: white;
+  max-width: @desktopLimitWidth;
+  margin-left: auto;
+  margin-right: auto;
   .container {
-    padding: 1rem;
+    margin: 1rem;
+    width: inherit;
   }
 }
