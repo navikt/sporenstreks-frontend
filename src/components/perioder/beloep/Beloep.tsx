@@ -48,7 +48,7 @@ const Beloep = (props: BeloepProps) => {
   };
 
   return (
-    <div className="ikke-skjemaelement">
+    <div>
       <label htmlFor={belId} className="skjemaelement__label">
         <Element tag="span">Beløp:</Element>
       </label>
