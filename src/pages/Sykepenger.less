@@ -47,8 +47,9 @@
 
     &:last-child {
       border: 0;
-      padding: 1.5rem 0 4rem;
       max-width: 100%;
+      padding: 0rem 0 2rem;
+      margin: -3rem 0 0;
     }
   }
   .skjemaelement__feilmelding {
@@ -94,14 +95,10 @@
   }
 }
 
-@media (min-width: 769px) {
+@media (min-width: @desktopLimitWidth ) {
   .sykepenger {
     .container {
       padding: 1rem 0 2rem;
-
-      &:last-child {
-        padding: 1rem 0 4rem;
-      }
     }
   }
 }
@@ -130,7 +127,12 @@
 
 .skjemabakgrunn{
   background-color: white;
+  max-width: @desktopLimitWidth;
+  margin-left: auto;
+  margin-right: auto;
   .container {
-    padding: 1rem;
+    margin: 2rem 1rem;
+    padding-bottom: 3rem;
+    width: inherit;
   }
 }

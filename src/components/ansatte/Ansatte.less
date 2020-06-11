@@ -1,6 +1,7 @@
 @import '../../../node_modules/nav-frontend-core/less/_variabler';
+@import '../../../src/basic';
 
-@media (max-width: @screen-lg) {
+@media (max-width: (@desktopLimitWidth - 1)) {
   /* Mobil */
   .ansatte {
     .AnsattRad {
@@ -19,7 +20,7 @@
   }
 }
 
-@media (min-width: @screen-lg) {
+@media (min-width: @desktopLimitWidth) {
   /* Desktop */
   .ansatte {
     .AnsattRad ~ .AnsattRad {

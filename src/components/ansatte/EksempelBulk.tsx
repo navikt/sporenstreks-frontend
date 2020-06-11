@@ -104,6 +104,9 @@ const EksempelBulk = () => {
       <div className="hjelpetekst">
         <button role="link" className="hjelpetekst__apneknapp" onClick={(evt) => handleOpenButton(evt)}>
           <Sprsml/>
+          <span className="sr-only">
+            Hjelp
+          </span>
         </button>
       </div>
     </div>

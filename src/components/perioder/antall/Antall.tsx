@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { Controller, useFormContext } from 'react-hook-form';
-import NumberFormat from 'react-number-format';
 import Vis from '../../Vis';
-import Hjelpetekst from 'nav-frontend-hjelpetekst';
+import DagerInput from '../../dager/DagerInput';
 
 interface AntallProps {
   index: number;
@@ -25,7 +24,7 @@ const Antall = (props: AntallProps) => {
     if (value.length === 0) {
       msg = 'Antall mangler.'
     } else {
-      msg = numval < 0 ? 'Antall kan ikke være negativt' : '';
+      msg = numval < 0 && value !== '-' ? 'Antall kan ikke være negativt' : '';
     }
 
     if (msg !== '') {
@@ -40,37 +39,15 @@ const Antall = (props: AntallProps) => {
   };
 
   return (
-    <div className="skjemaelement">
-      <label htmlFor={antId} className="dager skjemaelement__label">
-        <Normaltekst tag="span">
-          Antall arbeidsdager dere vil ha refundert
-        </Normaltekst>
-      </label>
+    <>
+
       <Controller
         id={antId}
         name={antId}
         as={
-          <NumberFormat
-            label=""
-            thousandSeparator={' '}
-            decimalScale={0}
-            fixedDecimalScale={true}
-            autoComplete={'off'}
-            className={'skjemaelement__input input--s'}
-            onBlur={e => validateAntall(e.target.value)}
-          />
+          <DagerInput handleChange={e => validateAntall(e.target.value)} antallDagerMedRefusjon={13} id={antId} />
         }
       />
-      <Hjelpetekst>
-        <ul>
-          <li>
-            Her teller du dagene arbeidstakeren skulle vært på jobb fra dag 4 til dag 16 i sykefraværet.
-            Helger og helligdager kan tas med hvis de er en del av den faste arbeidstiden.
-          </li>
-          <li>Var noen av fraværsdagene før 16. mars, kan du ikke ta dem med.</li>
-        </ul>
-      </Hjelpetekst>
-
       <Normaltekst tag='div' role='alert' aria-live='assertive'
         className={`skjemaelement__feilmelding ${errorState} antall_${props.index}`}
       >
@@ -78,7 +55,7 @@ const Antall = (props: AntallProps) => {
           <span>{errors[antId] && errors[antId].type}</span>
         </Vis>
       </Normaltekst>
-    </div>
+    </>
   );
 };
 
