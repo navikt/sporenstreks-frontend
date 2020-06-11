@@ -28,6 +28,7 @@ import convertSkjemaToRefusjonsKrav from '../util/convertSkjemaToRefusjonsKrav';
 import { Erklaring } from '../components/ansatte/Erklaring';
 import { Container } from 'nav-frontend-grid';
 import InternLenke from '../components/InternLenke';
+import Panel from 'nav-frontend-paneler';
 
 const fnrErrorState = {
   hasError: '',
@@ -139,7 +140,7 @@ const Sykepenger = () => {
   return (
     <main className="sykepenger">
       <Vis hvis={arbeidsgivere.length === 0}>
-        <div className="limit">
+        <div>
           <AlertStripeAdvarsel>
             <div>Du har ikke rettigheter til å søke om refusjon for noen bedrifter</div>
             <div>Tildeling av roller foregår i Altinn</div>
@@ -181,8 +182,8 @@ const Sykepenger = () => {
           <Lenke href="/min-side-arbeidsgiver/" style={{ paddingLeft: '1rem' }}>&lt;&lt; Min side arbeidsgiver</Lenke>
         </div>
 
-        <div className="limit skjemabakgrunn">
-          <Container className="limit">
+        <div className="skjemabakgrunn">
+          <Container>
             <Normaltekst>
             Når sykefraværet handler om korona, dekker NAV sykepenger fra dag 4 i de 16 dagene arbeidsgiveren vanligvis skal betale.
             Den ansatte må være smittet, mistenkt smittet eller i pålagt karantene. Refusjon kan gis for dager fra og med 16. mars.
@@ -199,7 +200,7 @@ const Sykepenger = () => {
 
           <FormContext {...methods}>
             <form onSubmit={methods.handleSubmit(setForm)} ref={refRefusjonsform}>
-              <Container className="limit">
+              <Container>
                 <div className="sykepenger--arbeidstaker">
                   <Undertittel className="sykepenger--undertittel">
                     Hvilken arbeidstaker gjelder søknaden?
@@ -234,15 +235,11 @@ const Sykepenger = () => {
                 </Normaltekst>
               </Container>
 
-              <Container className="limit">
+              <Container>
                 <div className="sykepenger--periode-velger form-group">
                   <Undertittel className="sykepenger--undertittel">
-                    Hvilken periode har den ansatte vært fraværende?
+                    Hvor mange arbeidsdager gikk tapt?
                   </Undertittel>
-                  <Undertekst className="sykepenger--undertekst">
-                    NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar
-                  </Undertekst>
-                  <Eksempel/>
                   <Perioder/>
 
                 </div>
@@ -250,12 +247,14 @@ const Sykepenger = () => {
 
               <FeilOppsummering errors={methods.errors} />
 
-              <Container className="limit">
+              <Container>
                 <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)}/>
               </Container>
 
               <Container>
-                <Knapp disabled={!erklæringAkseptert} type="hoved"> Send søknad om refusjon </Knapp>
+                <Panel>
+                  <Knapp disabled={!erklæringAkseptert} type="hoved"> Send søknad om refusjon </Knapp>
+                </Panel>
               </Container>
             </form>
           </FormContext>

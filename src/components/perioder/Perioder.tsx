@@ -2,6 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import useForceUpdate from 'use-force-update';
 import PeriodeKomp from './PeriodeKomp';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
+import { Element } from 'nav-frontend-typografi';
+import { Row, Column } from 'nav-frontend-grid';
+import { HjelpetekstDager } from '../ansatte/HjelpetekstDager';
+import { HjelpetekstPeriode } from '../ansatte/HjelpetekstPeriode';
+import EksempelBulk from '../ansatte/EksempelBulk';
 
 interface PerioderProps {
   min?: Date;
@@ -9,7 +14,7 @@ interface PerioderProps {
 }
 
 const Perioder = (props: PerioderProps) => {
-  const [ lokal, setLokal ] = useState<number[]>([ 0 ]);
+  const [lokal, setLokal] = useState<number[]>([0]);
   const periodeliste = useRef<HTMLDivElement>(null);
   const forceUpdate = useForceUpdate();
 
@@ -18,7 +23,7 @@ const Perioder = (props: PerioderProps) => {
     setLokal(periods.length > 0 ? periods : lokal);
     lagIdForPerioder();
     // eslint-disable-next-line
-  }, [ periodeliste ]);
+  }, [periodeliste]);
 
   const lagIdForPerioder = () => {
     const periods = periodeliste.current!.querySelectorAll('.periode');
@@ -55,9 +60,27 @@ const Perioder = (props: PerioderProps) => {
   return (
     <>
       <div className="periodeliste" ref={periodeliste}>
+        <Row className="periode periodeliste--overskrift">
+          <Column md="5" xs="12">
+            <Element tag="span">
+              Hvilken periode var den ansatte borte?
+              <HjelpetekstPeriode/>
+            </Element>
+          </Column>
+          <Column md="3" xs="12">
+            <Element tag="span">
+              Antall dager:<HjelpetekstDager/>
+            </Element>
+          </Column>
+          <Column md="2" xs="12">
+            <Element tag="span">
+              Beløp:<EksempelBulk />
+            </Element>
+          </Column>
+        </Row>
         {lokal.map((idx) => {
           return (
-            <PeriodeKomp index={idx}
+            <PeriodeKomp index={idx} numOfRows={lokal.length}
               slettPeriode={slettPeriode} min={props.min} max={props.max} key={idx}
             />
           )
@@ -65,7 +88,7 @@ const Perioder = (props: PerioderProps) => {
       </div>
 
       <button role="link" className="periodeknapp lenke" onClick={leggTilPeriode}>
-        Legg til periode
+        + Legg til ekstra fraværsperiode
       </button>
       <Hjelpetekst>
         Denne benytter du kun dersom arbeidstaker har vært borte fra jobb i to eller flere omganger.

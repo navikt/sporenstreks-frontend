@@ -58,8 +58,8 @@ describe('Sykepenger', () => {
     const rendered = render(<Router history={history}><Sykepenger /></Router>);
 
     expect(rendered.getByText(
-      'NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar'
-    )).toBeTruthy();
+      'Hvor mange arbeidsdager gikk tapt?'
+    )).toBeInTheDocument();
   });
 
   it('gives warning on missing fødselsnummer', () => {

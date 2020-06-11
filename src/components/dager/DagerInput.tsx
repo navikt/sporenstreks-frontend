@@ -8,7 +8,7 @@ interface DagerInputProps {
   feilmelding?: string,
   antallDagerMedRefusjon?: number,
   handleChange: any,
-  id?: number
+  id?: number | string
 }
 
 export const DagerInput = ({ feilmelding, antallDagerMedRefusjon, handleChange, id }: DagerInputProps) => {
@@ -24,7 +24,7 @@ export const DagerInput = ({ feilmelding, antallDagerMedRefusjon, handleChange, 
     setLokalFeil(feilmelding);
   }, [feilmelding])
 
-  const componentId = 'dager_'.concat(id ? String(id) : uuid());
+  const componentId = String(id) || 'dager_'.concat(uuid());
 
   const feilmeldingstekst = feilmelding ? feilmelding : lokalFeil;
 
@@ -33,9 +33,10 @@ export const DagerInput = ({ feilmelding, antallDagerMedRefusjon, handleChange, 
     feil={feilmeldingstekst}
     onChange={handleChange}
     onBlur={handleDagerBlur}
+    name={componentId}
     label={
       <div style={{ display: 'flex' }}>
-        Antall dager
+        Antall dager:
         <HjelpetekstDager/>
       </div>}
     selected={antallDagerMedRefusjon}>
