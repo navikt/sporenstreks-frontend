@@ -13,7 +13,9 @@
     "build": "npm run build:css && npm run build:js",
     "install": "npm run-script build",
     "test": "react-scripts test --color --watchAll=false --coverage --env=jest-environment-jsdom-sixteen",
-    "lint": "eslint src/**/*.ts*"
+    "lint": "eslint src/**/*.ts*",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "browserslist": {
     "production": [
@@ -97,7 +99,8 @@
     "react-modal": "^3.11.2",
     "react-number-format": "^4.4.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^3.4.1",
+    "snyk": "^1.339.2",
     "timezone-mock": "^1.1.0",
     "typescript": "^3.9.3",
     "use-force-update": "^1.0.7",
