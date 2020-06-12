@@ -15,10 +15,11 @@ import { FeilTabell, tabellFeil } from '../components/feilvisning/FeilTabell';
 import InnloggetSide from './InnloggetSide';
 import Panel from 'nav-frontend-paneler';
 import Skillelinje from '../components/ansatte/Skillelinje';
-import { Column, Row } from 'nav-frontend-grid';
+import { Column, Row, Container } from 'nav-frontend-grid';
 import InternLenke from '../components/InternLenke';
 import KnappMedVarsel from '../components/KnappMedVarsel';
 import { useTranslation } from 'react-i18next';
+import { CoronaTopptekst } from '../components/CoronaTopptekst';
 
 const ExcelOpplasting = () => {
   const [erklæringAkseptert, setErklæringAkseptert] = useState<boolean>(false);
@@ -62,30 +63,9 @@ const ExcelOpplasting = () => {
   }
 
   return (
-    <InnloggetSide className="excelopplasting">
+    <InnloggetSide>
       <main>
-
-        <Row>
-          <Column>
-            <Panel>
-              <Ingress>
-                Når sykefraværet handler om korona, dekker NAV sykepenger fra dag 4 i de 16 dagene
-                arbeidsgiveren vanligvis skal betale. Den ansatte må være smittet,
-                mistenkt smittet eller i pålagt karantene.
-                Refusjon kan gis for dager fra og med 16. mars.&nbsp;
-              <Lenke
-                  href="https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/nyheter/refusjon-av-sykepenger-ved-koronavirus--hva-er-status">
-                  Se mer informasjon om refusjonsordningen.
-              </Lenke>
-              </Ingress>
-            </Panel>
-            <Panel>
-              <Undertittel>
-                Det kan ikke søkes om refusjon for fravær på grunn av stengte skoler eller barnehager.
-            </Undertittel>
-            </Panel>
-          </Column>
-        </Row>
+        <CoronaTopptekst />
 
         <Skillelinje />
 
@@ -129,7 +109,7 @@ const ExcelOpplasting = () => {
 
         <Row>
           <Column>
-            <Panel>
+            <Panel className="excelopplasting">
               <label className="knapp filknapp">
                 <input className="fileinput"
                   type="file"
@@ -149,12 +129,14 @@ const ExcelOpplasting = () => {
 
         <Skillelinje />
 
+        <Container>
+          <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)} />
+        </Container>
         <Row>
           <Column>
             <Panel>
               <FormContext {...methods}>
                 <form onSubmit={handleSubmit}>
-                  <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)} />
                   <KnappMedVarsel
                     disabled={!(erklæringAkseptert && file !== undefined)}
                     disabledClick={handleDisabledClick} >

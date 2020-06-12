@@ -7,11 +7,9 @@ import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import { Keys } from '../locales/keys';
 import { useTranslation } from 'react-i18next';
 import { History } from 'history';
-import TimeoutAdvarsel from '../components/ansatte/TimeoutAdvarsel';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import './InnloggetSide.less';
 import Lenke from 'nav-frontend-lenker';
-import LoginExpiryProvider from '../context/LoginExpiryContext';
 
 interface SideProps {
   children: React.ReactNode,
@@ -54,8 +52,6 @@ const InnloggetSide = (props: SideProps) => {
                 </Column>
               </Row>
             </Container>
-
-            <TimeoutAdvarsel/>
 
             <Container className={'innloggetside__innhold'}>
                 { props.children }

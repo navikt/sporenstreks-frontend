@@ -26,9 +26,12 @@ import Eksempel from '../components/Eksempel';
 import formToJSON from '../util/formToJSON';
 import convertSkjemaToRefusjonsKrav from '../util/convertSkjemaToRefusjonsKrav';
 import { Erklaring } from '../components/ansatte/Erklaring';
-import { Container } from 'nav-frontend-grid';
+import { Container, Row, Column } from 'nav-frontend-grid';
 import InternLenke from '../components/InternLenke';
 import Panel from 'nav-frontend-paneler';
+import InnloggetSide from './InnloggetSide';
+import Skillelinje from '../components/ansatte/Skillelinje';
+import { CoronaTopptekst } from '../components/CoronaTopptekst';
 
 const fnrErrorState = {
   hasError: '',
@@ -37,13 +40,13 @@ const fnrErrorState = {
 
 const Sykepenger = () => {
   const { arbeidsgivere, setReferanseNummer, setTokenExpired } = useAppStore();
-  const [ identityNumberInput, setIdentityNumberInput ] = useState<string>('');
-  const [ erklæringAkseptert, setErklæringAkseptert ] = useState<boolean>(false);
+  const [identityNumberInput, setIdentityNumberInput] = useState<string>('');
+  const [erklæringAkseptert, setErklæringAkseptert] = useState<boolean>(false);
   const { arbeidsgiverId, setArbeidsgiverId } = useAppStore();
   const { firma, setFirma } = useAppStore();
-  const [ sendSkjemaOpen, setSendSkjemaOpen ] = useState<boolean>(false);
-  const [ formData, setFormData ] = useState<any>({});
-  const [ fnrClassName, setFnrClassName ] = useState<string>(fnrErrorState.noError);
+  const [sendSkjemaOpen, setSendSkjemaOpen] = useState<boolean>(false);
+  const [formData, setFormData] = useState<any>({});
+  const [fnrClassName, setFnrClassName] = useState<string>(fnrErrorState.noError);
   const methods = useForm();
   const { t } = useTranslation();
   const history: History = useHistory();
@@ -60,7 +63,7 @@ const Sykepenger = () => {
     setSendSkjemaOpen(true);
   };
 
-  const submitForm = async(): Promise<void> => {
+  const submitForm = async (): Promise<void> => {
     const refusjonsKrav = convertSkjemaToRefusjonsKrav(formData, identityNumberInput, arbeidsgiverId);
     setSendSkjemaOpen(false);
 
@@ -68,7 +71,7 @@ const Sykepenger = () => {
     let didTimeOut = false;
 
     new Promise((resolve, reject) => {
-      const timeout = setTimeout(function() {
+      const timeout = setTimeout(function () {
         didTimeOut = true;
         reject(new Error('Request timed out'));
       }, FETCH_TIMEOUT);
@@ -83,7 +86,7 @@ const Sykepenger = () => {
         body: JSON.stringify(refusjonsKrav),
       }).then((response: Response) => {
         clearTimeout(timeout);
-        if(!didTimeOut) {
+        if (!didTimeOut) {
           if (response.status === 401) {
             setTokenExpired(true)
             window.location.href = env.loginServiceUrl;
@@ -107,7 +110,7 @@ const Sykepenger = () => {
           }
         }
       }).catch(err => {
-        if(didTimeOut) return;
+        if (didTimeOut) return;
         reject(err);
       });
     }).catch(err => {
@@ -138,21 +141,7 @@ const Sykepenger = () => {
   };
 
   return (
-    <main className="sykepenger">
-      <Vis hvis={arbeidsgivere.length === 0}>
-        <div>
-          <AlertStripeAdvarsel>
-            <div>Du har ikke rettigheter til å søke om refusjon for noen bedrifter</div>
-            <div>Tildeling av roller foregår i Altinn</div>
-            <Lenke href="/min-side-arbeidsgiver/informasjon-om-tilgangsstyring"
-              className="informasjonsboks__lenke"
-            >
-              Les mer om roller og tilganger.
-            </Lenke>
-          </AlertStripeAdvarsel>
-        </div>
-      </Vis>
-
+    <>
       <ModalWrapper
         isOpen={sendSkjemaOpen}
         onRequestClose={() => setSendSkjemaOpen(false)}
@@ -167,100 +156,73 @@ const Sykepenger = () => {
           Avbryt
         </InternLenke>
       </ModalWrapper>
-      <Vis hvis={arbeidsgivere.length > 0}>
-        <Bedriftsmeny
-          history={history}
-          onOrganisasjonChange={(org: Organisasjon) => {
-            setArbeidsgiverId(org.OrganizationNumber);
-            setFirma(org.Name);
-          }}
-          sidetittel={t(Keys.MY_PAGE)}
-          organisasjoner={arbeidsgivere}
-        />
-
-        <div className="limit"  style={{ padding: '2rem 0rem 1rem 0rem' }}>
-          <Lenke href="/min-side-arbeidsgiver/" style={{ paddingLeft: '1rem' }}>&lt;&lt; Min side arbeidsgiver</Lenke>
-        </div>
-
-        <div className="skjemabakgrunn">
-          <Container>
-            <Normaltekst>
-            Når sykefraværet handler om korona, dekker NAV sykepenger fra dag 4 i de 16 dagene arbeidsgiveren vanligvis skal betale.
-            Den ansatte må være smittet, mistenkt smittet eller i pålagt karantene. Refusjon kan gis for dager fra og med 16. mars.
-            <span> </span>
-            <Lenke className="informasjonsboks__lenke"
-               href="https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/nyheter/refusjon-av-sykepenger-ved-koronavirus--hva-er-status">
-              Se mer informasjon om refusjonsordningen.
-            </Lenke>
-          </Normaltekst>
-          <Undertittel className="sykepenger--header">
-            Det kan ikke søkes om refusjon for fravær på grunn av stengte skoler eller barnehager
-          </Undertittel>
-          </Container>
-
+      <main>
+        <InnloggetSide>
+          <CoronaTopptekst />
+          <Skillelinje />
           <FormContext {...methods}>
             <form onSubmit={methods.handleSubmit(setForm)} ref={refRefusjonsform}>
-              <Container>
-                <div className="sykepenger--arbeidstaker">
-                  <Undertittel className="sykepenger--undertittel">
-                    Hvilken arbeidstaker gjelder søknaden?
+              <Container className="sykepenger--arbeidstaker">
+                <Undertittel className="sykepenger--undertittel">
+                  Hvilken arbeidstaker gjelder søknaden?
                   </Undertittel>
 
-                  <Normaltekst>
-                    Vi har også et eget <InternLenke to="/bulk/"> skjema for å sende inn flere ansatte samtidig </InternLenke>
+                <Normaltekst>
+                  Vi har også et eget <InternLenke to="/bulk/"> skjema for å sende inn flere ansatte samtidig </InternLenke>
                     (kun enkeltperioder per ansatt), og for dere som har mer enn 50 ansatte å rapportere inn har vi
                     mulighet for <InternLenke to="/excel/"> excel-opplasting av kravet.</InternLenke>
-                  </Normaltekst>
+                </Normaltekst>
 
-                  <div>&nbsp;</div>
+                <div>&nbsp;</div>
 
-                  <Input
-                    id="fnr"
-                    name="fnr"
-                    label="Fødselsnummer til arbeidstaker"
-                    bredde="M"
-                    autoComplete={'off'}
-                    onChange={e => filterIdentityNumberInput(e.target.value)}
-                    onBlur={e => validateFnr(e.target.value)}
-                    value={identityNumberSeparation(identityNumberInput)}
-                  />
-                </div>
+                <Input
+                  id="fnr"
+                  name="fnr"
+                  label="Fødselsnummer til arbeidstaker"
+                  bredde="M"
+                  autoComplete={'off'}
+                  onChange={e => filterIdentityNumberInput(e.target.value)}
+                  onBlur={e => validateFnr(e.target.value)}
+                  value={identityNumberSeparation(identityNumberInput)}
+                />
 
                 <Normaltekst tag='div' role='alert' aria-live='assertive'
-                  className={'skjemaelement__feilmelding fnr ' + fnrClassName }
+                  className={'skjemaelement__feilmelding fnr ' + fnrClassName}
                 >
                   <Vis hvis={methods.errors['fnr']}>
                     <span>{methods.errors['fnr'] && methods.errors['fnr'].type}</span>
                   </Vis>
                 </Normaltekst>
               </Container>
-
+              <Skillelinje />
               <Container>
                 <div className="sykepenger--periode-velger form-group">
                   <Undertittel className="sykepenger--undertittel">
                     Hvor mange arbeidsdager gikk tapt?
                   </Undertittel>
-                  <Perioder/>
+                  <Perioder />
 
                 </div>
               </Container>
 
               <FeilOppsummering errors={methods.errors} />
-
+              <Skillelinje />
               <Container>
-                <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)}/>
+                <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)} />
               </Container>
 
-              <Container>
-                <Panel>
+              <Row>
+          <Column>
+            <Panel>
                   <Knapp disabled={!erklæringAkseptert} type="hoved"> Send søknad om refusjon </Knapp>
-                </Panel>
-              </Container>
+                  </Panel>
+          </Column>
+        </Row>
             </form>
           </FormContext>
-        </div>
-      </Vis>
+        </InnloggetSide>∑
     </main>
+    </>
   );
 };
 
