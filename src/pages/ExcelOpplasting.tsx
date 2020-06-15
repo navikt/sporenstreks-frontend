@@ -129,9 +129,13 @@ const ExcelOpplasting = () => {
 
         <Skillelinje />
 
-        <Container>
-          <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)} />
-        </Container>
+        <Row>
+          <Column>
+            <Panel>
+              <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)} />
+            </Panel>
+          </Column>
+        </Row>
         <Row className="send-soknad">
           <Column>
             <Panel>

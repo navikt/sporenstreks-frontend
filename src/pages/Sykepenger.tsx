@@ -156,38 +156,42 @@ const Sykepenger = () => {
           <Skillelinje />
           <FormContext {...methods}>
             <form onSubmit={methods.handleSubmit(setForm)} ref={refRefusjonsform}>
-              <Container className="sykepenger--arbeidstaker">
-                <Undertittel className="sykepenger--undertittel">
-                  Hvilken arbeidstaker gjelder søknaden?
-                  </Undertittel>
+            <Row>
+              <Column>
+                <Panel>
+                  <Undertittel className="sykepenger--undertittel">
+                    Hvilken arbeidstaker gjelder søknaden?
+                    </Undertittel>
 
-                <Normaltekst>
-                  Vi har også et eget <InternLenke to="/bulk/"> skjema for å sende inn flere ansatte samtidig </InternLenke>
-                    (kun enkeltperioder per ansatt), og for dere som har mer enn 50 ansatte å rapportere inn har vi
-                    mulighet for <InternLenke to="/excel/"> excel-opplasting av kravet.</InternLenke>
-                </Normaltekst>
+                  <Normaltekst>
+                    Vi har også et eget <InternLenke to="/bulk/"> skjema for å sende inn flere ansatte samtidig </InternLenke>
+                      (kun enkeltperioder per ansatt), og for dere som har mer enn 50 ansatte å rapportere inn har vi
+                      mulighet for <InternLenke to="/excel/"> excel-opplasting av kravet.</InternLenke>
+                  </Normaltekst>
 
-                <div>&nbsp;</div>
+                  <div>&nbsp;</div>
 
-                <Input
-                  id="fnr"
-                  name="fnr"
-                  label="Fødselsnummer til arbeidstaker"
-                  bredde="M"
-                  autoComplete={'off'}
-                  onChange={e => filterIdentityNumberInput(e.target.value)}
-                  onBlur={e => validateFnr(e.target.value)}
-                  value={identityNumberSeparation(identityNumberInput)}
-                />
+                  <Input
+                    id="fnr"
+                    name="fnr"
+                    label="Fødselsnummer til arbeidstaker"
+                    bredde="M"
+                    autoComplete={'off'}
+                    onChange={e => filterIdentityNumberInput(e.target.value)}
+                    onBlur={e => validateFnr(e.target.value)}
+                    value={identityNumberSeparation(identityNumberInput)}
+                  />
 
-                <Normaltekst tag='div' role='alert' aria-live='assertive'
-                  className={'skjemaelement__feilmelding fnr ' + fnrClassName}
-                >
-                  <Vis hvis={methods.errors['fnr']}>
-                    <span>{methods.errors['fnr'] && methods.errors['fnr'].type}</span>
-                  </Vis>
-                </Normaltekst>
-              </Container>
+                  <Normaltekst tag='div' role='alert' aria-live='assertive'
+                    className={'skjemaelement__feilmelding fnr ' + fnrClassName}
+                  >
+                    <Vis hvis={methods.errors['fnr']}>
+                      <span>{methods.errors['fnr'] && methods.errors['fnr'].type}</span>
+                    </Vis>
+                  </Normaltekst>
+                  </Panel>
+                </Column>
+              </Row>
               <Skillelinje />
               <Container>
                 <div className="sykepenger--periode-velger form-group">
@@ -201,9 +205,13 @@ const Sykepenger = () => {
 
               <FeilOppsummering errors={methods.errors} />
               <Skillelinje />
-              <Container>
-                <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)} />
-              </Container>
+              <Row>
+                <Column>
+                  <Panel>
+                    <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)} />
+                  </Panel>
+                </Column>
+              </Row>
 
               <Row>
           <Column className="send-soknad">
@@ -214,7 +222,7 @@ const Sykepenger = () => {
         </Row>
             </form>
           </FormContext>
-        </InnloggetSide>∑
+        </InnloggetSide>
     </main>
     </>
   );

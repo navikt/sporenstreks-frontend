@@ -20,20 +20,15 @@
 }
 
 .erklaring-wrapper {
-  display: grid;
-  grid-template-areas: 
-    "top"
-    "content";
-
+  display: flex;
+  flex-direction: column-reverse;
+  
   .bekreftCheckboksPanel__innhold {
-    grid-area: content;
     margin-bottom: 0;
     padding-left: 30px;
   }
 
   .skjemaelement {
-    grid-area: top;
-
     label {
       font-weight: 600;
       line-height: 28px;
