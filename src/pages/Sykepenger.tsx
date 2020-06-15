@@ -5,24 +5,18 @@ import { FormContext, useForm } from 'react-hook-form';
 import { Knapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
-import { Keys } from '../locales/keys';
-import Bedriftsmeny from '@navikt/bedriftsmeny';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import fnrvalidator from '@navikt/fnrvalidator';
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import Perioder from '../components/perioder/Perioder';
 import { filterStringToNumbersOnly } from '../util/filterStringToNumbersOnly';
 import { identityNumberSeparation } from '../util/identityNumberSeparation';
 import FeilOppsummering from '../components/feilvisning/FeilOppsummering';
 import { useAppStore } from '../data/store/AppStore';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { History } from 'history';
 import Vis from '../components/Vis';
 import env from '../util/environment';
-import Lenke from 'nav-frontend-lenker';
 import ModalWrapper from 'nav-frontend-modal';
-import Eksempel from '../components/Eksempel';
 import formToJSON from '../util/formToJSON';
 import convertSkjemaToRefusjonsKrav from '../util/convertSkjemaToRefusjonsKrav';
 import { Erklaring } from '../components/ansatte/Erklaring';
@@ -39,11 +33,11 @@ const fnrErrorState = {
 }
 
 const Sykepenger = () => {
-  const { arbeidsgivere, setReferanseNummer, setTokenExpired } = useAppStore();
+  const { setReferanseNummer, setTokenExpired } = useAppStore();
   const [identityNumberInput, setIdentityNumberInput] = useState<string>('');
   const [erklæringAkseptert, setErklæringAkseptert] = useState<boolean>(false);
-  const { arbeidsgiverId, setArbeidsgiverId } = useAppStore();
-  const { firma, setFirma } = useAppStore();
+  const { arbeidsgiverId } = useAppStore();
+  const { firma } = useAppStore();
   const [sendSkjemaOpen, setSendSkjemaOpen] = useState<boolean>(false);
   const [formData, setFormData] = useState<any>({});
   const [fnrClassName, setFnrClassName] = useState<string>(fnrErrorState.noError);

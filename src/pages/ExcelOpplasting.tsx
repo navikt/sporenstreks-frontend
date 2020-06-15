@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import 'nav-frontend-tabell-style';
 import { FormContext, useForm } from 'react-hook-form';
 import {  useHistory } from 'react-router-dom';
-import { Ingress, Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { History } from 'history';
 import Vis from '../components/Vis';
@@ -39,7 +39,7 @@ const ExcelOpplasting = () => {
     if (file) {
       // @ts-ignore
       const responsFeil = await innsendingExcelFil(file)
-      if (responsFeil.length == 0) {
+      if (responsFeil.length === 0) {
         setFeil([])
         history.push('/kvitteringExcel')
       } else {

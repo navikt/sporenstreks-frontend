@@ -1,5 +1,5 @@
 import React from 'react';
-import { Normaltekst, Undertittel, Ingress } from 'nav-frontend-typografi';
+import { Undertittel, Ingress } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import Lenke from 'nav-frontend-lenker';
