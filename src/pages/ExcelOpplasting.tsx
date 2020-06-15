@@ -132,7 +132,7 @@ const ExcelOpplasting = () => {
         <Container>
           <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)} />
         </Container>
-        <Row>
+        <Row className="send-soknad">
           <Column>
             <Panel>
               <FormContext {...methods}>

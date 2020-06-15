@@ -125,7 +125,7 @@ const Ansatte: React.FC = () => {
           <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)} />
         </Container>
 
-        <Row>
+        <Row className="send-soknad">
           <Column>
             <Panel>
               <BekreftKnapp onSubmit={handleBekreftSubmit} onClick={handleBekreftKlikk} erklæringAkseptert={erklæringAkseptert} />

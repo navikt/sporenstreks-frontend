@@ -206,7 +206,7 @@ const Sykepenger = () => {
               </Container>
 
               <Row>
-          <Column>
+          <Column className="send-soknad">
             <Panel>
                   <Knapp disabled={!erklæringAkseptert} type="hoved"> Send søknad om refusjon </Knapp>
                   </Panel>
