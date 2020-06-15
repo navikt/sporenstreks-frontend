@@ -19,6 +19,11 @@ import Skillelinje from './Skillelinje';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import LoggetUtAdvarsel from './LoggetUtAdvarsel';
 import InternLenke from '../InternLenke';
+import { Element } from 'nav-frontend-typografi';
+import { HjelpetekstPeriode } from './HjelpetekstPeriode';
+import { HjelpetekstDager } from './HjelpetekstDager';
+import EksempelBulk from './EksempelBulk';
+
 
 const Ansatte: React.FC = () => {
   const { ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, setLoadingStatus, setTokenExpired } = useAppStore();
@@ -65,6 +70,39 @@ const Ansatte: React.FC = () => {
             Har dere svært mange ansatte kan det om ønskelig <InternLenke to="/excel/">benyttes Excel-opplasting.</InternLenke>
           </Normaltekst>
         </Container>
+        <div>
+
+        <Row className="AnsattRad-overskrift">
+          <Column md="1" xs="12">
+            <Element tag="span" className="AnsattRad-overskrift--element">
+              Nr.
+            </Element>
+          </Column>
+          <Column md="2" xs="12">
+            <Element tag="span" className="AnsattRad-overskrift--element">
+              Fødselsnummer:
+            </Element>
+          </Column>
+          <Column md="4" xs="12">
+            <Element tag="span" className="AnsattRad-overskrift--element">
+              Hvilken periode var den ansatte borte?
+              <HjelpetekstPeriode />
+            </Element>
+          </Column>
+          <Column md="2" xs="12">
+            <Element tag="span" className="AnsattRad-overskrift--element">
+              Antall dager:<HjelpetekstDager />
+            </Element>
+          </Column>
+          <Column md="2" xs="12">
+            <Element tag="span" className="AnsattRad-overskrift--element">
+              Beløp:<EksempelBulk />
+            </Element>
+          </Column>
+          <Column md="1" xs="12">
+          </Column>
+        </Row>
+        </div>
 
         {
           ansatte.map((ansatt) => <AnsattRad id={ansatt.id} key={ansatt.id} />)
