@@ -20,6 +20,7 @@ import InternLenke from '../components/InternLenke';
 import KnappMedVarsel from '../components/KnappMedVarsel';
 import { useTranslation } from 'react-i18next';
 import { CoronaTopptekst } from '../components/CoronaTopptekst';
+import TimeoutAdvarsel from '../components/ansatte/TimeoutAdvarsel';
 
 const ExcelOpplasting = () => {
   const [erklæringAkseptert, setErklæringAkseptert] = useState<boolean>(false);
@@ -65,10 +66,9 @@ const ExcelOpplasting = () => {
   return (
     <InnloggetSide>
       <main>
+        <TimeoutAdvarsel/>
         <CoronaTopptekst />
-
         <Skillelinje />
-
         <Row>
           <Column>
             <Panel>
