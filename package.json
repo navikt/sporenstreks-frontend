@@ -12,8 +12,10 @@
     "start": "npm-run-all -p start:*",
     "build": "npm run build:css && npm run build:js",
     "install": "npm run-script build",
-    "test": "react-scripts test --color --watchAll=false --coverage --env=jest-environment-jsdom-sixteen",
-    "lint": "eslint src/**/*.ts*"
+    "test": "snyk test && react-scripts test --color --watchAll=false --coverage --env=jest-environment-jsdom-sixteen",
+    "lint": "eslint src/**/*.ts*",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "browserslist": {
     "production": [
@@ -97,7 +99,7 @@
     "react-modal": "^3.11.2",
     "react-number-format": "^4.4.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
+    "snyk": "^1.341.1",
     "timezone-mock": "^1.1.0",
     "typescript": "^3.9.3",
     "use-force-update": "^1.0.7",
@@ -113,6 +115,8 @@
     "eslint-plugin-typescript": "^0.14.0",
     "less-plugin-npm-import": "^2.1.0",
     "less-watch-compiler": "^1.11.3",
-    "npm-run-all": "^4.0.2"
-  }
+    "npm-run-all": "^4.0.2",
+    "react-scripts": "3.4.1"
+  },
+  "snyk": true
 }
