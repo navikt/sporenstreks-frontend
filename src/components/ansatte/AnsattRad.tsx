@@ -33,12 +33,12 @@ export const AnsattRad = ({ id }: AnsattID) => {
   }
   return (
     <Row key={a?.id} className="AnsattRad">
-      <Column lg="1" xs="12"><RadNr nr={ansatte.indexOf(a) + 1}/></Column>
-      <Column lg="2" xs="12"><Fnr id={a?.id}/></Column>
-      <Column lg="4" xs="12"><Periode id={a?.id} /></Column>
-      <Column lg="2" xs="12"><Dager id={a?.id} /></Column>
-      <Column lg="2" xs="12"><Refusjon id={a?.id} /></Column>
-      <Column lg="1" xs="12">
+      <Column md="1" xs="12"><RadNr nr={ansatte.indexOf(a) + 1}/></Column>
+      <Column md="2" xs="12"><Fnr id={a?.id}/></Column>
+      <Column md="4" xs="12"><Periode id={a?.id} /></Column>
+      <Column md="2" xs="12"><Dager id={a?.id} /></Column>
+      <Column md="2" xs="12"><Refusjon id={a?.id} /></Column>
+      <Column md="1" xs="12">
         {
           ansatte.length > 1 &&
           <Slettknapp onClick={handleClick} />

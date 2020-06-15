@@ -1,73 +1,103 @@
 @import '../../../node_modules/nav-frontend-core/less/_variabler';
 @import '../../../src/basic';
 
+.ansatte {
+  .AnsattRad {
+    margin: 0 1.5rem 1rem 1.5rem;
+  }
+}
+
 @media (max-width: (@desktopLimitWidth - 1)) {
+
   /* Mobil */
   .ansatte {
     .AnsattRad {
       border: 1px solid @navGra60;
-      margin-bottom: 1rem;
       padding: 1rem;
-      .col{
+
+      .col {
         padding-top: 1rem;
       }
     }
 
-    .radnr__value{
+    .radnr__value {
       line-height: 18px;
       height: 18px;
     }
   }
 }
 
+.AnsattRad-overskrift--element {
+  display: none;
+}
+
 @media (min-width: @desktopLimitWidth) {
+
   /* Desktop */
   .ansatte {
     .AnsattRad ~ .AnsattRad {
       .skjemaelement__label {
         display: none;
       }
-      .slettknapp{
+
+      .slettknapp {
         margin-top: 0;
       }
     }
+
     .AnsattRad {
-      .skjemaelement__label{
-        display: block;
-        margin-bottom: 10px;
+      .skjemaelement__label {
+        display: none;
       }
-      .slettknapp{
+
+      .slettknapp {
         margin-top: 34px;
       }
+
     }
+
     .AnsattRad {
-      .col{
+      margin-bottom: 0;
+      .col {
         padding-top: 1rem;
       }
     }
 
-    .radnr__value{
+    
+    .radnr__value {
       line-height: 40px;
       height: 40px;
     }
+  }
+
+  .AnsattRad-overskrift {
+    margin: 2rem 1.5rem 0 1.5rem;
+  }
+
+  .AnsattRad-overskrift--element {
+    display: flex;
+
+    .hjelpetekst {
+      position: relative;
+      top: -3px;
+    }         
   }
 }
 
 .ansatte {
   .slettknapp {
     line-height: 40px;
-    height: 40px;
-    display: block;
   }
-  .radnr__value{
+
+  .radnr__value {
     margin-left: 4px;
   }
-  .ansatte__leggtilknapp{
+
+  .ansatte__leggtilknapp {
     margin-top: 3rem;
   }
-  .periode{
+
+  .periode {
     width: 100%;
   }
 }
-
-

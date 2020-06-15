@@ -8,9 +8,7 @@ interface erklaringProps {
 
 export const Erklaring = ({ value, handleSetErklæring }: erklaringProps) => {
   return (
-    <BekreftCheckboksPanel label="Ja, jeg erklærer" checked={value} onChange={() => handleSetErklæring(!value)}>
-
-      <span className="erklaring-labeloverskrift">Vi erklærer:</span>
+    <BekreftCheckboksPanel label="Vi erklærer:" checked={value} onChange={() => handleSetErklæring(!value)} className="erklaring-wrapper">
       <ul>
         <li>Det er ikke søkt om omsorgspenger i kombinasjon med 100 % sykefravær.</li>
         <li>Arbeidstakeren har ikke vært 100 % permittert i løpet av perioden som det søkes om refusjon for.</li>

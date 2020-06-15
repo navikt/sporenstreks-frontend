@@ -18,7 +18,6 @@ export const Refusjon = (props: AnsattID) => {
   };
 
   return (
-    <div>
       <RefusjonInput
         feilmelding={a?.beloepError}
         beloep={a?.beloep}
@@ -27,8 +26,7 @@ export const Refusjon = (props: AnsattID) => {
           <div style={{ display: 'flex' }}>
             Beløp
             <EksempelBulk />
-          </div>} />
-    </div>)
+          </div>} />)
 };
 
 export default Refusjon;

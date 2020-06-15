@@ -13,18 +13,23 @@ import { History } from 'history';
 import { useHistory } from 'react-router-dom';
 import { byggAnsatt, Ansatt } from '../../data/types/sporenstreksTypes';
 import Advarsler from './Advarsler';
-import { Column, Row } from 'nav-frontend-grid';
+import { Column, Row, Container } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import Skillelinje from './Skillelinje';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import LoggetUtAdvarsel from './LoggetUtAdvarsel';
 import InternLenke from '../InternLenke';
+import { Element } from 'nav-frontend-typografi';
+import { HjelpetekstPeriode } from './HjelpetekstPeriode';
+import { HjelpetekstDager } from './HjelpetekstDager';
+import EksempelBulk from './EksempelBulk';
+
 
 const Ansatte: React.FC = () => {
   const { ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, setLoadingStatus, setTokenExpired } = useAppStore();
   const history: History = useHistory();
-  const [ erklæringAkseptert, setErklæringAkseptert ] = useState<boolean>(false);
-  const [ harTrykketSubmitMinstEnGang, setHarTrykketSubmitMinstEnGang ] = useState<boolean>(false);
+  const [erklæringAkseptert, setErklæringAkseptert] = useState<boolean>(false);
+  const [harTrykketSubmitMinstEnGang, setHarTrykketSubmitMinstEnGang] = useState<boolean>(false);
   const handleBekreftSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     const validerteAnsatte = Validering(ansatte);
@@ -33,7 +38,7 @@ const Ansatte: React.FC = () => {
     setFeil(
       ByggValideringsFeil(innsendteAnsatte)
     );
-    if(!innsendteAnsatte.find((ansatt: Ansatt) => !ansatt.referenceNumber)) {
+    if (!innsendteAnsatte.find((ansatt: Ansatt) => !ansatt.referenceNumber)) {
       setAnsatte([byggAnsatt()])
       setFeil([])
       history.push('/kvitteringBulk')
@@ -50,25 +55,54 @@ const Ansatte: React.FC = () => {
   return (
     <div className="ansatte">
 
-      <Skillelinje/>
+      <Skillelinje />
 
       <form onSubmit={handleSubmit}>
-        <Row>
-          <Column>
-            <Panel>
-              <Undertittel>
-                Oppgi ansatte, arbeidsgiverperiode og beløp
+        <Container>
+          <Undertittel className="sykepenger--undertittel">
+            Oppgi ansatte, arbeidsgiverperiode og beløp
               </Undertittel>
-              <Normaltekst>
-                Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
+          <Normaltekst>
+            Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
                 <InternLenke to="/enkel/"> skal du bruke et eget skjema som du finner her.</InternLenke>
-              </Normaltekst>
-              <Normaltekst>
-                Har dere svært mange ansatte kan det om ønskelig <InternLenke to="/excel/">benyttes Excel-opplasting.</InternLenke>
-              </Normaltekst>
-            </Panel>
+          </Normaltekst>
+          <Normaltekst>
+            Har dere svært mange ansatte kan det om ønskelig <InternLenke to="/excel/">benyttes Excel-opplasting.</InternLenke>
+          </Normaltekst>
+        </Container>
+        <div>
+
+        <Row className="AnsattRad-overskrift">
+          <Column md="1" xs="12">
+            <Element tag="span" className="AnsattRad-overskrift--element">
+              Nr.
+            </Element>
+          </Column>
+          <Column md="2" xs="12">
+            <Element tag="span" className="AnsattRad-overskrift--element">
+              Fødselsnummer:
+            </Element>
+          </Column>
+          <Column md="4" xs="12">
+            <Element tag="span" className="AnsattRad-overskrift--element">
+              Hvilken periode var den ansatte borte?
+              <HjelpetekstPeriode />
+            </Element>
+          </Column>
+          <Column md="2" xs="12">
+            <Element tag="span" className="AnsattRad-overskrift--element">
+              Antall dager:<HjelpetekstDager />
+            </Element>
+          </Column>
+          <Column md="2" xs="12">
+            <Element tag="span" className="AnsattRad-overskrift--element">
+              Beløp:<EksempelBulk />
+            </Element>
+          </Column>
+          <Column md="1" xs="12">
           </Column>
         </Row>
+        </div>
 
         {
           ansatte.map((ansatt) => <AnsattRad id={ansatt.id} key={ansatt.id} />)
@@ -79,7 +113,7 @@ const Ansatte: React.FC = () => {
           <Column sm="10"><LeggTilKnapp /></Column>
         </Row>
 
-        <Skillelinje/>
+        <Skillelinje />
 
         <Row>
           <Column sm="12">
@@ -87,24 +121,20 @@ const Ansatte: React.FC = () => {
           </Column>
         </Row>
 
-        <Row>
-          <Column sm="12">
-            <Panel>
-              <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)}/>
-            </Panel>
-          </Column>
-        </Row>
+        <Container>
+          <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)} />
+        </Container>
 
         <Row>
           <Column>
             <Panel>
               <BekreftKnapp onSubmit={handleBekreftSubmit} onClick={handleBekreftKlikk} erklæringAkseptert={erklæringAkseptert} />
-              <Advarsler erklæringAkseptert={erklæringAkseptert} harFeil={feil.length > 0} visFeil={harTrykketSubmitMinstEnGang}/>
+              <Advarsler erklæringAkseptert={erklæringAkseptert} harFeil={feil.length > 0} visFeil={harTrykketSubmitMinstEnGang} />
             </Panel>
           </Column>
         </Row>
       </form>
-      <LoggetUtAdvarsel/>
+      <LoggetUtAdvarsel />
     </div>
   );
 };

@@ -18,3 +18,25 @@
 .erklaring-labeloverskrift {
   font-weight: bold;
 }
+
+.erklaring-wrapper {
+  display: grid;
+  grid-template-areas: 
+    "top"
+    "content";
+
+  .bekreftCheckboksPanel__innhold {
+    grid-area: content;
+    margin-bottom: 0;
+    padding-left: 30px;
+  }
+
+  .skjemaelement {
+    grid-area: top;
+
+    label {
+      font-weight: 600;
+      line-height: 28px;
+    }
+  }
+}
