@@ -1,18 +1,16 @@
 @import '../../../node_modules/nav-frontend-core/less/_variabler';
 @import '../../../src/basic';
 
-@desktopBootstrapWidth: 992px;
-
 .periodeliste {
   list-style: none;
   padding-left: 0;
   margin: 1rem 0;
-  @media (max-width: @desktopBootstrapWidth) {
+  @media (max-width: @screen-md) {
     margin: 1rem 0.5rem 1rem 0.5rem;
   }
 
   .periode {
-    @media (max-width: @desktopBootstrapWidth) {
+    @media (max-width: @screen-md) {
       border: 1px solid @navGra40;
       border-radius: 4px;
       padding: 0.5rem;
@@ -29,7 +27,7 @@
       }
     }
 
-    @media (min-width: @desktopBootstrapWidth) {
+    @media (min-width: @screen-md) {
       .skjemaelement__label {
         display: none;
       }
