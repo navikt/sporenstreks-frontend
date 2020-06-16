@@ -1,19 +1,23 @@
 @import '../../../node_modules/nav-frontend-core/less/_variabler';
 @import '../../../src/basic';
 
+@desktopBootstrapWidth: 992px;
+
 .ansatte {
   .AnsattRad {
     margin: 0 1.5rem 1rem 1.5rem;
   }
 }
 
-@media (max-width: (@desktopLimitWidth - 1)) {
+@media (max-width: (@desktopBootstrapWidth - 1)) {
 
   /* Mobil */
   .ansatte {
     .AnsattRad {
       border: 1px solid @navGra60;
-      padding: 1rem;
+      padding: 0.5rem;
+      border-radius: 4px;
+      margin: 0 0.5rem 1rem 0.5rem;
 
       .col {
         padding-top: 1rem;
@@ -25,13 +29,18 @@
       height: 18px;
     }
   }
+
+  .AnsattRad-overskrift {
+    height: 1rem; 
+  }
 }
+
 
 .AnsattRad-overskrift--element {
   display: none;
 }
 
-@media (min-width: @desktopLimitWidth) {
+@media (min-width: @desktopBootstrapWidth) {
 
   /* Desktop */
   .ansatte {
