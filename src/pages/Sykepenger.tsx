@@ -193,7 +193,7 @@ const Sykepenger = () => {
                 </Column>
               </Row>
               <Skillelinje />
-              <Container>
+              <Container className="sykepenger--container">
                 <div className="sykepenger--periode-velger form-group">
                   <Undertittel className="sykepenger--undertittel">
                     Hvor mange arbeidsdager gikk tapt?

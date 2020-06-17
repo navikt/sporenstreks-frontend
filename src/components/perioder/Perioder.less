@@ -4,10 +4,13 @@
 .periodeliste {
   list-style: none;
   padding-left: 0;
-  margin: 1rem 2rem;
+  margin: 1rem 0;
+  @media (max-width: @screen-md) {
+    margin: 1rem 0.5rem 1rem 0.5rem;
+  }
 
   .periode {
-    @media (max-width: @desktopLimitWidth) {
+    @media (max-width: @screen-md) {
       border: 1px solid @navGra40;
       border-radius: 4px;
       padding: 0.5rem;
@@ -15,9 +18,16 @@
       &.periodeliste--overskrift {
         display: none;
       }
+
+      .col {
+        &:first-child {
+          margin-top: 0.5rem;
+        }
+        margin-top: 1rem;
+      }
     }
 
-    @media (min-width: @desktopLimitWidth) {
+    @media (min-width: @screen-md) {
       .skjemaelement__label {
         display: none;
       }
