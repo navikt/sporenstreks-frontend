@@ -13,7 +13,9 @@
     "build": "npm run build:css && npm run build:js",
     "install": "npm run-script build",
     "test": "react-scripts test --color --watchAll=false --coverage --env=jest-environment-jsdom-sixteen",
-    "lint": "eslint src/**/*.ts*"
+    "lint": "eslint src/**/*.ts*",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "browserslist": {
     "production": [
@@ -102,7 +104,8 @@
     "typescript": "^3.9.3",
     "use-force-update": "^1.0.7",
     "uuid": "^7.0.3",
-    "yet-another-fetch-mock": "^3.4.0"
+    "yet-another-fetch-mock": "^3.4.0",
+    "snyk": "^1.342.2"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.34.0",
@@ -114,5 +117,6 @@
     "less-plugin-npm-import": "^2.1.0",
     "less-watch-compiler": "^1.11.3",
     "npm-run-all": "^4.0.2"
-  }
+  },
+  "snyk": true
 }
