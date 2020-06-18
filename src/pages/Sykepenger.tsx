@@ -8,24 +8,24 @@ import { useTranslation } from 'react-i18next';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import fnrvalidator from '@navikt/fnrvalidator';
-import Perioder from '../components/perioder/Perioder';
-import { filterStringToNumbersOnly } from '../util/filterStringToNumbersOnly';
-import { identityNumberSeparation } from '../util/identityNumberSeparation';
-import FeilOppsummering from '../components/feilvisning/FeilOppsummering';
+import Perioder from '../components/enkel/Perioder';
+import { filterStringToNumbersOnly } from '../components/enkel/filterStringToNumbersOnly';
+import { identityNumberSeparation } from '../components/fnr/identityNumberSeparation';
+import FeilOppsummering from '../components/excel/FeilOppsummering';
 import { useAppStore } from '../data/store/AppStore';
 import { History } from 'history';
-import Vis from '../components/Vis';
-import env from '../util/environment';
+import Vis from '../components/felles/Vis';
+import env from '../components/felles/environment';
 import ModalWrapper from 'nav-frontend-modal';
-import formToJSON from '../util/formToJSON';
-import convertSkjemaToRefusjonsKrav from '../util/convertSkjemaToRefusjonsKrav';
-import { Erklaring } from '../components/ansatte/Erklaring';
+import formToJSON from '../components/enkel/formToJSON';
+import convertSkjemaToRefusjonsKrav from '../components/enkel/convertSkjemaToRefusjonsKrav';
+import { Erklaring } from '../components/felles/Erklaring';
 import { Container, Row, Column } from 'nav-frontend-grid';
-import InternLenke from '../components/InternLenke';
+import InternLenke from '../components/felles/InternLenke';
 import Panel from 'nav-frontend-paneler';
 import InnloggetSide from './InnloggetSide';
-import Skillelinje from '../components/ansatte/Skillelinje';
-import { CoronaTopptekst } from '../components/CoronaTopptekst';
+import Skillelinje from '../components/felles/Skillelinje';
+import { CoronaTopptekst } from '../components/felles/CoronaTopptekst';
 
 const fnrErrorState = {
   hasError: '',

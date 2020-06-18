@@ -3,7 +3,7 @@ import { I18nextProvider } from 'react-i18next';
 import i18n from './locales/i18n';
 import Sykepenger from './pages/Sykepenger';
 import { Switch, Route } from 'react-router-dom';
-import Redirecter from './components/Redirecter';
+import Redirecter from './components/felles/Redirecter';
 import { ArbeidsgiverProvider } from './components/arbeidsgiver/ArbeidsgiverProvider';
 import StoreProvider from './data/store/StoreProvider';
 import Kvittering from './pages/Kvittering';
@@ -11,7 +11,7 @@ import SykepengerBulk from './pages/SykepengerBulk';
 import ExcelOpplasting from './pages/ExcelOpplasting';
 import KvitteringExcel from './pages/KvitteringExcel';
 import KvitteringBulk from './pages/KvitteringBulk';
-import LoginFornyet from './components/loginFornyet/LoginFornyet';
+import LoginFornyet from './pages/LoginFornyet';
 import LoginExpiryProvider from './context/LoginExpiryContext';
 
 const App = () => {
