@@ -3,7 +3,7 @@ import InnsendingExcelFil from './InnsendingExcelFil';
 
 const mockServer = 'http://mockserver.nav.no';
 
-jest.mock('../util/environment', () => ({
+jest.mock('../felles/environment', () => ({
   get baseUrl() {
     return mockServer
   },
