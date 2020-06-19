@@ -6,7 +6,7 @@ import { useAppStore } from '../../data/store/AppStore';
 import IngenData from '../../pages/IngenData';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import { convertResponseDataToOrganisasjon } from './convertResponse';
-import env from '../../util/environment';
+import env from '../felles/environment';
 
 export function ArbeidsgiverProvider(props: { children: any }) {
   const { setArbeidsgivere } = useAppStore();

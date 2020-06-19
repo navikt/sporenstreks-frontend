@@ -1,4 +1,4 @@
-import env from '../util/environment';
+import env from '../components/felles/environment';
 import dayjs from 'dayjs';
 
 export interface LoginExpiryResponse {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Label, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
-import { HjelpetekstPeriode } from '../ansatte/HjelpetekstPeriode';
+import { HjelpetekstPeriode } from './HjelpetekstPeriode';
 import Flatpickr from 'react-flatpickr';
 import { Norwegian } from 'flatpickr/dist/l10n/no.js';
 import { PeriodeFormatter } from './PeriodeFormatter';

@@ -39,7 +39,7 @@ const response200 = 'Søknaden er mottatt.'
 
 const response422 = {
   'problemDetails': [{
-    'message': 'Antall refusjonsdager kan ikke være flere enn dagene i perioden',
+    'message': 'EnkelDager refusjonsdager kan ikke være flere enn dagene i perioden',
     'row': '1',
     'column': 'Arbeidsgiverperioden (fom+tom)'
   }, {

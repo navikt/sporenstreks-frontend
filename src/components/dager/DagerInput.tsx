@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Select } from 'nav-frontend-skjema';
-import { validateNotNullAndPositive } from '../validering/validateNotNullAndPositive';
-import { HjelpetekstDager } from '../ansatte/HjelpetekstDager';
+import { validateNotNullAndPositive } from './validateNotNullAndPositive';
+import { HjelpetekstDager } from './HjelpetekstDager';
 import uuid from 'uuid/v4';
 
 interface DagerInputProps {

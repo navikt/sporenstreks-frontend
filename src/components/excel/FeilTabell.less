@@ -1,0 +1,25 @@
+@import 'node_modules/nav-frontend-core/less/_variabler';
+
+.feilvisningstabell {
+    .typo-ingress {
+      padding-bottom: 1rem;
+    }
+
+  .tabell--overflow {
+    overflow-y: scroll;
+    max-height: 52rem;
+  }
+
+  &__knapp {
+    margin-top: 1rem;
+    width: 100%
+  }
+
+  @media (min-width: @screen-md) {
+    &__knapp {
+      width: auto;
+    }
+  }
+}
+
+

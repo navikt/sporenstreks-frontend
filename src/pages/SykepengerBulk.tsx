@@ -1,10 +1,10 @@
 import React from 'react';
 import 'nav-frontend-tabell-style';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
-import Ansatte from '../components/ansatte/Ansatte';
+import Ansatte from '../components/bulk/Ansatte';
 import InnloggetSide from './InnloggetSide';
-import { CoronaTopptekst } from '../components/CoronaTopptekst';
-import TimeoutAdvarsel from '../components/ansatte/TimeoutAdvarsel';
+import { CoronaTopptekst } from '../components/felles/CoronaTopptekst';
+import TimeoutAdvarsel from '../components/login/TimeoutAdvarsel';
 
 const SykepengerBulk = () => {
   return (

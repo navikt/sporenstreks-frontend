@@ -4,7 +4,7 @@ import LoginExpiryAPI, { ParseExpiryDate } from './LoginExpiryAPI';
 const mockServer = 'http://mockserver.nav.no';
 const mockUrl = mockServer + '/api/v1/login-expiry'
 
-jest.mock('../util/environment', () => ({
+jest.mock('../components/felles/environment', () => ({
   get baseUrl() {
     return mockServer
   },
