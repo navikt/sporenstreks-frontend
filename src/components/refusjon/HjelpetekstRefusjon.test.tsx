@@ -5,11 +5,11 @@ import { axe, toHaveNoViolations } from 'jest-axe';
 
 expect.extend(toHaveNoViolations)
 
-import EksempelBulk from './EksempelBulk';
+import HjelpetekstRefusjon from './HjelpetekstRefusjon';
 
-describe('EksempelBulk', () => {
+describe('HjelpetekstRefusjon', () => {
   it('should display the component with a warning', () => {
-    const component = render(<EksempelBulk />);
+    const component = render(<HjelpetekstRefusjon />);
     expect(component.queryAllByText(/Slik finner dere beløpet/).length).toEqual(0);
 
     const knappen = component.getByText(/Hjelp/);
@@ -26,7 +26,7 @@ describe('EksempelBulk', () => {
   });
 
   it('should have no a11y violations', async () => {
-    const { container } = render(<EksempelBulk />)
+    const { container } = render(<HjelpetekstRefusjon />)
     const results = await axe(container)
 
     expect(results).toHaveNoViolations()

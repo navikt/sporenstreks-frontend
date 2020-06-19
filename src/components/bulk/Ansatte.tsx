@@ -22,7 +22,7 @@ import InternLenke from '../felles/InternLenke';
 import { Element } from 'nav-frontend-typografi';
 import { HjelpetekstPeriode } from '../periode/HjelpetekstPeriode';
 import { HjelpetekstDager } from '../dager/HjelpetekstDager';
-import EksempelBulk from './EksempelBulk';
+import HjelpetekstRefusjon from '../refusjon/HjelpetekstRefusjon';
 
 
 const Ansatte: React.FC = () => {
@@ -96,7 +96,7 @@ const Ansatte: React.FC = () => {
           </Column>
           <Column md="2" xs="12">
             <Element tag="span" className="AnsattRad-overskrift--element">
-              Beløp:<EksempelBulk />
+              Beløp:<HjelpetekstRefusjon />
             </Element>
           </Column>
           <Column md="1" xs="12">

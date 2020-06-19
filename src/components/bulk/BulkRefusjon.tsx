@@ -3,7 +3,7 @@ import { useAppStore } from '../../data/store/AppStore';
 import { AnsattID } from '../../data/types/sporenstreksTypes';
 import { validateMaksBeloep } from '../refusjon/validateMaksBeloep';
 import { RefusjonInput } from '../refusjon/RefusjonInput';
-import EksempelBulk from './/EksempelBulk';
+import EksempelBulk from '../refusjon/HjelpetekstRefusjon';
 
 export const BulkRefusjon = (props: AnsattID) => {
   const { ansatte, setAnsatte } = useAppStore();

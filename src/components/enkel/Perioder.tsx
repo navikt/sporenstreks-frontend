@@ -6,7 +6,7 @@ import { Element } from 'nav-frontend-typografi';
 import { Row, Column } from 'nav-frontend-grid';
 import { HjelpetekstDager } from '../dager/HjelpetekstDager';
 import { HjelpetekstPeriode } from '../periode/HjelpetekstPeriode';
-import EksempelBulk from '../bulk/EksempelBulk';
+import HjelpetekstRefusjon from '../refusjon/HjelpetekstRefusjon';
 
 interface PerioderProps {
   min?: Date;
@@ -74,7 +74,7 @@ const Perioder = (props: PerioderProps) => {
           </Column>
           <Column md="2" xs="12">
             <Element tag="span">
-              Beløp:<EksempelBulk />
+              Beløp:<HjelpetekstRefusjon />
             </Element>
           </Column>
         </Row>
