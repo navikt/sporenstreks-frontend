@@ -15,17 +15,15 @@ import { FeilTabell, tabellFeil } from '../components/excel/FeilTabell';
 import InnloggetSide from './InnloggetSide';
 import Panel from 'nav-frontend-paneler';
 import Skillelinje from '../components/felles/Skillelinje';
-import { Column, Row, Container } from 'nav-frontend-grid';
+import { Column, Row } from 'nav-frontend-grid';
 import InternLenke from '../components/felles/InternLenke';
 import KnappMedVarsel from '../components/felles/KnappMedVarsel';
-import { useTranslation } from 'react-i18next';
 import { CoronaTopptekst } from '../components/felles/CoronaTopptekst';
 import TimeoutAdvarsel from '../components/login/TimeoutAdvarsel';
 
 const ExcelOpplasting = () => {
   const [erklæringAkseptert, setErklæringAkseptert] = useState<boolean>(false);
   const methods = useForm();
-  const { t } = useTranslation();
   const history: History = useHistory();
   const [fileName, setFileName] = useState('Last opp utfylt Excel-mal');
   const [file, setFile] = useState(undefined);
