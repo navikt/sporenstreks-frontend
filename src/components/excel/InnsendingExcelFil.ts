@@ -19,6 +19,7 @@ export default (file: File): Promise<tabellFeil[]> => {
     switch (response.status) {
       case 401: {
         window.location.href = env.loginServiceUrl;
+        return []
       }
       case 200: {
         return response.blob().then(data => {

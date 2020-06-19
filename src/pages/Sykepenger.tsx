@@ -4,7 +4,6 @@ import { Input } from 'nav-frontend-skjema';
 import { FormContext, useForm } from 'react-hook-form';
 import { Knapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import fnrvalidator from '@navikt/fnrvalidator';
@@ -42,7 +41,6 @@ const Sykepenger = () => {
   const [formData, setFormData] = useState<any>({});
   const [fnrClassName, setFnrClassName] = useState<string>(fnrErrorState.noError);
   const methods = useForm();
-  const { t } = useTranslation();
   const history: History = useHistory();
   const refRefusjonsform = useRef(null);
 
