@@ -4,7 +4,7 @@ import { Input } from 'nav-frontend-skjema';
 import { FormContext, useForm } from 'react-hook-form';
 import { Knapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel, Feilmelding } from 'nav-frontend-typografi';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import fnrvalidator from '@navikt/fnrvalidator';
 import Perioder from '../components/enkel/Perioder';
@@ -50,9 +50,14 @@ const Sykepenger = () => {
 
   const setForm = (e: any) => {
     const form = refRefusjonsform.current ?? e.target;
+    const formAsJson = Object(formToJSON(form.elements));
 
-    setFormData(formToJSON(form.elements));
-    setSendSkjemaOpen(true);
+    let harFeil = validateValuesAreSet(formAsJson, validateFnr, methods);
+
+    setFormData(formAsJson);
+    if (!harFeil) {
+      setSendSkjemaOpen(true);
+    }
   };
 
   const submitForm = async (): Promise<void> => {
@@ -184,7 +189,7 @@ const Sykepenger = () => {
                     className={'skjemaelement__feilmelding fnr ' + fnrClassName}
                   >
                     <Vis hvis={methods.errors['fnr']}>
-                      <span>{methods.errors['fnr'] && methods.errors['fnr'].type}</span>
+                      <Feilmelding>{methods.errors['fnr'] && methods.errors['fnr'].type}</Feilmelding>
                     </Vis>
                   </Normaltekst>
                   </Panel>
@@ -227,3 +232,42 @@ const Sykepenger = () => {
 };
 
 export default Sykepenger;
+
+function validateValuesAreSet(formAsJson: any, validateFnr: (value: string) => boolean, methods) {
+  let harFeil = false;
+
+  Object.keys(formAsJson).forEach(element => {
+    const [fieldName] = element.split('_');
+    switch (fieldName) {
+      case 'fnr':
+        harFeil = harFeil || !validateFnr(formAsJson.fnr);
+        break;
+      case 'periode':
+        if (!formAsJson[element]) {
+          methods.setError(element, 'required', 'Periode mangler');
+          harFeil = true;
+        }
+        else if (formAsJson[element].indexOf('-') === -1) {
+          methods.setError(element, 'required', 'Sluttdato mangler');
+          harFeil = true;
+        }
+        break;
+      case 'antall':
+        if (!formAsJson[element] || formAsJson[element] === '0') {
+          methods.setError(element, 'min', 'Antall dager må være større enn 0');
+          harFeil = true;
+        }
+        break;
+      case 'beloep':
+        if (!formAsJson[element] || formAsJson[element] === 0) {
+          methods.setError(element, 'min', 'Beløp må være større enn 0');
+          harFeil = true;
+        }
+        break;
+      default:
+        break;
+    }
+  });
+  return harFeil;
+}
+

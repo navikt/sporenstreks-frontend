@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Normaltekst, Element } from 'nav-frontend-typografi';
+import { Normaltekst, Element, Feilmelding } from 'nav-frontend-typografi';
 import { Controller, useFormContext } from 'react-hook-form';
 import NumberFormat from 'react-number-format';
 import Vis from '../felles/Vis';
@@ -75,7 +75,7 @@ const EnkelRefusjon = (props: EnkelRefusjonProps) => {
         className={`skjemaelement__feilmelding ${beloepClassName} beloep_${props.index}`}
         >
         <Vis hvis={errors[belId]}>
-          <span>{errors[belId] && errors[belId].type}</span>
+          <Feilmelding>{errors[belId] && errors[belId].type}</Feilmelding>
         </Vis>
       </Normaltekst>
     </div>

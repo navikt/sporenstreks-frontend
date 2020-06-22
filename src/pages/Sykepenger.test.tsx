@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom'
 import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
+import { render, fireEvent, screen, act } from '@testing-library/react'
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
 import { useAppStore } from '../data/store/AppStore';
@@ -125,5 +125,26 @@ describe('Sykepenger', () => {
     fireEvent.blur(inputNode);
 
     expect(rendered.queryAllByText('Fødselsnummer er ugyldig').length).toBe(0);
+  });
+
+  it('should not submit when data is missing, but in stead give error', async () => {
+
+    mockUseAppStore.mockReturnValue(mockArbeidsgiverValues);
+
+    const history = createMemoryHistory();
+
+    render(<Router history={history}><Sykepenger /></Router>);
+
+    const erklarerCheck = screen.getByText('Vi erklærer:');
+
+    fireEvent.click(erklarerCheck);
+
+    const submitButton = screen.getByText('Send søknad om refusjon');
+
+    await act(async () => {
+      fireEvent.submit(submitButton);
+    });
+
+    expect(screen.queryAllByText(/Fødselsnummer må fylles ut/).length).toBe(2);
   });
 });

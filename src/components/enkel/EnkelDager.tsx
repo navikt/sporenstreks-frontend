@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Normaltekst, Feilmelding } from 'nav-frontend-typografi';
 import { Controller, useFormContext } from 'react-hook-form';
 import Vis from '../felles/Vis';
 import DagerInput from '../dager/DagerInput';
@@ -52,7 +52,7 @@ const EnkelDager = (props: EnkelDagerProps) => {
         className={`skjemaelement__feilmelding ${errorState} antall_${props.index}`}
       >
         <Vis hvis={errors[antId]}>
-          <span>{errors[antId] && errors[antId].type}</span>
+          <Feilmelding>{errors[antId] && errors[antId].type}</Feilmelding>
         </Vis>
       </Normaltekst>
     </>
