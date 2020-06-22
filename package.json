@@ -100,7 +100,7 @@
     "react-number-format": "^4.4.1",
     "react-router-dom": "^5.2.0",
     "timezone-mock": "^1.1.0",
-    "typescript": "^3.9.3",
+    "typescript": "^3.9.4",
     "use-force-update": "^1.0.7",
     "uuid": "^7.0.3",
     "yet-another-fetch-mock": "^3.4.0",
