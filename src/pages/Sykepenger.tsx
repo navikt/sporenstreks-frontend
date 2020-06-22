@@ -52,9 +52,7 @@ const Sykepenger = () => {
     const form = refRefusjonsform.current ?? e.target;
     const formAsJson = Object(formToJSON(form.elements));
 
-    let harFeil = false;
-
-    harFeil = validateValuesAreSet(formAsJson, validateFnr, methods);
+    let harFeil = validateValuesAreSet(formAsJson, validateFnr, methods);
 
     setFormData(formAsJson);
     if (!harFeil) {

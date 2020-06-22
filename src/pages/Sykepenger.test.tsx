@@ -127,7 +127,7 @@ describe('Sykepenger', () => {
     expect(rendered.queryAllByText('Fødselsnummer er ugyldig').length).toBe(0);
   });
 
-  it('gives does not submit when data is missing', async () => {
+  it('should not submit when data is missing, but in stead give error', async () => {
 
     mockUseAppStore.mockReturnValue(mockArbeidsgiverValues);
 
