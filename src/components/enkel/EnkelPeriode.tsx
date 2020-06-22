@@ -1,5 +1,5 @@
 import React from 'react';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Normaltekst, Feilmelding } from 'nav-frontend-typografi';
 import { Controller, useFormContext } from 'react-hook-form';
 import Vis from '../felles/Vis';
 import { PeriodeInput } from '../periode/PeriodeInput';
@@ -41,7 +41,7 @@ const EnkelPeriode = (props: EnkelPeriodeProps) => {
           className={'skjemaelement__feilmelding tom periode_' + props.index}
         >
           <Vis hvis={errors[perId]}>
-            <span>{errors[perId] && errors[perId].type}</span>
+            <Feilmelding>{errors[perId] && errors[perId].type}</Feilmelding>
           </Vis>
         </Normaltekst>
       </>
