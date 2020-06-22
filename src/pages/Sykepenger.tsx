@@ -248,7 +248,6 @@ function validateValuesAreSet(formAsJson: any, validateFnr: (value: string) => b
           harFeil = true;
         }
         else if (formAsJson[element].indexOf('til') === -1) {
-          debugger;
           methods.setError(element, 'Sluttdato mangler');
           harFeil = true;
         }
