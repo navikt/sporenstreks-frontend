@@ -1,21 +1,16 @@
 import dayjs from 'dayjs';
 
-export const Minimum = () => {
-  return new Date(2020,2,16 );
+// export const Minimum = () => {
+//   return new Date(2020,2,16 );
+// }
+
+export const Maximum = (now?: Date): Date => {
+  return dayjs(now ? now : new Date()).toDate();
 }
 
-export const Maximum = (now?: Date) => {
-  return dayjs(now ? now : new Date()).add(1, 'year').toDate();
-}
+export const isValidFom = (fom?: Date): boolean => fom ? true : false;
 
-export const isValidFom = (fom?: Date) => {
-  if (!fom) {
-    return false;
-  }
-  return fom.getTime() > Minimum().getTime();
-}
-
-export const isValidTom = (tom?: Date) => {
+export const isValidTom = (tom?: Date): boolean => {
   if (!tom) {
     return false;
   }

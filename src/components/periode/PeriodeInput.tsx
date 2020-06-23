@@ -4,7 +4,7 @@ import { HjelpetekstPeriode } from './HjelpetekstPeriode';
 import Flatpickr from 'react-flatpickr';
 import { Norwegian } from 'flatpickr/dist/l10n/no.js';
 import { PeriodeFormatter } from './PeriodeFormatter';
-import { Minimum, Maximum, Feilmelding } from './PeriodeValidator';
+import { Feilmelding, Maximum } from './PeriodeValidator';
 import { PeriodeConverter } from './PeriodeConverter';
 import uuid from 'uuid/v4';
 
@@ -46,7 +46,7 @@ export const PeriodeInput = ({ fom, tom, feilmelding, handleChange, id }: Period
         value={PeriodeFormatter(fom, tom)}
         className={'periodeinput-input  skjemaelement__input'}
         options={{
-          minDate: Minimum(),
+          // minDate: Minimum(),
           maxDate: Maximum(),
           mode: 'range',
           enableTime: false,
