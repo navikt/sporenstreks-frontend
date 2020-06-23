@@ -253,8 +253,8 @@ function validateValuesAreSet(formAsJson: any, validateFnr: (value: string) => b
         }
         break;
       case 'antall':
-        if (!formAsJson[element] || formAsJson[element] === '0') {
-          methods.setError(element, 'Antall dager må være større enn 0');
+        if (!formAsJson[element] || formAsJson[element] === '-1') {
+          methods.setError(element, 'Antall dager må fylles ut');
           harFeil = true;
         }
         break;

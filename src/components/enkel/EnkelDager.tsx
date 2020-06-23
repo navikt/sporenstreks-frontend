@@ -24,7 +24,7 @@ const EnkelDager = (props: EnkelDagerProps) => {
     if (value.length === 0) {
       msg = 'EnkelDager mangler.'
     } else {
-      msg = numval < 0 && value !== '-' ? 'EnkelDager kan ikke være negativt' : '';
+      msg = numval < -1 && value !== '-' ? 'EnkelDager kan ikke være negativt' : '';
     }
 
     if (msg !== '') {
@@ -51,9 +51,7 @@ const EnkelDager = (props: EnkelDagerProps) => {
       <Normaltekst tag='div' role='alert' aria-live='assertive'
         className={`skjemaelement__feilmelding ${errorState} antall_${props.index}`}
       >
-        <Vis hvis={errors[antId]}>
-          <Feilmelding>{errors[antId] && errors[antId].type}</Feilmelding>
-        </Vis>
+
       </Normaltekst>
     </>
   );

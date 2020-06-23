@@ -147,7 +147,7 @@ describe('Sykepenger', () => {
 
     expect(screen.queryAllByText(/Fødselsnummer må fylles ut/).length).toBe(2);
     expect(screen.queryAllByText(/Periode mangler/).length).toBe(2);
-    expect(screen.queryAllByText(/Antall dager må være større enn 0/).length).toBe(2);
+    expect(screen.queryAllByText(/Antall dager må fylles ut/).length).toBe(1);
     expect(screen.queryAllByText(/Beløp må være større enn 0/).length).toBe(2);
   });
 });
