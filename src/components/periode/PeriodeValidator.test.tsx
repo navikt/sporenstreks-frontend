@@ -1,5 +1,6 @@
 import React from 'react';
 import { Maximum, Feilmelding, isValidFom, isValidTom } from './PeriodeValidator';
+import dayjs from 'dayjs';
 
 describe('PeriodeValidator', () => {
 
@@ -9,11 +10,13 @@ describe('PeriodeValidator', () => {
 
   it('should validate fom', () => {
     expect(isValidFom(new Date(2020,5,5,17,25))).toBe(true);
+    expect(isValidFom(new Date(2020,1,1,17,25))).toBe(true);
     expect(isValidFom()).toBe(false);
   })
 
   it('should validate tom', () => {
     expect(isValidTom(new Date(2020,5,5,17,25))).toBe(true);
+    expect(isValidTom(dayjs(new Date()).add(1, 'year').toDate())).toBe(false);
     expect(isValidTom()).toBe(false);
   })
 })
