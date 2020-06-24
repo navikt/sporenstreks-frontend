@@ -8,24 +8,15 @@ import { Norwegian } from 'flatpickr/dist/l10n/no.js';
 import { Maximum } from '../periode/PeriodeValidator';
 
 export const formatDate = (value?: Date) : string => {
-  if (!value){
-    return '';
-  }
-  return dayjs(value).format('DD.MM.YYYY');
+  return value ? dayjs(value).format('DD.MM.YYYY') : '';
 }
 
 export const formatPeriod = (fom?: Date, tom?: Date) : string => {
-  if (!(fom && tom)){
-    return '';
-  }
-  return formatDate(fom) + ' til ' + formatDate(tom);
+  return !(fom && tom) ? '' : formatDate(fom) + ' til ' + formatDate(tom);
 }
 
 export const validatePeriod = (fom?: Date, tom?: Date) : string => {
-  if (!fom || !tom){
-    return 'Perioden må ha to gyldige datoer';
-  }
-  return '';
+  return (!fom || !tom) ? 'Perioden må ha to gyldige datoer' : '';
 }
 
 interface EnkelPeriodeProps {
