@@ -1,12 +1,32 @@
 import React, { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import Vis from '../felles/Vis';
 import dayjs from 'dayjs';
 import { Label, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
 import { HjelpetekstPeriode } from '../periode/HjelpetekstPeriode';
 import Flatpickr from 'react-flatpickr';
 import { Norwegian } from 'flatpickr/dist/l10n/no.js';
-import { Maximum, Minimum } from '../periode/PeriodeValidator';
+import { Maximum } from '../periode/PeriodeValidator';
+
+export const formatDate = (value?: Date) : string => {
+  if (!value){
+    return '';
+  }
+  return dayjs(value).format('DD.MM.YYYY');
+}
+
+export const formatPeriod = (fom?: Date, tom?: Date) : string => {
+  if (!(fom && tom)){
+    return '';
+  }
+  return formatDate(fom) + ' til ' + formatDate(tom);
+}
+
+export const validatePeriod = (fom?: Date, tom?: Date) : string => {
+  if (!fom || !tom){
+    return 'Perioden må ha to gyldige datoer';
+  }
+  return '';
+}
 
 interface EnkelPeriodeProps {
   index: number;
@@ -20,31 +40,22 @@ const EnkelPeriode = (props: EnkelPeriodeProps) => {
   const [ tom, setTom  ] = useState<Date>();
   const perId = 'periode_' + props.index;
 
-  let errorClass = '';
-  const handleClose = (selectedDates) => {
-    if (selectedDates[0] && selectedDates[1]){
-      clearError([perId, 'backend']);
+  const handleClose = (selectedDates: Array<Date>) => {
+    const errorMessage = validatePeriod(selectedDates[0], selectedDates[1]);
+    if (errorMessage) {
+      setError(perId, errorMessage);
     } else {
-      setError(perId, 'Perioden må ha to gyldige datoer');
+      clearError([perId, 'backend']);
     }
     setFom(selectedDates[0]);
     setTom(selectedDates[1]);
   };
 
-  const formatDato = (str) => {
-    if (!str){
-      return '';
-    }
-    return dayjs(str).format('DD.MM.YYYY');
-  }
   const formatDatoer = () => {
-    if (!(fom && tom)){
-      return '';
-    }
-    return formatDato(fom) + ' til ' + formatDato(tom);
+    return formatPeriod(fom, tom);
   }
-  return (<div className={`skjemaelement ${errorClass}`}>
-    <Label htmlFor={'periode'}>
+  return (<div className={'skjemaelement'}>
+    <Label htmlFor={perId}>
       <div style={{ display: 'flex' }}>
         Hvilken periode var den ansatte borte?
         <HjelpetekstPeriode/>
@@ -56,7 +67,6 @@ const EnkelPeriode = (props: EnkelPeriodeProps) => {
       placeholder='dd.mm.yyyy til dd.mm.yyyy'
       className={'skjemaelement__input '}
       options={{
-        minDate: Minimum(),
         maxDate: Maximum(),
         mode: 'range',
         enableTime: false,
@@ -70,9 +80,9 @@ const EnkelPeriode = (props: EnkelPeriodeProps) => {
         onClose: (selectedDates) => handleClose(selectedDates)
       }}
     />
-    <Vis hvis={errors[perId]}>
+    {errors[perId] &&
       <SkjemaelementFeilmelding>{errors[perId] && errors[perId].type}</SkjemaelementFeilmelding>
-    </Vis>
+    }
   </div>)
 };
 
