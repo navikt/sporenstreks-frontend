@@ -1,9 +1,5 @@
 import dayjs from 'dayjs';
 
-// export const Minimum = () => {
-//   return new Date(2020,2,16 );
-// }
-
 export const Maximum = (now?: Date): Date => {
   return dayjs(now ? now : new Date()).toDate();
 }

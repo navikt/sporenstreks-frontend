@@ -46,7 +46,6 @@ export const PeriodeInput = ({ fom, tom, feilmelding, handleChange, id }: Period
         value={PeriodeFormatter(fom, tom)}
         className={'periodeinput-input  skjemaelement__input'}
         options={{
-          // minDate: Minimum(),
           maxDate: Maximum(),
           mode: 'range',
           enableTime: false,
