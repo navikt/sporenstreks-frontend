@@ -1,8 +1,23 @@
-import React from 'react';
-import { Normaltekst, Feilmelding } from 'nav-frontend-typografi';
-import { Controller, useFormContext } from 'react-hook-form';
-import Vis from '../felles/Vis';
-import { PeriodeInput } from '../periode/PeriodeInput';
+import React, { useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+import dayjs from 'dayjs';
+import { Label, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
+import { HjelpetekstPeriode } from '../periode/HjelpetekstPeriode';
+import Flatpickr from 'react-flatpickr';
+import { Norwegian } from 'flatpickr/dist/l10n/no.js';
+import { Maximum } from '../periode/PeriodeValidator';
+
+export const formatDate = (value?: Date) : string => {
+  return value ? dayjs(value).format('DD.MM.YYYY') : '';
+}
+
+export const formatPeriod = (fom?: Date, tom?: Date) : string => {
+  return !(fom && tom) ? '' : formatDate(fom) + ' til ' + formatDate(tom);
+}
+
+export const validatePeriod = (fom?: Date, tom?: Date) : string => {
+  return (!fom || !tom) ? 'Perioden må ha to gyldige datoer' : '';
+}
 
 interface EnkelPeriodeProps {
   index: number;
@@ -12,40 +27,54 @@ interface EnkelPeriodeProps {
 
 const EnkelPeriode = (props: EnkelPeriodeProps) => {
   const { errors, setError, clearError } = useFormContext();
+  const [ fom, setFom  ] = useState<Date>();
+  const [ tom, setTom  ] = useState<Date>();
   const perId = 'periode_' + props.index;
 
-  const validatePeriode = (fom: string, tom: string): boolean => {
-    const errbox = document.querySelector('.' + perId)!;
-
-    const msg = !(fom && tom) ? 'Perioden må ha to gyldige datoer' : '';
-    if (msg !== '') {
-      errbox.classList.remove('tom');
-      setError(perId, msg);
-      return false;
+  const handleClose = (selectedDates: Array<Date>) => {
+    const errorMessage = validatePeriod(selectedDates[0], selectedDates[1]);
+    if (errorMessage) {
+      setError(perId, errorMessage);
     } else {
-      errbox.classList.add('tom');
       clearError([perId, 'backend']);
-      return true;
     }
+    setFom(selectedDates[0]);
+    setTom(selectedDates[1]);
   };
 
-  return (
-      <>
-        <Controller
-          as={<PeriodeInput id={perId} handleChange={(fom, tom) => validatePeriode(fom, tom)} />}
-          id={perId}
-          name={perId}
-        />
-
-        <Normaltekst tag='div' role='alert' aria-live='assertive'
-          className={'skjemaelement__feilmelding tom periode_' + props.index}
-        >
-          <Vis hvis={errors[perId]}>
-            <Feilmelding>{errors[perId] && errors[perId].type}</Feilmelding>
-          </Vis>
-        </Normaltekst>
-      </>
-  );
+  const formatDatoer = () => {
+    return formatPeriod(fom, tom);
+  }
+  return (<div className={'skjemaelement'}>
+    <Label htmlFor={perId}>
+      <div style={{ display: 'flex' }}>
+        Hvilken periode var den ansatte borte?
+        <HjelpetekstPeriode/>
+      </div>
+    </Label>
+    <Flatpickr
+      id={perId}
+      name={perId}
+      placeholder='dd.mm.yyyy til dd.mm.yyyy'
+      className={'skjemaelement__input '}
+      options={{
+        maxDate: Maximum(),
+        mode: 'range',
+        enableTime: false,
+        dateFormat: 'd.m.Y',
+        altInput: true,
+        altFormat: 'd.m.Y',
+        locale: Norwegian,
+        allowInput: true,
+        clickOpens: true,
+        formatDate: formatDatoer,
+        onClose: (selectedDates) => handleClose(selectedDates)
+      }}
+    />
+    {errors[perId] &&
+      <SkjemaelementFeilmelding>{errors[perId] && errors[perId].type}</SkjemaelementFeilmelding>
+    }
+  </div>)
 };
 
 export default EnkelPeriode;
