@@ -20,9 +20,13 @@ import InternLenke from '../components/felles/InternLenke';
 import KnappMedVarsel from '../components/felles/KnappMedVarsel';
 import { CoronaTopptekst } from '../components/felles/CoronaTopptekst';
 import TimeoutAdvarsel from '../components/login/TimeoutAdvarsel';
+import LoggetUtAdvarsel from '../components/login/LoggetUtAdvarsel';
+import { useAppStore } from '../data/store/AppStore';
+
 
 const ExcelOpplasting = () => {
   const [erklæringAkseptert, setErklæringAkseptert] = useState<boolean>(false);
+  const { setTokenExpired } = useAppStore();
   const methods = useForm();
   const history: History = useHistory();
   const [fileName, setFileName] = useState('Last opp utfylt Excel-mal');
@@ -36,7 +40,7 @@ const ExcelOpplasting = () => {
     e.preventDefault();
     if (file) {
       // @ts-ignore
-      const responsFeil = await innsendingExcelFil(file)
+      const responsFeil = await innsendingExcelFil(file, setTokenExpired)
       if (responsFeil.length === 0) {
         setFeil([])
         history.push('/kvitteringExcel')
@@ -158,6 +162,7 @@ const ExcelOpplasting = () => {
           </Column>
         </Row>
       </main>
+      <LoggetUtAdvarsel/>
     </InnloggetSide>
   );
 };

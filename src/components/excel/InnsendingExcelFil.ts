@@ -1,8 +1,8 @@
 import env from '../felles/environment';
 import { tabellFeil } from './FeilTabell';
 
-export default (file: File): Promise<tabellFeil[]> => {
-
+export default (file: File, setTokenExpired: any): Promise<tabellFeil[]> => {
+  setTokenExpired(false)
   const formData = (file) => {
     let formData = new FormData();
     if (file) {
@@ -18,8 +18,8 @@ export default (file: File): Promise<tabellFeil[]> => {
   }).then((response) => {
     switch (response.status) {
       case 401: {
-        window.location.href = env.loginServiceUrl;
-        return []
+        setTokenExpired(true)
+        return [{ melding: 'Du har blitt logget ut. Vennligst prøv på nytt etter innlogging.', indeks: -1 }]
       }
       case 200: {
         return response.blob().then(data => {
