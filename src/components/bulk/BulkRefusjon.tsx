@@ -1,9 +1,9 @@
 import React from 'react';
 import { useAppStore } from '../../data/store/AppStore';
-import { AnsattID } from '../../data/types/sporenstreksTypes';
-import { validateMaksBeloep } from '../refusjon/validateMaksBeloep';
+import validateRefusjon from '../refusjon/validateRefusjon';
 import { RefusjonInput } from '../refusjon/RefusjonInput';
-import EksempelBulk from '../refusjon/HjelpetekstRefusjon';
+import HjelpetekstRefusjon from '../refusjon/HjelpetekstRefusjon';
+import { AnsattID } from './Ansatt';
 
 export const BulkRefusjon = (props: AnsattID) => {
   const { ansatte, setAnsatte } = useAppStore();
@@ -12,7 +12,7 @@ export const BulkRefusjon = (props: AnsattID) => {
   const handleChange = (val: number) => {
     if (a) {
       a.beloep = val;
-      a.beloepError = validateMaksBeloep(a.beloep);
+      a.beloepError = validateRefusjon(a.beloep);
     }
     setAnsatte([...ansatte]);
   };
@@ -22,11 +22,9 @@ export const BulkRefusjon = (props: AnsattID) => {
         feilmelding={a?.beloepError}
         beloep={a?.beloep}
         handleChange={handleChange}
-        label={
-          <div style={{ display: 'flex' }}>
-            Beløp
-            <EksempelBulk />
-          </div>} />)
+        label={<div style={{ display: 'flex' }}>Beløp<HjelpetekstRefusjon /></div>}
+      />
+  )
 };
 
 export default BulkRefusjon;

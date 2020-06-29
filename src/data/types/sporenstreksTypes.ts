@@ -1,5 +1,3 @@
-import uuid from 'uuid/v4';
-
 export interface RefusjonsKrav {
   identitetsnummer: string;
   virksomhetsnummer: string;
@@ -27,39 +25,6 @@ export enum SkjemaStatus {
   'VALIDERINGSFEIL',
   'ERRORBACKEND',
 }
-
-export interface AnsattID {
-  id: number | string
-}
-
-export interface Ansatt extends AnsattID {
-  fnr: string;
-  fnrError?: string,
-  beloepError?: string,
-  refusjonError?: string,
-  periodeError?: string,
-  dagerError?: string,
-  fom: string;
-  tom: string;
-  antallDagerMedRefusjon?: number;
-  beloep?: number;
-  status: SkjemaStatus;
-  oppdatert: number;
-  referenceNumber?: string | null;
-}
-
-export const byggAnsatt = () => {
-  let a = {} as Ansatt;
-  a.id = uuid();
-  a.fnr = '';
-  a.fom = '';
-  a.tom = '';
-  a.antallDagerMedRefusjon = undefined;
-  a.beloep = undefined;
-  a.status = SkjemaStatus.NY;
-  a.oppdatert = 0;
-  return a;
-};
 
 export enum BackendResponseState {
   'OK' = 'OK',

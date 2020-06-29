@@ -1,9 +1,9 @@
 import React from 'react';
 import { Select } from 'nav-frontend-skjema';
 import { useAppStore } from '../../data/store/AppStore';
-import { AnsattID } from '../../data/types/sporenstreksTypes';
 import { HjelpetekstDager } from '../dager/HjelpetekstDager';
-import { validateNotNullAndPositive } from '../dager/validateNotNullAndPositive';
+import validateDager from '../dager/validateDager';
+import { AnsattID } from './Ansatt';
 
 export const BulkDager = (props: AnsattID) => {
   const { ansatte, setAnsatte } = useAppStore();
@@ -11,7 +11,7 @@ export const BulkDager = (props: AnsattID) => {
   const handleChange = (evt) => {
     if (a) {
       a.antallDagerMedRefusjon = parseInt(evt.target.selectedIndex);
-      a.dagerError = validateNotNullAndPositive(a.antallDagerMedRefusjon);
+      a.dagerError = validateDager(a.antallDagerMedRefusjon);
     }
     setAnsatte([...ansatte]);
   };

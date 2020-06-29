@@ -244,22 +244,26 @@ function validateValuesAreSet(formAsJson: any, validateFnr: (value: string) => b
         break;
       case 'periode':
         if (!formAsJson[element]) {
-          methods.setError(element, 'Periode mangler');
+          methods.setError(element, 'Periode må fylles ut');
           harFeil = true;
         }
         else if (formAsJson[element].indexOf('til') === -1) {
-          methods.setError(element, 'Sluttdato mangler');
+          methods.setError(element, 'Sluttdato må fylles ut');
           harFeil = true;
         }
         break;
-      case 'antall':
+      case 'dager':
         if (!formAsJson[element] || formAsJson[element] === '-1') {
           methods.setError(element, 'Antall dager må fylles ut');
           harFeil = true;
         }
         break;
-      case 'beloep':
-        if (!formAsJson[element] || formAsJson[element] === 0) {
+      case 'refusjon':
+        if (!formAsJson[element]) {
+          methods.setError(element, 'Beløp må fylles ut');
+          harFeil = true;
+        }
+        if (formAsJson[element] < 0) {
           methods.setError(element, 'Beløp må være større enn 0');
           harFeil = true;
         }

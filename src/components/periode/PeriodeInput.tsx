@@ -6,7 +6,7 @@ import { Norwegian } from 'flatpickr/dist/l10n/no.js';
 import { PeriodeFormatter } from './PeriodeFormatter';
 import { Feilmelding, Maximum } from './PeriodeValidator';
 import { PeriodeConverter } from './PeriodeConverter';
-import uuid from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 
 interface PeriodeInputProps {
   feilmelding?: string,
@@ -29,7 +29,7 @@ export const PeriodeInput = ({ fom, tom, feilmelding, handleChange, id }: Period
     handleChange(fomChanged, tomChanged);
   }
 
-  const elementId = String(id) || 'periode'.concat(uuid());
+  const elementId = String(id) || 'periode'.concat(uuidv4());
 
   return (
     <div className={PeriodeInputClassName(feilmelding)}>

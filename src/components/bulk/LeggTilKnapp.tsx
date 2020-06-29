@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppStore } from '../../data/store/AppStore';
-import { byggAnsatt } from '../../data/types/sporenstreksTypes';
+import { byggAnsatt } from './Ansatt';
 import { Normaltekst } from 'nav-frontend-typografi';
 import InternLenke from '../felles/InternLenke';
 

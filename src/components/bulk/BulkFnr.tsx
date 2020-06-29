@@ -2,8 +2,8 @@ import React from 'react';
 import { FnrInput } from 'nav-frontend-skjema';
 import { useAppStore } from '../../data/store/AppStore';
 import { filterIdentityNumberInput } from '../fnr/filterIndentityNumberInput';
-import { AnsattID } from '../../data/types/sporenstreksTypes';
-import { validateFnr } from '../fnr/validateFnr';
+import { validateAnsatteFnr } from './validateAnsatteFnr';
+import { AnsattID } from './Ansatt';
 
 export const BulkFnr = ({ id }: AnsattID) => {
   const { ansatte, setAnsatte } = useAppStore();
@@ -11,7 +11,7 @@ export const BulkFnr = ({ id }: AnsattID) => {
   const handleChange = (evt) => {
     if (a) {
       a.fnr = filterIdentityNumberInput(evt.target.value);
-      a.fnrError = validateFnr(ansatte, a);
+      a.fnrError = validateAnsatteFnr(ansatte, a);
     }
     setAnsatte([...ansatte]);
   };
