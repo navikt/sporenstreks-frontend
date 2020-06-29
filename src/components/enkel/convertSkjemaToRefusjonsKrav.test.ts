@@ -8,8 +8,8 @@ describe('convertSkjemaToRefusjonsKrav', () => {
         fnr: '211124-28795',
         periode_0: '13.04.2020 til 30.12.2020',
         '' : '',
-        antall_0: '3',
-        beloep_0: '333,00'
+        dager_0: '3',
+        refusjon_0: '333,00'
     }
 
     const expected = {
