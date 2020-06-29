@@ -18,6 +18,7 @@ export const BulkDager = (props: AnsattID) => {
   const optionArr = Array.from(Array(14).keys());
   return (
     <Select
+      id={'dager_' + props.id}
       feil={a?.dagerError}
       onChange={handleChange}
       label={
