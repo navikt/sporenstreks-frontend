@@ -70,7 +70,11 @@ describe('ExcelOpplasting', () => {
 
   beforeEach(() => {
     mockUseAppStore = useAppStore as jest.Mock;
-    mockUseAppStore.mockReturnValue(mockArbeidsgiverValues);
+    mockUseAppStore.mockReturnValue({
+      arbeidsgivere: mockArbeidsgiverValues,
+      setTokenExpired: jest.fn()
+    });
+
   })
 
   afterEach(() => {
@@ -89,7 +93,7 @@ describe('ExcelOpplasting', () => {
         })
       );
 
-      const view = render(
+    const view = render(
         <MemoryRouter initialEntries={['/excel']}>
           <Route path='/excel'><ExcelOpplasting/></Route>
           <Route path='/kvitteringExcel'><KvitteringExcel/></Route>
@@ -148,6 +152,38 @@ describe('ExcelOpplasting', () => {
 
     // bruker får feilmeldinger
     expect(screen.getByText('Følgende feil i dokumentet må utbedres før du laster det opp på nytt:')).toBeInTheDocument();
+  })
+
+  it('displays expired token modal when given a 401', async () => {
+
+    const jsonPromise = Promise.resolve({})
+
+    // @ts-ignore
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        status: 401,
+        json: () => jsonPromise
+      })
+    );
+
+    const view = render(<MemoryRouter><ExcelOpplasting/></MemoryRouter>);
+    const uploadButton = view.getByLabelText(/Last opp utfylt Excel-mal/);
+    userEvent.upload(uploadButton, mockFile)
+
+    // bruker får lastet opp .xlsx-fil
+    expect(screen.getByLabelText('fil.xlsx')).toBeInTheDocument();
+
+    // bruker får sendt inn skjema når erklæring er avhuket
+    userEvent.click(view.getByRole('checkbox'));
+
+    expect(screen.getByRole('button', { name: 'Send søknad om refusjon' })).toBeEnabled();
+
+    userEvent.click(screen.getByRole('button', { name: 'Send søknad om refusjon' }));
+
+    // @ts-ignore
+    await act(() => jsonPromise)
+
+    //TODO: expect loggetAvAdvarsel
   })
 
   it('disables submit when Erklæring is unchecked', () => {

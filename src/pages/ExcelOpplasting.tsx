@@ -116,7 +116,7 @@ const ExcelOpplasting = () => {
                 <input className="fileinput"
                   type="file"
                   id="fileUploader"
-                  accept=".xls,.xlsx"
+                  accept=".xlsx"
                   onChange={setUploadFile}
                   onClick={(e: any) => e.target.value = null} />
                 {fileName}
