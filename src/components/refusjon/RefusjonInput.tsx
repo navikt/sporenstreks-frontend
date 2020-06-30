@@ -14,6 +14,21 @@ export const RefusjonInput = ({ beloep, feilmelding, handleChange, label, id }: 
   const handleChangeLocal = (event) => {
     handleChange(event.target.value ? parseInt(event.target.value) : undefined);
   }
+  const handleKeyPress = (evt) => {
+    if (evt.keyCode == 8) {
+      handleChange();
+      return true;
+    }
+    const allowed = (evt.key >= 0 && evt.key <= 9);
+    if (!allowed){
+      evt.preventDefault();
+      return false;
+    }
+    if (evt.target.value.length == 7) {
+      evt.preventDefault();
+      return false;
+    }
+  }
   return (
     <div>
       <Input
@@ -28,6 +43,7 @@ export const RefusjonInput = ({ beloep, feilmelding, handleChange, label, id }: 
         type={'number'}
         inputMode={'numeric'}
         className={'RefusjonInput'}
+        onKeyPress={handleKeyPress}
         onChange={handleChangeLocal} />
     </div>
   )
