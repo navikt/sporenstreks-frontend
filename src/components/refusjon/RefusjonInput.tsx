@@ -15,7 +15,7 @@ export const RefusjonInput = ({ beloep, feilmelding, handleChange, label, id }: 
     handleChange(event.target.value ? parseInt(event.target.value) : undefined);
   }
   const handleKeyPress = (evt) => {
-    if (evt.keyCode == 8) {
+    if (evt.keyCode === 8) {
       handleChange();
       return true;
     }
@@ -24,7 +24,7 @@ export const RefusjonInput = ({ beloep, feilmelding, handleChange, label, id }: 
       evt.preventDefault();
       return false;
     }
-    if (evt.target.value.length == 7) {
+    if (evt.target.value.length === 7) {
       evt.preventDefault();
       return false;
     }

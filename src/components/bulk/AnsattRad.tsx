@@ -2,6 +2,7 @@ import React, { FormEvent } from 'react';
 import { BulkDager } from './BulkDager';
 import { BulkRefusjon } from './BulkRefusjon';
 import { BulkFnr } from './BulkFnr';
+import BulkVisning from './BulkVisning';
 import BulkPeriode from './BulkPeriode';
 import { useAppStore } from '../../data/store/AppStore';
 import { AnsattID, byggAnsatt } from './Ansatt';
@@ -22,12 +23,28 @@ export const AnsattRad = ({ id }: AnsattID) => {
   const a = ansatte.find(a => a.id === id) || byggAnsatt()
   if (a.status === SkjemaStatus.GODKJENT) {
     return (
-      <Row key={a.id} className="AnsattRad">
+      <Row key={a?.id} className="AnsattRad">
         <Column md="1" xs="12"><RadNr nr={ansatte.indexOf(a) + 1}/></Column>
-        <Column md="2" xs="12">{a?.fnr}</Column>
-        <Column md="4" xs="12">{a.fom} til {a.tom}</Column>
-        <Column md="2" xs="12">{a.antallDagerMedRefusjon}</Column>
-        <Column md="2" xs="12">{a.beloep}</Column>
+        <Column md="2" xs="12">
+          <BulkVisning label="Fødselsnummer:">
+            {a?.fnr}
+          </BulkVisning>
+        </Column>
+        <Column md="4" xs="12">
+          <BulkVisning label="Hvilken periode var den ansatte borte?">
+            {a.fom} til {a.tom}
+          </BulkVisning>
+        </Column>
+        <Column md="2" xs="12">
+          <BulkVisning label="Antall dager:">
+            {a.antallDagerMedRefusjon}
+          </BulkVisning>
+        </Column>
+        <Column md="2" xs="12">
+          <BulkVisning label="Beløp">
+            {a.beloep}
+          </BulkVisning>
+        </Column>
         <Column md="1" xs="12"> </Column>
       </Row>
     )
