@@ -1,7 +1,7 @@
 import env from '../felles/environment';
 import { tabellFeil } from './FeilTabell';
 
-export default (file: File, setTokenExpired: any): Promise<tabellFeil[]> => {
+export default (file: File, setTokenExpired: (boolean) => void): Promise<tabellFeil[]> => {
   setTokenExpired(false)
   const formData = (file) => {
     let formData = new FormData();
