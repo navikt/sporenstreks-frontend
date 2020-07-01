@@ -70,7 +70,7 @@ describe('InnsendingExcelFil', () => {
       response200
     ));
 
-    expect(await InnsendingExcelFil(file)).toEqual([]);
+    expect(await InnsendingExcelFil(file, jest.fn())).toEqual([]);
   })
 
   it('returns tabellFeil list when given 422', async () => {
@@ -81,7 +81,7 @@ describe('InnsendingExcelFil', () => {
 
     const expected = response422.problemDetails;
 
-    const result = await InnsendingExcelFil(file);
+    const result = await InnsendingExcelFil(file, jest.fn());
 
     expect(result).toHaveLength(4);
 
@@ -98,6 +98,6 @@ describe('InnsendingExcelFil', () => {
       response500
     ));
 
-    expect(await InnsendingExcelFil(file)).toEqual([{ indeks: -1, melding: 'Feil ved innsending av skjema.' }]);
+    expect(await InnsendingExcelFil(file, jest.fn())).toEqual([{ indeks: -1, melding: 'Feil ved innsending av skjema.' }]);
   });
 });
