@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Select } from 'nav-frontend-skjema';
-import { validateNotNullAndPositive } from './validateNotNullAndPositive';
+import validateDager from './validateDager';
 import { HjelpetekstDager } from './HjelpetekstDager';
-import uuid from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 
 interface DagerInputProps {
   feilmelding?: string,
   antallDagerMedRefusjon?: number,
   handleChange: any,
   id?: number | string
-}
-
- const validateDager = (dager?: string): string | undefined => {
-  if (dager === undefined || dager == '-1') {
-    return 'Må fylles ut';
-  }
-  return undefined;
 }
 
 export const DagerInput = ({ feilmelding, antallDagerMedRefusjon, handleChange, id }: DagerInputProps) => {
@@ -31,7 +24,7 @@ export const DagerInput = ({ feilmelding, antallDagerMedRefusjon, handleChange, 
     setLokalFeil(feilmelding);
   }, [feilmelding])
 
-  const componentId = String(id) || 'dager_'.concat(uuid());
+  const componentId = String(id) || 'dager_'.concat(uuidv4());
 
   const feilmeldingstekst = feilmelding ? feilmelding : lokalFeil;
 
@@ -41,6 +34,7 @@ export const DagerInput = ({ feilmelding, antallDagerMedRefusjon, handleChange, 
     onChange={handleChange}
     onBlur={handleDagerBlur}
     name={componentId}
+    placeholder={'Dager'}
     label={
       <div style={{ display: 'flex' }}>
         Antall dager:
@@ -49,7 +43,7 @@ export const DagerInput = ({ feilmelding, antallDagerMedRefusjon, handleChange, 
     selected={antallDagerMedRefusjon}>
     {
       optionArr.map(optionValue => <option key={optionValue} value={optionValue - 1}>
-        {optionValue ? (optionValue-1) : '-'}
+        {optionValue ? (optionValue-1) : undefined}
       </option>)
     }
   </Select>

@@ -4,7 +4,8 @@ import { BulkRefusjon } from './BulkRefusjon';
 import { BulkFnr } from './BulkFnr';
 import BulkPeriode from './BulkPeriode';
 import { useAppStore } from '../../data/store/AppStore';
-import { AnsattID, byggAnsatt, SkjemaStatus } from '../../data/types/sporenstreksTypes';
+import { AnsattID, byggAnsatt } from './Ansatt';
+import { SkjemaStatus } from '../../data/types/sporenstreksTypes';
 import { ByggValideringsFeil } from './ByggValideringsFeil';
 import Slettknapp from './Slettknapp';
 import { Column, Row } from 'nav-frontend-grid';
@@ -22,12 +23,12 @@ export const AnsattRad = ({ id }: AnsattID) => {
   if (a.status === SkjemaStatus.GODKJENT) {
     return (
       <Row key={a?.id} className="AnsattRad">
-        <Column><RadNr nr={ansatte.indexOf(a) + 1}/></Column>
-        <Column>{a?.fnr}</Column>
-        <Column>{a.fom} til {a.tom}</Column>
-        <Column>{a.antallDagerMedRefusjon}</Column>
-        <Column>{a.beloep}</Column>
-        <Column>{a.referenceNumber}</Column>
+        <Column md="1" xs="12"><RadNr nr={ansatte.indexOf(a) + 1}/></Column>
+        <Column md="2" xs="12">{a?.fnr}</Column>
+        <Column md="4" xs="12">{a.fom} til {a.tom}</Column>
+        <Column md="2" xs="12">{a.antallDagerMedRefusjon}</Column>
+        <Column md="2" xs="12">{a.beloep}</Column>
+        <Column md="1" xs="12">{a.referenceNumber}</Column>
       </Row>
     )
   }

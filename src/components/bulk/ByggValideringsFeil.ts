@@ -1,5 +1,5 @@
-import { Ansatt } from '../../data/types/sporenstreksTypes';
 import { ValideringsFeil } from './ValideringsFeil';
+import { Ansatt } from './Ansatt';
 
 export const ByggValideringsFeil = (ansatte: Ansatt[]) => {
     let feil:ValideringsFeil[] = []

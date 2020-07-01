@@ -1,59 +1,29 @@
-import React, { useState } from 'react';
-import { Normaltekst, Feilmelding } from 'nav-frontend-typografi';
-import { Controller, useFormContext } from 'react-hook-form';
-import Vis from '../felles/Vis';
+import React from 'react';
+import { useFormContext } from 'react-hook-form';
 import DagerInput from '../dager/DagerInput';
 
 interface EnkelDagerProps {
   index: number;
 }
 
-const antErrorState = {
-  hasError: '',
-  noError: 'tom'
-}
-
 const EnkelDager = (props: EnkelDagerProps) => {
-  const { errors, setError, clearError } = useFormContext();
-  const antId = 'antall_' + props.index;
-  const [errorState, setErrorState] = useState(antErrorState.noError);
-
-  const validateAntall = (value: string): boolean => {
-    const numval = Number(value);
-    let msg = '';
-    if (value.length === 0) {
-      msg = 'EnkelDager mangler.'
-    } else {
-      msg = numval < -1 && value !== '-' ? 'EnkelDager kan ikke være negativt' : '';
-    }
-
-    if (msg !== '') {
-      setError(antId, msg);
-      setErrorState(antErrorState.hasError)
+  const { errors, setError, clearError, getValues } = useFormContext();
+  const componentId = 'dager_' + props.index;
+  const onChange = (dager?: number) => {
+    if (!dager) {
+      setError(componentId, 'Antall dager må fylles ut');
       return false;
     } else {
-      setErrorState(antErrorState.noError);
-      clearError([ antId, 'backend' ]);
+      clearError([ componentId, 'backend' ]);
       return true;
     }
-  };
-
+  }
   return (
-    <>
-
-      <Controller
-        id={antId}
-        name={antId}
-        as={
-          <DagerInput handleChange={e => validateAntall(e.target.value)} antallDagerMedRefusjon={13} id={antId} />
-        }
-      />
-      <Normaltekst tag='div' role='alert' aria-live='assertive'
-        className={`skjemaelement__feilmelding ${errorState} antall_${props.index}`}
-      >
-
-      </Normaltekst>
-    </>
+    <DagerInput
+      id={componentId}
+      feilmelding={errors[componentId] && errors[componentId].type}
+      antallDagerMedRefusjon={getValues(componentId)}
+      handleChange={onChange}/>
   );
 };
 

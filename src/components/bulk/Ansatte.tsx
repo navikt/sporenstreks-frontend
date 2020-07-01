@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Ansatte.less';
 import { useAppStore } from '../../data/store/AppStore';
 import { AnsattRad } from './AnsattRad';
-import { Validering } from './Validering';
+import { valideringAnsatte } from './ValideringAnsatte';
 import { ByggValideringsFeil } from './ByggValideringsFeil';
 import Innsending from './Innsending';
 import { LeggTilKnapp } from './LeggTilKnapp';
@@ -11,15 +11,14 @@ import { Erklaring } from '../felles/Erklaring';
 import { ValideringOppsummering } from './ValideringOppsummering';
 import { History } from 'history';
 import { useHistory } from 'react-router-dom';
-import { byggAnsatt, Ansatt } from '../../data/types/sporenstreksTypes';
+import { byggAnsatt, Ansatt } from './Ansatt';
 import Advarsler from './Advarsler';
 import { Column, Row, Container } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import Skillelinje from '../felles/Skillelinje';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel, Element } from 'nav-frontend-typografi';
 import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
 import InternLenke from '../felles/InternLenke';
-import { Element } from 'nav-frontend-typografi';
 import { HjelpetekstPeriode } from '../periode/HjelpetekstPeriode';
 import { HjelpetekstDager } from '../dager/HjelpetekstDager';
 import HjelpetekstRefusjon from '../refusjon/HjelpetekstRefusjon';
@@ -32,7 +31,7 @@ const Ansatte: React.FC = () => {
   const [harTrykketSubmitMinstEnGang, setHarTrykketSubmitMinstEnGang] = useState<boolean>(false);
   const handleBekreftSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
-    const validerteAnsatte = Validering(ansatte);
+    const validerteAnsatte = valideringAnsatte(ansatte);
     const innsendteAnsatte = await Innsending(arbeidsgiverId, validerteAnsatte, setLoadingStatus, setTokenExpired);
     setHarTrykketSubmitMinstEnGang(true);
     setFeil(

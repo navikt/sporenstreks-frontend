@@ -3,11 +3,11 @@ import { useAppStore } from '../../data/store/AppStore';
 import dayjs from 'dayjs';
 import Flatpickr from 'react-flatpickr';
 import { Norwegian } from 'flatpickr/dist/l10n/no.js';
-import { AnsattID } from '../../data/types/sporenstreksTypes';
 import './BulkPeriode.less';
 import { Label, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
 import { HjelpetekstPeriode } from '../periode/HjelpetekstPeriode';
 import { validatePerioder } from './validatePerioder';
+import { AnsattID } from './Ansatt';
 
 const BulkPeriode = (props: AnsattID) => {
   const { ansatte, setAnsatte } = useAppStore();

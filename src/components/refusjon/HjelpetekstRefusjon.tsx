@@ -67,13 +67,15 @@ const HjelpetekstRefusjon = () => {
     setEksempelOpen(true);
   }
 
+
   return (
-    <div className="eksempel-bulk">
+    <div className="hjelpetekst-refusjon">
       <ModalWrapper
         isOpen={eksempelOpen}
+
         onRequestClose={() => setEksempelOpen(false)}
         closeButton={false}
-        contentLabel="Eksempel visning"
+        contentLabel="Eksempel på refusjon"
         className="eksempel-modal"
       >
         <Veilederpanel svg={VeilederIkon}

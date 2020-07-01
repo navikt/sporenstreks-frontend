@@ -1,4 +1,5 @@
-import { BackendStatus, Ansatt, SkjemaStatus, BackendResponseState } from '../../data/types/sporenstreksTypes';
+import { BackendStatus, SkjemaStatus, BackendResponseState } from '../../data/types/sporenstreksTypes';
+import { Ansatt } from './Ansatt';
 
 const errConcat = (target: string | undefined, added: string): string => {
   const dottedText = added.endsWith('.') ? added : added + '.';

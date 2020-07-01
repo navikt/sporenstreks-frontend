@@ -1,11 +1,12 @@
 import '@testing-library/jest-dom'
 
-import { Validering, IsValid } from './Validering';
-import { Ansatt, SkjemaStatus } from '../../data/types/sporenstreksTypes';
+import { valideringAnsatte, isAnsatteValid } from './ValideringAnsatte';
+import { SkjemaStatus } from '../../data/types/sporenstreksTypes';
+import { Ansatt } from './Ansatt';
 
 // TODO - Legg inn test på at beløp er for høyt
 
-describe('Validering', () => {
+describe('ValideringAnsatte', () => {
   it('should validate the input data and report invalid dates', () => {
     const input: Ansatt[] = [
       {
@@ -61,8 +62,8 @@ describe('Validering', () => {
       }
     ];
 
-    expect(Validering(input)).toEqual(expected);
-    expect(IsValid(Validering(input))).toBeFalsy();
+    expect(valideringAnsatte(input)).toEqual(expected);
+    expect(isAnsatteValid(valideringAnsatte(input))).toBeFalsy();
   });
 
   it('should validate the input data and report invalid number of days', () => {
@@ -108,7 +109,7 @@ describe('Validering', () => {
         'antallDagerMedRefusjon': -1,
         'beloep': 123,
         'beloepError': undefined,
-        'dagerError': 'EnkelDager må være positivt',
+        'dagerError': 'Dager må være 0 eller høyere',
         'fnr': '30040658641',
         'fnrError': undefined,
         'fom': '2020-03-03',
@@ -120,8 +121,8 @@ describe('Validering', () => {
       }
     ];
 
-    expect(Validering(input)).toEqual(expected);
-    expect(IsValid(Validering(input))).toBeFalsy();
+    expect(valideringAnsatte(input)).toEqual(expected);
+    expect(isAnsatteValid(valideringAnsatte(input))).toBeFalsy();
   });
 
   it('should validate the input data and report invalid fnr', () => {
@@ -179,8 +180,8 @@ describe('Validering', () => {
       }
     ];
 
-    expect(Validering(input)).toEqual(expected);
-    expect(IsValid(Validering(input))).toBeFalsy();
+    expect(valideringAnsatte(input)).toEqual(expected);
+    expect(isAnsatteValid(valideringAnsatte(input))).toBeFalsy();
   });
 
   it('should validate the input data and report invalid beløp', () => {
@@ -211,7 +212,7 @@ describe('Validering', () => {
       {
         'antallDagerMedRefusjon': 1,
         'beloep': undefined,
-        'beloepError': 'Feltet må fylles ut',
+        'beloepError': 'Beløp må fylles ut',
         'dagerError': undefined,
         'fnr': '27036405924',
         'fnrError': undefined,
@@ -225,7 +226,7 @@ describe('Validering', () => {
       {
         'antallDagerMedRefusjon': 1,
         'beloep': -123,
-        'beloepError': 'EnkelDager må være positivt',
+        'beloepError': 'Beløpet er for lavt',
         'dagerError': undefined,
         'fnr': '30040658641',
         'fnrError': undefined,
@@ -238,8 +239,8 @@ describe('Validering', () => {
       }
     ];
 
-    expect(Validering(input)).toEqual(expected);
-    expect(IsValid(Validering(input))).toBeFalsy();
+    expect(valideringAnsatte(input)).toEqual(expected);
+    expect(isAnsatteValid(valideringAnsatte(input))).toBeFalsy();
   });
 
   it('should validate the input data and report everything OK', () => {
@@ -297,7 +298,7 @@ describe('Validering', () => {
       }
     ];
 
-    expect(Validering(input)).toEqual(expected);
-    expect(IsValid(Validering(input))).toBeTruthy();
+    expect(valideringAnsatte(input)).toEqual(expected);
+    expect(isAnsatteValid(valideringAnsatte(input))).toBeTruthy();
   });
 });

@@ -1,4 +1,2 @@
-export const identityNumberSeparation = (str: string): string =>
-  str.length >= 7
-    ? str.substring(0, 6) + '-' + str.substring(6)
-    : str;
+export const identityNumberSeparation = (fnr: string): string =>
+  fnr.length >= 7 ? fnr.substring(0, 6) + '-' + fnr.substring(6) : fnr;

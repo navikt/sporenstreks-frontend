@@ -3,7 +3,7 @@ import { Knapp } from 'nav-frontend-knapper';
 import ModalWrapper from 'nav-frontend-modal';
 import { Undertittel } from 'nav-frontend-typografi';
 import { useAppStore } from '../../data/store/AppStore';
-import { IsValid, Validering } from './Validering';
+import { isAnsatteValid, valideringAnsatte } from './ValideringAnsatte';
 import { ByggValideringsFeil } from './ByggValideringsFeil';
 import './BekreftKnapp.less';
 import InternLenke from '../felles/InternLenke';
@@ -25,9 +25,9 @@ export const BekreftKnapp = ({ onSubmit, erklæringAkseptert, onClick }: bekreft
   const handleOpen = (evt) => {
     evt.preventDefault()
     onClick(evt);
-    const validerteAnsatte = Validering(ansatte)
+    const validerteAnsatte = valideringAnsatte(ansatte)
     setAnsatte([...validerteAnsatte]);
-    if (IsValid(validerteAnsatte)) {
+    if (isAnsatteValid(validerteAnsatte)) {
       setOpen(true)
       setFeil([])
     } else {

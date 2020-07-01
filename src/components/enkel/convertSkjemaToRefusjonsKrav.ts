@@ -18,8 +18,8 @@ const convertSkjemaToRefusjonsKrav = (data, identityNumberInput: string, arbeids
       const periode: Periode = {
         fom: days[0],
         tom: days[1] ?? days[0],
-        antallDagerMedRefusjon: data['antall_' + i].replace(/ /g, ''),
-        beloep: data['beloep_' + i].replace(/ /g, '')
+        antallDagerMedRefusjon: data['dager_' + i].replace(/ /g, ''),
+        beloep: data['refusjon_' + i].replace(/ /g, '')
           .replace(/\s/g, '')
           .replace(',', '.'),
       };

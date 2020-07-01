@@ -1,7 +1,7 @@
-import { Ansatt } from '../../data/types/sporenstreksTypes';
-import validateFnrLengthAndValidity from './validateFnrLengthAndValidity';
+import validateFnrLengthAndValidity from '../fnr/validateFnrLengthAndValidity';
+import { Ansatt } from './Ansatt';
 
-export const validateFnr = (ansatte: Ansatt[], ansatt: Ansatt): string | undefined => {
+export const validateAnsatteFnr = (ansatte: Ansatt[], ansatt: Ansatt): string | undefined => {
   const validertEnkeltfelt = validateFnrLengthAndValidity(ansatt.fnr)
   if (validertEnkeltfelt)
    {

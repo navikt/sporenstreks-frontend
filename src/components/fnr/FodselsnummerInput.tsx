@@ -1,9 +1,8 @@
-import React, { useEffect, useState, FormEvent } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FnrInput } from 'nav-frontend-skjema';
 import { filterIdentityNumberInput } from './filterIndentityNumberInput';
 import validateFnrSingle from './validateFnrLengthAndValidity';
-import uuid from 'uuid/v4';
-
+import { v4 as uuidv4 } from 'uuid';
 
 interface FodselsnummerInputProps {
   feilmelding?: string,
@@ -28,7 +27,7 @@ export const FodselsnummerInput = ({ feilmelding, fnr, handleChange, id }: Fodse
     setLokalFeil(feilmelding);
   }, [feilmelding])
 
-  const componentId = 'fnr_'.concat(id ? String(id) : uuid());
+  const componentId = 'fnr_'.concat(id ? String(id) : uuidv4());
 
   const feilmeldingstekst = feilmelding ? feilmelding : lokalFeil;
 

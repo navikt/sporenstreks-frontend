@@ -1,5 +1,5 @@
 import mergeAnsattlister from './mergeAnsattlister';
-import { Ansatt } from '../../data/types/sporenstreksTypes';
+import { Ansatt } from './Ansatt';
 
 describe('mergeAnsattlister', () => {
   it('should return a new list based on the master with values from the secondary', () => {

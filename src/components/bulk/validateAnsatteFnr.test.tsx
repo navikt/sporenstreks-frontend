@@ -1,8 +1,7 @@
 import '@testing-library/jest-dom'
-
-import { validateFnr } from './validateFnr';
-import { Ansatt, SkjemaStatus } from '../../data/types/sporenstreksTypes';
-
+import { validateAnsatteFnr } from './validateAnsatteFnr';
+import { SkjemaStatus } from '../../data/types/sporenstreksTypes';
+import { Ansatt } from './Ansatt';
 
 describe('validateFnr', () => {
   it('should validate that everything is OK', () => {
@@ -31,16 +30,16 @@ describe('validateFnr', () => {
 
     const expected = undefined;
 
-    expect(validateFnr(input, input[0])).toEqual(expected);
+    expect(validateAnsatteFnr(input, input[0])).toEqual(expected);
   });
 
   it('should validate that fødselsnummer is missing', () => {
     const input: Ansatt[] = [
       {
         id: 1,
-
         fom: '',
         tom: '',
+        fnr: undefined,
         antallDagerMedRefusjon: 2,
         beloep: 123,
         status: SkjemaStatus.NY,
@@ -60,7 +59,7 @@ describe('validateFnr', () => {
 
     const expected = 'Fødselsnummer må fylles ut';
 
-    expect(validateFnr(input, input[0])).toEqual(expected);
+    expect(validateAnsatteFnr(input, input[0])).toEqual(expected);
   });
 
   it('should validate that the fødsesnummer length must be 11 and not more', () => {
@@ -89,7 +88,7 @@ describe('validateFnr', () => {
 
     const expected = 'Fødselsnummer må ha 11 siffer';
 
-    expect(validateFnr(input, input[0])).toEqual(expected);
+    expect(validateAnsatteFnr(input, input[0])).toEqual(expected);
   });
 
   it('should validate that the fødsesnummer length must be 11 and not less', () => {
@@ -118,7 +117,7 @@ describe('validateFnr', () => {
 
     const expected = 'Fødselsnummer må ha 11 siffer';
 
-    expect(validateFnr(input, input[0])).toEqual(expected);
+    expect(validateAnsatteFnr(input, input[0])).toEqual(expected);
   });
 
   it('should validate that the fødsesnummer length must not be invalid', () => {
@@ -147,7 +146,7 @@ describe('validateFnr', () => {
 
     const expected = 'Fødselsnummer er ugyldig';
 
-    expect(validateFnr(input, input[0])).toEqual(expected);
+    expect(validateAnsatteFnr(input, input[0])).toEqual(expected);
   });
 
   it('should validate that the fødsesnummer length must not be used more than once', () => {
@@ -176,6 +175,6 @@ describe('validateFnr', () => {
 
     const expected = 'Fødselsnummer er allerede brukt';
 
-    expect(validateFnr(input, input[0])).toEqual(expected);
+    expect(validateAnsatteFnr(input, input[0])).toEqual(expected);
   });
 });

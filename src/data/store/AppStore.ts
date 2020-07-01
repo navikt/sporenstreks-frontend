@@ -1,8 +1,9 @@
 import constate from 'constate';
 import { useState } from 'react';
-import { Ansatt, byggAnsatt, Periode, tomPeriode, UnleashToggles } from '../types/sporenstreksTypes';
+import { Periode, tomPeriode, UnleashToggles } from '../types/sporenstreksTypes';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import { ValideringsFeil } from '../../components/bulk/ValideringsFeil';
+import { Ansatt, byggAnsatt } from '../../components/bulk/Ansatt';
 
 export const [ AppStoreProvider, useAppStore ] = constate(() => {
   const [ unleash, setUnleash ] = useState<UnleashToggles>();
