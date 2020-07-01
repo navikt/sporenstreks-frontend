@@ -8,9 +8,8 @@ import userEvent from '@testing-library/user-event';
 import KvitteringExcel from './KvitteringExcel';
 
 jest.mock('../data/store/AppStore');
-
-const mockArbeidsgiverValues = {
-  arbeidsgivere: [{
+const mockArbeidsgiverValues =
+  [{
     Name: 'Navn',
     Type: 'Type',
     OrganizationNumber: '123456789',
@@ -31,9 +30,7 @@ const mockArbeidsgiverValues = {
     OrganizationForm: 'oform',
     Status: 'Status',
     ParentOrganizationNumber: '3333344444'
-  }],
-  setReferanseNummer: jest.fn()
-};
+  }];
 
 const response200 = 'Søknaden er mottatt.'
 
@@ -65,6 +62,8 @@ const response422 = {
 
 const mockFile = new File(['(⌐□_□)'], 'fil.xlsx', { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
+const setTokenExpired = jest.fn();
+
 describe('ExcelOpplasting', () => {
   let mockUseAppStore;
 
@@ -72,7 +71,8 @@ describe('ExcelOpplasting', () => {
     mockUseAppStore = useAppStore as jest.Mock;
     mockUseAppStore.mockReturnValue({
       arbeidsgivere: mockArbeidsgiverValues,
-      setTokenExpired: jest.fn()
+      setTokenExpired: setTokenExpired,
+      tokenExpired: false
     });
 
   })
@@ -183,7 +183,9 @@ describe('ExcelOpplasting', () => {
     // @ts-ignore
     await act(() => jsonPromise)
 
-    //TODO: expect loggetAvAdvarsel
+    expect(setTokenExpired).toHaveBeenCalledTimes(2);
+    expect(setTokenExpired).toHaveBeenLastCalledWith(true);
+    expect(screen.getByText('Du har blitt logget ut. Vennligst prøv på nytt etter innlogging.')).toBeInTheDocument();
   })
 
   it('disables submit when Erklæring is unchecked', () => {
@@ -200,7 +202,6 @@ describe('ExcelOpplasting', () => {
     userEvent.click(screen.getByRole('button', { name: 'Send søknad om refusjon' }));
 
     //klikk på submit-knapp viser feilmelding om å huke av erklæring
-
     expect(screen.getByText('Du må huke av erklæringen før du kan sende inn')).toBeInTheDocument();
 
   })
