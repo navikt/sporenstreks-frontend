@@ -23,7 +23,7 @@ export const AnsattRad = ({ id }: AnsattID) => {
   const a = ansatte.find(a => a.id === id) || byggAnsatt()
   if (a.status === SkjemaStatus.GODKJENT) {
     return (
-      <Row key={a?.id} className="AnsattRad">
+      <Row key={a.id} className="AnsattRad">
         <Column md="1" xs="12"><RadNr nr={ansatte.indexOf(a) + 1}/></Column>
         <Column md="2" xs="12">
           <BulkVisning label="Fødselsnummer:">
