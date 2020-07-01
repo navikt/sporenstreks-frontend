@@ -21,7 +21,7 @@ export interface Ansatt extends AnsattID {
   referenceNumber?: string | null;
 }
 
-export const byggAnsatt = () => {
+export const byggAnsatt = ():Ansatt => {
   let a = {} as Ansatt;
   a.id = uuidv4();
   a.fnr = '';
