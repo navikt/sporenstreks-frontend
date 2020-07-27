@@ -98,7 +98,7 @@
     "react-modal": "^3.11.2",
     "react-number-format": "^4.4.1",
     "react-router-dom": "^5.2.0",
-    "snyk": "^1.342.2",
+    "snyk": "^1.348.2",
     "timezone-mock": "^1.1.0",
     "typescript": "^3.9.5",
     "use-force-update": "^1.0.7",
