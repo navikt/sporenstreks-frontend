@@ -86,7 +86,7 @@
     "nav-frontend-typografi-style": "^1.0.19",
     "nav-frontend-veileder": "^2.0.18",
     "nav-frontend-veileder-style": "^2.0.13",
-    "nav-frontend-veilederpanel": "^0.1.23",
+    "nav-frontend-veilederpanel": "^0.1.28",
     "nav-frontend-veilederpanel-style": "0.0.27",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
