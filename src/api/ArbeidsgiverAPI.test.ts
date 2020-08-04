@@ -1,5 +1,5 @@
 import React from 'react';
-import ArbeidsgiverAPI from './ArbeidsgiverAPI';
+import ArbeidsgiverAPI, { Status } from './ArbeidsgiverAPI';
 
 describe('ArbeidsgiverAPI', () => {
 
@@ -101,7 +101,7 @@ describe('ArbeidsgiverAPI', () => {
     const verdi = ArbeidsgiverAPI.GetArbeidsgivere();
     jest.advanceTimersByTime(10000)
     expect(await verdi).toStrictEqual({
-      status: 0,
+      status: Status.Timeout,
       organisasjoner: []
     });
   });

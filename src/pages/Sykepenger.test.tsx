@@ -4,14 +4,18 @@ import { render, fireEvent } from '@testing-library/react'
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
 import { useAppStore } from '../data/store/AppStore';
-
-import Sykepenger from './Sykepenger';
+import { ArbeidsgiverProvider } from '../context/ArbeidsgiverContext';
+import Sykepenger from './Sykepenger'
+import { Status } from '../api/ArbeidsgiverAPI';
 
 jest.mock('../data/store/AppStore');
 
 const mockUseAppStore = useAppStore as jest.Mock
 const mockArbeidsgiverValues = {
-  arbeidsgivere: [{
+  setReferanseNummer: jest.fn()
+};
+
+const arbeidsgivere = [{
     Name: 'Navn',
     Type: 'Type',
     OrganizationNumber: '123456789',
@@ -32,9 +36,7 @@ const mockArbeidsgiverValues = {
     OrganizationForm: 'oform',
     Status: 'Status',
     ParentOrganizationNumber: '3333344444'
-  }],
-  setReferanseNummer: jest.fn()
-};
+  }]
 
 describe('Sykepenger', () => {
   it('should show warning when arbeidsgiver contains no data', () => {
@@ -44,8 +46,11 @@ describe('Sykepenger', () => {
     });
 
     const history = createMemoryHistory();
-
-    const rendered = render(<Router history={history}><Sykepenger /></Router>);
+    const rendered = render(
+      <ArbeidsgiverProvider arbeidsgivere={[]} status={Status.Successfully}>
+        <Router history={history}><Sykepenger /></Router>
+      </ArbeidsgiverProvider>
+    );
 
     expect(rendered.getByText('Du har ikke rettigheter til å søke om refusjon for noen bedrifter')).toBeTruthy();
   });
@@ -55,7 +60,11 @@ describe('Sykepenger', () => {
 
     const history = createMemoryHistory();
 
-    const rendered = render(<Router history={history}><Sykepenger /></Router>);
+    const rendered = render(
+      <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={Status.Successfully}>
+        <Router history={history}><Sykepenger /></Router>
+      </ArbeidsgiverProvider>
+    );
 
     expect(rendered.getByText(
       'NAV dekker ifm. coronaviruset inntil 13 av de 16 dagene som vanligvis er arbeidsgivers ansvar'
@@ -67,7 +76,11 @@ describe('Sykepenger', () => {
 
     const history = createMemoryHistory();
 
-    const rendered = render(<Router history={history}><Sykepenger /></Router>);
+    const rendered = render(
+      <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={Status.Successfully}>
+      <Router history={history}><Sykepenger /></Router>
+      </ArbeidsgiverProvider>
+    );
 
     const inputNode = rendered.getByLabelText('Fødselsnummer til arbeidstaker');
 
@@ -81,7 +94,11 @@ describe('Sykepenger', () => {
 
     const history = createMemoryHistory();
 
-    const rendered = render(<Router history={history}><Sykepenger /></Router>);
+    const rendered = render(
+      <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={Status.Successfully}>
+        <Router history={history}><Sykepenger /></Router>
+      </ArbeidsgiverProvider>
+    );
 
     const inputNode = rendered.getByLabelText('Fødselsnummer til arbeidstaker');
 
@@ -97,7 +114,11 @@ describe('Sykepenger', () => {
 
     const history = createMemoryHistory();
 
-    const rendered = render(<Router history={history}><Sykepenger /></Router>);
+    const rendered = render(
+      <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={Status.Successfully}>
+        <Router history={history}><Sykepenger /></Router>
+      </ArbeidsgiverProvider>
+      );
 
     const inputNode = rendered.getByLabelText('Fødselsnummer til arbeidstaker');
 
@@ -113,7 +134,11 @@ describe('Sykepenger', () => {
 
     const history = createMemoryHistory();
 
-    const rendered = render(<Router history={history}><Sykepenger /></Router>);
+    const rendered = render(
+      <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={Status.Successfully}>
+        <Router history={history}><Sykepenger /></Router>
+      </ArbeidsgiverProvider>
+    );
 
     const inputNode = rendered.getByLabelText(
       'Fødselsnummer til arbeidstaker');

@@ -53,7 +53,7 @@ describe('RefusjonInput', () => {
     })
 
     it('should return a nicely formated string when input is given', () => {
-      expect(formatNumber(123456789)).toBe('123,456,789.00');
+      expect(formatNumber(123456789)).toBe('123 456 789,00');
     })
   })
 
@@ -69,7 +69,7 @@ describe('RefusjonInput', () => {
 
   it('should display initial value. English format because of lacking support in node...', () => {
     const rendered = render(<RefusjonInput beloep={1233} handleChange={{}} label={mockLabel}/>);
-    expect(rendered.queryByPlaceholderText('Beløp')?.getAttribute('value')).toBe('1,233.00')
+    expect(rendered.queryByPlaceholderText('Beløp')?.getAttribute('value')).toBe('1 233,00')
   })
 
   it('should display empty when initial value not set', () => {

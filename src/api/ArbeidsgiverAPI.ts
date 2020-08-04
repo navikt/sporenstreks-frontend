@@ -15,19 +15,29 @@ export interface ArbeidsgivereInterface {
   organisasjoner: Organisasjon[]
 }
 
+export enum Status {
+  NotStarted = 0,
+  Started = 1,
+  Successfully = 200,
+  Unknown = -2,
+  Timeout = -1,
+  Error = 500,
+  Unauthorized = 401
+}
+
 const GetArbeidsgivere = (): Promise<ArbeidsgivereInterface> => {
   return Promise.race([
 
     new Promise((resolve, reject) =>
-      setTimeout(() => reject(new Error('Timeout')), 5000)
+      setTimeout(() => reject(new Error('Timeout')), 10000)
     ).then(response => {
       return {
-        status: 0,
+        status: Status.Timeout,
         organisasjoner: []
       };
     }).catch(() => {
       return {
-        status: 0,
+        status: Status.Timeout,
         organisasjoner: []
       };
     })
@@ -40,10 +50,10 @@ const GetArbeidsgivere = (): Promise<ArbeidsgivereInterface> => {
       method: 'GET',
     }
     ).then(response => {
-      if (response.status === 200) {
+      if (response.status === Status.Successfully) {
         return response.json().then(data => {
           return {
-            status: response.status,
+            status: Status.Successfully,
             organisasjoner: mapArbeidsgiver(data)
           };
         });
@@ -54,7 +64,7 @@ const GetArbeidsgivere = (): Promise<ArbeidsgivereInterface> => {
       };
     }).catch(() => {
       return {
-        status: 500,
+        status: Status.Error,
         organisasjoner: []
       };
     }),
