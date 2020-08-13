@@ -53,7 +53,7 @@
     "less": "^3.11.3",
     "less-loader": "^5.0.0",
     "mutationobserver-shim": "^0.3.7",
-    "nav-frontend-alertstriper": "^3.0.18",
+    "nav-frontend-alertstriper": "^3.0.22",
     "nav-frontend-alertstriper-style": "^2.0.16",
     "nav-frontend-chevron": "^1.0.10",
     "nav-frontend-chevron-style": "^0.3.5",
