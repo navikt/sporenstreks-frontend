@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Knapp } from 'nav-frontend-knapper';
 import ModalWrapper from 'nav-frontend-modal';
 import { Undertittel } from 'nav-frontend-typografi';
-import { useAppStore } from '../../data/store/AppStore';
 import { isAnsatteValid, valideringAnsatte } from './ValideringAnsatte';
 import { ByggValideringsFeil } from './ByggValideringsFeil';
 import './BekreftKnapp.less';
 import InternLenke from '../felles/InternLenke';
 import KnappMedVarsel from '../felles/KnappMedVarsel';
+import { useArbeidsgiver } from '../../context/ArbeidsgiverContext';
+import { useBulk } from '../../context/BulkContext';
 
 interface bekreftKnappProps {
   onSubmit: any
@@ -16,10 +17,10 @@ interface bekreftKnappProps {
 }
 
 export const BekreftKnapp = ({ onSubmit, erklæringAkseptert, onClick }: bekreftKnappProps) => {
-  const { ansatte, setAnsatte, setFeil } = useAppStore();
-  const { firma } = useAppStore();
-  const { arbeidsgiverId } = useAppStore();
-  const { loadingStatus } = useAppStore();
+  const { ansatte, setAnsatte, setFeil } = useBulk();
+  const { firma } = useArbeidsgiver();
+  const { arbeidsgiverId } = useArbeidsgiver();
+  const { loadingStatus } = useBulk();
   const [open, setOpen] = useState<boolean>(false);
 
   const handleOpen = (evt) => {

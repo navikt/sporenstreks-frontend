@@ -1,11 +1,11 @@
 import React from 'react';
-import { useAppStore } from '../../data/store/AppStore';
 import { byggAnsatt } from './Ansatt';
 import { Normaltekst } from 'nav-frontend-typografi';
 import InternLenke from '../felles/InternLenke';
+import { useBulk } from '../../context/BulkContext';
 
 export const LeggTilKnapp = () => {
-    const { ansatte, setAnsatte } = useAppStore();
+    const { ansatte, setAnsatte } = useBulk();
     const handleAddRad = (e: React.FormEvent) => {
         e.preventDefault();
         ansatte.push(byggAnsatt())

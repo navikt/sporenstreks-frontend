@@ -13,7 +13,6 @@ interface MottattSoknadProps {
 
 export const MottattSoknad = ({ nySoknadLink }: MottattSoknadProps) => (
   <InnloggetSide>
-    <main>
       <Row>
         <Panel>
           <Innholdstittel>Søknaden er mottatt.</Innholdstittel>
@@ -26,12 +25,16 @@ export const MottattSoknad = ({ nySoknadLink }: MottattSoknadProps) => (
               Altinn
             </Lenke>
             .
-            <div>Trenger du å kontakte oss, er det tilstrekkelig å oppgi fødselsnummeret til den ansatte.</div>
+          </Normaltekst>
+        </Panel>
+        <Panel>
+          <Normaltekst>
+            <span>Trenger du å kontakte oss, er det tilstrekkelig å oppgi fødselsnummeret til den ansatte.</span>
             <Lenke
               href="https://www.nav.no/no/bedrift/tjenester-og-skjemaer/aa-registeret-og-a-meldingen/relatert-informasjon/bankkontonummer-refusjoner-fra-nav-til-arbeidsgiver">
               Har du registrert kontonummer hos NAV?</Lenke>
             <span> Hvis ikke må du gjøre det snarest.</span>
-        </Normaltekst>
+          </Normaltekst>
         </Panel>
         <Panel>
           <AlertStripeInfo>
@@ -60,6 +63,5 @@ export const MottattSoknad = ({ nySoknadLink }: MottattSoknadProps) => (
           </Normaltekst>
         </Panel>
       </Row>
-    </main>
   </InnloggetSide>
 )

@@ -1,12 +1,12 @@
 import React from 'react';
 import { FnrInput } from 'nav-frontend-skjema';
-import { useAppStore } from '../../data/store/AppStore';
 import { filterIdentityNumberInput } from '../fnr/filterIndentityNumberInput';
 import { validateAnsatteFnr } from './validateAnsatteFnr';
 import { AnsattID } from './Ansatt';
+import { useBulk } from '../../context/BulkContext';
 
 export const BulkFnr = ({ id }: AnsattID) => {
-  const { ansatte, setAnsatte } = useAppStore();
+  const { ansatte, setAnsatte } = useBulk();
   const a = ansatte.find(a => a.id === id);
   const handleChange = (evt) => {
     if (a) {

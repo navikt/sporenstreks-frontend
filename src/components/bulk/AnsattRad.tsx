@@ -4,16 +4,16 @@ import { BulkRefusjon } from './BulkRefusjon';
 import { BulkFnr } from './BulkFnr';
 import BulkVisning from './BulkVisning';
 import BulkPeriode from './BulkPeriode';
-import { useAppStore } from '../../data/store/AppStore';
 import { AnsattID, byggAnsatt } from './Ansatt';
 import { SkjemaStatus } from '../../data/types/sporenstreksTypes';
 import { ByggValideringsFeil } from './ByggValideringsFeil';
 import Slettknapp from './Slettknapp';
 import { Column, Row } from 'nav-frontend-grid';
 import RadNr from './RadNr';
+import { useBulk } from '../../context/BulkContext';
 
 export const AnsattRad = ({ id }: AnsattID) => {
-  const { ansatte, setAnsatte, setFeil } = useAppStore();
+  const { ansatte, setAnsatte, setFeil } = useBulk();
   const handleClick = (evt: FormEvent) => {
     const arr = ansatte.filter(a => a.id !== id);
     setAnsatte([...arr]);

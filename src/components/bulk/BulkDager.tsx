@@ -1,12 +1,12 @@
 import React from 'react';
 import { Select } from 'nav-frontend-skjema';
-import { useAppStore } from '../../data/store/AppStore';
 import { HjelpetekstDager } from '../dager/HjelpetekstDager';
 import validateDager from '../dager/validateDager';
 import { AnsattID } from './Ansatt';
+import { useBulk } from '../../context/BulkContext';
 
 export const BulkDager = (props: AnsattID) => {
-  const { ansatte, setAnsatte } = useAppStore();
+  const { ansatte, setAnsatte } = useBulk();
   const a = ansatte.find(a => a.id === props.id);
   const handleChange = (evt) => {
     if (a) {

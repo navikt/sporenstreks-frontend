@@ -1,12 +1,11 @@
 import '@testing-library/jest-dom'
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import { Ansatt } from '../../data/types/sporenstreksTypes';
-import * as appStore from '../../data/store/AppStore';
 
 import BulkDager from './BulkDager';
+import { BulkProvider } from '../../context/BulkContext';
+import { Ansatt } from './Ansatt';
 
-const mockSettAnsatte = jest.fn();
 const mockAnsatte: Ansatt[] = [
   {
     id: 0,
@@ -27,28 +26,32 @@ const mockAnsatte: Ansatt[] = [
   }
 ];
 
-jest.spyOn(appStore, 'useAppStore').mockReturnValue({
-  unleash: jest.fn(),
-  ansatte: mockAnsatte,
-  setAnsatte: mockSettAnsatte
-});
-
 describe('BulkDager', () => {
   it('should display the component with a warning', () => {
-    const component = render(<BulkDager id={1} />);
+    const component = render(
+      <BulkProvider ansatte={mockAnsatte}>
+        <BulkDager id={1} />
+      </BulkProvider>
+    );
     expect(component.queryAllByText('DagerError').length).toEqual(1);
   });
 
   it('should display the component without a warning', () => {
-    const component = render(<BulkDager id={0} />);
+    const component = render(<BulkProvider><BulkDager id={0} /></BulkProvider>);
     expect(component.queryAllByText('DagerError').length).toEqual(0);
   });
 
   it('should update ansatte when a seletion is made', () => {
-    const component = render(<BulkDager id={0} />);
+
+    const component = render(
+      <BulkProvider ansatte={mockAnsatte}>
+        <BulkDager id={0} />
+      </BulkProvider>
+    );
     const expected = [
       {
         'antallDagerMedRefusjon': 5,
+        'dagerError': undefined,
         'fnr': '1',
         'fom': '2020-02-02',
         'id': 0, 'oppdatert': 1,
@@ -69,6 +72,6 @@ describe('BulkDager', () => {
     const selectBox = component.getByRole('combobox');
 
     fireEvent.change(selectBox, { target: { value: '5' } })
-    expect(mockSettAnsatte).toHaveBeenCalledWith(expected);
+    expect(mockAnsatte).toEqual(expected);
   });
 });

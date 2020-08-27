@@ -2,12 +2,13 @@ import '@testing-library/jest-dom'
 import React from 'react'
 import { render, screen, act } from '@testing-library/react'
 import { MemoryRouter, Route } from 'react-router-dom'
-import { useAppStore } from '../data/store/AppStore';
 import ExcelOpplasting from './ExcelOpplasting';
 import userEvent from '@testing-library/user-event';
 import KvitteringExcel from './KvitteringExcel';
+import { Status } from '../api/ArbeidsgiverAPI';
+import { ArbeidsgiverProvider } from '../context/ArbeidsgiverContext';
+import AppStoreProvider, { useAppStore } from '../context/AppStoreContext';
 
-jest.mock('../data/store/AppStore');
 const mockArbeidsgiverValues =
   [{
     Name: 'Navn',
@@ -65,21 +66,6 @@ const mockFile = new File(['(⌐□_□)'], 'fil.xlsx', { type: 'application/vnd
 const setTokenExpired = jest.fn();
 
 describe('ExcelOpplasting', () => {
-  let mockUseAppStore;
-
-  beforeEach(() => {
-    mockUseAppStore = useAppStore as jest.Mock;
-    mockUseAppStore.mockReturnValue({
-      arbeidsgivere: mockArbeidsgiverValues,
-      setTokenExpired: setTokenExpired,
-      tokenExpired: false
-    });
-
-  })
-
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
 
   it('uploads file and redirects to kvittering when file is valid', async () => {
 
@@ -94,10 +80,15 @@ describe('ExcelOpplasting', () => {
       );
 
     const view = render(
-        <MemoryRouter initialEntries={['/excel']}>
-          <Route path='/excel'><ExcelOpplasting/></Route>
-          <Route path='/kvitteringExcel'><KvitteringExcel/></Route>
-        </MemoryRouter>);
+      <AppStoreProvider tokenExpired={false}>
+        <ArbeidsgiverProvider arbeidsgivere={mockArbeidsgiverValues} status={Status.Successfully}>
+          <MemoryRouter initialEntries={['/excel']}>
+            <Route path='/excel'><ExcelOpplasting/></Route>
+            <Route path='/excel/kvittering'><KvitteringExcel/></Route>
+          </MemoryRouter>
+        </ArbeidsgiverProvider>
+      </AppStoreProvider>
+        );
 
       const uploadButton = view.getByLabelText(/Last opp utfylt Excel-mal/);
 
@@ -133,7 +124,13 @@ describe('ExcelOpplasting', () => {
       })
     );
 
-    const view = render(<MemoryRouter><ExcelOpplasting/></MemoryRouter>);
+    const view = render(
+      <AppStoreProvider tokenExpired={false}>
+        <ArbeidsgiverProvider arbeidsgivere={mockArbeidsgiverValues} status={Status.Successfully}>
+          <MemoryRouter><ExcelOpplasting/></MemoryRouter>
+        </ArbeidsgiverProvider>
+      </AppStoreProvider>
+    );
     const uploadButton = view.getByLabelText(/Last opp utfylt Excel-mal/);
     userEvent.upload(uploadButton, mockFile)
 
@@ -166,7 +163,13 @@ describe('ExcelOpplasting', () => {
       })
     );
 
-    const view = render(<MemoryRouter><ExcelOpplasting/></MemoryRouter>);
+    const view = render(
+      <AppStoreProvider tokenExpired={false}>
+        <ArbeidsgiverProvider arbeidsgivere={mockArbeidsgiverValues} status={Status.Successfully}>
+          <MemoryRouter><ExcelOpplasting/></MemoryRouter>
+        </ArbeidsgiverProvider>
+      </AppStoreProvider>
+    );
     const uploadButton = view.getByLabelText(/Last opp utfylt Excel-mal/);
     userEvent.upload(uploadButton, mockFile)
 
@@ -183,13 +186,17 @@ describe('ExcelOpplasting', () => {
     // @ts-ignore
     await act(() => jsonPromise)
 
-    expect(setTokenExpired).toHaveBeenCalledTimes(2);
-    expect(setTokenExpired).toHaveBeenLastCalledWith(true);
     expect(screen.getByText('Du har blitt logget ut. Vennligst prøv på nytt etter innlogging.')).toBeInTheDocument();
   })
 
   it('disables submit when Erklæring is unchecked', () => {
-    const view = render(<MemoryRouter><ExcelOpplasting/></MemoryRouter>);
+    const view = render(
+      <AppStoreProvider tokenExpired={false}>
+        <ArbeidsgiverProvider arbeidsgivere={mockArbeidsgiverValues} status={Status.Successfully}>
+          <MemoryRouter><ExcelOpplasting/></MemoryRouter>
+        </ArbeidsgiverProvider>
+      </AppStoreProvider>
+    );
     const uploadButton = view.getByLabelText(/Last opp utfylt Excel-mal/);
 
     userEvent.upload(uploadButton, mockFile)
@@ -213,7 +220,13 @@ describe('ExcelOpplasting', () => {
       type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     } as unknown as File
 
-    const view = render(<MemoryRouter><ExcelOpplasting/></MemoryRouter>);
+    const view = render(
+      <AppStoreProvider tokenExpired={false}>
+        <ArbeidsgiverProvider arbeidsgivere={mockArbeidsgiverValues} status={Status.Successfully}>
+          <MemoryRouter><ExcelOpplasting/></MemoryRouter>
+        </ArbeidsgiverProvider>
+      </AppStoreProvider>
+    );
     const uploadButton = view.getByLabelText(/Last opp utfylt Excel-mal/);
 
     userEvent.upload(uploadButton, mockFile);
