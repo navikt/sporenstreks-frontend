@@ -24,6 +24,7 @@ import HjelpetekstRefusjon from '../refusjon/HjelpetekstRefusjon';
 import { useArbeidsgiver } from '../../context/ArbeidsgiverContext';
 import { useBulk } from '../../context/BulkContext';
 import { useAppStore } from '../../context/AppStoreContext';
+import { Linker } from '../../pages/Linker';
 
 
 const Ansatte: React.FC = () => {
@@ -46,7 +47,7 @@ const Ansatte: React.FC = () => {
       setFeil([])
 
     }
-    history.push('/bulk/kvittering')
+    history.push(Linker.BulkKvittering)
   };
   const handleSubmit = (evt: React.FormEvent) => {
     evt.preventDefault();
@@ -68,10 +69,10 @@ const Ansatte: React.FC = () => {
               </Undertittel>
           <Normaltekst>
             Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
-                <InternLenke to="/enkel/"> skal du bruke et eget skjema som du finner her.</InternLenke>
+                <InternLenke to={Linker.Enkel}> skal du bruke et eget skjema som du finner her.</InternLenke>
           </Normaltekst>
           <Normaltekst>
-            Har dere svært mange ansatte kan det om ønskelig <InternLenke to="/excel/">benyttes Excel-opplasting.</InternLenke>
+            Har dere svært mange ansatte kan det om ønskelig <InternLenke to={Linker.Excel}>benyttes Excel-opplasting.</InternLenke>
           </Normaltekst>
         </Container>
         <div>

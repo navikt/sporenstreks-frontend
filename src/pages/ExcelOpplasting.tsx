@@ -21,6 +21,7 @@ import KnappMedVarsel from '../components/felles/KnappMedVarsel';
 import { CoronaTopptekst } from '../components/felles/CoronaTopptekst';
 import LoggetUtAdvarsel from '../components/login/LoggetUtAdvarsel';
 import { useAppStore } from '../context/AppStoreContext';
+import { Linker } from './Linker';
 
 
 const ExcelOpplasting = () => {
@@ -42,7 +43,7 @@ const ExcelOpplasting = () => {
       const responsFeil = await innsendingExcelFil(file, setTokenExpired)
       if (responsFeil.length === 0) {
         setFeil([])
-        history.push('/excel/kvittering')
+        history.push(Linker.EnkelKvittering)
       } else {
         setFeil(responsFeil)
       }
@@ -76,12 +77,12 @@ const ExcelOpplasting = () => {
             <Panel>
               <Normaltekst>
                 Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
-              <InternLenke to="/enkel">
+              <InternLenke to={Linker.Enkel}>
                   &nbsp;skal du bruke et eget skjema
               </InternLenke>.
               Excel-opplasting er tiltenkt dere som har svært mange refusjonskrav.
               Vi har også et &nbsp;
-              <InternLenke to="/bulk">
+              <InternLenke to={Linker.Bulk}>
                   eget skjema for å søke om refusjonskrav for flere ansatte
               </InternLenke>
               &nbsp; dersom dere foretrekker å gjøre det på den måten.

@@ -27,6 +27,7 @@ import { Erklaring } from '../components/felles/Erklaring';
 import Vis from '../components/felles/Vis';
 import { fnrErrorState, useEnkelSkjema } from '../context/EnkelContext';
 import { useAppStore } from '../context/AppStoreContext';
+import { Linker } from './Linker';
 
 
 
@@ -92,7 +93,7 @@ const Sykepenger = () => {
           } else if (response.status === 200) {
             response.json().then(data => {
               setReferanseNummer(data.referansenummer);
-              history.push('/enkel/kvittering')
+              history.push(Linker.EnkelKvittering)
             })
           } else if (response.status === 422) {
             response.json().then(data => {
@@ -168,9 +169,9 @@ const Sykepenger = () => {
                     </Undertittel>
 
                   <Normaltekst>
-                    Vi har også et eget <InternLenke to="/bulk/"> skjema for å sende inn flere ansatte samtidig </InternLenke>
+                    Vi har også et eget <InternLenke to={Linker.Bulk}> skjema for å sende inn flere ansatte samtidig </InternLenke>
                       (kun enkeltperioder per ansatt), og for dere som har mer enn 50 ansatte å rapportere inn har vi
-                      mulighet for <InternLenke to="/excel/"> excel-opplasting av kravet.</InternLenke>
+                      mulighet for <InternLenke to={Linker.Excel}> excel-opplasting av kravet.</InternLenke>
                   </Normaltekst>
 
                   <div>&nbsp;</div>
