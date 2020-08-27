@@ -138,6 +138,8 @@ const ExcelOpplasting = () => {
             </Panel>
           </Column>
         </Row>
+
+
         <Row className="send-soknad">
           <Column>
             <Panel>
