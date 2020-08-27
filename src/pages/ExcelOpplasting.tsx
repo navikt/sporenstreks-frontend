@@ -129,6 +129,8 @@ const ExcelOpplasting = () => {
           </Column>
         </Row>
 
+        qwe
+
         <Skillelinje />
 
         <Row>
