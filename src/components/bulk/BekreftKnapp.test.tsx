@@ -97,11 +97,8 @@ describe('BekreftKnapp', () => {
 
     const button = screen.getByText(/Send søknad om refusjon/);
 
-    act(() => {
-      fireEvent.click(button);
-    });
+    fireEvent.click(button);
 
-    // expect(mockSetFeil).toHaveBeenCalledWith([]);
     expect(mockOnClick).toHaveBeenCalled();
     expect(screen.getByText(/Organisasjonsnummer/)).toBeInTheDocument();
     expect(mockOnSubmmit).not.toHaveBeenCalled();

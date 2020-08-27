@@ -43,7 +43,7 @@ const ExcelOpplasting = () => {
       const responsFeil = await innsendingExcelFil(file, setTokenExpired)
       if (responsFeil.length === 0) {
         setFeil([])
-        history.push(Linker.EnkelKvittering)
+        history.push(Linker.ExcelKvittering)
       } else {
         setFeil(responsFeil)
       }
