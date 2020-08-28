@@ -50,11 +50,13 @@ const BulkPeriode = (props: AnsattID) => {
       id="periode"
       placeholder='dd.mm.yyyy til dd.mm.yyyy'
       className={'skjemaelement__input periode'}
+      value={[a?.fom, a?.tom]}
       options={{
         minDate: min,
         maxDate: max,
         mode: 'range',
         enableTime: false,
+        defaultDate: [a?.fom, a?.tom],
         dateFormat: 'd.m.Y',
         altInput: true,
         altFormat: 'd.m.Y',

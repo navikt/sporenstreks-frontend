@@ -19,6 +19,7 @@ export const BulkDager = (props: AnsattID) => {
   return (
     <Select
       id={'dager_' + props.id}
+      placeholder='Antall dager'
       feil={a?.dagerError}
       onChange={handleChange}
       label={
@@ -26,6 +27,7 @@ export const BulkDager = (props: AnsattID) => {
           Antall dager:
           <HjelpetekstDager/>
         </div>}
+      value={a?.antallDagerMedRefusjon}
       selected={a?.antallDagerMedRefusjon}>
       {
         optionArr.map(optionValue => <option key={optionValue} value={optionValue}>
