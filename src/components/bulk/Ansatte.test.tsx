@@ -39,7 +39,7 @@ describe('Ansatte', () => {
         </ArbeidsgiverProvider>
       </AppStoreProvider>
     );
-    expect(screen.getByRole('link', { name: 'skal du bruke et eget skjema som du finner her.' }).href).toEqual('http://localhost/enkel')
+    expect(screen.getByRole('link', { name: 'skal du bruke et eget skjema som du finner her.' }).href).toEqual('http://localhost/enkel/')
     expect(screen.getByRole('link', { name: 'benyttes Excel-opplasting.' }).href).toEqual('http://localhost/excel/')
 
 

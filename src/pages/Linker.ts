@@ -3,9 +3,9 @@
 export enum Linker {
   Home = '/',
   LoginFornyet = '/loginFornyet',
-  Enkel = '/enkel',
+  Enkel = '/enkel/',
   EnkelKvittering = '/enkel/kvittering',
-  Bulk = '/bulk',
+  Bulk = '/bulk/',
   BulkKvittering = '/bulk/kvittering',
   Excel = '/excel/',
   ExcelKvittering = '/excel/kvittering'

@@ -192,4 +192,15 @@ describe('Sykepenger', () => {
     expect(screen.queryAllByText(/Antall dager må fylles ut/).length).toBe(2);
     expect(screen.queryAllByText(/Beløp må fylles ut/).length).toBe(2);
   });
+
+  it('show links to the other forms', async () => {
+    const history = createMemoryHistory();
+    render(
+      <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={Status.Successfully}>
+        <Router history={history}><Sykepenger /></Router>
+      </ArbeidsgiverProvider>
+    );
+    expect(screen.getByRole('link', { name: 'skjema for å sende inn flere ansatte samtidig' }).href).toEqual('http://localhost/bulk/')
+    expect(screen.getByRole('link', { name: 'excel-opplasting av kravet.' }).href).toEqual('http://localhost/excel/')
+  });
 });

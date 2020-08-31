@@ -239,5 +239,18 @@ describe('ExcelOpplasting', () => {
     expect(view.getByText(/Følgende feil i dokumentet må utbedres før du laster det opp på nytt/)).toBeInTheDocument();
     expect(view.getByText('Du kan ikke laste opp filer større enn 250 kB.')).toBeInTheDocument();
   })
+
+  it('show links to the other forms', async () => {
+    const view = render(
+      <AppStoreProvider tokenExpired={false}>
+        <ArbeidsgiverProvider arbeidsgivere={mockArbeidsgiverValues} status={Status.Successfully}>
+          <MemoryRouter><ExcelOpplasting/></MemoryRouter>
+        </ArbeidsgiverProvider>
+      </AppStoreProvider>
+    );
+    expect(screen.getByRole('link', { name: 'skal du bruke et eget skjema' }).href).toEqual('http://localhost/enkel/')
+    expect(screen.getByRole('link', { name: 'eget skjema for å søke om refusjonskrav for flere ansatte' }).href).toEqual('http://localhost/bulk/')
+  });
+
 });
 
