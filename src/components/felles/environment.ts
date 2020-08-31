@@ -25,6 +25,14 @@ class Environment {
     }
   }
 
+  get downloadUrl() {
+    switch (this.environmentMode) {
+      case EnvironmentType.PROD : return 'https://arbeidsgiver.nav.no/nettrefusjon';
+      case EnvironmentType.PREPROD : return 'https://arbeidsgiver-q.nav.no/nettrefusjon';
+      default : return 'http://localhost:8080';
+    }
+  }
+
   get baseUrl() {
     switch (this.environmentMode) {
       case EnvironmentType.PROD : return 'https://arbeidsgiver.nav.no/nettrefusjon';

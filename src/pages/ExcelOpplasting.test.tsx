@@ -252,5 +252,16 @@ describe('ExcelOpplasting', () => {
     expect(screen.getByRole('link', { name: 'eget skjema for å søke om refusjonskrav for flere ansatte' }).href).toEqual('http://localhost/bulk/')
   });
 
+  it('show download link for template', async () => {
+    const view = render(
+      <AppStoreProvider tokenExpired={false}>
+        <ArbeidsgiverProvider arbeidsgivere={mockArbeidsgiverValues} status={Status.Successfully}>
+          <MemoryRouter><ExcelOpplasting/></MemoryRouter>
+        </ArbeidsgiverProvider>
+      </AppStoreProvider>
+    );
+    expect(screen.getByRole('link', { name: 'Last ned malen her' }).href).toEqual('http://localhost:8080/api/v1/bulk/template')
+  });
+
 });
 

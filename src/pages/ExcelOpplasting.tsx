@@ -94,7 +94,7 @@ const ExcelOpplasting = () => {
                   width="35"
                   className="excelopplasting__excellogo"
                   alt="Excel-symbol" />
-                <Lenke href={env.baseUrl + '/api/v1/bulk/template'}>
+                <Lenke href={env.downloadUrl + '/api/v1/bulk/template'}>
                   Last ned malen her</Lenke>, og fyll ut.
               Det er ikke mulig å benytte ditt eget excel-dokument,
               alt må fylles ut i denne malen før du laster opp.
