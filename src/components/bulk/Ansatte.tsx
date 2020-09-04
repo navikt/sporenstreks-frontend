@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './Ansatte.less';
-import { useAppStore } from '../../data/store/AppStore';
 import { AnsattRad } from './AnsattRad';
 import { valideringAnsatte } from './ValideringAnsatte';
 import { ByggValideringsFeil } from './ByggValideringsFeil';
@@ -22,10 +21,16 @@ import InternLenke from '../felles/InternLenke';
 import { HjelpetekstPeriode } from '../periode/HjelpetekstPeriode';
 import { HjelpetekstDager } from '../dager/HjelpetekstDager';
 import HjelpetekstRefusjon from '../refusjon/HjelpetekstRefusjon';
+import { useArbeidsgiver } from '../../context/ArbeidsgiverContext';
+import { useBulk } from '../../context/BulkContext';
+import { useAppStore } from '../../context/AppStoreContext';
+import { Linker } from '../../pages/Linker';
 
 
 const Ansatte: React.FC = () => {
-  const { ansatte, setAnsatte, feil, setFeil, arbeidsgiverId, setLoadingStatus, setTokenExpired } = useAppStore();
+  const { arbeidsgiverId } = useArbeidsgiver();
+  const { ansatte, setAnsatte, feil, setFeil, setLoadingStatus } = useBulk();
+  const { setTokenExpired } = useAppStore();
   const history: History = useHistory();
   const [erklæringAkseptert, setErklæringAkseptert] = useState<boolean>(false);
   const [harTrykketSubmitMinstEnGang, setHarTrykketSubmitMinstEnGang] = useState<boolean>(false);
@@ -40,8 +45,9 @@ const Ansatte: React.FC = () => {
     if (!innsendteAnsatte.find((ansatt: Ansatt) => !ansatt.referenceNumber)) {
       setAnsatte([byggAnsatt()])
       setFeil([])
-      history.push('/kvitteringBulk')
+
     }
+    history.push(Linker.BulkKvittering)
   };
   const handleSubmit = (evt: React.FormEvent) => {
     evt.preventDefault();
@@ -63,10 +69,10 @@ const Ansatte: React.FC = () => {
               </Undertittel>
           <Normaltekst>
             Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
-                <InternLenke to="/enkel/"> skal du bruke et eget skjema som du finner her.</InternLenke>
+                <InternLenke to={Linker.Enkel}> skal du bruke et eget skjema som du finner her.</InternLenke>
           </Normaltekst>
           <Normaltekst>
-            Har dere svært mange ansatte kan det om ønskelig <InternLenke to="/excel/">benyttes Excel-opplasting.</InternLenke>
+            Har dere svært mange ansatte kan det om ønskelig <InternLenke to={Linker.Excel}>benyttes Excel-opplasting.</InternLenke>
           </Normaltekst>
         </Container>
         <div>
@@ -127,16 +133,16 @@ const Ansatte: React.FC = () => {
             </Panel>
           </Column>
         </Row>
-
-        <Row className="send-soknad">
-          <Column>
-            <Panel>
-              <BekreftKnapp onSubmit={handleBekreftSubmit} onClick={handleBekreftKlikk} erklæringAkseptert={erklæringAkseptert} />
-              <Advarsler erklæringAkseptert={erklæringAkseptert} harFeil={feil.length > 0} visFeil={harTrykketSubmitMinstEnGang} />
-            </Panel>
-          </Column>
-        </Row>
       </form>
+
+      <Row className="send-soknad">
+        <Column>
+          <Panel>
+            <BekreftKnapp onSubmit={handleBekreftSubmit} onClick={handleBekreftKlikk} erklæringAkseptert={erklæringAkseptert} />
+            <Advarsler erklæringAkseptert={erklæringAkseptert} harFeil={feil.length > 0} visFeil={harTrykketSubmitMinstEnGang} />
+          </Panel>
+        </Column>
+      </Row>
       <LoggetUtAdvarsel />
     </div>
   );

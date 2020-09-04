@@ -100,4 +100,18 @@ describe('InnsendingExcelFil', () => {
 
     expect(await InnsendingExcelFil(file, jest.fn())).toEqual([{ indeks: -1, melding: 'Feil ved innsending av skjema.' }]);
   });
+
+  it('returns an error message when 401 and fires setTokenExpired', async () => {
+    mock.post(mockUrl, ResponseUtils.combine(
+      ResponseUtils.statusCode(401),
+      response500
+    ));
+
+    const setTokenExpired = jest.fn();
+
+    expect(await InnsendingExcelFil(file, setTokenExpired)).toEqual(
+      [{ indeks: -1, melding: 'Du har blitt logget ut. Vennligst prøv på nytt etter innlogging.' }]);
+    expect(setTokenExpired).toHaveBeenCalledTimes(2);
+    expect(setTokenExpired).toHaveBeenLastCalledWith(true);
+  });
 });

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import ModalWrapper from 'nav-frontend-modal';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { Innholdstittel } from 'nav-frontend-typografi';
-import { useAppStore } from '../../data/store/AppStore';
 import env from '../felles/environment';
 import InternLenke from '../felles/InternLenke';
+import { useAppStore } from '../../context/AppStoreContext';
 
 const LoggetUtAdvarsel = () => {
   const [ isOpen, setOpen ] = useState(true);

@@ -1,12 +1,12 @@
 import React from 'react';
-import { useAppStore } from '../../data/store/AppStore';
 import validateRefusjon from '../refusjon/validateRefusjon';
 import { RefusjonInput } from '../refusjon/RefusjonInput';
 import HjelpetekstRefusjon from '../refusjon/HjelpetekstRefusjon';
 import { AnsattID } from './Ansatt';
+import { useBulk } from '../../context/BulkContext';
 
 export const BulkRefusjon = (props: AnsattID) => {
-  const { ansatte, setAnsatte } = useAppStore();
+  const { ansatte, setAnsatte } = useBulk();
   const a = ansatte.find(a => a.id === props.id);
 
   const handleChange = (val: number) => {

@@ -1,5 +1,4 @@
 import React from 'react';
-import { useAppStore } from '../../data/store/AppStore';
 import dayjs from 'dayjs';
 import Flatpickr from 'react-flatpickr';
 import { Norwegian } from 'flatpickr/dist/l10n/no.js';
@@ -8,9 +7,10 @@ import { Label, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
 import { HjelpetekstPeriode } from '../periode/HjelpetekstPeriode';
 import { validatePerioder } from './validatePerioder';
 import { AnsattID } from './Ansatt';
+import { useBulk } from '../../context/BulkContext';
 
 const BulkPeriode = (props: AnsattID) => {
-  const { ansatte, setAnsatte } = useAppStore();
+  const { ansatte, setAnsatte } = useBulk();
   const a = ansatte.find(a => a.id === props.id);
   let errorClass = '';
   const handleClose = (selectedDates) => {
@@ -50,11 +50,13 @@ const BulkPeriode = (props: AnsattID) => {
       id="periode"
       placeholder='dd.mm.yyyy til dd.mm.yyyy'
       className={'skjemaelement__input periode'}
+      value={[a?.fom, a?.tom]}
       options={{
         minDate: min,
         maxDate: max,
         mode: 'range',
         enableTime: false,
+        defaultDate: [a?.fom, a?.tom],
         dateFormat: 'd.m.Y',
         altInput: true,
         altFormat: 'd.m.Y',

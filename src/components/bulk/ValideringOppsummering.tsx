@@ -1,9 +1,9 @@
 import { Feiloppsummering } from 'nav-frontend-skjema';
 import React from 'react';
-import { useAppStore } from '../../data/store/AppStore';
+import { useBulk } from '../../context/BulkContext';
 
 export const ValideringOppsummering = () => {
-    const { feil } = useAppStore();
+    const { feil } = useBulk();
     if (feil.length === 0) {
         return <></>
     }

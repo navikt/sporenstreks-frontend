@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import 'nav-frontend-tabell-style';
 import { FormContext, useForm } from 'react-hook-form';
 import {  useHistory } from 'react-router-dom';
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import { Feilmelding, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { History } from 'history';
 import Vis from '../components/felles/Vis';
@@ -19,9 +19,9 @@ import { Column, Row } from 'nav-frontend-grid';
 import InternLenke from '../components/felles/InternLenke';
 import KnappMedVarsel from '../components/felles/KnappMedVarsel';
 import { CoronaTopptekst } from '../components/felles/CoronaTopptekst';
-import TimeoutAdvarsel from '../components/login/TimeoutAdvarsel';
 import LoggetUtAdvarsel from '../components/login/LoggetUtAdvarsel';
-import { useAppStore } from '../data/store/AppStore';
+import { useAppStore } from '../context/AppStoreContext';
+import { Linker } from './Linker';
 
 
 const ExcelOpplasting = () => {
@@ -43,7 +43,7 @@ const ExcelOpplasting = () => {
       const responsFeil = await innsendingExcelFil(file, setTokenExpired)
       if (responsFeil.length === 0) {
         setFeil([])
-        history.push('/kvitteringExcel')
+        history.push(Linker.ExcelKvittering)
       } else {
         setFeil(responsFeil)
       }
@@ -67,8 +67,6 @@ const ExcelOpplasting = () => {
 
   return (
     <InnloggetSide>
-      <main>
-        <TimeoutAdvarsel/>
         <CoronaTopptekst />
         <Skillelinje />
         <Row>
@@ -79,12 +77,12 @@ const ExcelOpplasting = () => {
             <Panel>
               <Normaltekst>
                 Har du ansatte som har vært borte i to eller flere ikke-sammenhengende perioder
-              <InternLenke to="/enkel">
+              <InternLenke to={Linker.Enkel}>
                   &nbsp;skal du bruke et eget skjema
               </InternLenke>.
               Excel-opplasting er tiltenkt dere som har svært mange refusjonskrav.
               Vi har også et &nbsp;
-              <InternLenke to="/bulk">
+              <InternLenke to={Linker.Bulk}>
                   eget skjema for å søke om refusjonskrav for flere ansatte
               </InternLenke>
               &nbsp; dersom dere foretrekker å gjøre det på den måten.
@@ -96,7 +94,7 @@ const ExcelOpplasting = () => {
                   width="35"
                   className="excelopplasting__excellogo"
                   alt="Excel-symbol" />
-                <Lenke href={env.baseUrl + '/api/v1/bulk/template'}>
+                <Lenke href={env.downloadUrl + '/api/v1/bulk/template'}>
                   Last ned malen her</Lenke>, og fyll ut.
               Det er ikke mulig å benytte ditt eget excel-dokument,
               alt må fylles ut i denne malen før du laster opp.
@@ -150,10 +148,10 @@ const ExcelOpplasting = () => {
                       </KnappMedVarsel>
                   <Vis hvis={hasTriedSubmit}>
                     <Vis hvis={!erklæringAkseptert}>
-                      <Normaltekst className="advarsel">Du må huke av erklæringen før du kan sende inn</Normaltekst>
+                      <Feilmelding className="advarsel">Du må huke av erklæringen før du kan sende inn</Feilmelding>
                     </Vis>
                     <Vis hvis={file === undefined}>
-                      <Normaltekst className="advarsel">Du må laste opp Excel-skjemaet som skal sendes inn</Normaltekst>
+                      <Feilmelding className="advarsel">Du må laste opp Excel-skjemaet som skal sendes inn</Feilmelding>
                     </Vis>
                   </Vis>
                 </form>
@@ -161,7 +159,6 @@ const ExcelOpplasting = () => {
             </Panel>
           </Column>
         </Row>
-      </main>
       <LoggetUtAdvarsel/>
     </InnloggetSide>
   );

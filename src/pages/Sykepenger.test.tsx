@@ -1,15 +1,14 @@
 import '@testing-library/jest-dom'
 import React from 'react'
-import { render, fireEvent, screen, act } from '@testing-library/react'
+import { render, fireEvent, screen } from '@testing-library/react'
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
-import { useAppStore } from '../data/store/AppStore';
+import { ArbeidsgiverProvider } from '../context/ArbeidsgiverContext';
+import Sykepenger from './Sykepenger'
+import { Status } from '../api/ArbeidsgiverAPI';
+import { act } from 'react-dom/test-utils';
+import EnkelProvider from '../context/EnkelContext';
 
-import Sykepenger from './Sykepenger';
-
-jest.mock('../data/store/AppStore');
-
-const mockUseAppStore = useAppStore as jest.Mock
 const mockArbeidsgiverValues = {
   arbeidsgivere: [{
     Name: 'Navn',
@@ -36,38 +35,68 @@ const mockArbeidsgiverValues = {
   setReferanseNummer: jest.fn()
 };
 
+const arbeidsgivere = [{
+    Name: 'Navn',
+    Type: 'Type',
+    OrganizationNumber: '123456789',
+    OrganizationForm: 'oform',
+    Status: 'Status',
+    ParentOrganizationNumber: '3333344444'
+  }, {
+    Name: 'Navn',
+    Type: 'Type',
+    OrganizationNumber: '223456789',
+    OrganizationForm: 'oform',
+    Status: 'Status',
+    ParentOrganizationNumber: '3333344444'
+  }, {
+    Name: 'Navn3',
+    Type: 'Type',
+    OrganizationNumber: '323456789',
+    OrganizationForm: 'oform',
+    Status: 'Status',
+    ParentOrganizationNumber: '3333344444'
+  }]
+
 describe('Sykepenger', () => {
   it('should show warning when arbeidsgiver contains no data', () => {
-    mockUseAppStore.mockReturnValue({
-      arbeidsgivere: [],
-      setReferanseNummer: jest.fn()
-    });
 
     const history = createMemoryHistory();
-
-    const rendered = render(<Router history={history}><Sykepenger /></Router>);
+    const rendered = render(
+      <ArbeidsgiverProvider arbeidsgivere={[]} status={Status.Successfully}>
+        <EnkelProvider>
+          <Router history={history}><Sykepenger /></Router>
+        </EnkelProvider>
+      </ArbeidsgiverProvider>
+    );
 
     expect(rendered.getByText('Du har ikke rettigheter til å søke om refusjon for noen bedrifter')).toBeTruthy();
   });
 
   it('should show infotext when arbeidsgiver has data', () => {
-    mockUseAppStore.mockReturnValue(mockArbeidsgiverValues);
 
     const history = createMemoryHistory();
-
-    const rendered = render(<Router history={history}><Sykepenger /></Router>);
+    const rendered = render(
+      <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={Status.Successfully}>
+        <Router history={history}><Sykepenger /></Router>
+      </ArbeidsgiverProvider>
+    );
 
     expect(rendered.getByText(
-      'Hvor mange arbeidsdager gikk tapt?'
-    )).toBeInTheDocument();
+      'Når sykefraværet handler om korona, dekker NAV sykepenger fra dag 4 i de 16 dagene arbeidsgiveren vanligvis ' +
+      'skal betale. Den ansatte må være smittet, mistenkt smittet eller i pålagt karantene. Refusjon kan gis for dager ' +
+      'fra og med 16. mars.'
+    )).toBeTruthy();
   });
 
   it('gives warning on missing fødselsnummer', () => {
-    mockUseAppStore.mockReturnValue(mockArbeidsgiverValues);
 
     const history = createMemoryHistory();
-
-    const rendered = render(<Router history={history}><Sykepenger /></Router>);
+    const rendered = render(
+      <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={Status.Successfully}>
+      <Router history={history}><Sykepenger /></Router>
+      </ArbeidsgiverProvider>
+    );
 
     const inputNode = rendered.getByLabelText('Fødselsnummer til arbeidstaker');
 
@@ -77,11 +106,15 @@ describe('Sykepenger', () => {
   });
 
   it('gives warning on short fødselsnummer', () => {
-    mockUseAppStore.mockReturnValue(mockArbeidsgiverValues);
 
     const history = createMemoryHistory();
-
-    const rendered = render(<Router history={history}><Sykepenger /></Router>);
+    const rendered = render(
+      <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={Status.Successfully}>
+        <EnkelProvider>
+          <Router history={history}><Sykepenger /></Router>
+        </EnkelProvider>
+      </ArbeidsgiverProvider>
+    );
 
     const inputNode = rendered.getByLabelText('Fødselsnummer til arbeidstaker');
 
@@ -93,11 +126,15 @@ describe('Sykepenger', () => {
   });
 
   it('gives warning on invalid fødselsnummer', () => {
-    mockUseAppStore.mockReturnValue(mockArbeidsgiverValues);
 
     const history = createMemoryHistory();
-
-    const rendered = render(<Router history={history}><Sykepenger /></Router>);
+    const rendered = render(
+      <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={Status.Successfully}>
+        <EnkelProvider>
+          <Router history={history}><Sykepenger /></Router>
+        </EnkelProvider>
+      </ArbeidsgiverProvider>
+      );
 
     const inputNode = rendered.getByLabelText('Fødselsnummer til arbeidstaker');
 
@@ -109,11 +146,14 @@ describe('Sykepenger', () => {
   });
 
   it('gives warning on invalid fødselsnummer', () => {
-    mockUseAppStore.mockReturnValue(mockArbeidsgiverValues);
 
     const history = createMemoryHistory();
 
-    const rendered = render(<Router history={history}><Sykepenger /></Router>);
+    const rendered = render(
+      <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={Status.Successfully}>
+        <Router history={history}><Sykepenger /></Router>
+      </ArbeidsgiverProvider>
+    );
 
     const inputNode = rendered.getByLabelText(
       'Fødselsnummer til arbeidstaker');
@@ -129,11 +169,13 @@ describe('Sykepenger', () => {
 
   it('should not submit when data is missing, but in stead give error', async () => {
 
-    mockUseAppStore.mockReturnValue(mockArbeidsgiverValues);
-
     const history = createMemoryHistory();
 
-    render(<Router history={history}><Sykepenger /></Router>);
+    render(
+      <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={Status.Successfully}>
+        <Router history={history}><Sykepenger /></Router>
+      </ArbeidsgiverProvider>
+    );
 
     const erklarerCheck = screen.getByText('Vi erklærer:');
 
@@ -149,5 +191,16 @@ describe('Sykepenger', () => {
     expect(screen.queryAllByText(/Periode må fylles ut/).length).toBe(2);
     expect(screen.queryAllByText(/Antall dager må fylles ut/).length).toBe(2);
     expect(screen.queryAllByText(/Beløp må fylles ut/).length).toBe(2);
+  });
+
+  it('show links to the other forms', async () => {
+    const history = createMemoryHistory();
+    render(
+      <ArbeidsgiverProvider arbeidsgivere={arbeidsgivere} status={Status.Successfully}>
+        <Router history={history}><Sykepenger /></Router>
+      </ArbeidsgiverProvider>
+    );
+    expect(screen.getByRole('link', { name: 'skjema for å sende inn flere ansatte samtidig' }).href).toEqual('http://localhost/bulk/')
+    expect(screen.getByRole('link', { name: 'excel-opplasting av kravet.' }).href).toEqual('http://localhost/excel/')
   });
 });

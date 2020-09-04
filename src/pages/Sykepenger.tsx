@@ -1,45 +1,48 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import 'nav-frontend-tabell-style';
 import { Input } from 'nav-frontend-skjema';
 import { FormContext, useForm } from 'react-hook-form';
 import { Knapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
-import { Normaltekst, Undertittel, Feilmelding } from 'nav-frontend-typografi';
+import { Feilmelding, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import fnrvalidator from '@navikt/fnrvalidator';
+import { History } from 'history';
+import ModalWrapper from 'nav-frontend-modal';
+import { Column, Container, Row } from 'nav-frontend-grid';
+import { useArbeidsgiver } from '../context/ArbeidsgiverContext';
+import InnloggetSide from './InnloggetSide';
+import { CoronaTopptekst } from '../components/felles/CoronaTopptekst';
+import Skillelinje from '../components/felles/Skillelinje';
+import Panel from 'nav-frontend-paneler';
 import Perioder from '../components/enkel/Perioder';
 import { filterStringToNumbersOnly } from '../components/enkel/filterStringToNumbersOnly';
-import { identityNumberSeparation } from '../components/fnr/identityNumberSeparation';
-import FeilOppsummering from '../components/excel/FeilOppsummering';
-import { useAppStore } from '../data/store/AppStore';
-import { History } from 'history';
-import Vis from '../components/felles/Vis';
-import env from '../components/felles/environment';
-import ModalWrapper from 'nav-frontend-modal';
 import formToJSON from '../components/enkel/formToJSON';
 import convertSkjemaToRefusjonsKrav from '../components/enkel/convertSkjemaToRefusjonsKrav';
-import { Erklaring } from '../components/felles/Erklaring';
-import { Container, Row, Column } from 'nav-frontend-grid';
+import env from '../components/felles/environment';
 import InternLenke from '../components/felles/InternLenke';
-import Panel from 'nav-frontend-paneler';
-import InnloggetSide from './InnloggetSide';
-import Skillelinje from '../components/felles/Skillelinje';
-import { CoronaTopptekst } from '../components/felles/CoronaTopptekst';
+import { identityNumberSeparation } from '../components/fnr/identityNumberSeparation';
+import FeilOppsummering from '../components/excel/FeilOppsummering';
+import { Erklaring } from '../components/felles/Erklaring';
+import Vis from '../components/felles/Vis';
+import { fnrErrorState, useEnkelSkjema } from '../context/EnkelContext';
+import { useAppStore } from '../context/AppStoreContext';
+import { Linker } from './Linker';
 
-const fnrErrorState = {
-  hasError: '',
-  noError: 'tom'
-}
+
 
 const Sykepenger = () => {
-  const { setReferanseNummer, setTokenExpired } = useAppStore();
-  const [identityNumberInput, setIdentityNumberInput] = useState<string>('');
-  const [erklæringAkseptert, setErklæringAkseptert] = useState<boolean>(false);
-  const { arbeidsgiverId } = useAppStore();
-  const { firma } = useAppStore();
-  const [sendSkjemaOpen, setSendSkjemaOpen] = useState<boolean>(false);
-  const [formData, setFormData] = useState<any>({});
-  const [fnrClassName, setFnrClassName] = useState<string>(fnrErrorState.noError);
+  const { arbeidsgiverId, firma } = useArbeidsgiver();
+  const { setTokenExpired } = useAppStore();
+  const {
+    setReferanseNummer,
+    identityNumberInput, setIdentityNumberInput,
+    erklæringAkseptert, setErklæringAkseptert,
+    sendSkjemaOpen, setSendSkjemaOpen,
+    formData, setFormData,
+    fnrClassName, setFnrClassName
+  } = useEnkelSkjema();
+
   const methods = useForm();
   const history: History = useHistory();
   const refRefusjonsform = useRef(null);
@@ -90,7 +93,7 @@ const Sykepenger = () => {
           } else if (response.status === 200) {
             response.json().then(data => {
               setReferanseNummer(data.referansenummer);
-              history.push('/kvittering')
+              history.push(Linker.EnkelKvittering)
             })
           } else if (response.status === 422) {
             response.json().then(data => {
@@ -153,7 +156,6 @@ const Sykepenger = () => {
           Avbryt
         </InternLenke>
       </ModalWrapper>
-      <main>
         <InnloggetSide>
           <CoronaTopptekst />
           <Skillelinje />
@@ -167,9 +169,9 @@ const Sykepenger = () => {
                     </Undertittel>
 
                   <Normaltekst>
-                    Vi har også et eget <InternLenke to="/bulk/"> skjema for å sende inn flere ansatte samtidig </InternLenke>
+                    Vi har også et eget <InternLenke to={Linker.Bulk}> skjema for å sende inn flere ansatte samtidig </InternLenke>
                       (kun enkeltperioder per ansatt), og for dere som har mer enn 50 ansatte å rapportere inn har vi
-                      mulighet for <InternLenke to="/excel/"> excel-opplasting av kravet.</InternLenke>
+                      mulighet for <InternLenke to={Linker.Excel}> excel-opplasting av kravet.</InternLenke>
                   </Normaltekst>
 
                   <div>&nbsp;</div>
@@ -226,7 +228,6 @@ const Sykepenger = () => {
             </form>
           </FormContext>
         </InnloggetSide>
-    </main>
     </>
   );
 };

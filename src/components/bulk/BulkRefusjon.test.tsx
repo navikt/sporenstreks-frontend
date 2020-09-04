@@ -1,11 +1,9 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
-
-import { useAppStore } from '../../data/store/AppStore';
-
 import BulkRefusjon from './BulkRefusjon';
-import { Ansatt } from '../../data/types/sporenstreksTypes';
+import { BulkProvider } from '../../context/BulkContext';
+import { Ansatt } from './Ansatt';
 
 const mockAnsatte: Ansatt[] = [
   {
@@ -27,25 +25,15 @@ const mockAnsatte: Ansatt[] = [
   }
 ];
 
-jest.mock('../../data/store/AppStore');
-
 describe('BulkRefusjon', () => {
   it('shold display the component', () => {
-    const mockUseAppStore = useAppStore as jest.Mock
 
-    mockUseAppStore.mockReturnValue({
-      ansatte: mockAnsatte,
-      setAnsatte: jest.fn()
-    });
-
-    render(<BulkRefusjon id="ansatt1" />);
+    render(<BulkProvider ansatte={mockAnsatte}><BulkRefusjon id="ansatt1" /></BulkProvider>);
 
     expect(screen.getByText(/Beløp/)).toBeInTheDocument();
   })
 
   it('shold update the ansatte data', () => {
-    const mockUseAppStore = useAppStore as jest.Mock
-    const mockSetAnsatte = jest.fn();
     const expected: Ansatt[] = [
       {
         'beloep': 5,
@@ -68,18 +56,14 @@ describe('BulkRefusjon', () => {
       }
     ];
 
-    mockUseAppStore.mockReturnValue({
-      ansatte: mockAnsatte,
-      setAnsatte: mockSetAnsatte
-    });
 
-    render(<BulkRefusjon id="ansatt1" />);
+    render(<BulkProvider ansatte={mockAnsatte}><BulkRefusjon id="ansatt1" /></BulkProvider>);
     const inputFelt = screen.getByPlaceholderText('Kroner');
 
     fireEvent.change(inputFelt, { target: { value: '5' } });
 
     expect(screen.getByText(/Beløp/)).toBeInTheDocument();
-    expect(mockSetAnsatte).toHaveBeenCalledWith(expected)
+    expect(mockAnsatte).toEqual(expected);
   })
 
 })

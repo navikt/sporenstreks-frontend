@@ -16,7 +16,7 @@ interface LoginExpiryContextProviderProps {
 
 export const useLoginExpiry = () => useContext(LoginExpiryContext);
 
-export const LoginExpiryProvider = (props: LoginExpiryContextProviderProps) => {
+const LoginExpiryProvider = (props: LoginExpiryContextProviderProps) => {
   const [ status, setStatus ]  = useState<number>(0);
   const [ timeoutAdvarselHarBlittVist, setTimeoutAdvarselHarBlittVist ]  = useState<boolean>(false);
   const [ loginExpiry, setLoginExpiry ] = useState<Date>();

@@ -1,4 +1,3 @@
-import { useAppStore } from '../data/store/AppStore';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Link, useHistory } from 'react-router-dom';
 import React from 'react';
@@ -10,6 +9,8 @@ import { History } from 'history';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import './InnloggetSide.less';
 import Lenke from 'nav-frontend-lenker';
+import { useArbeidsgiver } from '../context/ArbeidsgiverContext';
+import TimeoutAdvarsel from '../components/login/TimeoutAdvarsel';
 
 interface SideProps {
   children: React.ReactNode,
@@ -17,11 +18,11 @@ interface SideProps {
 }
 
 const InnloggetSide = (props: SideProps) => {
-  const { arbeidsgivere, setArbeidsgiverId, setFirma } = useAppStore();
+  const { arbeidsgivere, setArbeidsgiverId, setFirma } = useArbeidsgiver();
   const { t } = useTranslation();
   const history: History = useHistory();
   return (
-    <div className={'innloggetside ' + props.className}>
+    <main className={'innloggetside ' + props.className}>
         {arbeidsgivere.length === 0 &&
           <AlertStripeAdvarsel>
             <p>Du har ikke rettigheter til å søke om refusjon for noen bedrifter</p>
@@ -53,13 +54,15 @@ const InnloggetSide = (props: SideProps) => {
               </Row>
             </Container>
 
+            <TimeoutAdvarsel/>
+
             <Container className={'innloggetside__innhold'}>
                 { props.children }
             </Container>
 
           </>
         }
-    </div>
+    </main>
   )
 }
 
