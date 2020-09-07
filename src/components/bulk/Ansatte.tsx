@@ -38,16 +38,18 @@ const Ansatte: React.FC = () => {
     e.preventDefault();
     const validerteAnsatte = valideringAnsatte(ansatte);
     const innsendteAnsatte = await Innsending(arbeidsgiverId, validerteAnsatte, setLoadingStatus, setTokenExpired);
+
     setHarTrykketSubmitMinstEnGang(true);
-    setFeil(
-      ByggValideringsFeil(innsendteAnsatte)
-    );
+    let valideringsfeil = ByggValideringsFeil(innsendteAnsatte);
+
     if (!innsendteAnsatte.find((ansatt: Ansatt) => !ansatt.referenceNumber)) {
       setAnsatte([byggAnsatt()])
-      setFeil([])
-
+      valideringsfeil = [];
     }
-    history.push(Linker.BulkKvittering)
+    setFeil(valideringsfeil)
+    if(valideringsfeil.length === 0) {
+      history.push(Linker.BulkKvittering)
+    }
   };
   const handleSubmit = (evt: React.FormEvent) => {
     evt.preventDefault();
