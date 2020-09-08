@@ -1,12 +1,12 @@
 import Ansatte from './Ansatte';
-import { render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import AppStoreProvider from '../../context/AppStoreContext';
 import { ArbeidsgiverProvider } from '../../context/ArbeidsgiverContext';
 import { Status } from '../../api/ArbeidsgiverAPI';
 import React from 'react';
 import { BulkProvider } from '../../context/BulkContext';
 import { MemoryRouter } from 'react-router-dom';
-import { SkjemaStatus } from '../../data/types/sporenstreksTypes';
+import { BackendResponseState, BackendStatus, SkjemaStatus } from '../../data/types/sporenstreksTypes';
 
 describe('Ansatte', () => {
 
@@ -192,5 +192,105 @@ describe('Ansatte', () => {
 
     expect(screen.queryAllByText('Du er blitt logget ut, følg instruksjonene for ikke å miste data').length).toEqual(0)
   })
+
+  it('viser valideringsfeil fra backend', async () => {
+    const backendResponce: BackendStatus[] = [
+      {
+        status: BackendResponseState.OK,
+        validationErrors: null,
+        genericMessage: null,
+        referenceNumber: '1234'
+      },
+      {
+        status: BackendResponseState.VALIDATION_ERRORS,
+        validationErrors: [
+          {
+            validationType: 'type',
+            message: 'Det er en feil med identitsnummer',
+            propertyPath: 'identitetsnummer',
+            invalidValue: 'fom'
+          }
+        ],
+        genericMessage: null,
+        referenceNumber: null
+      }
+    ]
+
+    jest.spyOn(global, 'fetch').mockImplementation(() =>
+      Promise.resolve({
+        status: 200,
+        json: () => Promise.resolve(backendResponce)
+      })
+    );
+
+    render(
+      <AppStoreProvider tokenExpired={false}>
+        <ArbeidsgiverProvider arbeidsgivere={mockArbeidsgiverValues} status={Status.Successfully}>
+          <MemoryRouter initialEntries={['/']}>
+            <BulkProvider ansatte={ansatte} feil={[]}>
+              <Ansatte />
+            </BulkProvider>
+          </MemoryRouter>
+        </ArbeidsgiverProvider>
+      </AppStoreProvider>
+    );
+
+    const erklarerCheck = screen.getByText('Vi erklærer:');
+    fireEvent.click(erklarerCheck);
+
+    const button = screen.getByText(/Send søknad om refusjon/);
+    fireEvent.click(button);
+
+    await act(async () => {
+      const buttons = screen.getAllByText(/Send søknad om refusjon/);
+      fireEvent.click(buttons[1]);
+    });
+
+    expect(screen.getByText('Det er feil i skjemaet'))
+    expect(screen.getByText(/Det er en feil med identitsnummer/))
+  })
+
+  it('skal vise at du har blitt logget av ved 401', async () => {
+
+    jest.spyOn(global, 'fetch').mockImplementation(() =>
+      Promise.resolve({
+        status: 401,
+        json: () => {}
+      })
+    );
+
+    render(
+      <AppStoreProvider tokenExpired={false}>
+        <ArbeidsgiverProvider arbeidsgivere={mockArbeidsgiverValues} status={Status.Successfully}>
+          <MemoryRouter initialEntries={['/']}>
+            <BulkProvider ansatte={ansatte} feil={[]}>
+              <Ansatte />
+            </BulkProvider>
+          </MemoryRouter>
+        </ArbeidsgiverProvider>
+      </AppStoreProvider>
+    );
+
+    const erklarerCheck = screen.getByText('Vi erklærer:');
+    fireEvent.click(erklarerCheck);
+
+    const button = screen.getByText(/Send søknad om refusjon/);
+    fireEvent.click(button);
+
+    await act(async () => {
+      const buttons = screen.getAllByText(/Send søknad om refusjon/);
+      fireEvent.click(buttons[1]);
+    });
+
+    expect(screen.getByText(/Du er blitt logget ut, følg instruksjonene for ikke å miste data/))
+  })
+
+  // TODO: Håndtere error 500
+  // it('skal vise at feilmelding ved error 500', async () => {  })
+
+
+  // TODO: Håndtere timeout
+  // it('skal vise at feilmelding ved timeout fra server', async () => {  })
+
 
 })
