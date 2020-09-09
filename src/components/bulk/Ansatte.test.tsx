@@ -193,6 +193,48 @@ describe('Ansatte', () => {
     expect(screen.queryAllByText('Du er blitt logget ut, følg instruksjonene for ikke å miste data').length).toEqual(0)
   })
 
+  it('viser ikke feilmelding om man klikker send inn etter at man har huket av erklæringen', () => {
+    render(
+      <AppStoreProvider tokenExpired={false}>
+        <ArbeidsgiverProvider arbeidsgivere={mockArbeidsgiverValues} status={Status.Successfully}>
+          <MemoryRouter initialEntries={['/']}>
+            <BulkProvider ansatte={ansatte} feil={[]}>
+              <Ansatte />
+            </BulkProvider>
+          </MemoryRouter>
+        </ArbeidsgiverProvider>
+      </AppStoreProvider>
+    );
+
+    const checkbox = screen.getByLabelText('Vi erklærer:');
+    fireEvent.click(checkbox);
+
+    const submitButton = screen.getByText('Send søknad om refusjon');
+    fireEvent.click(submitButton);
+
+    expect(screen.queryAllByText(/krysse av avkrysningsboksen over send-knappen/).length).toEqual(0)
+  })
+
+  it('viser feilmelding om man klikker send inn uten å ha sjekket av at man erklærer', () => {
+    render(
+      <AppStoreProvider tokenExpired={false}>
+        <ArbeidsgiverProvider arbeidsgivere={mockArbeidsgiverValues} status={Status.Successfully}>
+          <MemoryRouter initialEntries={['/']}>
+            <BulkProvider ansatte={ansatte} feil={[]}>
+              <Ansatte />
+            </BulkProvider>
+          </MemoryRouter>
+        </ArbeidsgiverProvider>
+      </AppStoreProvider>
+    );
+
+    const submitButton = screen.getByText('Send søknad om refusjon');
+    fireEvent.click(submitButton);
+
+    expect(screen.queryAllByText(/krysse av avkrysningsboksen over send-knappen/).length).toEqual(1)
+  })
+
+
   it('viser valideringsfeil fra backend', async () => {
     const backendResponce: BackendStatus[] = [
       {
