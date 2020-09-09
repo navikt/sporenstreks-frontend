@@ -64,7 +64,7 @@ const Ansatte: React.FC = () => {
 
       <Skillelinje />
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} data-testid="bulk-form">
         <Container>
           <Undertittel className="sykepenger--undertittel">
             Oppgi ansatte, arbeidsgiverperiode og beløp
