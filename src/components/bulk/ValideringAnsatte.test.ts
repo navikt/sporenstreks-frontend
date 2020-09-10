@@ -243,6 +243,43 @@ describe('ValideringAnsatte', () => {
     expect(isAnsatteValid(valideringAnsatte(input))).toBeFalsy();
   });
 
+
+  it('should validate the input data and report invalid antallDagerMedRefusjon and beloep combination', () => {
+    const input: Ansatt[] = [
+      {
+        id: 123,
+        fnr: '30040658641',
+        fom: '2020-03-03',
+        tom: '2020-04-04',
+        antallDagerMedRefusjon: 0,
+        beloep: 666,
+        status: SkjemaStatus.NY,
+        oppdatert: 1
+      }
+    ];
+
+    const expected: Ansatt[] = [
+      {
+        'antallDagerMedRefusjon': 0,
+        'beloep': 666,
+        'beloepError': 'Beløpet må være 0 når antall dager med refusjon er 0',
+        'dagerError': undefined,
+        'fnr': '30040658641',
+        'fnrError': undefined,
+        'fom': '2020-03-03',
+        'id': 123,
+        'oppdatert': 1,
+        'periodeError': undefined,
+        'status': 0,
+        'tom': '2020-04-04',
+      }
+    ];
+
+    expect(valideringAnsatte(input)).toEqual(expected);
+    expect(isAnsatteValid(valideringAnsatte(input))).toBeFalsy();
+  });
+
+
   it('should validate the input data and report everything OK', () => {
     const input: Ansatt[] = [
       {
