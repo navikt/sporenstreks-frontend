@@ -92,7 +92,7 @@
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
     "react-dom": "^16.13.1",
-    "react-flatpickr": "^3.10.5",
+    "react-flatpickr": "^3.10.6",
     "react-hook-form": "^5.7.2",
     "react-i18next": "^11.7.0",
     "react-modal": "^3.11.2",
