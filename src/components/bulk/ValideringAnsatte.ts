@@ -9,7 +9,7 @@ export const valideringAnsatte = (ansatte: Ansatt[]) => {
     a.fnrError = validateAnsatteFnr(ansatte, a);
     a.periodeError = validatePerioder(a.fom, a.tom);
     a.dagerError = validateDager(a.antallDagerMedRefusjon);
-    a.beloepError = validateRefusjon(a.beloep);
+    a.beloepError = validateRefusjon(a.beloep, a.antallDagerMedRefusjon);
   });
 
   return ansatte;
