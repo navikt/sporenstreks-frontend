@@ -117,7 +117,8 @@
     "less-plugin-npm-import": "^2.1.0",
     "less-watch-compiler": "^1.11.3",
     "npm-run-all": "^4.0.2",
-    "react-scripts": "^3.4.3"
+    "react-scripts": "^3.4.3",
+    "sonarqube-scanner": "^2.7.0"
   },
   "snyk": true
 }
