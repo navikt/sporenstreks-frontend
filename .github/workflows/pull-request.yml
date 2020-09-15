@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      SONAR_TOKEN: ${{ secrets.SONARTOKEN }}
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
@@ -24,6 +26,4 @@ jobs:
             ${{ runner.os }}-
       - run: CI=false npm install
       - run: npm test
-      env:
-        SONAR_TOKEN: ${{ secrets.SONARTOKEN }}
       - run: node run-sonar.js
