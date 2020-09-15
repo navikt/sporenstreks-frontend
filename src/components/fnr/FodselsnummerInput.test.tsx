@@ -4,6 +4,7 @@ import { render, fireEvent, screen } from '@testing-library/react';
 
 import FodselsnummerInput from './FodselsnummerInput';
 import { act } from 'react-dom/test-utils';
+import {TestFnr} from './TestFnr';
 
 describe('FodselsnummerInput', () => {
   it('should render the component', () => {
@@ -36,10 +37,10 @@ describe('FodselsnummerInput', () => {
     const component = render(<FodselsnummerInput handleChange={mockCallback} />);
 
     const inputField = component.getByLabelText(/Fødselsnummer/);
-    fireEvent.change(inputField, { target: { value: '18060799943' } })
-    fireEvent.blur(inputField, { target: { value: '18060799943' } });
+    fireEvent.change(inputField, { target: { value: TestFnr.Ugyldige.UgyldigKontrollSiffer } })
+    fireEvent.blur(inputField, { target: { value: TestFnr.Ugyldige.UgyldigKontrollSiffer } });
 
-    expect(mockCallback).toHaveBeenCalledWith('18060799943');
+    expect(mockCallback).toHaveBeenCalledWith(TestFnr.Ugyldige.UgyldigKontrollSiffer);
     expect(component.getByText('Fødselsnummer')).toBeInTheDocument();
     expect(component.getByText('Fødselsnummer er ugyldig')).toBeInTheDocument();
   })

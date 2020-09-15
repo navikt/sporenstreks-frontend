@@ -8,6 +8,7 @@ import Sykepenger from './Sykepenger'
 import { Status } from '../api/ArbeidsgiverAPI';
 import { act } from 'react-dom/test-utils';
 import EnkelProvider from '../context/EnkelContext';
+import {TestFnr} from '../components/fnr/TestFnr';
 
 const mockArbeidsgiverValues = {
   arbeidsgivere: [{
@@ -138,7 +139,7 @@ describe('Sykepenger', () => {
 
     const inputNode = rendered.getByLabelText('Fødselsnummer til arbeidstaker');
 
-    fireEvent.change(inputNode, { target: { value: '11111111111' } });
+    fireEvent.change(inputNode, { target: { value: TestFnr.Ugyldige.UgyldigKontrollSiffer } });
 
     fireEvent.blur(inputNode);
 
@@ -159,7 +160,7 @@ describe('Sykepenger', () => {
       'Fødselsnummer til arbeidstaker');
 
     fireEvent.change(inputNode, {
-      target: { value: '21112428795' }
+      target: { value: TestFnr.GyldigeFraDolly.TestPerson1 }
     }); // Randomly, at least once, generated fødselsnummer
 
     fireEvent.blur(inputNode);

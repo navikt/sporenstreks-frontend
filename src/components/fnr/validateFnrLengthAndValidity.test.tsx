@@ -1,10 +1,11 @@
 import '@testing-library/jest-dom'
 
 import { validateFnrLengthAndValidity } from './validateFnrLengthAndValidity';
+import {TestFnr} from './TestFnr';
 
 describe('validateFnrLengthAndValidity', () => {
   it('should validate that everything is OK', () => {
-    const input: string = '27036405924';
+    const input: string = TestFnr.GyldigeFraDolly.TestPerson1;
 
     const expected = undefined;
 
@@ -18,7 +19,7 @@ describe('validateFnrLengthAndValidity', () => {
   });
 
   it('should validate that the fødsesnummer length must be 11 and not more', () => {
-    const input: string =  '270364059200';
+    const input: string =  TestFnr.Ugyldige.ForLangt;
 
     const expected = 'Fødselsnummer må ha 11 siffer';
 
@@ -26,15 +27,15 @@ describe('validateFnrLengthAndValidity', () => {
   });
 
   it('should validate that the fødsesnummer length must be 11 and not less', () => {
-    const input: string = '27036405';
+    const input: string = TestFnr.Ugyldige.ForKort;
 
     const expected = 'Fødselsnummer må ha 11 siffer';
 
     expect(validateFnrLengthAndValidity(input)).toEqual(expected);
   });
 
-  it('should validate that the fødsesnummer length must not be invalid', () => {
-    const input: string = '27036405000';
+  it('should validate that the fødsesnummer control numbers must not be invalid', () => {
+    const input: string = TestFnr.Ugyldige.UgyldigKontrollSiffer;
 
     const expected = 'Fødselsnummer er ugyldig';
 

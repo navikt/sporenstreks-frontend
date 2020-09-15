@@ -3,6 +3,7 @@ import '@testing-library/jest-dom'
 import { valideringAnsatte, isAnsatteValid } from './ValideringAnsatte';
 import { SkjemaStatus } from '../../data/types/sporenstreksTypes';
 import { Ansatt } from './Ansatt';
+import {TestFnr} from '../fnr/TestFnr';
 
 // TODO - Legg inn test på at beløp er for høyt
 
@@ -11,7 +12,7 @@ describe('ValideringAnsatte', () => {
     const input: Ansatt[] = [
       {
         id: 123,
-        fnr: '27036405924',
+        fnr: TestFnr.GyldigeFraDolly.TestPerson1,
         fom: '',
         tom: '',
         antallDagerMedRefusjon: 2,
@@ -21,7 +22,7 @@ describe('ValideringAnsatte', () => {
       },
       {
         id: 123,
-        fnr: '30040658641',
+        fnr: TestFnr.GyldigeFraDolly.TestPerson2,
         fom: '',
         tom: '',
         antallDagerMedRefusjon: 2,
@@ -37,7 +38,7 @@ describe('ValideringAnsatte', () => {
         'beloep': 123,
         'beloepError': undefined,
         'dagerError': undefined,
-        'fnr': '27036405924',
+        'fnr': TestFnr.GyldigeFraDolly.TestPerson1,
         'fnrError': undefined,
         'fom': '',
         'id': 123,
@@ -51,7 +52,7 @@ describe('ValideringAnsatte', () => {
         'beloep': 123,
         'beloepError': undefined,
         'dagerError': undefined,
-        'fnr': '30040658641',
+        'fnr': TestFnr.GyldigeFraDolly.TestPerson2,
         'fnrError': undefined,
         'fom': '',
         'id': 123,
@@ -70,7 +71,7 @@ describe('ValideringAnsatte', () => {
     const input: Ansatt[] = [
       {
         id: 123,
-        fnr: '27036405924',
+        fnr: TestFnr.GyldigeFraDolly.TestPerson1,
         fom: '2020-01-01',
         tom: '2020-02-02',
         antallDagerMedRefusjon: undefined,
@@ -80,7 +81,7 @@ describe('ValideringAnsatte', () => {
       },
       {
         id: 123,
-        fnr: '30040658641',
+        fnr: TestFnr.GyldigeFraDolly.TestPerson2,
         fom: '2020-03-03',
         tom: '2020-04-04',
         antallDagerMedRefusjon: -1,
@@ -96,7 +97,7 @@ describe('ValideringAnsatte', () => {
         'beloep': 123,
         'beloepError': undefined,
         'dagerError': 'Feltet må fylles ut',
-        'fnr': '27036405924',
+        'fnr': TestFnr.GyldigeFraDolly.TestPerson1,
         'fnrError': undefined,
         'fom': '2020-01-01',
         'id': 123,
@@ -110,7 +111,7 @@ describe('ValideringAnsatte', () => {
         'beloep': 123,
         'beloepError': undefined,
         'dagerError': 'Dager må være 0 eller høyere',
-        'fnr': '30040658641',
+        'fnr': TestFnr.GyldigeFraDolly.TestPerson2,
         'fnrError': undefined,
         'fom': '2020-03-03',
         'id': 123,
@@ -129,7 +130,7 @@ describe('ValideringAnsatte', () => {
     const input: Ansatt[] = [
       {
         id: 123,
-        fnr: '27036405924123',
+        fnr: TestFnr.Ugyldige.ForLangt,
         fom: '2020-01-01',
         tom: '2020-02-02',
         antallDagerMedRefusjon: 1,
@@ -155,7 +156,7 @@ describe('ValideringAnsatte', () => {
         'beloep': 123,
         'beloepError': undefined,
         'dagerError': undefined,
-        'fnr': '27036405924123',
+        'fnr': TestFnr.Ugyldige.ForLangt,
         'fnrError': 'Fødselsnummer må ha 11 siffer',
         'fom': '2020-01-01',
         'id': 123,
@@ -188,7 +189,7 @@ describe('ValideringAnsatte', () => {
     const input: Ansatt[] = [
       {
         id: 123,
-        fnr: '27036405924',
+        fnr: TestFnr.GyldigeFraDolly.TestPerson1,
         fom: '2020-01-01',
         tom: '2020-02-02',
         antallDagerMedRefusjon: 1,
@@ -198,7 +199,7 @@ describe('ValideringAnsatte', () => {
       },
       {
         id: 123,
-        fnr: '30040658641',
+        fnr: TestFnr.GyldigeFraDolly.TestPerson2,
         fom: '2020-03-03',
         tom: '2020-04-04',
         antallDagerMedRefusjon: 1,
@@ -214,7 +215,7 @@ describe('ValideringAnsatte', () => {
         'beloep': undefined,
         'beloepError': 'Beløp må fylles ut',
         'dagerError': undefined,
-        'fnr': '27036405924',
+        'fnr': TestFnr.GyldigeFraDolly.TestPerson1,
         'fnrError': undefined,
         'fom': '2020-01-01',
         'id': 123,
@@ -228,7 +229,7 @@ describe('ValideringAnsatte', () => {
         'beloep': -123,
         'beloepError': 'Beløpet er for lavt',
         'dagerError': undefined,
-        'fnr': '30040658641',
+        'fnr': TestFnr.GyldigeFraDolly.TestPerson2,
         'fnrError': undefined,
         'fom': '2020-03-03',
         'id': 123,
@@ -248,7 +249,7 @@ describe('ValideringAnsatte', () => {
     const input: Ansatt[] = [
       {
         id: 123,
-        fnr: '30040658641',
+        fnr: TestFnr.GyldigeFraDolly.TestPerson2,
         fom: '2020-03-03',
         tom: '2020-04-04',
         antallDagerMedRefusjon: 0,
@@ -264,7 +265,7 @@ describe('ValideringAnsatte', () => {
         'beloep': 666,
         'beloepError': 'Beløpet må være 0 når antall dager med refusjon er 0',
         'dagerError': undefined,
-        'fnr': '30040658641',
+        'fnr': TestFnr.GyldigeFraDolly.TestPerson2,
         'fnrError': undefined,
         'fom': '2020-03-03',
         'id': 123,
@@ -284,7 +285,7 @@ describe('ValideringAnsatte', () => {
     const input: Ansatt[] = [
       {
         id: 123,
-        fnr: '27036405924',
+        fnr: TestFnr.GyldigeFraDolly.TestPerson1,
         fom: '2020-01-01',
         tom: '2020-02-02',
         antallDagerMedRefusjon: 1,
@@ -294,7 +295,7 @@ describe('ValideringAnsatte', () => {
       },
       {
         id: 1234,
-        fnr: '30040658641',
+        fnr: TestFnr.GyldigeFraDolly.TestPerson2,
         fom: '2020-03-03',
         tom: '2020-04-04',
         antallDagerMedRefusjon: 1,
@@ -310,7 +311,7 @@ describe('ValideringAnsatte', () => {
         'beloep': 1234,
         'beloepError': undefined,
         'dagerError': undefined,
-        'fnr': '27036405924',
+        'fnr': TestFnr.GyldigeFraDolly.TestPerson1,
         'fnrError': undefined,
         'fom': '2020-01-01',
         'id': 123,
@@ -324,7 +325,7 @@ describe('ValideringAnsatte', () => {
         'beloep': 123,
         'beloepError': undefined,
         'dagerError': undefined,
-        'fnr': '30040658641',
+        'fnr': TestFnr.GyldigeFraDolly.TestPerson2,
         'fnrError': undefined,
         'fom': '2020-03-03',
         'id': 1234,

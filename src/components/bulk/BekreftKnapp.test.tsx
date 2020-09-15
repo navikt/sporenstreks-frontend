@@ -8,13 +8,14 @@ import { Ansatt } from './Ansatt';
 import { BulkProvider } from '../../context/BulkContext';
 import { ArbeidsgiverProvider } from '../../context/ArbeidsgiverContext';
 import { Status } from '../../api/ArbeidsgiverAPI';
+import {TestFnr} from '../fnr/TestFnr';
 
 expect.extend(toHaveNoViolations)
 
 const mockAnsatteOK: Ansatt[] = [
   {
     id: 123,
-    fnr: '27036405924',
+    fnr: TestFnr.GyldigeFraDolly.TestPerson1,
     fom: '2020-01-01',
     tom: '2020-02-02',
     antallDagerMedRefusjon: 1,
@@ -24,7 +25,7 @@ const mockAnsatteOK: Ansatt[] = [
   },
   {
     id: 1234,
-    fnr: '30040658641',
+    fnr: TestFnr.GyldigeFraDolly.TestPerson2,
     fom: '2020-03-03',
     tom: '2020-04-04',
     antallDagerMedRefusjon: 1,
@@ -37,7 +38,7 @@ const mockAnsatteOK: Ansatt[] = [
 const mockAnsatteNotOK: Ansatt[] = [
   {
     id: 123,
-    fnr: '27036405924',
+    fnr: TestFnr.GyldigeFraDolly.TestPerson1,
     fom: '',
     tom: '',
     antallDagerMedRefusjon: 2,
@@ -47,7 +48,7 @@ const mockAnsatteNotOK: Ansatt[] = [
   },
   {
     id: 123,
-    fnr: '30040658641',
+    fnr: TestFnr.GyldigeFraDolly.TestPerson2,
     fom: '',
     tom: '',
     antallDagerMedRefusjon: 2,

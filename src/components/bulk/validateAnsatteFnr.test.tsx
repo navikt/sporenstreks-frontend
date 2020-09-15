@@ -2,13 +2,14 @@ import '@testing-library/jest-dom'
 import { validateAnsatteFnr } from './validateAnsatteFnr';
 import { SkjemaStatus } from '../../data/types/sporenstreksTypes';
 import { Ansatt } from './Ansatt';
+import {TestFnr} from '../fnr/TestFnr';
 
 describe('validateFnr', () => {
   it('should validate that everything is OK', () => {
     const input: Ansatt[] = [
       {
         id: 1,
-        fnr: '27036405924',
+        fnr: TestFnr.GyldigeFraDolly.TestPerson1,
         fom: '',
         tom: '',
         antallDagerMedRefusjon: 2,
@@ -18,7 +19,7 @@ describe('validateFnr', () => {
       },
       {
         id: 2,
-        fnr: '30040658641',
+        fnr: TestFnr.GyldigeFraDolly.TestPerson2,
         fom: '',
         tom: '',
         antallDagerMedRefusjon: 2,
@@ -47,7 +48,7 @@ describe('validateFnr', () => {
       },
       {
         id: 2,
-        fnr: '30040658641',
+        fnr: TestFnr.GyldigeFraDolly.TestPerson2,
         fom: '',
         tom: '',
         antallDagerMedRefusjon: 2,
@@ -66,7 +67,7 @@ describe('validateFnr', () => {
     const input: Ansatt[] = [
       {
         id: 1,
-        fnr: '270364059200',
+        fnr: TestFnr.Ugyldige.ForLangt,
         fom: '',
         tom: '',
         antallDagerMedRefusjon: 2,
@@ -76,7 +77,7 @@ describe('validateFnr', () => {
       },
       {
         id: 2,
-        fnr: '30040658641',
+        fnr: TestFnr.GyldigeFraDolly.TestPerson2,
         fom: '',
         tom: '',
         antallDagerMedRefusjon: 2,
@@ -105,7 +106,7 @@ describe('validateFnr', () => {
       },
       {
         id: 2,
-        fnr: '30040658641',
+        fnr: TestFnr.GyldigeFraDolly.TestPerson2,
         fom: '',
         tom: '',
         antallDagerMedRefusjon: 2,
@@ -120,11 +121,11 @@ describe('validateFnr', () => {
     expect(validateAnsatteFnr(input, input[0])).toEqual(expected);
   });
 
-  it('should validate that the fødsesnummer length must not be invalid', () => {
+  it('should validate that the fødsesnummer control numbers must not be invalid', () => {
     const input: Ansatt[] = [
       {
         id: 1,
-        fnr: '27036405000',
+        fnr: TestFnr.Ugyldige.UgyldigKontrollSiffer,
         fom: '',
         tom: '',
         antallDagerMedRefusjon: 2,
@@ -134,7 +135,7 @@ describe('validateFnr', () => {
       },
       {
         id: 2,
-        fnr: '30040658641',
+        fnr: TestFnr.GyldigeFraDolly.TestPerson2,
         fom: '',
         tom: '',
         antallDagerMedRefusjon: 2,
@@ -153,7 +154,7 @@ describe('validateFnr', () => {
     const input: Ansatt[] = [
       {
         id: 1,
-        fnr: '30040658641',
+        fnr: TestFnr.GyldigeFraDolly.TestPerson2,
         fom: '',
         tom: '',
         antallDagerMedRefusjon: 2,
@@ -163,7 +164,7 @@ describe('validateFnr', () => {
       },
       {
         id: 2,
-        fnr: '30040658641',
+        fnr: TestFnr.GyldigeFraDolly.TestPerson2,
         fom: '',
         tom: '',
         antallDagerMedRefusjon: 2,
