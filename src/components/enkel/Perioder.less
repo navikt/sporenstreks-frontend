@@ -1,0 +1,92 @@
+@import '../../../node_modules/nav-frontend-core/less/_variabler';
+@import '../../../src/basic';
+
+.periodeliste {
+  list-style: none;
+  padding-left: 0;
+  margin: 1rem 0;
+  @media (max-width: @screen-md) {
+    margin: 1rem 0.5rem 1rem 0.5rem;
+  }
+
+  .periode {
+    @media (max-width: @screen-md) {
+      border: 1px solid @navGra40;
+      border-radius: 4px;
+      padding: 0.5rem;
+      
+      &.periodeliste--overskrift {
+        display: none;
+      }
+
+      .col {
+        &:first-child {
+          margin-top: 0.5rem;
+        }
+        margin-top: 1rem;
+      }
+    }
+
+    @media (min-width: @screen-md) {
+      .skjemaelement__label {
+        display: none;
+      }
+    }
+    & + .periode {
+      margin-top: 1rem;
+    }
+
+    .skjemaelement {
+      & + .skjemaelement {
+        margin-top: 0.7rem;
+      }
+
+      & + .periodeknapp {
+        display: inline;
+        padding-left: 0.7rem;
+      }
+    }
+
+    .input {
+      border: 1px solid @navGra60;
+      width: 100%;
+
+      &:focus {
+        outline: 0;
+        box-shadow: 0 0 0 3px @fokusFarge;
+      }
+    }
+
+    .fom {
+      cursor: pointer;
+    }
+
+    .dager {
+      cursor: pointer;
+    }
+  }
+}
+
+.periodeknapp {
+  padding: 0;
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+  text-decoration: underline;
+  background: none;
+  border: 0;
+  color: @navBla;
+
+  &:focus {
+    color: @white;
+  }
+}
+
+.sykepenger--periode-velger .hjelpetekst__apneknapp {
+  @media (min-width: @screen-lg) {
+    position: relative;
+    top: .3rem;
+  }
+}
+
+.sykepenger--periode-velger .slettknapp {
+  line-height: 2.325rem;
+}

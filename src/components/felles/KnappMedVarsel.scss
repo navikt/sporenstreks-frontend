@@ -1,0 +1,22 @@
+$screen-md: 992px;
+
+.knapp.knapp-med-varsel-disabled-button {
+  background-color: #B7B1A9;
+  border-color: #B7B1A9;
+  color: #FFF;
+  box-shadow: none;
+  transform: none;
+  cursor: not-allowed;
+
+  &:focus, 
+  &:hover,
+  &:active,
+  &:focus:active {
+    background-color: #B7B1A9;
+    border-color: #B7B1A9;
+    color: #FFF;
+    box-shadow: none;
+    transform: none;
+    cursor: not-allowed;
+  }
+}

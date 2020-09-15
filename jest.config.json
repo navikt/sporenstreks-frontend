@@ -1,0 +1,22 @@
+{
+  "collectCoverage": true,
+  "coveragePathIgnorePatterns": [
+    "index.tsx",
+    "App.tsx",
+    "Kvittering.tsx",
+    "KvitteringExcel.tsx",
+    "SykepengerBulk.tsx",
+    "MottattSoknad.tsx",
+    "Hjelpetekst*.tsx",
+    "IngenData.tsx",
+    "CoronaTopptekst.tsx"
+  ],
+  "coverageThreshold": {
+    "global": {
+      "branches": 50,
+      "functions": 50,
+      "lines": 50,
+      "statements": 50
+    }
+  }
+}

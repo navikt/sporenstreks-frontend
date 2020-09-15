@@ -1,0 +1,145 @@
+@import '../../node_modules/nav-frontend-core/less/core';
+@import '../../src/basic';
+
+.sykepenger {
+  &--alertstripe {
+    padding: 0.7rem;
+  }
+
+  &--header {
+    margin-top: 1rem;
+  }
+
+  &--undertittel {
+    margin-bottom: 0.7rem;
+  }
+
+  &--undertekst {
+    margin-bottom: 0.7rem;
+  }
+
+  &--loading-spinner {
+    margin: 1.4rem;
+  }
+
+  &--arbeidstaker {
+    label {
+      font-weight: 400;
+    }
+  }
+
+  &--container {
+    max-width: 100%;
+  }
+
+  .alertstripe {
+    margin-top: 1.4rem;
+  }
+
+  .bedriftsmeny__inner {
+    max-width: @desktopLimitWidth;
+  }
+
+  .container {
+
+    border-bottom: 1px solid @navMorkGra;
+    padding: 1rem 0 2rem;
+
+    &:nth-child(4) {
+      border: 0;
+    }
+
+    &:last-child {
+      border: 0;
+      max-width: 100%;
+      padding: 0rem 0 2rem;
+    }
+  }
+  .skjemaelement__feilmelding {
+    margin-top: 0.5rem;
+    color: @redError;
+    font-weight: bold;
+    font-style: italic;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    height: auto;
+    max-height: 4rem;
+
+    &.tom {
+      max-height: 0;
+    }
+  }
+
+  &__modal-tekst {
+    margin: 0rem 2.5rem 0 2.5rem;
+  }
+
+  &__modal-btn {
+    margin: 2.5rem 2.5rem 1rem 2.5rem;
+  }
+
+  &__modal-tittel {
+    margin: 2.5rem 2.5rem 2rem 2.5rem;
+  }
+
+  &__modal-avbrytt {
+    padding: 0;
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+    text-decoration: underline;
+    background: none;
+    border: 0;
+    color: @navBla;
+    text-align: center;
+    display: block;
+
+    &:focus {
+      color: @white;
+    }
+  }
+}
+
+@media (min-width: @desktopLimitWidth ) {
+  .sykepenger {
+    .container {
+      padding: 1rem 0 2rem;
+    }
+  }
+}
+
+.hjelpetekst {
+  margin-left: 0.5rem;
+
+  &__innhold {
+    width: 30rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .sykepenger {
+    .bedriftsmeny {
+      .virksomhetsvelger {
+        margin-left: 1rem;
+      }
+
+      .virksomhetsvelger__dropdownwrapper--apen {
+        top: -1rem;
+      }
+    }
+  }
+}
+
+.skjemabakgrunn{
+  background-color: white;
+  max-width: @desktopLimitWidth;
+  margin-left: auto;
+  margin-right: auto;
+  .container {
+    margin: 2rem 1rem;
+    padding-bottom: 3rem;
+    width: inherit;
+  }
+}
+
+.send-soknad {
+  margin-top: 2rem;
+}

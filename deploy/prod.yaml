@@ -1,0 +1,42 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: sporenstreks-frontend
+  namespace: default
+  labels:
+    team: helsearbeidsgiver
+spec:
+  image: {{image}}
+  port: 443
+  liveness:
+    path: /health/is-alive
+    initialDelay: 15
+    timeout: 1
+    periodSeconds: 3
+    failureThreshold: 10
+  readiness:
+    path: /health/is-ready
+    initialDelay: 15
+    timeout: 1
+    periodSeconds: 3
+    failureThreshold: 10
+  ingresses:
+    - https://arbeidsgiver.nav.no/nettrefusjon
+  replicas:
+    max: 1
+    min: 1
+  resources:
+    limits:
+      cpu: 800m
+      memory: 1024Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+  vault:
+    enabled: true
+    paths:
+      - kvPath: apikey/apigw/prod/sporenstreks/sporenstreks-frontend
+        mountPath: /apigw/sporenstreks
+  env:
+    - name: API_GATEWAY
+      value: https://api-gw.oera.no/sporenstreks

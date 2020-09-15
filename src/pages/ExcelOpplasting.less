@@ -1,0 +1,58 @@
+@import '../../node_modules/nav-frontend-core/less/core';
+@import '../../src/basic';
+
+.excelopplasting {
+  &--alertstripe {
+    padding: 0.7rem;
+  }
+
+  &--loading-spinner {
+    margin: 1.4rem;
+  }
+
+  .alertstripe {
+    margin-top: 1.4rem;
+  }
+
+  &__excellogo {
+    margin: 0.5rem;
+    float: left;
+  }
+
+  .fileinput {
+    display: none
+  }
+
+  .filknapp {
+    margin: 1rem 0rem;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .filknapp[disabled] {
+    pointer-events:none
+  }
+
+  @media (min-width: @screen-md) {
+    .filknapp {
+      width: auto;
+    }
+  }
+
+  .advarsel {
+    color: @redError;
+    font-style: italic;
+  }
+
+  hr {
+    margin: 2rem 0;
+  }
+
+  .disabled-button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 0;
+  }
+}
+
