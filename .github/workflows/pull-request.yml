@@ -24,8 +24,7 @@ jobs:
             ${{ runner.os }}-
       - run: CI=false npm install
       - run: npm test
-  sonarqube:
-    - name: SonarQUbe
-    env:
-      SONAR_TOKEN: ${{ secrets.SONARTOKEN }}
+    - name: SonarQube
+      env:
+        SONAR_TOKEN: ${{ secrets.SONARTOKEN }}
     - run: node run-sonar.js
