@@ -6,7 +6,7 @@ scanner(
         token : process.env.SONAR_TOKEN,
         options: {
             'sonar.organization': 'navikt',
-            'sonar.sonar.projectKey': 'navikt_sporenstreks-frontend',
+            'sonar.projectKey': 'navikt_sporenstreks-frontend',
             'sonar.sources': 'src',
             'sonar.javascript.lcov.reportPaths': 'coverage/lcov.info'
         }
