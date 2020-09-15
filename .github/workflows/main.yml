@@ -1,9 +1,9 @@
-name: Bygg og deploy master
+name: Bygg og deploy main
 
 on:
   push:
     branches:
-      - master
+      - main
 
 env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/sporenstreks-frontend:${{ github.sha }}
@@ -39,7 +39,7 @@ jobs:
   deploy:
     name: Deploy to PREPROD
     needs: build
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
