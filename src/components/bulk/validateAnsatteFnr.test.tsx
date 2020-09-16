@@ -2,7 +2,7 @@ import '@testing-library/jest-dom'
 import { validateAnsatteFnr } from './validateAnsatteFnr';
 import { SkjemaStatus } from '../../data/types/sporenstreksTypes';
 import { Ansatt } from './Ansatt';
-import {TestFnr} from '../fnr/TestFnr';
+import { TestFnr } from '../fnr/TestFnr';
 
 describe('validateFnr', () => {
   it('should validate that everything is OK', () => {

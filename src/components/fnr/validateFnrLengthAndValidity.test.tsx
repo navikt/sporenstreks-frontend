@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom'
 
 import { validateFnrLengthAndValidity } from './validateFnrLengthAndValidity';
-import {TestFnr} from './TestFnr';
+import { TestFnr } from './TestFnr';
 
 describe('validateFnrLengthAndValidity', () => {
   it('should validate that everything is OK', () => {

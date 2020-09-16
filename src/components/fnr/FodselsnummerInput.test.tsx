@@ -4,7 +4,7 @@ import { render, fireEvent, screen } from '@testing-library/react';
 
 import FodselsnummerInput from './FodselsnummerInput';
 import { act } from 'react-dom/test-utils';
-import {TestFnr} from './TestFnr';
+import { TestFnr } from './TestFnr';
 
 describe('FodselsnummerInput', () => {
   it('should render the component', () => {

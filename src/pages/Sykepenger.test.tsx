@@ -8,7 +8,7 @@ import Sykepenger from './Sykepenger'
 import { Status } from '../api/ArbeidsgiverAPI';
 import { act } from 'react-dom/test-utils';
 import EnkelProvider from '../context/EnkelContext';
-import {TestFnr} from '../components/fnr/TestFnr';
+import { TestFnr } from '../components/fnr/TestFnr';
 
 const mockArbeidsgiverValues = {
   arbeidsgivere: [{

@@ -8,7 +8,7 @@ import { Ansatt } from './Ansatt';
 import { BulkProvider } from '../../context/BulkContext';
 import { ArbeidsgiverProvider } from '../../context/ArbeidsgiverContext';
 import { Status } from '../../api/ArbeidsgiverAPI';
-import {TestFnr} from '../fnr/TestFnr';
+import { TestFnr } from '../fnr/TestFnr';
 
 expect.extend(toHaveNoViolations)
 

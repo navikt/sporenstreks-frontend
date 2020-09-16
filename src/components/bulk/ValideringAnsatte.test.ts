@@ -3,7 +3,7 @@ import '@testing-library/jest-dom'
 import { valideringAnsatte, isAnsatteValid } from './ValideringAnsatte';
 import { SkjemaStatus } from '../../data/types/sporenstreksTypes';
 import { Ansatt } from './Ansatt';
-import {TestFnr} from '../fnr/TestFnr';
+import { TestFnr } from '../fnr/TestFnr';
 
 // TODO - Legg inn test på at beløp er for høyt
 

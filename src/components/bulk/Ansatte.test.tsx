@@ -8,7 +8,7 @@ import { BulkProvider } from '../../context/BulkContext';
 import { MemoryRouter } from 'react-router-dom';
 import { BackendResponseState, BackendStatus, SkjemaStatus } from '../../data/types/sporenstreksTypes';
 import { Linker } from '../../pages/Linker';
-import {TestFnr} from '../fnr/TestFnr';
+import { TestFnr } from '../fnr/TestFnr';
 
 const mockHistoryPush = jest.fn();
 
@@ -31,9 +31,36 @@ describe('Ansatte', () => {
       ParentOrganizationNumber: '3333344444'
     }];
   const ansatte = [
-    { id: 'abc123', fnr: TestFnr.GyldigeFraDolly.TestPerson1, fom: '2020-04-11', tom: '2020-04-20', antallDagerMedRefusjon: 4, beloep: 3250, status: SkjemaStatus.NY, oppdatert: 0 },
-    { id: 'def456', fnr: TestFnr.GyldigeFraDolly.TestPerson2, fom: '2020-04-25', tom: '2020-04-27', antallDagerMedRefusjon: 1, beloep: 1999, status: SkjemaStatus.NY, oppdatert: 0 },
-    { id: 'ghi789', fnr: TestFnr.GyldigeFraDolly.TestPerson3, fom: '2020-04-28', tom: '2020-04-29', antallDagerMedRefusjon: 2, beloep: 400, status: SkjemaStatus.NY, oppdatert: 0 }
+    {
+      id: 'abc123',
+      fnr: TestFnr.GyldigeFraDolly.TestPerson1,
+      fom: '2020-04-11',
+      tom: '2020-04-20',
+      antallDagerMedRefusjon: 4,
+      beloep: 3250,
+      status: SkjemaStatus.NY,
+      oppdatert: 0
+    },
+    {
+      id: 'def456',
+      fnr: TestFnr.GyldigeFraDolly.TestPerson2,
+      fom: '2020-04-25',
+      tom: '2020-04-27',
+      antallDagerMedRefusjon: 1,
+      beloep: 1999,
+      status: SkjemaStatus.NY,
+      oppdatert: 0
+    },
+    {
+      id: 'ghi789',
+      fnr: TestFnr.GyldigeFraDolly.TestPerson3,
+      fom: '2020-04-28',
+      tom: '2020-04-29',
+      antallDagerMedRefusjon: 2,
+      beloep: 400,
+      status: SkjemaStatus.NY,
+      oppdatert: 0
+    }
   ];
   const feil = [{ skjemaelementId: 'id1', feilmelding: 'Feilmelding1' }, { skjemaelementId: 'id2', feilmelding: 'Feilmelding2' }];
 
