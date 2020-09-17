@@ -54,9 +54,11 @@ const ExcelOpplasting = () => {
     if (event.target.files[0] && event.target.files[0].size > FILEUPLOAD_MAX_SIZE) {
       setFeil([{ indeks: -1, melding: 'Du kan ikke laste opp filer større enn 250 kB.' }])
     } else {
-      setFileName(event.target.files[0].name);
-      setFile(event.target.files[0]);
-      setFeil([]);
+      if(event.target.files[0] && event.target.files[0].name) {
+        setFileName(event.target.files[0].name);
+        setFile(event.target.files[0]);
+        setFeil([]);
+      }
     }
   }
 
