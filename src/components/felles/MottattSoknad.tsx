@@ -1,5 +1,4 @@
 import React from 'react';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import Lenke from 'nav-frontend-lenker';
