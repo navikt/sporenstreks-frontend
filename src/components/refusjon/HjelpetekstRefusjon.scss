@@ -3,10 +3,13 @@
 }
 
 .eksempel-modal {
-   margin: 2em;
+  margin: 2em;
+  width: 50rem;
+  border: 2px solid #C6C2BF;
 
   .nav-veilederpanel {
     padding: 3rem;
     padding-left: 7rem;
+    border: none;
   }
 }
