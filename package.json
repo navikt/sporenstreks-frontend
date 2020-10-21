@@ -33,7 +33,7 @@
     ]
   },
   "dependencies": {
-    "@navikt/bedriftsmeny": "^2.1.4",
+    "@navikt/bedriftsmeny": "^2.2.0",
     "@navikt/fnrvalidator": "^1.1.3",
     "@sentry/browser": "^5.23.0",
     "@testing-library/jest-dom": "^5.11.3",
