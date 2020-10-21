@@ -1,4 +1,4 @@
-enum EnvironmentType {
+export enum EnvironmentType {
   PROD,
   PREPROD_DEV, // Angir at man aksesserer preprod via naisdevice på *.dev.nav.no, kun tilgjengelig via naisdevice
   PREPROD_Q, // angir at man aksesserer preprod inne i nord korea
