@@ -1,7 +1,7 @@
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import env from '../components/felles/environment';
 
-export const mapArbeidsgiver = (data): Organisasjon[] => data.map(organisasjon => ({
+export const mapArbeidsgiver = (data: any): Organisasjon[] => data.map(organisasjon => ({
   Name: organisasjon.name,
   Type: organisasjon.type,
   OrganizationNumber: organisasjon.organizationNumber,
