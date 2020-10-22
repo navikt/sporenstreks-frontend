@@ -7,8 +7,8 @@ import { ByggValideringsFeil } from './ByggValideringsFeil';
 import './BekreftKnapp.less';
 import InternLenke from '../felles/InternLenke';
 import KnappMedVarsel from '../felles/KnappMedVarsel';
-import { useArbeidsgiver } from '../../context/ArbeidsgiverContext';
 import { useBulk } from '../../context/BulkContext';
+import { useArbeidsgiver } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 interface bekreftKnappProps {
   onSubmit: any
@@ -23,7 +23,7 @@ export const BekreftKnapp = ({ onSubmit, erklæringAkseptert, onClick }: bekreft
   const { loadingStatus } = useBulk();
   const [open, setOpen] = useState<boolean>(false);
 
-  const handleOpen = (evt) => {
+  const handleOpen = (evt: any) => {
     evt.preventDefault()
     onClick(evt);
     const validerteAnsatte = valideringAnsatte(ansatte)
@@ -37,7 +37,7 @@ export const BekreftKnapp = ({ onSubmit, erklæringAkseptert, onClick }: bekreft
     }
   };
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = (evt: React.MouseEvent) => {
     setOpen(false)
     onSubmit(evt)
   };

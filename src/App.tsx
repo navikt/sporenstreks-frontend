@@ -9,13 +9,13 @@ import ExcelOpplasting from './pages/ExcelOpplasting';
 import KvitteringExcel from './pages/KvitteringExcel';
 import KvitteringBulk from './pages/KvitteringBulk';
 import LoginFornyet from './pages/LoginFornyet';
-import { ArbeidsgiverProvider } from './context/ArbeidsgiverContext';
 import Redirecter from './components/felles/Redirecter';
 import LoginExpiryProvider from './context/LoginExpiryContext';
 import AppStoreProvider from './context/AppStoreContext';
 import EnkelProvider from './context/EnkelContext';
 import { BulkProvider } from './context/BulkContext';
 import { Linker } from './pages/Linker';
+import { ArbeidsgiverProvider } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 const App = () => {
   return (

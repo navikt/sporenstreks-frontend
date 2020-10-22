@@ -1,14 +1,13 @@
 import Ansatte from './Ansatte';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import AppStoreProvider from '../../context/AppStoreContext';
-import { ArbeidsgiverProvider } from '../../context/ArbeidsgiverContext';
-import { Status } from '../../api/ArbeidsgiverAPI';
 import React from 'react';
 import { BulkProvider } from '../../context/BulkContext';
 import { MemoryRouter } from 'react-router-dom';
 import { BackendResponseState, BackendStatus, SkjemaStatus } from '../../data/types/sporenstreksTypes';
 import { Linker } from '../../pages/Linker';
 import { TestFnr } from '../fnr/TestFnr';
+import { ArbeidsgiverProvider, Status } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 const mockHistoryPush = jest.fn();
 

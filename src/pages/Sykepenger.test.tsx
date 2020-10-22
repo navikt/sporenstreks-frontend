@@ -3,12 +3,11 @@ import React from 'react'
 import { render, fireEvent, screen } from '@testing-library/react'
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
-import { ArbeidsgiverProvider } from '../context/ArbeidsgiverContext';
 import Sykepenger from './Sykepenger'
-import { Status } from '../api/ArbeidsgiverAPI';
 import { act } from 'react-dom/test-utils';
 import EnkelProvider from '../context/EnkelContext';
 import { TestFnr } from '../components/fnr/TestFnr';
+import { Status, ArbeidsgiverProvider } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 const mockArbeidsgiverValues = {
   arbeidsgivere: [{

@@ -6,9 +6,8 @@ import BekreftKnapp from './BekreftKnapp';
 import { SkjemaStatus } from '../../data/types/sporenstreksTypes';
 import { Ansatt } from './Ansatt';
 import { BulkProvider } from '../../context/BulkContext';
-import { ArbeidsgiverProvider } from '../../context/ArbeidsgiverContext';
-import { Status } from '../../api/ArbeidsgiverAPI';
 import { TestFnr } from '../fnr/TestFnr';
+import { ArbeidsgiverProvider, Status } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 expect.extend(toHaveNoViolations)
 

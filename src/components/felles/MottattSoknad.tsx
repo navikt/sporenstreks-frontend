@@ -3,8 +3,8 @@ import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import Panel from 'nav-frontend-paneler';
 import Lenke from 'nav-frontend-lenker';
 import { Row } from 'nav-frontend-grid';
-import InnloggetSide from '../../pages/InnloggetSide';
 import InternLenke from './InternLenke';
+import { InnloggetSide } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 interface MottattSoknadProps {
   nySoknadLink: string,

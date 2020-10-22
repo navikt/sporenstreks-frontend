@@ -5,9 +5,8 @@ import { MemoryRouter, Route } from 'react-router-dom'
 import ExcelOpplasting from './ExcelOpplasting';
 import userEvent from '@testing-library/user-event';
 import KvitteringExcel from './KvitteringExcel';
-import { Status } from '../api/ArbeidsgiverAPI';
-import { ArbeidsgiverProvider } from '../context/ArbeidsgiverContext';
 import AppStoreProvider, { useAppStore } from '../context/AppStoreContext';
+import { ArbeidsgiverProvider, Status } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 const mockArbeidsgiverValues =
   [{

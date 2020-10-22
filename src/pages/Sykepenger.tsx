@@ -10,8 +10,6 @@ import fnrvalidator from '@navikt/fnrvalidator';
 import { History } from 'history';
 import ModalWrapper from 'nav-frontend-modal';
 import { Column, Container, Row } from 'nav-frontend-grid';
-import { useArbeidsgiver } from '../context/ArbeidsgiverContext';
-import InnloggetSide from './InnloggetSide';
 import { CoronaTopptekst } from '../components/felles/CoronaTopptekst';
 import Skillelinje from '../components/felles/Skillelinje';
 import Panel from 'nav-frontend-paneler';
@@ -28,6 +26,7 @@ import Vis from '../components/felles/Vis';
 import { fnrErrorState, useEnkelSkjema } from '../context/EnkelContext';
 import { useAppStore } from '../context/AppStoreContext';
 import { Linker } from './Linker';
+import { InnloggetSide, useArbeidsgiver } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 
 

@@ -12,7 +12,6 @@ import excellogo from '../img/excel-logo.png';
 import innsendingExcelFil from '../components/excel/InnsendingExcelFil';
 import { Erklaring } from '../components/felles/Erklaring';
 import { FeilTabell, tabellFeil } from '../components/excel/FeilTabell';
-import InnloggetSide from './InnloggetSide';
 import Panel from 'nav-frontend-paneler';
 import Skillelinje from '../components/felles/Skillelinje';
 import { Column, Row } from 'nav-frontend-grid';
@@ -22,6 +21,7 @@ import { CoronaTopptekst } from '../components/felles/CoronaTopptekst';
 import LoggetUtAdvarsel from '../components/login/LoggetUtAdvarsel';
 import { useAppStore } from '../context/AppStoreContext';
 import { Linker } from './Linker';
+import { InnloggetSide } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 
 const ExcelOpplasting = () => {

@@ -21,10 +21,10 @@ import InternLenke from '../felles/InternLenke';
 import { HjelpetekstPeriode } from '../periode/HjelpetekstPeriode';
 import { HjelpetekstDager } from '../dager/HjelpetekstDager';
 import HjelpetekstRefusjon from '../refusjon/HjelpetekstRefusjon';
-import { useArbeidsgiver } from '../../context/ArbeidsgiverContext';
 import { useBulk } from '../../context/BulkContext';
 import { useAppStore } from '../../context/AppStoreContext';
 import { Linker } from '../../pages/Linker';
+import { useArbeidsgiver } from '@navikt/helse-arbeidsgiver-felles-frontend';
 
 
 const Ansatte: React.FC = () => {
