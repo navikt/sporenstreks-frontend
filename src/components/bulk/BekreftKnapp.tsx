@@ -23,7 +23,7 @@ export const BekreftKnapp = ({ onSubmit, erklæringAkseptert, onClick }: bekreft
   const { loadingStatus } = useBulk();
   const [open, setOpen] = useState<boolean>(false);
 
-  const handleOpen = (evt: React.MouseEvent) => {
+  const handleOpen = (evt: React.FormEvent) => {
     evt.preventDefault()
     onClick(evt);
     const validerteAnsatte = valideringAnsatte(ansatte)
