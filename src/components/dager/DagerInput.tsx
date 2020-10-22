@@ -15,7 +15,7 @@ export const DagerInput = ({ feilmelding, antallDagerMedRefusjon, handleChange, 
   const [lokalFeil, setLokalFeil] = useState<string | undefined>();
   const optionArr = Array.from(Array(15).keys());
 
-  const handleDagerBlur = (evt) => {
+  const handleDagerBlur = (evt: React.MouseEvent) => {
     const feilmelding = validateDager(evt.target.value);
     setLokalFeil(feilmelding)
   };

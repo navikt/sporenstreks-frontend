@@ -8,7 +8,7 @@ import { useBulk } from '../../context/BulkContext';
 export const BulkFnr = ({ id }: AnsattID) => {
   const { ansatte, setAnsatte } = useBulk();
   const a = ansatte.find(a => a.id === id);
-  const handleChange = (evt) => {
+  const handleChange = (evt: React.MouseEvent) => {
     if (a) {
       a.fnr = filterIdentityNumberInput(evt.target.value);
       a.fnrError = validateAnsatteFnr(ansatte, a);

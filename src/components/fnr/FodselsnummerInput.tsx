@@ -13,11 +13,11 @@ interface FodselsnummerInputProps {
 
 export const FodselsnummerInput = ({ feilmelding, fnr, handleChange, id }: FodselsnummerInputProps) => {
   const [lokalFeil, setLokalFeil] = useState<string | undefined>();
-  const handleFnrChange = (evt) => {
+  const handleFnrChange = (evt: React.MouseEvent) => {
     handleChange(filterIdentityNumberInput(evt.target.value));
   };
 
-  const handleFnrBlur = (evt) => {
+  const handleFnrBlur = (evt: React.MouseEvent) => {
     const fnr = filterIdentityNumberInput(evt.target.value);
     const feilmelding = validateFnrSingle(fnr);
     setLokalFeil(feilmelding)

@@ -8,7 +8,7 @@ import { useBulk } from '../../context/BulkContext';
 export const BulkDager = (props: AnsattID) => {
   const { ansatte, setAnsatte } = useBulk();
   const a = ansatte.find(a => a.id === props.id);
-  const handleChange = (evt) => {
+  const handleChange = (evt: React.MouseEvent) => {
     if (a) {
       a.antallDagerMedRefusjon = parseInt(evt.target.selectedIndex);
       a.dagerError = validateDager(a.antallDagerMedRefusjon);

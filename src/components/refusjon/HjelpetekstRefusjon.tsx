@@ -58,12 +58,12 @@ const Sprsml = () => (HjelpetekstIkon);
 const HjelpetekstRefusjon = () => {
   const [ eksempelOpen, setEksempelOpen ] = useState<boolean>(false);
 
-  const handleCloseButton = (evt) => {
+  const handleCloseButton = (evt : React.MouseEvent) => {
     evt.preventDefault();
     setEksempelOpen(false);
   };
 
-  const handleOpenButton = (evt) => {
+  const handleOpenButton = (evt : React.MouseEvent) => {
     evt.preventDefault();
     setEksempelOpen(true);
   }

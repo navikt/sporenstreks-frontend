@@ -11,10 +11,10 @@ interface RefusjonInputProps {
 }
 
 export const RefusjonInput = ({ beloep, feilmelding, handleChange, label, id }: RefusjonInputProps) => {
-  const handleChangeLocal = (event) => {
+  const handleChangeLocal = (event: React.MouseEvent) => {
     handleChange(event.target.value ? parseInt(event.target.value) : undefined);
   }
-  const handleKeyPress = (evt) => {
+  const handleKeyPress = (evt: React.MouseEvent) => {
     if (evt.keyCode === 8) {
       handleChange();
       return true;
