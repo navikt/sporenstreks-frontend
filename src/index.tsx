@@ -11,7 +11,13 @@ import env, { EnvironmentType } from './components/felles/environment';
 
 Modal.setAppElement('#root');
 
-Sentry.init({ dsn: 'https://3769b2c742c840f085ca72d93f49bb0e@sentry.gc.nav.no/39', environment: EnvironmentType[env.environmentMode]});
+if (env.environmentMode !== EnvironmentType.LOCAL) {
+  Sentry.init({
+    dsn: 'https://3769b2c742c840f085ca72d93f49bb0e@sentry.gc.nav.no/39',
+    environment: EnvironmentType[env.environmentMode],
+  });
+}
+
 
 ReactDOM.render(
   <BrowserRouter basename="nettrefusjon">
