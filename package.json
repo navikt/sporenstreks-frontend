@@ -109,6 +109,7 @@
   },
   "devDependencies": {
     "@navikt/helse-arbeidsgiver-felles-frontend": "^0.1.32",
+    "@types/react-flatpickr": "^3.8.1",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "eslint": "^6.8.0",
