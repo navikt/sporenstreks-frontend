@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { Knapp } from 'nav-frontend-knapper';
 import ModalWrapper from 'nav-frontend-modal';
 import { Undertittel } from 'nav-frontend-typografi';
@@ -23,7 +23,7 @@ export const BekreftKnapp = ({ onSubmit, erklæringAkseptert, onClick }: bekreft
   const { loadingStatus } = useBulk();
   const [open, setOpen] = useState<boolean>(false);
 
-  const handleOpen = (evt: React.FormEvent) => {
+  const handleOpen = (evt: FormEvent) => {
     evt.preventDefault()
     onClick(evt);
     const validerteAnsatte = valideringAnsatte(ansatte)

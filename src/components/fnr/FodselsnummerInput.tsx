@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { FnrInput } from 'nav-frontend-skjema';
 import { filterIdentityNumberInput } from './filterIndentityNumberInput';
 import validateFnrSingle from './validateFnrLengthAndValidity';
@@ -13,11 +13,11 @@ interface FodselsnummerInputProps {
 
 export const FodselsnummerInput = ({ feilmelding, fnr, handleChange, id }: FodselsnummerInputProps) => {
   const [lokalFeil, setLokalFeil] = useState<string | undefined>();
-  const handleFnrChange = (evt: React.MouseEvent) => {
+  const handleFnrChange = (evt: ChangeEvent<HTMLInputElement>) => {
     handleChange(filterIdentityNumberInput(evt.target.value));
   };
 
-  const handleFnrBlur = (evt: React.MouseEvent) => {
+  const handleFnrBlur = (evt: any) => {
     const fnr = filterIdentityNumberInput(evt.target.value);
     const feilmelding = validateFnrSingle(fnr);
     setLokalFeil(feilmelding)

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { MouseEventHandler, useState } from 'react';
 import 'nav-frontend-tabell-style';
 import { Undertittel } from 'nav-frontend-typografi';
 import ModalWrapper from 'nav-frontend-modal';
@@ -58,12 +58,12 @@ const Sprsml = () => (HjelpetekstIkon);
 const HjelpetekstRefusjon = () => {
   const [ eksempelOpen, setEksempelOpen ] = useState<boolean>(false);
 
-  const handleCloseButton = (evt : React.MouseEvent) => {
+  const handleCloseButton = (evt: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     evt.preventDefault();
     setEksempelOpen(false);
   };
 
-  const handleOpenButton = (evt : React.MouseEvent) => {
+  const handleOpenButton = (evt: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     evt.preventDefault();
     setEksempelOpen(true);
   }
@@ -130,13 +130,13 @@ const HjelpetekstRefusjon = () => {
               Gang dagsatsen med 10. Maksimalt refusjonsbeløp for Frida for de ti dagene blir da 23 388,70 kroner
             </li>
           </ol>
-          <button role="link" className="periodeknapp lenke" onClick={(evt) => handleCloseButton(evt)}>
+          <button role="link" className="periodeknapp lenke" onClick={handleCloseButton}>
             Lukk dette vinduet
           </button>
         </Veilederpanel>
       </ModalWrapper>
       <div className="hjelpetekst">
-        <button role="link" className="hjelpetekst__apneknapp" onClick={(evt) => handleOpenButton(evt)}>
+        <button role="link" className="hjelpetekst__apneknapp" onClick={handleOpenButton}>
           <Sprsml/>
           <span className="sr-only">
             Hjelp

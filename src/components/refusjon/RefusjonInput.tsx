@@ -1,5 +1,5 @@
 import { Input } from 'nav-frontend-skjema';
-import React, { ReactNode } from 'react';
+import React, { ChangeEvent, ReactNode } from 'react';
 import './RefusjonInput.scss';
 
 interface RefusjonInputProps {
@@ -10,21 +10,24 @@ interface RefusjonInputProps {
   label: ReactNode
 }
 
+const MAX_DIGITS = 7;
+
 export const RefusjonInput = ({ beloep, feilmelding, handleChange, label, id }: RefusjonInputProps) => {
-  const handleChangeLocal = (event: React.MouseEvent) => {
+  const handleChangeLocal = (event: ChangeEvent<HTMLInputElement>) => {
     handleChange(event.target.value ? parseInt(event.target.value) : undefined);
   }
-  const handleKeyPress = (evt: React.MouseEvent) => {
+  const handleKeyPress = (evt: React.KeyboardEvent<HTMLInputElement>) => {
     if (evt.keyCode === 8) {
       handleChange();
       return true;
     }
-    const allowed = (evt.key >= 0 && evt.key <= 9);
+    const key = parseInt(evt.key);
+    const allowed = (key >= 0 && key <= 9);
     if (!allowed){
       evt.preventDefault();
       return false;
     }
-    if (evt.target.value.length === 7) {
+    if (evt.currentTarget.value.length === MAX_DIGITS) {
       evt.preventDefault();
       return false;
     }

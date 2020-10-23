@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Select } from 'nav-frontend-skjema';
 import validateDager from './validateDager';
 import { HjelpetekstDager } from './HjelpetekstDager';
@@ -15,8 +15,8 @@ export const DagerInput = ({ feilmelding, antallDagerMedRefusjon, handleChange, 
   const [lokalFeil, setLokalFeil] = useState<string | undefined>();
   const optionArr = Array.from(Array(15).keys());
 
-  const handleDagerBlur = (evt: React.MouseEvent) => {
-    const feilmelding = validateDager(evt.target.value);
+  const handleDagerBlur = (evt: React.FocusEvent<HTMLSelectElement>) => {
+    const feilmelding = validateDager(parseInt(evt.target.value));
     setLokalFeil(feilmelding)
   };
 
