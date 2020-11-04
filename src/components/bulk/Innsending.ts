@@ -17,6 +17,7 @@ export default (arbeidsgiverId: string, validerteAnsatte: Ansatt[], setLoadingSt
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
+    credentials: 'same-origin',
     method: 'POST',
     body: JSON.stringify(preparedAnsatte),
   }).then(response => {
