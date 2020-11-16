@@ -47,6 +47,7 @@ const GetArbeidsgivere = (): Promise<ArbeidsgivereInterface> => {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
+      credentials: 'same-origin',
       method: 'GET',
     }
     ).then(response => {

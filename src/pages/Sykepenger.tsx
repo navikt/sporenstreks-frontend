@@ -81,7 +81,7 @@ const Sykepenger = () => {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        credentials: 'include',
+        credentials: 'same-origin',
         method: 'POST',
         body: JSON.stringify(refusjonsKrav),
       }).then((response: Response) => {

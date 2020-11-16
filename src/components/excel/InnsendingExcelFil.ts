@@ -15,6 +15,7 @@ export default (file: File, setTokenExpired: (boolean) => void): Promise<tabellF
   return fetch(env.baseUrl + '/api/v1/bulk/upload', {
     method: 'POST',
     body: formData(file),
+    credentials: 'same-origin',
   }).then((response) => {
     switch (response.status) {
       case 401: {
