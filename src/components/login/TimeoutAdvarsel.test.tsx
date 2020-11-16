@@ -3,9 +3,8 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'
 import TimeoutAdvarsel from './TimeoutAdvarsel';
 import { MemoryRouter } from 'react-router-dom';
-import { axe, toHaveNoViolations  } from 'jest-axe';
+import { axe } from 'jest-axe';
 
-expect.extend(toHaveNoViolations);
 
 describe('TimeoutAdvarsel',() => {
   it('should display a modal', () => {
@@ -27,7 +26,5 @@ describe('TimeoutAdvarsel',() => {
     const results = await axe(container)
 
     expect(results).toHaveNoViolations()
-
-    // cleanup();
   });
 })
