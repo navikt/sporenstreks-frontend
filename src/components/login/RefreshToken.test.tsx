@@ -3,9 +3,13 @@ import '@testing-library/jest-dom';
 import { render, act } from '@testing-library/react';
 
 import RefreshToken from './RefreshToken';
-jest.useFakeTimers();
 
 describe('RefreshToken', () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+    jest.spyOn(global, 'setInterval');
+  });
+
   afterEach(() => {
     jest.clearAllTimers()
   })
@@ -13,7 +17,7 @@ describe('RefreshToken', () => {
     const component = render(<RefreshToken />);
 
     const iframes = component.queryByTestId('refreshtoken-iframe');
-
+    expect(setInterval).toBeCalledTimes(1);
     expect(iframes).toBeTruthy();
   })
 
@@ -23,7 +27,7 @@ describe('RefreshToken', () => {
       jest.advanceTimersToNextTimer();
     });
     const iframes = component.queryByTestId('refreshtoken-iframe');
-
+    expect(setInterval).toBeCalledTimes(1);
     expect(iframes).toBeFalsy();
   })
 
