@@ -7,7 +7,7 @@ import userEvent from '@testing-library/user-event';
 import KvitteringExcel from './KvitteringExcel';
 import { Status } from '../api/ArbeidsgiverAPI';
 import { ArbeidsgiverProvider } from '../context/ArbeidsgiverContext';
-import AppStoreProvider, { useAppStore } from '../context/AppStoreContext';
+import AppStoreProvider from '../context/AppStoreContext';
 
 const mockArbeidsgiverValues =
   [{
@@ -62,8 +62,6 @@ const response422 = {
 }
 
 const mockFile = new File(['(⌐□_□)'], 'fil.xlsx', { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-
-const setTokenExpired = jest.fn();
 
 describe('ExcelOpplasting', () => {
 
@@ -241,7 +239,7 @@ describe('ExcelOpplasting', () => {
   })
 
   it('show links to the other forms', async () => {
-    const view = render(
+    render(
       <AppStoreProvider tokenExpired={false}>
         <ArbeidsgiverProvider arbeidsgivere={mockArbeidsgiverValues} status={Status.Successfully}>
           <MemoryRouter><ExcelOpplasting/></MemoryRouter>
@@ -253,7 +251,7 @@ describe('ExcelOpplasting', () => {
   });
 
   it('show download link for template', async () => {
-    const view = render(
+    render(
       <AppStoreProvider tokenExpired={false}>
         <ArbeidsgiverProvider arbeidsgivere={mockArbeidsgiverValues} status={Status.Successfully}>
           <MemoryRouter><ExcelOpplasting/></MemoryRouter>

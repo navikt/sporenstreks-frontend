@@ -1,4 +1,4 @@
-import FetchMock, { MatcherUtils, SpyMiddleware, ResponseUtils, HandlerArgument } from 'yet-another-fetch-mock';
+import FetchMock, { SpyMiddleware, ResponseUtils } from 'yet-another-fetch-mock';
 import LoginExpiryAPI, { ParseExpiryDate } from './LoginExpiryAPI';
 
 const mockServer = 'http://mockserver.nav.no';
@@ -27,7 +27,6 @@ describe('loginExpiryAPI', () => {
   });
 
   it('should return status and a string when stuff is OK and it is a time string', async () => {
-    const expected = { 'status': 200, 'tidspunkt': '08:27' };
     const input = '2045-01-23T08:27:57.000+0000';
     mock.get(mockUrl, input);
     const loginExpiry = await LoginExpiryAPI();

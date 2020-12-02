@@ -22,17 +22,17 @@ interface EnkelContext {
 
 export const buildEnkelContext = () => ({
   referanseNummer: '',
-  setReferanseNummer: function(nr) {},
+  setReferanseNummer: function(nr) {}, // eslint-disable-line @typescript-eslint/no-unused-vars
   identityNumberInput: '',
-  setIdentityNumberInput: function(nr){},
+  setIdentityNumberInput: function(nr){}, // eslint-disable-line @typescript-eslint/no-unused-vars
   erklæringAkseptert: false,
-  setErklæringAkseptert: function(akseptert){},
+  setErklæringAkseptert: function(akseptert){}, // eslint-disable-line @typescript-eslint/no-unused-vars
   sendSkjemaOpen: false,
-  setSendSkjemaOpen: function(skjemaOpen){},
+  setSendSkjemaOpen: function(skjemaOpen){}, // eslint-disable-line @typescript-eslint/no-unused-vars
   formData: {},
-  setFormData: function(formData){},
+  setFormData: function(formData){}, // eslint-disable-line @typescript-eslint/no-unused-vars
   fnrClassName: fnrErrorState.noError,
-  setFnrClassName: function(fnrClassName){}
+  setFnrClassName: function(fnrClassName){} // eslint-disable-line @typescript-eslint/no-unused-vars
 }) as EnkelContext
 
 const EnkelContext = createContext(buildEnkelContext());
