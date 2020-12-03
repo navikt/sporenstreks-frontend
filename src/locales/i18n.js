@@ -14,12 +14,12 @@ i18n.init({
     },
   },
   fallbackLng: Languages.nb,
-  ns: ["translations"],
-  defaultNS: "translations",
+  ns: ['translations'],
+  defaultNS: 'translations',
   keySeparator: false,
   interpolation: {
     escapeValue: false,
-    formatSeparator: ","
+    formatSeparator: ','
   },
   react: {
     wait: true

@@ -10,32 +10,6 @@ import { act } from 'react-dom/test-utils';
 import EnkelProvider from '../context/EnkelContext';
 import { TestFnr } from '../components/fnr/TestFnr';
 
-const mockArbeidsgiverValues = {
-  arbeidsgivere: [{
-    Name: 'Navn',
-    Type: 'Type',
-    OrganizationNumber: '123456789',
-    OrganizationForm: 'oform',
-    Status: 'Status',
-    ParentOrganizationNumber: '3333344444'
-  }, {
-    Name: 'Navn',
-    Type: 'Type',
-    OrganizationNumber: '223456789',
-    OrganizationForm: 'oform',
-    Status: 'Status',
-    ParentOrganizationNumber: '3333344444'
-  }, {
-    Name: 'Navn3',
-    Type: 'Type',
-    OrganizationNumber: '323456789',
-    OrganizationForm: 'oform',
-    Status: 'Status',
-    ParentOrganizationNumber: '3333344444'
-  }],
-  setReferanseNummer: jest.fn()
-};
-
 const arbeidsgivere = [{
     Name: 'Navn',
     Type: 'Type',

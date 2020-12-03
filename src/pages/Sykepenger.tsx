@@ -113,7 +113,7 @@ const Sykepenger = () => {
         if (didTimeOut) return;
         reject(err);
       });
-    }).catch(err => {
+    }).catch(() => {
       methods.setError('backend', 'Server feil, prøv igjen senere');
     });
   };
