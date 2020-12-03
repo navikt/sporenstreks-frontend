@@ -93,7 +93,7 @@ describe('ArbeidsgiverAPI', () => {
 
   it('skal håndtere timeout', async() => {
     jest.useFakeTimers();
-    const mockTimeout = new Promise((resolve, reject) =>
+    const mockTimeout = new Promise(() =>
       {}
     )
     jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockTimeout);

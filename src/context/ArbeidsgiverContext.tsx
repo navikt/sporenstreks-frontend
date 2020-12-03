@@ -7,11 +7,11 @@ import env from '../components/felles/environment';
 
 export const buildArbeidsgiverContext = (firma: string, arbeidsgiverId: string, arbeidsgivere: Organisasjon[]) => ({
   arbeidsgivere,
-  setArbeidsgivere: function(arbeidsgivere: Organisasjon[]){},
+  setArbeidsgivere: function(arbeidsgivere: Organisasjon[]){}, // eslint-disable-line @typescript-eslint/no-unused-vars
   firma,
-  setFirma: function(firma: string){},
+  setFirma: function(firma: string){}, // eslint-disable-line @typescript-eslint/no-unused-vars
   arbeidsgiverId,
-  setArbeidsgiverId: function(arbeidsgiverId: string){}
+  setArbeidsgiverId: function(arbeidsgiverId: string){} // eslint-disable-line @typescript-eslint/no-unused-vars
 })
 
 export const buildArbeidsgiver = (

@@ -7,7 +7,7 @@ interface AppStore {
 
 export const buildAppStoreContext = () => ({
   tokenExpired: false,
-  setTokenExpired: function(expired: boolean) {}
+  setTokenExpired: function(expired: boolean) {} // eslint-disable-line @typescript-eslint/no-unused-vars
 }) as AppStore
 
 const AppStoreContext = createContext(buildAppStoreContext());

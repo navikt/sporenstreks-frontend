@@ -4,7 +4,7 @@ import GetLoginExpiry from '../api/LoginExpiryAPI';
 export const buildLoginExpiryContext = (timeoutAdvarselHarBlittVist: boolean, loginExpiry?: Date) => ({
   loginExpiry,
   timeoutAdvarselHarBlittVist,
-  setTimeoutAdvarselHarBlittVist: function (harBlittVist) {
+  setTimeoutAdvarselHarBlittVist: function (harBlittVist) { // eslint-disable-line @typescript-eslint/no-unused-vars
   }
 })
 

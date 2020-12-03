@@ -30,7 +30,7 @@ const GetArbeidsgivere = (): Promise<ArbeidsgivereInterface> => {
 
     new Promise((resolve, reject) =>
       setTimeout(() => reject(new Error('Timeout')), 10000)
-    ).then(response => {
+    ).then(() => {
       return {
         status: Status.Timeout,
         organisasjoner: []
