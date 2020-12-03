@@ -13,11 +13,11 @@ interface BulkContext {
 
 export const buildBulkContext = () => ({
   ansatte: [],
-  setAnsatte: function(ansatte: Ansatt[]){},
+  setAnsatte: function(ansatte: Ansatt[]){}, // eslint-disable-line @typescript-eslint/no-unused-vars
   feil: [],
-  setFeil: function(feil: ValideringsFeil[]){},
+  setFeil: function(feil: ValideringsFeil[]){}, // eslint-disable-line @typescript-eslint/no-unused-vars
   loadingStatus: -1,
-  setLoadingStatus: function(status){}
+  setLoadingStatus: function(status){} // eslint-disable-line @typescript-eslint/no-unused-vars
 }) as BulkContext
 
 const BulkContext = createContext(buildBulkContext());

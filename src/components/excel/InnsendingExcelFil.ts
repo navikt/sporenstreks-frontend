@@ -23,7 +23,7 @@ export default (file: File, setTokenExpired: (boolean) => void): Promise<tabellF
         return [{ melding: 'Du har blitt logget ut. Vennligst prøv på nytt etter innlogging.', indeks: -1 }]
       }
       case 200: {
-        return response.blob().then(data => {
+        return response.blob().then(() => {
             return []
           }
         )
