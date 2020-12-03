@@ -1,6 +1,15 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.15.0
-ignore: {}
+version: v1.14.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JS-NODESASS-541000:
+    - node-sass:
+        reason: None given
+        expires: '2021-01-02T07:42:13.443Z'
+  SNYK-JS-NODESASS-541002:
+    - node-sass:
+        reason: None given
+        expires: '2021-01-02T07:42:13.443Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   SNYK-JS-LODASH-567746:
