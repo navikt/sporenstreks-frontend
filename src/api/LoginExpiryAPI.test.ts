@@ -1,4 +1,4 @@
-import FetchMock, { MockHandler, SpyMiddleware } from 'yet-another-fetch-mock';
+import FetchMock, { SpyMiddleware } from 'yet-another-fetch-mock';
 import LoginExpiryAPI, { ParseExpiryDate } from './LoginExpiryAPI';
 
 const mockServer = 'http://mockserver.nav.no';
@@ -34,8 +34,6 @@ describe('loginExpiryAPI', () => {
   });
 
   it('should return a status and empty string when endpoint is not found', async () => {
-    const input = '2045-01-23T08:27:57.000+0000';
-
     mock.get(mockUrl, (req, res, ctx) => res(ctx.status(404)));
 
     const loginExpiry = await LoginExpiryAPI();

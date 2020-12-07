@@ -94,7 +94,7 @@ describe('InnsendingExcelFil', () => {
 
     result
       .sort((x, y) => x.indeks - y.indeks)
-      .map((f, index) => {
+      .forEach((f, index) => {
         expect(f.indeks).toBe(expected[index].row);
         expect(f.kolonne).toBe(expected[index].column);
         expect(f.melding).toBe(expected[index].message);
