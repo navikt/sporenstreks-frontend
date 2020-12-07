@@ -1,17 +1,22 @@
-import FetchMock, { MatcherUtils, SpyMiddleware, ResponseUtils, HandlerArgument } from 'yet-another-fetch-mock';
+import FetchMock, { SpyMiddleware } from 'yet-another-fetch-mock';
 import Innsending from './Innsending';
-import { SkjemaStatus, Ansatt, BackendStatus, BackendResponseState } from '../../data/types/sporenstreksTypes';
+import {
+  SkjemaStatus,
+  BackendStatus,
+  BackendResponseState
+} from '../../data/types/sporenstreksTypes';
+import { Ansatt } from './Ansatt';
 
 const mockServer = 'http://mockserver.nav.no';
 
 jest.mock('../felles/environment', () => ({
   get baseUrl() {
-    return mockServer
+    return mockServer;
   },
   get loginServiceUrl() {
-    return mockServer + '/loginServer'
+    return mockServer + '/loginServer';
   }
-}))
+}));
 
 const mockUrl = mockServer + '/api/v1/refusjonskrav/list';
 
@@ -48,18 +53,24 @@ describe('Innsending', () => {
         status: SkjemaStatus.AVVENTER,
         oppdatert: 1
       }
-    ]
+    ];
 
     const mockSetTokenExpired = jest.fn();
     const setLoadingStatus = jest.fn();
 
-    mock
-      .post(mockUrl, ResponseUtils.statusCode(404));
+    mock.post(mockUrl, (req, res, ctx) => res(ctx.status(404)));
 
-    expect(await Innsending('arbeidsgiverId', input, setLoadingStatus, mockSetTokenExpired)).toEqual(input);
+    expect(
+      await Innsending(
+        'arbeidsgiverId',
+        input,
+        setLoadingStatus,
+        mockSetTokenExpired
+      )
+    ).toEqual(input);
     expect(mockSetTokenExpired).toHaveBeenCalledWith(false);
     expect(setLoadingStatus).toHaveBeenCalledWith(404);
-  })
+  });
 
   it('should handle a 200', async () => {
     const input: Ansatt[] = [
@@ -79,7 +90,7 @@ describe('Innsending', () => {
         status: SkjemaStatus.AVVENTER,
         oppdatert: 1
       }
-    ]
+    ];
 
     const backendResponce: BackendStatus[] = [
       {
@@ -101,7 +112,7 @@ describe('Innsending', () => {
         genericMessage: null,
         referenceNumber: null
       }
-    ]
+    ];
 
     const expected: Ansatt[] = [
       {
@@ -120,20 +131,26 @@ describe('Innsending', () => {
         id: 234,
         status: SkjemaStatus.VALIDERINGSFEIL,
         oppdatert: 1,
-        periodeError: 'Validation periode error.',
+        periodeError: 'Validation periode error.'
       }
-    ]
+    ];
 
     const mockSetTokenExpired = jest.fn();
     const setLoadingStatus = jest.fn();
 
-    mock
-      .post(mockUrl, [ ...backendResponce ]);
+    mock.post(mockUrl, (req, res, ctx) => res(ctx.json([...backendResponce])));
 
-    expect(await Innsending('arbeidsgiverId', input, setLoadingStatus, mockSetTokenExpired)).toEqual(expected);
+    expect(
+      await Innsending(
+        'arbeidsgiverId',
+        input,
+        setLoadingStatus,
+        mockSetTokenExpired
+      )
+    ).toEqual(expected);
     expect(mockSetTokenExpired).toHaveBeenCalledWith(false);
     expect(setLoadingStatus).toHaveBeenCalledWith(200);
-  })
+  });
 
   it('should handle a 401', async () => {
     const input: Ansatt[] = [
@@ -153,22 +170,26 @@ describe('Innsending', () => {
         status: SkjemaStatus.AVVENTER,
         oppdatert: 1
       }
-    ]
+    ];
 
     Object.defineProperty(window, 'location', {
       value: new URL(mockUrl)
     });
 
-    mock
-    .post(mockUrl, ResponseUtils.statusCode(401));
+    mock.post(mockUrl, (req, res, ctx) => res(ctx.status(401)));
 
     const mockSetTokenExpired = jest.fn();
     const setLoadingStatus = jest.fn();
 
-    await Innsending('arbeidsgiverId', input, setLoadingStatus, mockSetTokenExpired);
+    await Innsending(
+      'arbeidsgiverId',
+      input,
+      setLoadingStatus,
+      mockSetTokenExpired
+    );
 
     expect(window.location.href).toEqual(mockUrl);
     expect(mockSetTokenExpired).toHaveBeenCalledWith(true);
     expect(setLoadingStatus).toHaveBeenCalledWith(401);
-  })
-})
+  });
+});
