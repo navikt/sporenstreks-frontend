@@ -124,7 +124,7 @@ const HjelpetekstRefusjon = () => {
               Reduser beløpet til 6G. Siden Frida tjener mer enn 6G så må årslønnen reduseres til 6*G = 608 106 kroner.
             </li>
             <li>
-              Del på 260 (antallet arbeidsdager Frida jobber i året) = dagsatsen. Fridas dagsats blir da 608 106 kr / 206 = 2338,87
+              Del på 260 (antallet arbeidsdager Frida jobber i året) = dagsatsen. Fridas dagsats blir da 608 106 kr / 260 = 2338,87
             </li>
             <li>
               Gang dagsatsen med 10. Maksimalt refusjonsbeløp for Frida for de ti dagene blir da 23 388,70 kroner
