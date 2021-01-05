@@ -10,7 +10,6 @@ import { Column, Container, Row } from 'nav-frontend-grid';
 import './InnloggetSide.less';
 import Lenke from 'nav-frontend-lenker';
 import { useArbeidsgiver } from '../context/ArbeidsgiverContext';
-import TimeoutAdvarsel from '../components/login/TimeoutAdvarsel';
 
 interface SideProps {
   children: React.ReactNode;
@@ -57,9 +56,6 @@ const InnloggetSide = (props: SideProps) => {
               </Column>
             </Row>
           </Container>
-
-          <TimeoutAdvarsel />
-
           <Container className={'innloggetside__innhold'}>
             {props.children}
           </Container>

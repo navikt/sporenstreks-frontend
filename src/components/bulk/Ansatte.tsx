@@ -38,12 +38,18 @@ const Ansatte: React.FC = () => {
   ] = useState<boolean>(false);
   const handleBekreftSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
+    let localTokenExpired = false;
+
+    const localSetTokenExpired = (status: boolean): void => {
+      setTokenExpired(status);
+      localTokenExpired = status;
+    };
     const validerteAnsatte = valideringAnsatte(ansatte);
     const innsendteAnsatte = await Innsending(
       arbeidsgiverId,
       validerteAnsatte,
       setLoadingStatus,
-      setTokenExpired
+      localSetTokenExpired
     );
 
     setHarTrykketSubmitMinstEnGang(true);
@@ -53,8 +59,9 @@ const Ansatte: React.FC = () => {
       setAnsatte([byggAnsatt()]);
       valideringsfeil = [];
     }
+
     setFeil(valideringsfeil);
-    if (valideringsfeil.length === 0) {
+    if (valideringsfeil.length === 0 && localTokenExpired === false) {
       history.push(Linker.BulkKvittering);
     }
   };
