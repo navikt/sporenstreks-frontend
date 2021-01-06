@@ -23,7 +23,7 @@ export enum SkjemaStatus {
   'AVVENTER',
   'GODKJENT',
   'VALIDERINGSFEIL',
-  'ERRORBACKEND',
+  'ERRORBACKEND'
 }
 
 export enum BackendResponseState {
@@ -54,14 +54,14 @@ export enum ErrorType {
   UNKNOWN = 'UNKNOWN',
   TOOLOWAMOUNT = 'TOOLOWAMOUNT',
   TOOHIGHAMOUNT = 'TOOHIGHAMOUNT',
-  MISSINGAMOUNT = 'MISSINGAMOUNT',
+  MISSINGAMOUNT = 'MISSINGAMOUNT'
 }
 
 export enum Status {
   UNDER_BEHANDLING = 'UNDER BEHANDLING',
   AVSLÅTT = 'AVSLÅTT',
   INNVILGET = 'INNVILGET',
-  HENLAGT = 'HENLAGT',
+  HENLAGT = 'HENLAGT'
 }
 
 export interface UnleashToggles {

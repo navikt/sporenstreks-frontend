@@ -14,13 +14,12 @@ Modal.setAppElement('#root');
 if (env.environmentMode !== EnvironmentType.LOCAL) {
   Sentry.init({
     dsn: 'https://3769b2c742c840f085ca72d93f49bb0e@sentry.gc.nav.no/39',
-    environment: EnvironmentType[env.environmentMode],
+    environment: EnvironmentType[env.environmentMode]
   });
 }
 
-
 ReactDOM.render(
-  <BrowserRouter basename="nettrefusjon">
+  <BrowserRouter basename='nettrefusjon'>
     <App />
   </BrowserRouter>,
   document.getElementById('root') as HTMLElement

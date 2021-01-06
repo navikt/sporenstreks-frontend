@@ -1,6 +1,12 @@
 import '@testing-library/jest-dom';
 import React from 'react';
-import { render, fireEvent, screen, cleanup, act } from '@testing-library/react';
+import {
+  render,
+  fireEvent,
+  screen,
+  cleanup,
+  act
+} from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import BekreftKnapp from './BekreftKnapp';
 import { SkjemaStatus } from '../../data/types/sporenstreksTypes';
@@ -10,7 +16,7 @@ import { ArbeidsgiverProvider } from '../../context/ArbeidsgiverContext';
 import { Status } from '../../api/ArbeidsgiverAPI';
 import { TestFnr } from '../fnr/TestFnr';
 
-expect.extend(toHaveNoViolations)
+expect.extend(toHaveNoViolations);
 
 const mockAnsatteOK: Ansatt[] = [
   {
@@ -67,7 +73,11 @@ describe('BekreftKnapp', () => {
     render(
       <ArbeidsgiverProvider status={Status.Successfully} arbeidsgivere={[]}>
         <BulkProvider ansatte={mockAnsatteOK}>
-          <BekreftKnapp onSubmit={mockOnSubmmit} onClick={mockOnClick} erklæringAkseptert={erklæringAkseptert} />
+          <BekreftKnapp
+            onSubmit={mockOnSubmmit}
+            onClick={mockOnClick}
+            erklæringAkseptert={erklæringAkseptert}
+          />
         </BulkProvider>
       </ArbeidsgiverProvider>
     );
@@ -91,7 +101,11 @@ describe('BekreftKnapp', () => {
     render(
       <ArbeidsgiverProvider status={Status.Successfully} arbeidsgivere={[]}>
         <BulkProvider ansatte={mockAnsatteOK}>
-          <BekreftKnapp onSubmit={mockOnSubmmit} onClick={mockOnClick} erklæringAkseptert={erklæringAkseptert} />
+          <BekreftKnapp
+            onSubmit={mockOnSubmmit}
+            onClick={mockOnClick}
+            erklæringAkseptert={erklæringAkseptert}
+          />
         </BulkProvider>
       </ArbeidsgiverProvider>
     );
@@ -114,7 +128,11 @@ describe('BekreftKnapp', () => {
     render(
       <ArbeidsgiverProvider status={Status.Successfully} arbeidsgivere={[]}>
         <BulkProvider ansatte={mockAnsatteOK} feil={mockFeil}>
-          <BekreftKnapp onSubmit={mockOnSubmmit} onClick={mockOnClick} erklæringAkseptert={erklæringAkseptert} />
+          <BekreftKnapp
+            onSubmit={mockOnSubmmit}
+            onClick={mockOnClick}
+            erklæringAkseptert={erklæringAkseptert}
+          />
         </BulkProvider>
       </ArbeidsgiverProvider>
     );
@@ -145,7 +163,11 @@ describe('BekreftKnapp', () => {
     render(
       <ArbeidsgiverProvider status={Status.Successfully} arbeidsgivere={[]}>
         <BulkProvider ansatte={mockAnsatteOK}>
-          <BekreftKnapp onSubmit={mockOnSubmmit} onClick={mockOnClick} erklæringAkseptert={erklæringAkseptert} />
+          <BekreftKnapp
+            onSubmit={mockOnSubmmit}
+            onClick={mockOnClick}
+            erklæringAkseptert={erklæringAkseptert}
+          />
         </BulkProvider>
       </ArbeidsgiverProvider>
     );
@@ -167,7 +189,6 @@ describe('BekreftKnapp', () => {
     expect(screen.queryAllByText(/Organisasjonsnummer/).length).toBe(0);
   });
 
-
   it('should fire click, show modal and fire submit when erklæringAkseptert is true, ansatte is invalid and modal submit button is clicked', () => {
     const mockOnSubmmit = jest.fn();
     const mockOnClick = jest.fn();
@@ -176,19 +197,23 @@ describe('BekreftKnapp', () => {
 
     const expected = [
       {
-        'feilmelding': 'Det er en feil i rad nr 1',
-        'skjemaelementId': 'fnr_123',
+        feilmelding: 'Det er en feil i rad nr 1',
+        skjemaelementId: 'fnr_123'
       },
       {
-        'feilmelding': 'Det er en feil i rad nr 2',
-        'skjemaelementId': 'fnr_123',
-      },
+        feilmelding: 'Det er en feil i rad nr 2',
+        skjemaelementId: 'fnr_123'
+      }
     ];
 
     render(
       <ArbeidsgiverProvider status={Status.Successfully} arbeidsgivere={[]}>
         <BulkProvider ansatte={mockAnsatteNotOK} feil={expected}>
-          <BekreftKnapp onSubmit={mockOnSubmmit} onClick={mockOnClick} erklæringAkseptert={erklæringAkseptert} />
+          <BekreftKnapp
+            onSubmit={mockOnSubmmit}
+            onClick={mockOnClick}
+            erklæringAkseptert={erklæringAkseptert}
+          />
         </BulkProvider>
       </ArbeidsgiverProvider>
     );
@@ -214,24 +239,27 @@ describe('BekreftKnapp', () => {
     const { container } = render(
       <ArbeidsgiverProvider status={Status.Successfully} arbeidsgivere={[]}>
         <BulkProvider ansatte={mockAnsatteOK}>
-          <BekreftKnapp onSubmit={mockOnSubmmit} onClick={mockOnClick} erklæringAkseptert={erklæringAkseptert} />
+          <BekreftKnapp
+            onSubmit={mockOnSubmmit}
+            onClick={mockOnClick}
+            erklæringAkseptert={erklæringAkseptert}
+          />
         </BulkProvider>
       </ArbeidsgiverProvider>
     );
 
     const button = screen.getByText(/Send søknad om refusjon/);
 
-    const resultsBeforeClick = await axe(container)
+    const resultsBeforeClick = await axe(container);
 
-    expect(resultsBeforeClick).toHaveNoViolations()
-
+    expect(resultsBeforeClick).toHaveNoViolations();
 
     fireEvent.click(button);
 
-    const results = await axe(container)
+    const results = await axe(container);
 
-    expect(results).toHaveNoViolations()
+    expect(results).toHaveNoViolations();
 
-    cleanup()
-  })
+    cleanup();
+  });
 });

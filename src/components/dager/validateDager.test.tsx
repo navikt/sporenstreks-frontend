@@ -1,7 +1,6 @@
 import validateDager from './validateDager';
 
 describe('validateDager', () => {
-
   it('should allow zero', () => {
     expect(validateDager(0)).toBeUndefined();
   });

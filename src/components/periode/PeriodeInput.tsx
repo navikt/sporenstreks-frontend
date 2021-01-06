@@ -9,34 +9,43 @@ import { PeriodeConverter } from './PeriodeConverter';
 import { v4 as uuidv4 } from 'uuid';
 
 interface PeriodeInputProps {
-  feilmelding?: string,
-  fom?: Date,
-  tom?: Date,
-  handleChange: any,
-  id?: number | string
+  feilmelding?: string;
+  fom?: Date;
+  tom?: Date;
+  handleChange: any;
+  id?: number | string;
 }
 
 export const PeriodeInputClassName = (feilmelding?: string) => {
-  return 'periodeinput ' + (feilmelding ? 'periodeinput--invalid' : 'periodeinput--valid')
-}
+  return (
+    'periodeinput ' +
+    (feilmelding ? 'periodeinput--invalid' : 'periodeinput--valid')
+  );
+};
 
-export const PeriodeInput = ({ fom, tom, feilmelding, handleChange, id }: PeriodeInputProps) => {
+export const PeriodeInput = ({
+  fom,
+  tom,
+  feilmelding,
+  handleChange,
+  id
+}: PeriodeInputProps) => {
   const [feilmeldingState, setFeilmeldingState] = useState(feilmelding);
   const handleClose = (selectedDates) => {
-    let fomChanged = PeriodeConverter(selectedDates[0])
-    let tomChanged = PeriodeConverter(selectedDates[1])
+    let fomChanged = PeriodeConverter(selectedDates[0]);
+    let tomChanged = PeriodeConverter(selectedDates[1]);
     setFeilmeldingState(Feilmelding(false, selectedDates[0], selectedDates[1]));
     handleChange(fomChanged, tomChanged);
-  }
+  };
 
-  const elementId = String(id) || 'periode'.concat(uuidv4());
+  const elementId = String(id) || 'periode'.concat(uuidv4());
 
   return (
     <div className={PeriodeInputClassName(feilmelding)}>
       <Label htmlFor={elementId}>
         <div style={{ display: 'flex' }}>
           Hvilken periode var den ansatte borte?
-          <HjelpetekstPeriode/>
+          <HjelpetekstPeriode />
         </div>
       </Label>
       <Flatpickr
@@ -58,9 +67,9 @@ export const PeriodeInput = ({ fom, tom, feilmelding, handleChange, id }: Period
           onClose: (selectedDates) => handleClose(selectedDates)
         }}
       />
-      {feilmeldingState &&
+      {feilmeldingState && (
         <SkjemaelementFeilmelding>{feilmeldingState}</SkjemaelementFeilmelding>
-      }
+      )}
     </div>
-  )
-}
+  );
+};

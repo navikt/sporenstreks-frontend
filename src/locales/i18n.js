@@ -11,7 +11,7 @@ i18n.init({
     },
     en: {
       translations: translationsToJson(Languages.en)
-    },
+    }
   },
   fallbackLng: Languages.nb,
   ns: ['translations'],
@@ -23,7 +23,7 @@ i18n.init({
   },
   react: {
     wait: true
-  },
+  }
 });
 
 export default i18n;

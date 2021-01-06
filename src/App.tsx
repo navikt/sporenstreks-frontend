@@ -22,31 +22,54 @@ const App = () => {
     <AppStoreProvider>
       <LoginExpiryProvider>
         <ArbeidsgiverProvider>
-            <I18nextProvider i18n={i18n}>
+          <I18nextProvider i18n={i18n}>
+            <Switch>
+              <Route
+                path={Linker.Enkel}
+                exact
+                render={() => (
+                  <EnkelProvider>
+                    <Sykepenger />
+                  </EnkelProvider>
+                )}
+              />
+              <Route
+                path={Linker.EnkelKvittering}
+                render={() => <Kvittering />}
+              />
 
-                <Switch>
-                  <Route path={Linker.Enkel} exact render={() =>
-                    <EnkelProvider>
-                      <Sykepenger />
-                    </EnkelProvider>
-                  } />
-                  <Route path={Linker.EnkelKvittering} render={() => <Kvittering />} />
+              <Route
+                path={Linker.Bulk}
+                exact
+                render={() => (
+                  <BulkProvider>
+                    <SykepengerBulk />
+                  </BulkProvider>
+                )}
+              />
+              <Route
+                path={Linker.BulkKvittering}
+                render={() => <KvitteringBulk />}
+              />
 
-                  <Route path={Linker.Bulk} exact render={() =>
-                    <BulkProvider>
-                      <SykepengerBulk />
-                    </BulkProvider>
-                  } />
-                  <Route path={Linker.BulkKvittering} render={() => <KvitteringBulk />} />
+              <Route
+                path={Linker.Excel}
+                exact
+                render={() => <ExcelOpplasting />}
+              />
+              <Route
+                path={Linker.ExcelKvittering}
+                exact
+                render={() => <KvitteringExcel />}
+              />
 
-                  <Route path={Linker.Excel} exact render={() => <ExcelOpplasting />} />
-                  <Route path={Linker.ExcelKvittering} exact render={() => <KvitteringExcel />} />
-
-                  <Route path={Linker.LoginFornyet} render={() => <LoginFornyet />} />
-                  <Route path={Linker.Home} render={() => <Redirecter />} />
-                </Switch>
-
-            </I18nextProvider>
+              <Route
+                path={Linker.LoginFornyet}
+                render={() => <LoginFornyet />}
+              />
+              <Route path={Linker.Home} render={() => <Redirecter />} />
+            </Switch>
+          </I18nextProvider>
         </ArbeidsgiverProvider>
       </LoginExpiryProvider>
     </AppStoreProvider>

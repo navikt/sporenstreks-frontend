@@ -40,26 +40,27 @@ describe('ByggValideringsFeil', () => {
         status: SkjemaStatus.AVVENTER,
         oppdatert: 1
       }
-    ]
+    ];
 
     const expected = [
       {
-        'feilmelding': 'Det er en feil i rad nr 1',
-        'skjemaelementId': 'fnr_123'
+        feilmelding: 'Det er en feil i rad nr 1',
+        skjemaelementId: 'fnr_123'
       },
       {
-        'feilmelding': 'Det er en feil i rad nr 2',
-        'skjemaelementId': 'fnr_234'
+        feilmelding: 'Det er en feil i rad nr 2',
+        skjemaelementId: 'fnr_234'
       },
       {
-        'feilmelding': 'Det er en feil i rad nr 3',
-        'skjemaelementId': 'fnr_345'
+        feilmelding: 'Det er en feil i rad nr 3',
+        skjemaelementId: 'fnr_345'
       },
       {
-        'feilmelding': 'Det er en feil i rad nr 4',
-        'skjemaelementId': 'fnr_456'
-      }];
+        feilmelding: 'Det er en feil i rad nr 4',
+        skjemaelementId: 'fnr_456'
+      }
+    ];
 
     expect(ByggValideringsFeil(input)).toEqual(expected);
-  })
-})
+  });
+});

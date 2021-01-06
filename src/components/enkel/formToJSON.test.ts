@@ -9,13 +9,16 @@ describe('formToJSON', () => {
   });
 
   it('returns an object when form is given.', () => {
-    const input = [{
-      name: 'test',
-      value: 'value'
-    },{
-      name: 'test2',
-      value: 'value2'
-    }]
+    const input = [
+      {
+        name: 'test',
+        value: 'value'
+      },
+      {
+        name: 'test2',
+        value: 'value2'
+      }
+    ];
 
     const jsonData = formToJSON(input);
     expect(jsonData).toEqual({

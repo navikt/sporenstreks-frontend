@@ -11,15 +11,15 @@ describe('RefreshToken', () => {
   });
 
   afterEach(() => {
-    jest.clearAllTimers()
-  })
+    jest.clearAllTimers();
+  });
   it('should show the iframe (refresh the token) when component loads', () => {
     const component = render(<RefreshToken />);
 
     const iframes = component.queryByTestId('refreshtoken-iframe');
     expect(setInterval).toBeCalledTimes(1);
     expect(iframes).toBeTruthy();
-  })
+  });
 
   it('should hide the iframe after 20 minutes', () => {
     const component = render(<RefreshToken />);
@@ -29,21 +29,19 @@ describe('RefreshToken', () => {
     const iframes = component.queryByTestId('refreshtoken-iframe');
     expect(setInterval).toBeCalledTimes(1);
     expect(iframes).toBeFalsy();
-  })
+  });
 
   it('should not show the iframe (not refresh the token) again after 40 minutes when we dont have interaction', () => {
-
     const component = render(<RefreshToken />);
 
     act(() => {
       jest.advanceTimersByTime(2410000);
     });
 
-
     const iframes = component.queryByTestId('refreshtoken-iframe');
 
     expect(iframes).toBeFalsy();
-  })
+  });
 
   it('should show the iframe (refresh the token) again after 40 minutes when we have interaction', () => {
     const map = [];
@@ -67,7 +65,7 @@ describe('RefreshToken', () => {
     const iframes = component.queryByTestId('refreshtoken-iframe');
 
     expect(iframes).toBeTruthy();
-  })
+  });
 
   it('should not show the iframe (refresh the token) again after 80 minutes when we have interaction at the beginning', () => {
     const map = [];
@@ -99,5 +97,5 @@ describe('RefreshToken', () => {
     const iframes = component.queryByTestId('refreshtoken-iframe');
 
     expect(iframes).toBeFalsy();
-  })
-})
+  });
+});

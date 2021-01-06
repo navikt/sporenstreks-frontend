@@ -9,10 +9,16 @@ interface EnkelRefusjonProps {
 }
 
 const EnkelRefusjon = (props: EnkelRefusjonProps) => {
-  const { errors, setValue, getValues, setError, clearError } = useFormContext();
+  const {
+    errors,
+    setValue,
+    getValues,
+    setError,
+    clearError
+  } = useFormContext();
   const componentId = 'refusjon_' + props.index;
   const handleChange = (refusjon?: number) => {
-    setValue( componentId, refusjon);
+    setValue(componentId, refusjon);
     const errorMessage = validateRefusjon(refusjon);
     if (errorMessage) {
       setError(componentId, errorMessage);
@@ -26,9 +32,14 @@ const EnkelRefusjon = (props: EnkelRefusjonProps) => {
       feilmelding={errors[componentId] && errors[componentId].type}
       beloep={getValues(componentId)}
       handleChange={handleChange}
-      label={<div style={{ display: 'flex' }}>Beløp<HjelpetekstRefusjon /></div>}
+      label={
+        <div style={{ display: 'flex' }}>
+          Beløp
+          <HjelpetekstRefusjon />
+        </div>
+      }
     />
-  )
+  );
 };
 
 export default EnkelRefusjon;

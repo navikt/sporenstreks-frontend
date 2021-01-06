@@ -3,42 +3,54 @@ import { Ansatt, byggAnsatt } from '../components/bulk/Ansatt';
 import { ValideringsFeil } from '../components/bulk/ValideringsFeil';
 
 interface BulkContext {
-  ansatte: Ansatt[],
-  setAnsatte,
-  feil: ValideringsFeil[],
-  setFeil,
-  loadingStatus: number,
-  setLoadingStatus
+  ansatte: Ansatt[];
+  setAnsatte;
+  feil: ValideringsFeil[];
+  setFeil;
+  loadingStatus: number;
+  setLoadingStatus;
 }
 
-export const buildBulkContext = () => ({
-  ansatte: [],
-  setAnsatte: function(ansatte: Ansatt[]){}, // eslint-disable-line @typescript-eslint/no-unused-vars
-  feil: [],
-  setFeil: function(feil: ValideringsFeil[]){}, // eslint-disable-line @typescript-eslint/no-unused-vars
-  loadingStatus: -1,
-  setLoadingStatus: function(status){} // eslint-disable-line @typescript-eslint/no-unused-vars
-}) as BulkContext
+export const buildBulkContext = () =>
+  ({
+    ansatte: [],
+    setAnsatte: function (ansatte: Ansatt[]) {}, // eslint-disable-line @typescript-eslint/no-unused-vars
+    feil: [],
+    setFeil: function (feil: ValideringsFeil[]) {}, // eslint-disable-line @typescript-eslint/no-unused-vars
+    loadingStatus: -1,
+    setLoadingStatus: function (status) {} // eslint-disable-line @typescript-eslint/no-unused-vars
+  } as BulkContext);
 
 const BulkContext = createContext(buildBulkContext());
 
 interface BulkContextProviderProps {
-  children: any,
-  ansatte?: Ansatt[],
-  feil?: ValideringsFeil[]
+  children: any;
+  ansatte?: Ansatt[];
+  feil?: ValideringsFeil[];
 }
 
 export const useBulk = () => useContext(BulkContext);
 
 export const BulkProvider = (props: BulkContextProviderProps) => {
-  const [ ansatte, setAnsatte ] = useState<Ansatt[]>(props.ansatte || [byggAnsatt()]);
-  const [ feil, setFeil ] = useState<ValideringsFeil[]>(props.feil || [] ); // bulk
-  const [ loadingStatus, setLoadingStatus ] = useState<number>(-1);
+  const [ansatte, setAnsatte] = useState<Ansatt[]>(
+    props.ansatte || [byggAnsatt()]
+  );
+  const [feil, setFeil] = useState<ValideringsFeil[]>(props.feil || []); // bulk
+  const [loadingStatus, setLoadingStatus] = useState<number>(-1);
   return (
-    <BulkContext.Provider value={{ ansatte, setAnsatte, feil, setFeil, loadingStatus, setLoadingStatus }}>
-      { props.children }
+    <BulkContext.Provider
+      value={{
+        ansatte,
+        setAnsatte,
+        feil,
+        setFeil,
+        loadingStatus,
+        setLoadingStatus
+      }}
+    >
+      {props.children}
     </BulkContext.Provider>
-  )
-}
+  );
+};
 
 export default useBulk;

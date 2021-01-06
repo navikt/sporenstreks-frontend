@@ -14,16 +14,17 @@ const EnkelDager = (props: EnkelDagerProps) => {
       setError(componentId, 'Antall dager må fylles ut');
       return false;
     } else {
-      clearError([ componentId, 'backend' ]);
+      clearError([componentId, 'backend']);
       return true;
     }
-  }
+  };
   return (
     <DagerInput
       id={componentId}
       feilmelding={errors[componentId] && errors[componentId].type}
       antallDagerMedRefusjon={getValues(componentId)}
-      handleChange={onChange}/>
+      handleChange={onChange}
+    />
   );
 };
 

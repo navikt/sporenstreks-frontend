@@ -1,9 +1,7 @@
 import React from 'react';
 
 const Skillelinje = () => {
-  return (
-    <hr/>
-  )
-}
+  return <hr />;
+};
 
-export default Skillelinje
+export default Skillelinje;

@@ -59,42 +59,54 @@ const Perioder = (props: PerioderProps) => {
 
   return (
     <>
-      <div className="periodeliste" ref={periodeliste}>
-        <Row className="periode periodeliste--overskrift">
-          <Column md="5" xs="12">
-            <Element tag="span">
+      <div className='periodeliste' ref={periodeliste}>
+        <Row className='periode periodeliste--overskrift'>
+          <Column md='5' xs='12'>
+            <Element tag='span'>
               Hvilken periode var den ansatte borte?
-              <HjelpetekstPeriode/>
+              <HjelpetekstPeriode />
             </Element>
           </Column>
-          <Column md="3" xs="12">
-            <Element tag="span">
-              Antall dager:<HjelpetekstDager/>
+          <Column md='3' xs='12'>
+            <Element tag='span'>
+              Antall dager:
+              <HjelpetekstDager />
             </Element>
           </Column>
-          <Column md="2" xs="12">
-            <Element tag="span">
-              Beløp:<HjelpetekstRefusjon />
+          <Column md='2' xs='12'>
+            <Element tag='span'>
+              Beløp:
+              <HjelpetekstRefusjon />
             </Element>
           </Column>
         </Row>
         {lokal.map((idx) => {
           return (
-            <PeriodeKomp index={idx} numOfRows={lokal.length}
-              slettPeriode={slettPeriode} min={props.min} max={props.max} key={idx}
+            <PeriodeKomp
+              index={idx}
+              numOfRows={lokal.length}
+              slettPeriode={slettPeriode}
+              min={props.min}
+              max={props.max}
+              key={idx}
             />
-          )
+          );
         })}
       </div>
 
-      <button role="link" className="periodeknapp lenke" onClick={leggTilPeriode}>
+      <button
+        role='link'
+        className='periodeknapp lenke'
+        onClick={leggTilPeriode}
+      >
         + Legg til ekstra fraværsperiode
       </button>
       <Hjelpetekst>
-        Denne benytter du kun dersom arbeidstaker har vært borte fra jobb i to eller flere omganger.
+        Denne benytter du kun dersom arbeidstaker har vært borte fra jobb i to
+        eller flere omganger.
       </Hjelpetekst>
     </>
-  )
+  );
 };
 
 export default Perioder;

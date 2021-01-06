@@ -1,7 +1,10 @@
 import { SykepengerData } from './SykepengerData';
 import { Ansatt } from './Ansatt';
 
-function filtrerAnsatteForInnsending(validerteAnsatte: Ansatt[], arbeidsgiverId: string): SykepengerData[] {
+function filtrerAnsatteForInnsending(
+  validerteAnsatte: Ansatt[],
+  arbeidsgiverId: string
+): SykepengerData[] {
   return validerteAnsatte.map((ansatt: Ansatt) => {
     return {
       identitetsnummer: ansatt.fnr,
