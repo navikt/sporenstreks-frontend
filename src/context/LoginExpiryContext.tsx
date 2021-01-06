@@ -7,7 +7,7 @@ export const buildLoginExpiryContext = (
 ) => ({
   loginExpiry,
   timeoutAdvarselHarBlittVist,
-  setTimeoutAdvarselHarBlittVist: function (harBlittVist: boolean) {} // eslint-disable-line @typescript-eslint/no-unused-vars  }
+  setTimeoutAdvarselHarBlittVist: function (harBlittVist: boolean) {} // eslint-disable-line @typescript-eslint/no-unused-vars
 });
 
 const LoginExpiryContext = createContext(buildLoginExpiryContext(false));
