@@ -6,7 +6,6 @@ export enum EnvironmentType {
 }
 
 class Environment {
-
   private env = (window as any)._env_ || {
     MOCK_BACKEND: 'true',
     NODE_ENV: 'development'
@@ -14,32 +13,44 @@ class Environment {
 
   get loginServiceUrl() {
     switch (this.environmentMode) {
-      case EnvironmentType.PROD : return 'https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/nettrefusjon/';
-      case EnvironmentType.PREPROD_DEV : return 'https://loginservice.dev.nav.no/login?redirect=https://arbeidsgiver-nettrefusjon.dev.nav.no';
-      case EnvironmentType.PREPROD_Q : return 'https://loginservice-q.nav.no/login?redirect=https://arbeidsgiver-q.nav.no/nettrefusjon/';
-      default : return 'http://localhost:8080/local/cookie-please?subject=12321&redirect=http://localhost:3000/nettrefusjon/';
+      case EnvironmentType.PROD:
+        return 'https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/nettrefusjon/';
+      case EnvironmentType.PREPROD_DEV:
+        return 'https://loginservice.dev.nav.no/login?redirect=https://arbeidsgiver-nettrefusjon.dev.nav.no';
+      case EnvironmentType.PREPROD_Q:
+        return 'https://loginservice-q.nav.no/login?redirect=https://arbeidsgiver-q.nav.no/nettrefusjon/';
+      default:
+        return 'http://localhost:8080/local/cookie-please?subject=12321&redirect=http://localhost:3000/nettrefusjon/';
     }
   }
 
   get downloadUrl() {
     switch (this.environmentMode) {
-      case EnvironmentType.PROD : return 'https://arbeidsgiver.nav.no/nettrefusjon';
-      case EnvironmentType.PREPROD_DEV : return 'https://arbeidsgiver-nettrefusjon.dev.nav.no/nettrefusjon';
-      case EnvironmentType.PREPROD_Q : return 'https://arbeidsgiver-q.nav.no/nettrefusjon';
-      default : return 'http://localhost:8080';
+      case EnvironmentType.PROD:
+        return 'https://arbeidsgiver.nav.no/nettrefusjon';
+      case EnvironmentType.PREPROD_DEV:
+        return 'https://arbeidsgiver-nettrefusjon.dev.nav.no/nettrefusjon';
+      case EnvironmentType.PREPROD_Q:
+        return 'https://arbeidsgiver-q.nav.no/nettrefusjon';
+      default:
+        return 'http://localhost:8080';
     }
   }
 
   get baseUrl() {
     switch (this.environmentMode) {
-      case EnvironmentType.PROD : return 'https://arbeidsgiver.nav.no/nettrefusjon';
-      case EnvironmentType.PREPROD_DEV : return 'https://arbeidsgiver-nettrefusjon.dev.nav.no/nettrefusjon';
-      case EnvironmentType.PREPROD_Q : return 'https://arbeidsgiver-q.nav.no/nettrefusjon';
-      default : return 'http://localhost:3000';
+      case EnvironmentType.PROD:
+        return 'https://arbeidsgiver.nav.no/nettrefusjon';
+      case EnvironmentType.PREPROD_DEV:
+        return 'https://arbeidsgiver-nettrefusjon.dev.nav.no/nettrefusjon';
+      case EnvironmentType.PREPROD_Q:
+        return 'https://arbeidsgiver-q.nav.no/nettrefusjon';
+      default:
+        return 'http://localhost:3000';
     }
   }
 
-  get environmentMode(){
+  get environmentMode() {
     if (window.location.hostname === 'localhost') {
       return EnvironmentType.LOCAL;
     }
@@ -51,7 +62,6 @@ class Environment {
     }
     return EnvironmentType.PROD;
   }
-
 }
 
 const env = new Environment();

@@ -3,24 +3,30 @@ import React, { ReactNode } from 'react';
 import './RefusjonInput.scss';
 
 interface RefusjonInputProps {
-  id?: string,
-  feilmelding?: string,
-  beloep?: number,
-  handleChange: any,
-  label: ReactNode
+  id?: string;
+  feilmelding?: string;
+  beloep?: number;
+  handleChange: any;
+  label: ReactNode;
 }
 
-export const RefusjonInput = ({ beloep, feilmelding, handleChange, label, id }: RefusjonInputProps) => {
+export const RefusjonInput = ({
+  beloep,
+  feilmelding,
+  handleChange,
+  label,
+  id
+}: RefusjonInputProps) => {
   const handleChangeLocal = (event) => {
     handleChange(event.target.value ? parseInt(event.target.value) : undefined);
-  }
+  };
   const handleKeyPress = (evt) => {
     if (evt.keyCode === 8) {
       handleChange();
       return true;
     }
-    const allowed = (evt.key >= 0 && evt.key <= 9);
-    if (!allowed){
+    const allowed = evt.key >= 0 && evt.key <= 9;
+    if (!allowed) {
       evt.preventDefault();
       return false;
     }
@@ -28,7 +34,7 @@ export const RefusjonInput = ({ beloep, feilmelding, handleChange, label, id }: 
       evt.preventDefault();
       return false;
     }
-  }
+  };
   return (
     <div>
       <Input
@@ -39,12 +45,13 @@ export const RefusjonInput = ({ beloep, feilmelding, handleChange, label, id }: 
         autoComplete='off'
         bredde={'S'}
         label={label}
-        placeholder="Kroner"
+        placeholder='Kroner'
         type={'number'}
         inputMode={'numeric'}
         className={'RefusjonInput'}
         onKeyPress={handleKeyPress}
-        onChange={handleChangeLocal} />
+        onChange={handleChangeLocal}
+      />
     </div>
-  )
-}
+  );
+};

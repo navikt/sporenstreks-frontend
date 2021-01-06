@@ -7,10 +7,10 @@ import { CoronaTopptekst } from '../components/felles/CoronaTopptekst';
 
 const SykepengerBulk = () => {
   return (
-      <InnloggetSide>
-        <CoronaTopptekst />
-          <Ansatte />
-      </InnloggetSide>
+    <InnloggetSide>
+      <CoronaTopptekst />
+      <Ansatte />
+    </InnloggetSide>
   );
 };
 

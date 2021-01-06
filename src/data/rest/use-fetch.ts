@@ -2,7 +2,11 @@ import { useCallback, useMemo, useState } from 'react';
 import { FetchState, FetchStatus } from './utils';
 
 export interface Fetch<D = any, FP = any> extends FetchState<D> {
-  fetch: (url: string, request?: RequestInit, onFinished?: (fetchState: FetchState<D>) => void) => void;
+  fetch: (
+    url: string,
+    request?: RequestInit,
+    onFinished?: (fetchState: FetchState<D>) => void
+  ) => void;
   reset: () => void;
 }
 
@@ -10,7 +14,7 @@ const createInitialFetchState = (): FetchState<any> => ({
   status: FetchStatus.NOT_STARTED,
   error: null,
   data: null,
-  httpCode: -1,
+  httpCode: -1
 });
 
 const createPendingFetchState = (): FetchState<any> => ({
@@ -20,25 +24,35 @@ const createPendingFetchState = (): FetchState<any> => ({
   httpCode: -1
 });
 
-const createFinishedFetchState = <D = {}>(data: D | null, error: any, httpCode: number): FetchState<any> => ({
+const createFinishedFetchState = <D = {}>(
+  data: D | null,
+  error: any,
+  httpCode: number
+): FetchState<any> => ({
   status: FetchStatus.FINISHED,
   error,
   data: data,
-  httpCode,
+  httpCode
 });
 
 const useFetch = <D = {}>(): Fetch<D> => {
-  const [ fetchState, setFetchState ] = useState<FetchState<D>>(createInitialFetchState());
+  const [fetchState, setFetchState] = useState<FetchState<D>>(
+    createInitialFetchState()
+  );
 
-  const apiFetch = (url: string, request?: RequestInit, onFinished?: (fetchState: FetchState<D>) => void) => {
+  const apiFetch = (
+    url: string,
+    request?: RequestInit,
+    onFinished?: (fetchState: FetchState<D>) => void
+  ) => {
     setFetchState(createPendingFetchState());
 
     fetch(url, request)
-      .then(async(res) => {
+      .then(async (res) => {
         const httpCode = res.status;
         let state: FetchState<D>;
 
-        if ([ 200, 201, 203, 206 ].includes(httpCode)) {
+        if ([200, 201, 203, 206].includes(httpCode)) {
           try {
             const data = await res.json();
             state = createFinishedFetchState(data, null, httpCode);
@@ -52,10 +66,10 @@ const useFetch = <D = {}>(): Fetch<D> => {
         return state;
       })
 
-      .catch(error => {
+      .catch((error) => {
         return createFinishedFetchState(null, error, -1);
       })
-      .then(state => {
+      .then((state) => {
         if (onFinished) {
           onFinished(state);
         }
@@ -64,11 +78,14 @@ const useFetch = <D = {}>(): Fetch<D> => {
   };
 
   const apiFetchCallback = useCallback(apiFetch, []);
-  const resetCallback = useCallback(() => setFetchState(createInitialFetchState()), []);
+  const resetCallback = useCallback(
+    () => setFetchState(createInitialFetchState()),
+    []
+  );
 
   return useMemo(() => {
     return { ...fetchState, fetch: apiFetchCallback, reset: resetCallback };
-  }, [ fetchState, apiFetchCallback, resetCallback ]);
+  }, [fetchState, apiFetchCallback, resetCallback]);
 };
 
 export default useFetch;

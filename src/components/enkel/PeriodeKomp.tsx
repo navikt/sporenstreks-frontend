@@ -15,25 +15,24 @@ interface PeriodeKompProps {
 }
 
 const PeriodeKomp = (props: PeriodeKompProps) => {
-
   return (
-      <Row className="periode">
-        <Column md="5" xs="12">
-          <EnkelPeriode index={props.index} min={props.min} max={props.max} />
-        </Column>
-        <Column md="3" xs="12">
-          <EnkelDager index={props.index} />
-        </Column>
-        <Column md="3" xs="12">
-          <EnkelRefusjon index={props.index} />
-        </Column>
-        <Column md="1" xs="12">
-          <Vis hvis={props.numOfRows > 1}>
-            <Slettknapp onClick={(e) => props.slettPeriode(e, props.index)}/>
-          </Vis>
-        </Column>
-      </Row>
-  )
+    <Row className='periode'>
+      <Column md='5' xs='12'>
+        <EnkelPeriode index={props.index} min={props.min} max={props.max} />
+      </Column>
+      <Column md='3' xs='12'>
+        <EnkelDager index={props.index} />
+      </Column>
+      <Column md='3' xs='12'>
+        <EnkelRefusjon index={props.index} />
+      </Column>
+      <Column md='1' xs='12'>
+        <Vis hvis={props.numOfRows > 1}>
+          <Slettknapp onClick={(e) => props.slettPeriode(e, props.index)} />
+        </Vis>
+      </Column>
+    </Row>
+  );
 };
 
 export default PeriodeKomp;

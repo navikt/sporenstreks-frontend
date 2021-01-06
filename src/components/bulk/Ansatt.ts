@@ -2,16 +2,16 @@ import { v4 as uuidv4 } from 'uuid';
 import { SkjemaStatus } from '../../data/types/sporenstreksTypes';
 
 export interface AnsattID {
-  id: number | string
+  id: number | string;
 }
 
 export interface Ansatt extends AnsattID {
   fnr?: string;
-  fnrError?: string,
-  beloepError?: string,
-  refusjonError?: string,
-  periodeError?: string,
-  dagerError?: string,
+  fnrError?: string;
+  beloepError?: string;
+  refusjonError?: string;
+  periodeError?: string;
+  dagerError?: string;
   fom: string;
   tom: string;
   antallDagerMedRefusjon?: number;
@@ -21,7 +21,7 @@ export interface Ansatt extends AnsattID {
   referenceNumber?: string | null;
 }
 
-export const byggAnsatt = ():Ansatt => {
+export const byggAnsatt = (): Ansatt => {
   let a = {} as Ansatt;
   a.id = uuidv4();
   a.fnr = '';

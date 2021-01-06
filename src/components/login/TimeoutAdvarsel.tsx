@@ -9,7 +9,10 @@ import { useLocation } from 'react-router-dom';
 
 const TimeoutAdvarsel = () => {
   const [isOpen, setOpen] = useState(true);
-  const { timeoutAdvarselHarBlittVist, setTimeoutAdvarselHarBlittVist } = useLoginExpiry();
+  const {
+    timeoutAdvarselHarBlittVist,
+    setTimeoutAdvarselHarBlittVist
+  } = useLoginExpiry();
   const location = useLocation();
   const erKvitteringside = location.pathname.indexOf('kvittering') > -1;
 
@@ -17,11 +20,11 @@ const TimeoutAdvarsel = () => {
     return null;
   }
 
-  const handleOKClick  = (evt?: React.FormEvent) => {
+  const handleOKClick = (evt?: React.FormEvent) => {
     evt?.preventDefault();
     setOpen(false);
     setTimeoutAdvarselHarBlittVist(true);
-  }
+  };
 
   return (
     <ModalWrapper
@@ -29,19 +32,26 @@ const TimeoutAdvarsel = () => {
       onRequestClose={() => handleOKClick()}
       closeButton={false}
       className={'timeout-advarsel'}
-      contentLabel=""
+      contentLabel=''
     >
-      <AlertStripeAdvarsel className="timeout-advarsel__innhold">
+      <AlertStripeAdvarsel className='timeout-advarsel__innhold'>
         <Innholdstittel>Du blir logget ut etter 60 minutter</Innholdstittel>
         <ul>
           <li>Vi anbefaler at du gjør deg ferdig innen timen er gått.</li>
-          <li>Blir du logget ut, får du mer informasjon om hva du skal gjøre, slik at du ikke mister det du har skrevet.</li>
-          <li><strong>Denne innloggingen utløper kl: <TokenUtloper /></strong></li>
+          <li>
+            Blir du logget ut, får du mer informasjon om hva du skal gjøre, slik
+            at du ikke mister det du har skrevet.
+          </li>
+          <li>
+            <strong>
+              Denne innloggingen utløper kl: <TokenUtloper />
+            </strong>
+          </li>
         </ul>
         <InternLenke onClick={(e) => handleOKClick(e)}>Lukk</InternLenke>
       </AlertStripeAdvarsel>
     </ModalWrapper>
-  )
-}
+  );
+};
 
-export default TimeoutAdvarsel
+export default TimeoutAdvarsel;

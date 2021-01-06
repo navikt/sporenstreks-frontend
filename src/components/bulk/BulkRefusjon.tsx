@@ -7,7 +7,7 @@ import { useBulk } from '../../context/BulkContext';
 
 export const BulkRefusjon = (props: AnsattID) => {
   const { ansatte, setAnsatte } = useBulk();
-  const a = ansatte.find(a => a.id === props.id);
+  const a = ansatte.find((a) => a.id === props.id);
 
   const handleChange = (val: number) => {
     if (a) {
@@ -18,13 +18,18 @@ export const BulkRefusjon = (props: AnsattID) => {
   };
 
   return (
-      <RefusjonInput
-        feilmelding={a?.beloepError}
-        beloep={a?.beloep}
-        handleChange={handleChange}
-        label={<div style={{ display: 'flex' }}>Beløp<HjelpetekstRefusjon /></div>}
-      />
-  )
+    <RefusjonInput
+      feilmelding={a?.beloepError}
+      beloep={a?.beloep}
+      handleChange={handleChange}
+      label={
+        <div style={{ display: 'flex' }}>
+          Beløp
+          <HjelpetekstRefusjon />
+        </div>
+      }
+    />
+  );
 };
 
 export default BulkRefusjon;

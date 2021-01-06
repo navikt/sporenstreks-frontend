@@ -11,5 +11,4 @@ export const PeriodeFormatter = (fom?: Date, tom?: Date) => {
     return PeriodeConverter(tom);
   }
   return PeriodeConverter(fom) + ' til ' + PeriodeConverter(tom);
-}
-
+};

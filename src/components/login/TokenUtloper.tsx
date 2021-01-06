@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 
 const TokenUtloper = () => {
   const { loginExpiry } = useLoginExpiry();
-  return <>{ loginExpiry ? dayjs(loginExpiry).format('HH:mm') : '' }</>
-}
+  return <>{loginExpiry ? dayjs(loginExpiry).format('HH:mm') : ''}</>;
+};
 
 export default TokenUtloper;

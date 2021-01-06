@@ -29,18 +29,21 @@ import { fnrErrorState, useEnkelSkjema } from '../context/EnkelContext';
 import { useAppStore } from '../context/AppStoreContext';
 import { Linker } from './Linker';
 
-
-
 const Sykepenger = () => {
   const { arbeidsgiverId, firma } = useArbeidsgiver();
   const { setTokenExpired } = useAppStore();
   const {
     setReferanseNummer,
-    identityNumberInput, setIdentityNumberInput,
-    erklæringAkseptert, setErklæringAkseptert,
-    sendSkjemaOpen, setSendSkjemaOpen,
-    formData, setFormData,
-    fnrClassName, setFnrClassName
+    identityNumberInput,
+    setIdentityNumberInput,
+    erklæringAkseptert,
+    setErklæringAkseptert,
+    sendSkjemaOpen,
+    setSendSkjemaOpen,
+    formData,
+    setFormData,
+    fnrClassName,
+    setFnrClassName
   } = useEnkelSkjema();
 
   const methods = useForm();
@@ -64,7 +67,11 @@ const Sykepenger = () => {
   };
 
   const submitForm = async (): Promise<void> => {
-    const refusjonsKrav = convertSkjemaToRefusjonsKrav(formData, identityNumberInput, arbeidsgiverId);
+    const refusjonsKrav = convertSkjemaToRefusjonsKrav(
+      formData,
+      identityNumberInput,
+      arbeidsgiverId
+    );
     setSendSkjemaOpen(false);
 
     const FETCH_TIMEOUT = 5000;
@@ -78,41 +85,44 @@ const Sykepenger = () => {
 
       fetch(env.baseUrl + '/api/v1/refusjonskrav', {
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
         },
         credentials: 'same-origin',
         method: 'POST',
-        body: JSON.stringify(refusjonsKrav),
-      }).then((response: Response) => {
-        clearTimeout(timeout);
-        if (!didTimeOut) {
-          if (response.status === 401) {
-            setTokenExpired(true)
-            window.location.href = env.loginServiceUrl;
-          } else if (response.status === 200) {
-            response.json().then(data => {
-              setReferanseNummer(data.referansenummer);
-              history.push(Linker.EnkelKvittering)
-            })
-          } else if (response.status === 422) {
-            response.json().then(data => {
-              data.violations.forEach(violation => {
-                methods.setError('backend', violation.message);
+        body: JSON.stringify(refusjonsKrav)
+      })
+        .then((response: Response) => {
+          clearTimeout(timeout);
+          if (!didTimeOut) {
+            if (response.status === 401) {
+              setTokenExpired(true);
+              window.location.href = env.loginServiceUrl;
+            } else if (response.status === 200) {
+              response.json().then((data) => {
+                setReferanseNummer(data.referansenummer);
+                history.push(Linker.EnkelKvittering);
               });
-              data.violations.map(violation => ({
-                errorType: violation.validationType,
-                errorMessage: violation.message,
-              }));
-            });
-          } else { // todo: error 400
-            methods.setError('backend', 'Server feil, prøv igjen senere');
+            } else if (response.status === 422) {
+              response.json().then((data) => {
+                data.violations.forEach((violation) => {
+                  methods.setError('backend', violation.message);
+                });
+                data.violations.map((violation) => ({
+                  errorType: violation.validationType,
+                  errorMessage: violation.message
+                }));
+              });
+            } else {
+              // todo: error 400
+              methods.setError('backend', 'Server feil, prøv igjen senere');
+            }
           }
-        }
-      }).catch(err => {
-        if (didTimeOut) return;
-        reject(err);
-      });
+        })
+        .catch((err) => {
+          if (didTimeOut) return;
+          reject(err);
+        });
     }).catch(() => {
       methods.setError('backend', 'Server feil, prøv igjen senere');
     });
@@ -123,14 +133,14 @@ const Sykepenger = () => {
     const notValid = fnrvalidator.fnr(value).status === 'invalid';
     let msg = '';
     if (value === '') {
-      msg = 'Fødselsnummer må fylles ut'
+      msg = 'Fødselsnummer må fylles ut';
     } else if (value.length < 11) {
       msg = 'Fødselsnummer må ha 11 siffer';
     } else if (notValid) {
-      msg = 'Fødselsnummer er ugyldig'
+      msg = 'Fødselsnummer er ugyldig';
     }
     if (msg !== '') {
-      setFnrClassName(fnrErrorState.hasError)
+      setFnrClassName(fnrErrorState.hasError);
       methods.setError('fnr', msg);
       return false;
     } else {
@@ -146,98 +156,129 @@ const Sykepenger = () => {
         isOpen={sendSkjemaOpen}
         onRequestClose={() => setSendSkjemaOpen(false)}
         closeButton={false}
-        contentLabel="Send skjema"
+        contentLabel='Send skjema'
       >
-        <Undertittel className="sykepenger__modal-tittel">Du søker om refusjon på vegne av:</Undertittel>
-        <p className="sykepenger__modal-tekst">{firma}</p>
-        <p className="sykepenger__modal-tekst">Organisasjonsnummer: {arbeidsgiverId}</p>
-        <Knapp className="sykepenger__modal-btn" onClick={() => submitForm()}>Send søknad om refusjon</Knapp>
-        <InternLenke className="sykepenger__modal-avbrytt" onClick={() => setSendSkjemaOpen(false)}>
+        <Undertittel className='sykepenger__modal-tittel'>
+          Du søker om refusjon på vegne av:
+        </Undertittel>
+        <p className='sykepenger__modal-tekst'>{firma}</p>
+        <p className='sykepenger__modal-tekst'>
+          Organisasjonsnummer: {arbeidsgiverId}
+        </p>
+        <Knapp className='sykepenger__modal-btn' onClick={() => submitForm()}>
+          Send søknad om refusjon
+        </Knapp>
+        <InternLenke
+          className='sykepenger__modal-avbrytt'
+          onClick={() => setSendSkjemaOpen(false)}
+        >
           Avbryt
         </InternLenke>
       </ModalWrapper>
-        <InnloggetSide>
-          <CoronaTopptekst />
-          <Skillelinje />
-          <FormContext {...methods}>
-            <form onSubmit={methods.handleSubmit(setForm)} ref={refRefusjonsform}>
+      <InnloggetSide>
+        <CoronaTopptekst />
+        <Skillelinje />
+        <FormContext {...methods}>
+          <form onSubmit={methods.handleSubmit(setForm)} ref={refRefusjonsform}>
             <Row>
               <Column>
                 <Panel>
-                  <Undertittel className="sykepenger--undertittel">
+                  <Undertittel className='sykepenger--undertittel'>
                     Hvilken arbeidstaker gjelder søknaden?
-                    </Undertittel>
+                  </Undertittel>
 
                   <Normaltekst>
-                    Vi har også et eget <InternLenke to={Linker.Bulk}> skjema for å sende inn flere ansatte samtidig </InternLenke>
-                      (kun enkeltperioder per ansatt), og for dere som har mer enn 50 ansatte å rapportere inn har vi
-                      mulighet for <InternLenke to={Linker.Excel}> excel-opplasting av kravet.</InternLenke>
+                    Vi har også et eget{' '}
+                    <InternLenke to={Linker.Bulk}>
+                      {' '}
+                      skjema for å sende inn flere ansatte samtidig{' '}
+                    </InternLenke>
+                    (kun enkeltperioder per ansatt), og for dere som har mer enn
+                    50 ansatte å rapportere inn har vi mulighet for{' '}
+                    <InternLenke to={Linker.Excel}>
+                      {' '}
+                      excel-opplasting av kravet.
+                    </InternLenke>
                   </Normaltekst>
 
                   <div>&nbsp;</div>
 
                   <Input
-                    id="fnr"
-                    name="fnr"
-                    label="Fødselsnummer til arbeidstaker"
-                    bredde="M"
+                    id='fnr'
+                    name='fnr'
+                    label='Fødselsnummer til arbeidstaker'
+                    bredde='M'
                     autoComplete={'off'}
-                    onChange={e => filterIdentityNumberInput(e.target.value)}
-                    onBlur={e => validateFnr(e.target.value)}
+                    onChange={(e) => filterIdentityNumberInput(e.target.value)}
+                    onBlur={(e) => validateFnr(e.target.value)}
                     value={identityNumberSeparation(identityNumberInput)}
                   />
 
-                  <Normaltekst tag='div' role='alert' aria-live='assertive'
+                  <Normaltekst
+                    tag='div'
+                    role='alert'
+                    aria-live='assertive'
                     className={'skjemaelement__feilmelding fnr ' + fnrClassName}
                   >
                     <Vis hvis={methods.errors['fnr']}>
-                      <Feilmelding>{methods.errors['fnr'] && methods.errors['fnr'].type}</Feilmelding>
+                      <Feilmelding>
+                        {methods.errors['fnr'] && methods.errors['fnr'].type}
+                      </Feilmelding>
                     </Vis>
                   </Normaltekst>
-                  </Panel>
-                </Column>
-              </Row>
-              <Skillelinje />
-              <Container className="sykepenger--container">
-                <div className="sykepenger--periode-velger form-group">
-                  <Undertittel className="sykepenger--undertittel">
-                    Hvor mange arbeidsdager gikk tapt?
-                  </Undertittel>
-                  <Perioder />
+                </Panel>
+              </Column>
+            </Row>
+            <Skillelinje />
+            <Container className='sykepenger--container'>
+              <div className='sykepenger--periode-velger form-group'>
+                <Undertittel className='sykepenger--undertittel'>
+                  Hvor mange arbeidsdager gikk tapt?
+                </Undertittel>
+                <Perioder />
+              </div>
+            </Container>
 
-                </div>
-              </Container>
+            <FeilOppsummering errors={methods.errors} />
+            <Skillelinje />
+            <Row>
+              <Column>
+                <Panel>
+                  <Erklaring
+                    value={erklæringAkseptert}
+                    handleSetErklæring={(value) => setErklæringAkseptert(value)}
+                  />
+                </Panel>
+              </Column>
+            </Row>
 
-              <FeilOppsummering errors={methods.errors} />
-              <Skillelinje />
-              <Row>
-                <Column>
-                  <Panel>
-                    <Erklaring value={erklæringAkseptert} handleSetErklæring={value => setErklæringAkseptert(value)} />
-                  </Panel>
-                </Column>
-              </Row>
-
-              <Row>
-          <Column className="send-soknad">
-            <Panel>
-                  <Knapp disabled={!erklæringAkseptert} type="hoved"> Send søknad om refusjon </Knapp>
-                  </Panel>
-          </Column>
-        </Row>
-            </form>
-          </FormContext>
-        </InnloggetSide>
+            <Row>
+              <Column className='send-soknad'>
+                <Panel>
+                  <Knapp disabled={!erklæringAkseptert} type='hoved'>
+                    {' '}
+                    Send søknad om refusjon{' '}
+                  </Knapp>
+                </Panel>
+              </Column>
+            </Row>
+          </form>
+        </FormContext>
+      </InnloggetSide>
     </>
   );
 };
 
 export default Sykepenger;
 
-function validateValuesAreSet(formAsJson: any, validateFnr: (value: string) => boolean, methods) {
+function validateValuesAreSet(
+  formAsJson: any,
+  validateFnr: (value: string) => boolean,
+  methods
+) {
   let harFeil = false;
 
-  Object.keys(formAsJson).forEach(element => {
+  Object.keys(formAsJson).forEach((element) => {
     const [fieldName] = element.split('_');
     switch (fieldName) {
       case 'fnr':
@@ -247,8 +288,7 @@ function validateValuesAreSet(formAsJson: any, validateFnr: (value: string) => b
         if (!formAsJson[element]) {
           methods.setError(element, 'Periode må fylles ut');
           harFeil = true;
-        }
-        else if (formAsJson[element].indexOf('til') === -1) {
+        } else if (formAsJson[element].indexOf('til') === -1) {
           methods.setError(element, 'Sluttdato må fylles ut');
           harFeil = true;
         }
@@ -275,4 +315,3 @@ function validateValuesAreSet(formAsJson: any, validateFnr: (value: string) => b
   });
   return harFeil;
 }
-

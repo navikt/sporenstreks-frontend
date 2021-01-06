@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom'
+import '@testing-library/jest-dom';
 
 import { validateFnrLengthAndValidity } from './validateFnrLengthAndValidity';
 import { TestFnr } from './TestFnr';
@@ -19,7 +19,7 @@ describe('validateFnrLengthAndValidity', () => {
   });
 
   it('should validate that the fødsesnummer length must be 11 and not more', () => {
-    const input: string =  TestFnr.Ugyldige.ForLangt;
+    const input: string = TestFnr.Ugyldige.ForLangt;
 
     const expected = 'Fødselsnummer må ha 11 siffer';
 

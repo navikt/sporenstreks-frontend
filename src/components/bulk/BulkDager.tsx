@@ -7,7 +7,7 @@ import { useBulk } from '../../context/BulkContext';
 
 export const BulkDager = (props: AnsattID) => {
   const { ansatte, setAnsatte } = useBulk();
-  const a = ansatte.find(a => a.id === props.id);
+  const a = ansatte.find((a) => a.id === props.id);
   const handleChange = (evt) => {
     if (a) {
       a.antallDagerMedRefusjon = parseInt(evt.target.selectedIndex);
@@ -25,17 +25,19 @@ export const BulkDager = (props: AnsattID) => {
       label={
         <div style={{ display: 'flex' }}>
           Antall dager:
-          <HjelpetekstDager/>
-        </div>}
-      value={a?.antallDagerMedRefusjon}
-      selected={a?.antallDagerMedRefusjon}>
-      {
-        optionArr.map(optionValue => <option key={optionValue} value={optionValue}>
-          {optionValue ? optionValue : '-'}
-        </option>)
+          <HjelpetekstDager />
+        </div>
       }
+      value={a?.antallDagerMedRefusjon}
+      selected={a?.antallDagerMedRefusjon}
+    >
+      {optionArr.map((optionValue) => (
+        <option key={optionValue} value={optionValue}>
+          {optionValue ? optionValue : '-'}
+        </option>
+      ))}
     </Select>
-  )
+  );
 };
 
 export default BulkDager;

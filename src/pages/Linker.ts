@@ -1,5 +1,3 @@
-
-
 export enum Linker {
   Home = '/',
   LoginFornyet = '/loginFornyet',

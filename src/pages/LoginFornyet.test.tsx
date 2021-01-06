@@ -4,14 +4,14 @@ import { axe, toHaveNoViolations } from 'jest-axe';
 
 import LoginFornyet from './LoginFornyet';
 
-expect.extend(toHaveNoViolations)
+expect.extend(toHaveNoViolations);
 
 describe('LoginFornyet', () => {
   it('should have no a11y violations', async () => {
-    const { container } = render(<LoginFornyet/>)
-    const results = await axe(container)
+    const { container } = render(<LoginFornyet />);
+    const results = await axe(container);
 
-    expect(results).toHaveNoViolations()
+    expect(results).toHaveNoViolations();
 
     cleanup();
   });

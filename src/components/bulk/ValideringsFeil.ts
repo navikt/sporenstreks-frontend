@@ -1,4 +1,4 @@
 export interface ValideringsFeil {
-    skjemaelementId: string,
-    feilmelding: string
+  skjemaelementId: string;
+  feilmelding: string;
 }

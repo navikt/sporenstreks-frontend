@@ -5,14 +5,18 @@ import Spinner from 'nav-frontend-spinner';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import env from '../components/felles/environment';
 
-export const buildArbeidsgiverContext = (firma: string, arbeidsgiverId: string, arbeidsgivere: Organisasjon[]) => ({
+export const buildArbeidsgiverContext = (
+  firma: string,
+  arbeidsgiverId: string,
+  arbeidsgivere: Organisasjon[]
+) => ({
   arbeidsgivere,
-  setArbeidsgivere: function(arbeidsgivere: Organisasjon[]){}, // eslint-disable-line @typescript-eslint/no-unused-vars
+  setArbeidsgivere: function (arbeidsgivere: Organisasjon[]) {}, // eslint-disable-line @typescript-eslint/no-unused-vars
   firma,
-  setFirma: function(firma: string){}, // eslint-disable-line @typescript-eslint/no-unused-vars
+  setFirma: function (firma: string) {}, // eslint-disable-line @typescript-eslint/no-unused-vars
   arbeidsgiverId,
-  setArbeidsgiverId: function(arbeidsgiverId: string){} // eslint-disable-line @typescript-eslint/no-unused-vars
-})
+  setArbeidsgiverId: function (arbeidsgiverId: string) {} // eslint-disable-line @typescript-eslint/no-unused-vars
+});
 
 export const buildArbeidsgiver = (
   Name: string,
@@ -20,7 +24,8 @@ export const buildArbeidsgiver = (
   OrganizationNumber: string,
   ParentOrganizationNumber: string,
   Status: string,
-  Type: string) : Organisasjon => {
+  Type: string
+): Organisasjon => {
   return {
     Name,
     OrganizationForm,
@@ -28,52 +33,55 @@ export const buildArbeidsgiver = (
     ParentOrganizationNumber,
     Status,
     Type
-  }
-}
+  };
+};
 
 const ArbeidsgiverContext = createContext(buildArbeidsgiverContext('', '', []));
 
 interface ArbeidsgiverContextProviderProps {
-  children: any,
-  status?: number,
-  arbeidsgivere?: Organisasjon[]
+  children: any;
+  status?: number;
+  arbeidsgivere?: Organisasjon[];
 }
 
 export const useArbeidsgiver = () => useContext(ArbeidsgiverContext);
 
-export const ArbeidsgiverProvider = (props: ArbeidsgiverContextProviderProps) => {
-  const [ status, setStatus ]  = useState<number>(props.status || Status.NotStarted);
-  const [ arbeidsgivere, setArbeidsgivere ] = useState<Organisasjon[]>(props.arbeidsgivere || []);
-  const [ firma, setFirma ] = useState<string>('');
-  const [ arbeidsgiverId, setArbeidsgiverId ] = useState<string>('');
+export const ArbeidsgiverProvider = (
+  props: ArbeidsgiverContextProviderProps
+) => {
+  const [status, setStatus] = useState<number>(
+    props.status || Status.NotStarted
+  );
+  const [arbeidsgivere, setArbeidsgivere] = useState<Organisasjon[]>(
+    props.arbeidsgivere || []
+  );
+  const [firma, setFirma] = useState<string>('');
+  const [arbeidsgiverId, setArbeidsgiverId] = useState<string>('');
 
   useEffect(() => {
     if (status === Status.NotStarted) {
       setStatus(Status.Started);
-      ArbeidsgiverAPI.GetArbeidsgivere().then(
-        res => {
-          setStatus(res.status);
-          setArbeidsgivere(res.organisasjoner)
-        }
-      )
+      ArbeidsgiverAPI.GetArbeidsgivere().then((res) => {
+        setStatus(res.status);
+        setArbeidsgivere(res.organisasjoner);
+      });
     }
-  }, [ status ]);
-
+  }, [status]);
 
   if (status === Status.Unauthorized) {
     window.location.href = env.loginServiceUrl;
-    return <div className="arbeidsgiver-provider-redirect" />;
+    return <div className='arbeidsgiver-provider-redirect' />;
   }
 
   if (status === Status.NotStarted || status === Status.Started) {
-    return <Spinner type={'XXL'} className="sporenstreks-spinner" />;
+    return <Spinner type={'XXL'} className='sporenstreks-spinner' />;
   }
 
   if (status === Status.Error || status === Status.Timeout) {
     return (
       <AlertStripeFeil>
-        Vi får akkurat nå ikke hentet alle data.
-        Vi jobber med å løse saken. Vennligst prøv igjen senere.
+        Vi får akkurat nå ikke hentet alle data. Vi jobber med å løse saken.
+        Vennligst prøv igjen senere.
       </AlertStripeFeil>
     );
   }
@@ -81,15 +89,24 @@ export const ArbeidsgiverProvider = (props: ArbeidsgiverContextProviderProps) =>
   if (status === Status.Unknown) {
     return (
       <AlertStripeFeil>
-        Det oppstod en ukjent feil.
-        Vi jobber med å løse saken. Vennligst prøv igjen senere.
+        Det oppstod en ukjent feil. Vi jobber med å løse saken. Vennligst prøv
+        igjen senere.
       </AlertStripeFeil>
     );
   }
 
   return (
-    <ArbeidsgiverContext.Provider value={{ arbeidsgivere, setArbeidsgivere, firma, setFirma, arbeidsgiverId, setArbeidsgiverId }}>
-      { props.children }
+    <ArbeidsgiverContext.Provider
+      value={{
+        arbeidsgivere,
+        setArbeidsgivere,
+        firma,
+        setFirma,
+        arbeidsgiverId,
+        setArbeidsgiverId
+      }}
+    >
+      {props.children}
     </ArbeidsgiverContext.Provider>
-  )
-}
+  );
+};

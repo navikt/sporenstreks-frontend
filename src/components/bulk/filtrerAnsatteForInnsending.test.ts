@@ -35,47 +35,47 @@ describe('filtrerAnsatteForInnsending', () => {
         antallDagerMedRefusjon: 3,
         beloep: 333
       }
-    ]
+    ];
 
     const expected: SykepengerData[] = [
       {
-        'identitetsnummer': '1',
-        'perioder': [
+        identitetsnummer: '1',
+        perioder: [
           {
-            'antallDagerMedRefusjon': 1,
-            'beloep': 123,
-            'fom': 'fom',
-            'tom': 'tom',
-          },
+            antallDagerMedRefusjon: 1,
+            beloep: 123,
+            fom: 'fom',
+            tom: 'tom'
+          }
         ],
-        'virksomhetsnummer': '123456789',
+        virksomhetsnummer: '123456789'
       },
       {
-        'identitetsnummer': '2',
-        'perioder': [
+        identitetsnummer: '2',
+        perioder: [
           {
-            'antallDagerMedRefusjon': 2,
-            'beloep': 222,
-            'fom': 'fom',
-            'tom': 'tom',
-          },
+            antallDagerMedRefusjon: 2,
+            beloep: 222,
+            fom: 'fom',
+            tom: 'tom'
+          }
         ],
-        'virksomhetsnummer': '123456789',
+        virksomhetsnummer: '123456789'
       },
       {
-        'identitetsnummer': '3',
-        'perioder': [
+        identitetsnummer: '3',
+        perioder: [
           {
-            'antallDagerMedRefusjon': 3,
-            'beloep': 333,
-            'fom': 'fom',
-            'tom': 'tom',
-          },
+            antallDagerMedRefusjon: 3,
+            beloep: 333,
+            fom: 'fom',
+            tom: 'tom'
+          }
         ],
-        'virksomhetsnummer': '123456789',
-      },
-    ]
+        virksomhetsnummer: '123456789'
+      }
+    ];
 
     expect(filtrerAnsatteForInnsending(master, '123456789')).toEqual(expected);
-  })
-})
+  });
+});

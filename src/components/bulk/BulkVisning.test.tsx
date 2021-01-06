@@ -4,15 +4,17 @@ import { axe, toHaveNoViolations } from 'jest-axe';
 
 import BulkVisning from './BulkVisning';
 
-expect.extend(toHaveNoViolations)
+expect.extend(toHaveNoViolations);
 
 describe('BulkVisning', () => {
   it('should have no a11y violations', async () => {
-    const { container } = render(<BulkVisning label="Test label">Test tekst</BulkVisning>)
-    const results = await axe(container)
+    const { container } = render(
+      <BulkVisning label='Test label'>Test tekst</BulkVisning>
+    );
+    const results = await axe(container);
 
-    expect(results).toHaveNoViolations()
+    expect(results).toHaveNoViolations();
 
-    cleanup()
-  })
-})
+    cleanup();
+  });
+});

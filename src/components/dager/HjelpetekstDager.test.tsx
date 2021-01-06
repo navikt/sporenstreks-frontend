@@ -3,7 +3,7 @@ import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
 
-expect.extend(toHaveNoViolations)
+expect.extend(toHaveNoViolations);
 
 import { HjelpetekstDager } from './HjelpetekstDager';
 
@@ -14,11 +14,11 @@ describe('HjelpetekstDager', () => {
   });
 
   it('should have no a11y violations', async () => {
-    const { container } = render(<HjelpetekstDager />)
-    const results = await axe(container)
+    const { container } = render(<HjelpetekstDager />);
+    const results = await axe(container);
 
-    expect(results).toHaveNoViolations()
+    expect(results).toHaveNoViolations();
 
-    cleanup()
-  })
+    cleanup();
+  });
 });

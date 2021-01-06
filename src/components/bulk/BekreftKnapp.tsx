@@ -11,12 +11,16 @@ import { useArbeidsgiver } from '../../context/ArbeidsgiverContext';
 import { useBulk } from '../../context/BulkContext';
 
 interface bekreftKnappProps {
-  onSubmit: any
-  erklæringAkseptert: boolean,
-  onClick: any
+  onSubmit: any;
+  erklæringAkseptert: boolean;
+  onClick: any;
 }
 
-export const BekreftKnapp = ({ onSubmit, erklæringAkseptert, onClick }: bekreftKnappProps) => {
+export const BekreftKnapp = ({
+  onSubmit,
+  erklæringAkseptert,
+  onClick
+}: bekreftKnappProps) => {
   const { ansatte, setAnsatte, setFeil } = useBulk();
   const { firma } = useArbeidsgiver();
   const { arbeidsgiverId } = useArbeidsgiver();
@@ -24,47 +28,58 @@ export const BekreftKnapp = ({ onSubmit, erklæringAkseptert, onClick }: bekreft
   const [open, setOpen] = useState<boolean>(false);
 
   const handleOpen = (evt) => {
-    evt.preventDefault()
+    evt.preventDefault();
     onClick(evt);
-    const validerteAnsatte = valideringAnsatte(ansatte)
+    const validerteAnsatte = valideringAnsatte(ansatte);
     setAnsatte([...validerteAnsatte]);
     if (isAnsatteValid(validerteAnsatte)) {
-      setOpen(true)
-      setFeil([])
+      setOpen(true);
+      setFeil([]);
     } else {
-      setFeil(ByggValideringsFeil(validerteAnsatte))
+      setFeil(ByggValideringsFeil(validerteAnsatte));
       setOpen(false);
     }
   };
 
   const handleSubmit = (evt) => {
-    setOpen(false)
-    onSubmit(evt)
+    setOpen(false);
+    onSubmit(evt);
   };
 
   return (
-    <form onSubmit={e => handleOpen(e)}>
+    <form onSubmit={(e) => handleOpen(e)}>
       <KnappMedVarsel disabled={!erklæringAkseptert} disabledClick={onClick}>
-      Send søknad om refusjon
+        Send søknad om refusjon
       </KnappMedVarsel>
       <ModalWrapper
         isOpen={open}
         onRequestClose={() => setOpen(false)}
-        contentLabel="Send skjema"
+        contentLabel='Send skjema'
         closeButton={false}
       >
-        <Undertittel className="sykepenger__modal-tittel">Du søker om refusjon på vegne av:</Undertittel>
-        <p className="sykepenger__modal-tekst">{firma}</p>
-        <p className="sykepenger__modal-tekst">Organisasjonsnummer: {arbeidsgiverId}</p>
-        <Knapp className="sykepenger__modal-btn" onClick={handleSubmit} spinner={loadingStatus === 0}>
+        <Undertittel className='sykepenger__modal-tittel'>
+          Du søker om refusjon på vegne av:
+        </Undertittel>
+        <p className='sykepenger__modal-tekst'>{firma}</p>
+        <p className='sykepenger__modal-tekst'>
+          Organisasjonsnummer: {arbeidsgiverId}
+        </p>
+        <Knapp
+          className='sykepenger__modal-btn'
+          onClick={handleSubmit}
+          spinner={loadingStatus === 0}
+        >
           Send søknad om refusjon
         </Knapp>
-        <InternLenke className="sykepenger__modal-avbrytt" onClick={() => setOpen(false)}>
+        <InternLenke
+          className='sykepenger__modal-avbrytt'
+          onClick={() => setOpen(false)}
+        >
           Avbryt
         </InternLenke>
       </ModalWrapper>
     </form>
-  )
+  );
 };
 
 export default BekreftKnapp;

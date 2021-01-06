@@ -4,7 +4,9 @@ import env from '../felles/environment';
 const RefreshToken = () => {
   const [displayIframe, setDisplayIframe] = useState(true);
   const [haveInteraction, setHaveInteraction] = useState(false);
-  const [haveInteractionLastPeriod, setHaveInteractionLastPeriod] = useState(true);
+  const [haveInteractionLastPeriod, setHaveInteractionLastPeriod] = useState(
+    true
+  );
 
   const haveInteractionRef = useRef(haveInteraction);
   haveInteractionRef.current = haveInteraction;
@@ -13,19 +15,19 @@ const RefreshToken = () => {
   haveInteractionLastPeriodRef.current = haveInteractionLastPeriod;
 
   const toggleState = () => {
-    setDisplayIframe(displayIframe => !displayIframe);
+    setDisplayIframe((displayIframe) => !displayIframe);
     setHaveInteractionLastPeriod(haveInteractionRef.current);
     setHaveInteraction(false);
-  }
+  };
 
   const interactionHandler = () => {
     setHaveInteraction(true);
-  }
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
       toggleState();
-    }, 1200000);  // 20 minutter. Gir refresh av token hvert 40. minutt
+    }, 1200000); // 20 minutter. Gir refresh av token hvert 40. minutt
 
     return () => clearInterval(interval);
   }, []);
@@ -50,7 +52,15 @@ const RefreshToken = () => {
     return null;
   }
 
-  return <iframe title="Invisible" name="refreshtoken-iframe" data-testid="refreshtoken-iframe" className="refreshtoken" src={env.loginServiceUrl} />;
-}
+  return (
+    <iframe
+      title='Invisible'
+      name='refreshtoken-iframe'
+      data-testid='refreshtoken-iframe'
+      className='refreshtoken'
+      src={env.loginServiceUrl}
+    />
+  );
+};
 
 export default RefreshToken;
