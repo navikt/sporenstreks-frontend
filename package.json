@@ -115,7 +115,7 @@
     "npm-run-all": "^4.0.2",
     "prettier": "^2.2.1",
     "pretty-quick": "^3.1.0",
-    "react-scripts": "^4.0.0",
+    "react-scripts": "^4.0.1",
     "snyk": "^1.433.0",
     "sonarqube-scanner": "^2.8.0",
     "timezone-mock": "^1.1.1",
