@@ -1,6 +1,6 @@
 {
   "name": "sporenstreks-frontend",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": true,
   "homepage": "/nettrefusjon/",
   "proxy": "http://localhost:8080",
