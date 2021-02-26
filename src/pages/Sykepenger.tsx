@@ -205,6 +205,7 @@ const Sykepenger = () => {
 
                   <FnrInput
                     id='fnr'
+                    name='fnr'
                     label='Fødselsnummer til arbeidstaker'
                     bredde='M'
                     value={identityNumberInput}
