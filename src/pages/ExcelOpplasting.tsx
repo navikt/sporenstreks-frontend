@@ -135,16 +135,18 @@ const ExcelOpplasting = () => {
       <Row>
         <Column>
           <Panel className='excelopplasting'>
-            <Knapp onClick={handleClick}>{fileName}</Knapp>
-            <input
-              className='fileinput'
-              type='file'
-              id='fileUploader'
-              accept='.xlsx'
-              onChange={setUploadFile}
-              onClick={(e: any) => (e.target.value = null)}
-              ref={fileUpload}
-            />
+            <label className='knapp filknapp'>
+              <input
+                className='fileinput'
+                type='file'
+                id='fileUploader'
+                accept='.xlsx'
+                onChange={setUploadFile}
+                onClick={(e: any) => (e.target.value = null)}
+                ref={fileUpload}
+              />
+              {fileName}
+            </label>
             <FeilTabell
               feil={feil}
               visAlleFeil={visAlleFeil}
