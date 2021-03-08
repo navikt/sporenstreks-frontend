@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import 'nav-frontend-tabell-style';
 import { FormContext, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
@@ -26,6 +26,7 @@ import { CoronaTopptekst } from '../components/felles/CoronaTopptekst';
 import LoggetUtAdvarsel from '../components/login/LoggetUtAdvarsel';
 import { useAppStore } from '../context/AppStoreContext';
 import { Linker } from './Linker';
+import { Knapp } from 'nav-frontend-knapper';
 
 const ExcelOpplasting = () => {
   const [erklæringAkseptert, setErklæringAkseptert] = useState<boolean>(false);
@@ -38,6 +39,7 @@ const ExcelOpplasting = () => {
   const [visAlleFeil, setVisAlleFeil] = useState(false);
   const [hasTriedSubmit, setHasTriedSubmit] = useState(false);
   const FILEUPLOAD_MAX_SIZE = 250000;
+  const fileUpload = useRef(null);
 
   const handleSubmit = async (e: React.FormEvent): Promise<any> => {
     e.preventDefault();
@@ -76,6 +78,10 @@ const ExcelOpplasting = () => {
   const handleDisabledClick = (event: React.FormEvent) => {
     event.preventDefault();
     setHasTriedSubmit(true);
+  };
+
+  const handleClick = (e) => {
+    fileUpload.current.click();
   };
 
   return (
@@ -129,17 +135,16 @@ const ExcelOpplasting = () => {
       <Row>
         <Column>
           <Panel className='excelopplasting'>
-            <label className='knapp filknapp'>
-              <input
-                className='fileinput'
-                type='file'
-                id='fileUploader'
-                accept='.xlsx'
-                onChange={setUploadFile}
-                onClick={(e: any) => (e.target.value = null)}
-              />
-              {fileName}
-            </label>
+            <Knapp onClick={handleClick}>{fileName}</Knapp>
+            <input
+              className='fileinput'
+              type='file'
+              id='fileUploader'
+              accept='.xlsx'
+              onChange={setUploadFile}
+              onClick={(e: any) => (e.target.value = null)}
+              ref={fileUpload}
+            />
             <FeilTabell
               feil={feil}
               visAlleFeil={visAlleFeil}
