@@ -62,19 +62,19 @@ const Perioder = (props: PerioderProps) => {
       <div className='periodeliste' ref={periodeliste}>
         <Row className='periode periodeliste--overskrift'>
           <Column md='5' xs='12'>
-            <Element tag='span'>
+            <Element tag='label'>
               Hvilken periode var den ansatte borte?
               <HjelpetekstPeriode />
             </Element>
           </Column>
           <Column md='3' xs='12'>
-            <Element tag='span'>
+            <Element tag='label'>
               Antall dager:
               <HjelpetekstDager />
             </Element>
           </Column>
           <Column md='2' xs='12'>
-            <Element tag='span'>
+            <Element tag='label'>
               Beløp:
               <HjelpetekstRefusjon />
             </Element>
