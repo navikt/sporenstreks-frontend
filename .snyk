@@ -1,4 +1,9 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
 version: v1.14.1
-ignore: {}
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JS-HTMLPARSESTRINGIFY2-1079307:
+    - react-i18next > html-parse-stringify2:
+        reason: No fix available
+        expires: '2021-04-21T10:57:08.649Z'
 patch: {}
