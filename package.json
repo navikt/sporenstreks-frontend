@@ -37,7 +37,7 @@
     "@sentry/browser": "^6.0.4",
     "constate": "^2.0.0",
     "dayjs": "^1.10.4",
-    "i18next": "^19.8.3",
+    "i18next": "^19.8.5",
     "nav-frontend-alertstriper": "^3.0.41",
     "nav-frontend-alertstriper-style": "^2.0.28",
     "nav-frontend-chevron": "^1.0.27",
