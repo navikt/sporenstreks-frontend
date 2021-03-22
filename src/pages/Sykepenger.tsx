@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import 'nav-frontend-tabell-style';
-import { Input } from 'nav-frontend-skjema';
+import { FnrInput } from 'nav-frontend-skjema';
 import { FormContext, useForm } from 'react-hook-form';
 import { Knapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
@@ -16,18 +16,17 @@ import { CoronaTopptekst } from '../components/felles/CoronaTopptekst';
 import Skillelinje from '../components/felles/Skillelinje';
 import Panel from 'nav-frontend-paneler';
 import Perioder from '../components/enkel/Perioder';
-import { filterStringToNumbersOnly } from '../components/enkel/filterStringToNumbersOnly';
 import formToJSON from '../components/enkel/formToJSON';
 import convertSkjemaToRefusjonsKrav from '../components/enkel/convertSkjemaToRefusjonsKrav';
 import env from '../components/felles/environment';
 import InternLenke from '../components/felles/InternLenke';
-import { identityNumberSeparation } from '../components/fnr/identityNumberSeparation';
 import FeilOppsummering from '../components/excel/FeilOppsummering';
 import { Erklaring } from '../components/felles/Erklaring';
 import Vis from '../components/felles/Vis';
 import { fnrErrorState, useEnkelSkjema } from '../context/EnkelContext';
 import { useAppStore } from '../context/AppStoreContext';
 import { Linker } from './Linker';
+import { filterIdentityNumberInput } from '../components/fnr/filterIndentityNumberInput';
 
 const Sykepenger = () => {
   const { arbeidsgiverId, firma } = useArbeidsgiver();
@@ -50,8 +49,9 @@ const Sykepenger = () => {
   const history: History = useHistory();
   const refRefusjonsform = useRef(null);
 
-  const filterIdentityNumberInput = (input: string) => {
-    setIdentityNumberInput(filterStringToNumbersOnly(input, 11));
+  const handleFnrChange = (fnr: string) => {
+    setIdentityNumberInput(filterIdentityNumberInput(fnr));
+    validateFnr(fnr);
   };
 
   const setForm = (e: any) => {
@@ -203,15 +203,15 @@ const Sykepenger = () => {
 
                   <div>&nbsp;</div>
 
-                  <Input
+                  <FnrInput
                     id='fnr'
                     name='fnr'
                     label='Fødselsnummer til arbeidstaker'
                     bredde='M'
-                    autoComplete={'off'}
-                    onChange={(e) => filterIdentityNumberInput(e.target.value)}
-                    onBlur={(e) => validateFnr(e.target.value)}
-                    value={identityNumberSeparation(identityNumberInput)}
+                    value={identityNumberInput}
+                    placeholder='11 siffer'
+                    onChange={(e) => handleFnrChange(e.target.value)}
+                    onValidate={() => {}}
                   />
 
                   <Normaltekst

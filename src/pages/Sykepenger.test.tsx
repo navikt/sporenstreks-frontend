@@ -79,7 +79,7 @@ describe('Sykepenger', () => {
     ).toBeTruthy();
   });
 
-  it('gives warning on missing fødselsnummer', () => {
+  it('gives warning on missing fødselsnummer', async () => {
     const history = createMemoryHistory();
     const rendered = render(
       <ArbeidsgiverProvider
@@ -92,9 +92,11 @@ describe('Sykepenger', () => {
       </ArbeidsgiverProvider>
     );
 
-    const inputNode = rendered.getByLabelText('Fødselsnummer til arbeidstaker');
+    const submitBtn = screen.getByText('Send søknad om refusjon');
 
-    fireEvent(inputNode, new FocusEvent('blur'));
+    await act(async () => {
+      fireEvent.submit(submitBtn);
+    });
 
     expect(rendered.queryAllByText('Fødselsnummer må fylles ut').length).toBe(
       2
