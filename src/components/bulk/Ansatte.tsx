@@ -100,29 +100,29 @@ const Ansatte: React.FC = () => {
         <div>
           <Row className='AnsattRad-overskrift'>
             <Column md='1' xs='12'>
-              <Element tag='span' className='AnsattRad-overskrift--element'>
+              <Element tag='label' className='AnsattRad-overskrift--element'>
                 Nr.
               </Element>
             </Column>
             <Column md='2' xs='12'>
-              <Element tag='span' className='AnsattRad-overskrift--element'>
+              <Element tag='label' className='AnsattRad-overskrift--element'>
                 Fødselsnummer:
               </Element>
             </Column>
             <Column md='4' xs='12'>
-              <Element tag='span' className='AnsattRad-overskrift--element'>
+              <Element tag='label' className='AnsattRad-overskrift--element'>
                 Hvilken periode var den ansatte borte?
                 <HjelpetekstPeriode />
               </Element>
             </Column>
             <Column md='2' xs='12'>
-              <Element tag='span' className='AnsattRad-overskrift--element'>
+              <Element tag='label' className='AnsattRad-overskrift--element'>
                 Antall dager:
                 <HjelpetekstDager />
               </Element>
             </Column>
             <Column md='2' xs='12'>
-              <Element tag='span' className='AnsattRad-overskrift--element'>
+              <Element tag='label' className='AnsattRad-overskrift--element'>
                 Beløp:
                 <HjelpetekstRefusjon />
               </Element>
