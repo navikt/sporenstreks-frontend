@@ -43,12 +43,12 @@ export const RefusjonInput = ({
         feil={feilmelding}
         value={beloep}
         autoComplete='off'
-        bredde={'S'}
+        bredde='S'
         label={label}
         placeholder='Kroner'
-        type={'number'}
-        inputMode={'numeric'}
-        className={'RefusjonInput'}
+        pattern='[0-9]*'
+        inputMode='numeric'
+        className='RefusjonInput'
         onKeyPress={handleKeyPress}
         onChange={handleChangeLocal}
       />
