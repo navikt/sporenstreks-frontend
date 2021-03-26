@@ -44,9 +44,7 @@ describe('RefusjonInput', () => {
 
   it('should not alove , to be entered', () => {
     const changeFunction = jest.fn();
-    const rendered = render(
-      <RefusjonInput handleChange={changeFunction} label={mockLabel} />
-    );
+    render(<RefusjonInput handleChange={changeFunction} label={mockLabel} />);
 
     const inputField = screen.getByPlaceholderText('Kroner');
 
