@@ -73,8 +73,8 @@ describe('Sykepenger', () => {
     expect(
       rendered.getByText(
         'Når sykefraværet handler om korona, dekker NAV sykepenger fra dag 4 i de 16 dagene arbeidsgiveren vanligvis ' +
-          'skal betale. Den ansatte må være smittet, mistenkt smittet eller i pålagt karantene. Refusjon kan gis for dager ' +
-          'fra og med 16. mars.'
+          'skal betale. Den ansatte må være smittet, mistenkt smittet eller i pålagt karantene. ' +
+          'Ordningen gjelder fra 16.mars 2020. Dersom arbeidsgiverperioden startet før 16.mars, refunderes ikke dagene før denne datoen.'
       )
     ).toBeTruthy();
   });
