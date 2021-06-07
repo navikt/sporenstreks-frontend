@@ -1,6 +1,7 @@
 import { RefusjonInput } from './RefusjonInput';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
+import userEvent from '@testing-library/user-event';
 
 const mockLabel = <span>label</span>;
 
@@ -39,5 +40,18 @@ describe('RefusjonInput', () => {
     expect(
       rendered.queryByPlaceholderText('Kroner')?.getAttribute('value')
     ).toBe('');
+  });
+
+  it('should not alove , to be entered', () => {
+    const changeFunction = jest.fn();
+    render(<RefusjonInput handleChange={changeFunction} label={mockLabel} />);
+
+    const inputField = screen.getByPlaceholderText('Kroner');
+
+    userEvent.type(inputField, '101,1{esc}');
+
+    expect(inputField).toHaveValue('1011');
+
+    expect(changeFunction).toHaveBeenLastCalledWith(1011);
   });
 });
