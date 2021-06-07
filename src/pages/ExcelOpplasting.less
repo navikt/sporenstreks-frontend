@@ -20,13 +20,19 @@
   }
 
   .fileinput {
-    display: none
+    height: 0;
+    width: 0;
+    outline: none;
   }
 
   .filknapp {
     margin: 1rem 0rem;
     width: 100%;
     overflow: hidden;
+  }
+
+  .filknapp:focus-within {
+    box-shadow: 0 0 0 3px #254b6d;
   }
 
   .filknapp[disabled] {
