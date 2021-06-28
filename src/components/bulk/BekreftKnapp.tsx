@@ -10,7 +10,7 @@ import KnappMedVarsel from '../felles/KnappMedVarsel';
 import { useArbeidsgiver } from '../../context/ArbeidsgiverContext';
 import { useBulk } from '../../context/BulkContext';
 
-interface bekreftKnappProps {
+interface BekreftKnappProps {
   onSubmit: any;
   erklæringAkseptert: boolean;
   onClick: any;
@@ -20,7 +20,7 @@ export const BekreftKnapp = ({
   onSubmit,
   erklæringAkseptert,
   onClick
-}: bekreftKnappProps) => {
+}: BekreftKnappProps) => {
   const { ansatte, setAnsatte, setFeil } = useBulk();
   const { firma } = useArbeidsgiver();
   const { arbeidsgiverId } = useArbeidsgiver();

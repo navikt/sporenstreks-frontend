@@ -7,11 +7,11 @@ import { useBulk } from '../../context/BulkContext';
 
 export const BulkFnr = ({ id }: AnsattID) => {
   const { ansatte, setAnsatte } = useBulk();
-  const a = ansatte.find((a) => a.id === id);
+  const aktuellAnsatt = ansatte.find((ansatt) => ansatt.id === id);
   const handleChange = (evt) => {
-    if (a) {
-      a.fnr = filterIdentityNumberInput(evt.target.value);
-      a.fnrError = validateAnsatteFnr(ansatte, a);
+    if (aktuellAnsatt) {
+      aktuellAnsatt.fnr = filterIdentityNumberInput(evt.target.value);
+      aktuellAnsatt.fnrError = validateAnsatteFnr(ansatte, aktuellAnsatt);
     }
     setAnsatte([...ansatte]);
   };
@@ -21,11 +21,13 @@ export const BulkFnr = ({ id }: AnsattID) => {
       id={'fnr_' + id}
       label={<div style={{ display: 'flex' }}>Fødselsnummer:</div>}
       bredde='M'
-      value={a?.fnr}
+      value={aktuellAnsatt?.fnr}
       placeholder='11 siffer'
       onChange={handleChange}
-      onValidate={() => {}}
-      feil={a?.fnrError}
+      onValidate={() => {
+        // This is intentional
+      }}
+      feil={aktuellAnsatt?.fnrError}
     />
   );
 };
