@@ -1,7 +1,7 @@
 import FetchMock, { SpyMiddleware } from 'yet-another-fetch-mock';
 import InnsendingExcelFil from './InnsendingExcelFil';
 
-const mockServer = 'http://mockserver.nav.no';
+const mockServer = 'https://mockserver.nav.no';
 
 jest.mock('../felles/environment', () => ({
   get baseUrl() {

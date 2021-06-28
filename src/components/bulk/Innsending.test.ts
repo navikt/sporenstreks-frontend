@@ -7,7 +7,7 @@ import {
 } from '../../data/types/sporenstreksTypes';
 import { Ansatt } from './Ansatt';
 
-const mockServer = 'http://mockserver.nav.no';
+const mockServer = 'https://mockserver.nav.no';
 
 jest.mock('../felles/environment', () => ({
   get baseUrl() {
