@@ -260,7 +260,7 @@ describe('ExcelOpplasting', () => {
   });
 
   it('does not accept file upload over 250kB', () => {
-    const mockFile = ({
+    const mockBigFile = ({
       size: 260000,
       fileName: 'tooLarge.xlsx',
       type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -280,7 +280,7 @@ describe('ExcelOpplasting', () => {
     );
     const uploadButton = view.getByLabelText(/Last opp utfylt Excel-mal/);
 
-    userEvent.upload(uploadButton, mockFile);
+    userEvent.upload(uploadButton, mockBigFile);
 
     //opplastingsknappen får samme navn som fil hvis den er lastet opp
     expect(view.queryByText('fil.xlsx')).not.toBeInTheDocument();

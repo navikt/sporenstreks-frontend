@@ -143,8 +143,8 @@ const ExcelOpplasting = () => {
             <FeilTabell
               feil={feil}
               visAlleFeil={visAlleFeil}
-              handleSetVisAlleFeil={(visAlleFeil) =>
-                setVisAlleFeil(visAlleFeil)
+              handleSetVisAlleFeil={(alleFeilVises) =>
+                setVisAlleFeil(alleFeilVises)
               }
             />
           </Panel>
