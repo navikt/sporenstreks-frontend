@@ -311,11 +311,13 @@ describe('ExcelOpplasting', () => {
       </AppStoreProvider>
     );
     expect(
+      // @ts-ignore
       screen.getByRole('link', { name: 'skal du bruke et eget skjema' }).href
     ).toEqual('http://localhost/enkel/');
     expect(
       screen.getByRole('link', {
         name: 'eget skjema for å søke om refusjonskrav for flere ansatte'
+        // @ts-ignore
       }).href
     ).toEqual('http://localhost/bulk/');
   });
@@ -334,6 +336,7 @@ describe('ExcelOpplasting', () => {
       </AppStoreProvider>
     );
     expect(
+      // @ts-ignore
       screen.getByRole('link', { name: 'Last ned malen her' }).href
     ).toEqual('http://localhost:8080/api/v1/bulk/template');
   });
