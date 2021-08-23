@@ -83,7 +83,7 @@
     "react-modal": "^3.14.2",
     "react-number-format": "^4.6.4",
     "react-router-dom": "^5.2.0",
-    "typescript": "^3.9.7",
+    "typescript": "^3.9.10",
     "use-force-update": "^1.0.7",
     "uuid": "^7.0.3"
   },
