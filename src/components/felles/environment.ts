@@ -2,7 +2,8 @@ export enum EnvironmentType {
   PROD,
   PREPROD_DEV, // Angir at man aksesserer preprod via naisdevice på *.dev.nav.no, kun tilgjengelig via naisdevice
   PREPROD_Q, // angir at man aksesserer preprod inne i nord korea
-  LOCAL
+  LOCAL,
+  TESTCAFE
 }
 
 class Environment {
@@ -10,6 +11,13 @@ class Environment {
     MOCK_BACKEND: 'true',
     NODE_ENV: 'development'
   };
+
+  private isTestCafeRunning() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const testCafe = urlParams.get('TestCafe');
+
+    return testCafe === 'running';
+  }
 
   get loginServiceUrl() {
     switch (this.environmentMode) {
@@ -32,6 +40,8 @@ class Environment {
         return 'https://arbeidsgiver-nettrefusjon.dev.nav.no/nettrefusjon';
       case EnvironmentType.PREPROD_Q:
         return 'https://arbeidsgiver-q.nav.no/nettrefusjon';
+      case EnvironmentType.TESTCAFE:
+        return 'http://localhost:3000';
       default:
         return 'http://localhost:8080';
     }
@@ -45,12 +55,18 @@ class Environment {
         return 'https://arbeidsgiver-nettrefusjon.dev.nav.no/nettrefusjon';
       case EnvironmentType.PREPROD_Q:
         return 'https://arbeidsgiver-q.nav.no/nettrefusjon';
+      case EnvironmentType.TESTCAFE:
+        return 'http://localhost:3000';
       default:
         return 'http://localhost:3000';
     }
   }
 
   get environmentMode() {
+    if (this.isTestCafeRunning()) {
+      return EnvironmentType.TESTCAFE;
+    }
+
     if (window.location.hostname === 'localhost') {
       return EnvironmentType.LOCAL;
     }
