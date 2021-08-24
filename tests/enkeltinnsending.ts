@@ -8,7 +8,7 @@ const cookiePlease = new RegExp(/\/local\/cookie-please/);
 const loginExpiry = new RegExp(/\/api\/v1\/login-expiry/);
 const navAuth = new RegExp(/\/person\/innloggingsstatus\/auth/);
 const grunnBeloep = new RegExp(/\/api\/v1\/grunnbeloep/);
-const innsendingAPI = new RegExp(/\/api\/v1\/refusjonskrav\/list/);
+const innsendingAPI = new RegExp(/\/api\/v1\/refusjonskrav/);
 
 const headereJson = {
   'content-type': 'application/json; charset=UTF-8',
@@ -50,9 +50,9 @@ const cookieMock = RequestMock()
   .onRequestTo(grunnBeloep)
   .respond(grunnBeloepVerdier, 200, mockHeaders)
   .onRequestTo(innsendingAPI)
-  .respond(null, 201, mockHeaders);
+  .respond({ referansenummer: '10' }, 200, mockHeaders);
 
-fixture`Bulkinnsending`
+fixture`Enkeltinnsending`
   .page`http://localhost:3000/nettrefusjon/bulk/?bedrift=810007842&TestCafe=running`
   .requestHooks(cookieMock)
   .beforeEach(async () => {
@@ -61,31 +61,39 @@ fixture`Bulkinnsending`
 
 test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', async (t) => {
   await t
+    .click(
+      ReactSelector('InternLenke').withText(
+        'skal du bruke et eget skjema som du finner her'
+      )
+    )
+    .expect(Selector('html').textContent)
+    .contains('Fødselsnummer til arbeidstaker');
+
+  await t
     .click(ReactSelector('BekreftCheckboksPanel').find('input'))
-    .click(ReactSelector('Hovedknapp'))
+    .click(Selector('.knapp--hoved'))
     .expect(
-      ReactSelector('Feiloppsummering').withText('Det er en feil i rad nr 1')
+      ReactSelector('FeilOppsummering').withText('Fødselsnummer må fylles ut')
         .visible
     )
     .ok()
     .expect(Selector('html').textContent)
     .contains('Fødselsnummer må fylles ut')
     .expect(Selector('html').textContent)
-    .contains('Perioden må ha 2 gyldige datoer')
+    .contains('Periode må fylles ut')
     .expect(Selector('html').textContent)
-    .contains('Feltet må fylles ut')
+    .contains('Antall dager må fylles ut')
     .expect(Selector('html').textContent)
-    .contains('Beløp må fylles ut')
-    .expect(Selector('html').textContent)
-    .contains('Du må rette feilene før du kan sende inn skjema');
+    .contains('Beløp må fylles ut');
 
   const fnr = ReactSelector('FnrInput').find('.skjemaelement__input-fodselsnr');
 
   await t
     .typeText(fnr, '260')
     .expect(
-      ReactSelector('Feiloppsummering').withText('Det er en feil i rad nr 1')
-        .visible
+      ReactSelector('FeilOppsummering').withText(
+        'Fødselsnummer må ha 11 siffer'
+      ).visible
     )
     .ok()
     .expect(Selector('html').textContent)
@@ -102,13 +110,13 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .expect(Selector('html').textContent)
     .notContains('Fødselsnummer må fylles ut');
 
-  const belop = ReactSelector('BulkRefusjon');
+  const belop = ReactSelector('EnkelRefusjon');
   await t
     .typeText(belop, '5000')
     .expect(Selector('html').textContent)
     .notContains('Beløp må fylles ut');
 
-  const velgDager = ReactSelector('BulkDager');
+  const velgDager = ReactSelector('EnkelDager');
   const velgDagerOption = velgDager.find('option');
 
   await t
@@ -117,7 +125,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .expect(Selector('html').textContent)
     .notContains('Feltet må fylles ut');
 
-  const fraDato = ReactSelector('BulkPeriode');
+  const fraDato = ReactSelector('EnkelPeriode');
   const valgtFraDato = Selector(
     '.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(3)'
   );
@@ -133,7 +141,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .notContains('Perioden må ha 2 gyldige datoer');
 
   await t
-    .click(ReactSelector('Hovedknapp'))
+    .click(Selector('.knapp--hoved'))
     .click(ReactSelector('ModalWrapper').findReact('Knapp'))
     .expect(Selector('html').textContent)
     .contains('Søknaden er mottatt');
