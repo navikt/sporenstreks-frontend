@@ -10,6 +10,7 @@ import { Column, Container, Row } from 'nav-frontend-grid';
 import './InnloggetSide.less';
 import Lenke from 'nav-frontend-lenker';
 import { useArbeidsgiver } from '../context/ArbeidsgiverContext';
+import Panel from 'nav-frontend-paneler';
 
 interface SideProps {
   children: React.ReactNode;
@@ -57,6 +58,12 @@ const InnloggetSide = (props: SideProps) => {
             </Row>
           </Container>
           <Container className={'innloggetside__innhold'}>
+            <Panel>
+              <AlertStripeAdvarsel className='avvikling-alert'>
+                Denne ordningen er nå under avvikling og gjelder bare sykefravær
+                som starter før 1. oktober 2021.
+              </AlertStripeAdvarsel>
+            </Panel>
             {props.children}
           </Container>
         </>
