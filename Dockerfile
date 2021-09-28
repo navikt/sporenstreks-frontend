@@ -7,5 +7,7 @@ COPY server/ server/
 
 WORKDIR /var/server
 
+RUN npm install -g http-proxy-middleware
+
 EXPOSE 8080
 ENTRYPOINT ["node", "server.js"]
