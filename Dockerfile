@@ -12,7 +12,7 @@ RUN chmod u+x /usr/sbin/start-nginx
 RUN mkdir -p /nginx
 COPY build /app
 
-EXPOSE 9000 8012 443
+EXPOSE 443
 
 WORKDIR ${APP_DIR}
 
