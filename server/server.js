@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const { createProxyMiddleware } = require('http-proxy-middleware');
+const fs = require('fs')
 
 const BASE_PATH = '/nettrefusjon';
 const HOME_FOLDER = '../build';
@@ -65,7 +66,18 @@ const startServer = () => {
 
   console.log("Proxy", proxyConfig)
 
-  var apiKey = require("/apigw/sporenstreks/x-nav-apiKey")
+
+  var apiKey = ""
+
+  fs.readFile('/apigw/sporenstreks/x-nav-apiKey', 'utf8', function (err,data) {
+    if (err) {
+      console.log("Klarte ikke lese apikey")
+      return console.log(err);
+    }
+    apiKey = data
+    console.log("Fant apikey", apiKey)
+  });
+
   console.log("apiKey", apiKey)
 
   app.use(paths.apiPath, proxy(proxyConfig));
