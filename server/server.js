@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const proxy = require('http-proxy-middleware');
 const fs = require('fs')
 
 const BASE_PATH = '/nettrefusjon';
@@ -51,28 +51,22 @@ const startServer = () => {
   // APIGW_HEADER =
   // apiKey       =
 
+  var apiKey = fs.readFileSync('/apigw/sporenstreks/x-nav-apiKey')
+
   const proxyConfig = {
     changeOrigin: true,
     target: process.env.API_GATEWAY || 'http://localhost:8080',
     pathRewrite,
     xfwd: true,
+    headers: {
+      'x-nav-apiKey': apiKey
+    }
   };
 
-  if (process.env.APIGW_HEADER) {
-    proxyConfig.headers = {
-      'x-nav-apiKey': process.env.APIGW_HEADER,
-    };
-  }
-
-  console.log("Proxy", proxyConfig)
-
-  var apiKey = fs.readFileSync('/apigw/sporenstreks/x-nav-apiKey')
-
+  console.log("proxyConfig", proxyConfig)
   console.log("apiKey", apiKey)
 
-  app.use(paths.apiPath, proxy(proxyConfig));
-
-  // app.use('/api', createProxyMiddleware({ target: process.env.API_GATEWAY, changeOrigin: true }));
+  app.use("/api", proxy(proxyConfig));
 
   app.listen(PORT, () => {
     // eslint-disable-next-line no-console
