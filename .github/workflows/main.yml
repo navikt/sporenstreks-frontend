@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  IMAGE: ghcr.io/${{ github.repository }}/sporenstreks-frontend:${{ github.sha }}
+  IMAGE: ghcr.io/g/sporenstreks-frontend:${{ github.sha }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
