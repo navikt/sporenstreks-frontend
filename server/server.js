@@ -28,7 +28,7 @@ const startServer = () => {
     changeOrigin: true,
     target: process.env.API_GATEWAY || 'https://api-gw-q1.oera.no/sporenstreks',
     pathRewrite: {
-      '^/nettrefusjon/api': 'api'
+      '^/nettrefusjon/api': 'https://sporenstreks.dev.nav.no/api'
     },
     // xfwd: true,
     headers: {
