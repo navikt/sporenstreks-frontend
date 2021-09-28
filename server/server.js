@@ -16,7 +16,7 @@ const startServer = () => {
     res.sendStatus(200);
   });
   app.get('/', (req, res) => {
-    res.redirect('/fritak-agp/');
+    res.redirect('/nettrefusjon/');
   });
 
   app.get(BASE_PATH + '/api/env', (req, res) => {
