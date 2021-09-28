@@ -51,7 +51,8 @@ const startServer = () => {
   // APIGW_HEADER =
   // apiKey       =
 
-  var apiKey = fs.readFileSync('/apigw/sporenstreks/x-nav-apiKey')
+  var apiKey = fs.readFileSync('/apigw/sporenstreks/x-nav-apiKey', { encoding: 'utf8', flag: 'r' })
+  console.log("apiKey", apiKey)
 
   const proxyConfig = {
     changeOrigin: true,
@@ -59,13 +60,11 @@ const startServer = () => {
     pathRewrite,
     xfwd: true,
     headers: {
-      'x-nav-apiKey': apiKey
+      'x-nav-apiKey': "sporenstreks-frontend:" + apiKey
     }
   };
 
   console.log("proxyConfig", proxyConfig)
-  console.log("apiKey", apiKey)
-
   app.use("/api", proxy(proxyConfig));
 
   app.listen(PORT, () => {
