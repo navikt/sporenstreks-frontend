@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const BASE_PATH = '/nettrefusjon';
 const HOME_FOLDER = '../build';
@@ -41,6 +42,8 @@ const startServer = () => {
     console.error('Server: Error 500', err);
     res.status(500).send('500 Error');
   });
+
+  app.use('/api', createProxyMiddleware({ target: process.env.API_GATEWAY, changeOrigin: true }));
 
   app.listen(PORT, () => {
     // eslint-disable-next-line no-console
