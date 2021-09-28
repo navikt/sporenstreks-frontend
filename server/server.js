@@ -21,7 +21,7 @@ const startServer = () => {
     res.redirect('/nettrefusjon/');
   });
 
-  var apiKey = fs.readFileSync('/Users/laukvik/apigw/sporenstreks/x-nav-apiKey', { encoding: 'utf8', flag: 'r' })
+  var apiKey = fs.readFileSync('/apigw/sporenstreks/x-nav-apiKey', { encoding: 'utf8', flag: 'r' })
   console.log("apiKey", apiKey)
 
   const proxyConfig = {
