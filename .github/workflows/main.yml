@@ -69,8 +69,8 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and publish Docker image
         run: |
-          docker build --tag ${IMAGE} .
-          docker push ${IMAGE}
+          docker build --pull --tag ${{ env.IMAGE }}  .
+          docker push ${{ env.IMAGE }}
 
   Deploy:
     name: Deploy til PREPROD
