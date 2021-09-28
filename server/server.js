@@ -26,7 +26,7 @@ const startServer = () => {
 
   const proxyConfig = {
     changeOrigin: true,
-    target: process.env.API_GATEWAY || 'http://www.vg.no',
+    target: process.env.API_GATEWAY || 'https://api-gw-q1.oera.no/sporenstreks',
     pathRewrite: {
       '^/nettrefusjon/api': 'api'
     },
