@@ -43,7 +43,34 @@ const startServer = () => {
     res.status(500).send('500 Error');
   });
 
-  app.use('/api', createProxyMiddleware({ target: process.env.API_GATEWAY, changeOrigin: true }));
+  const pathRewrite = {};
+  pathRewrite['^/nettrefusjon/api'] = '/api';
+
+  // API_GATEWAY  = "https://api-gw.oera.no"
+  // APIGW_HEADER =
+  // apiKey       =
+
+  const proxyConfig = {
+    changeOrigin: true,
+    target: process.env.API_GATEWAY || 'http://localhost:8080',
+    pathRewrite,
+    xfwd: true,
+  };
+
+  if (process.env.APIGW_HEADER) {
+    proxyConfig.headers = {
+      'x-nav-apiKey': process.env.APIGW_HEADER,
+    };
+  }
+
+  console.log("Proxy", proxyConfig)
+
+  var apiKey = require("/apigw/sporenstreks/x-nav-apiKey")
+  console.log("apiKey", apiKey)
+
+  app.use(paths.apiPath, proxy(proxyConfig));
+
+  // app.use('/api', createProxyMiddleware({ target: process.env.API_GATEWAY, changeOrigin: true }));
 
   app.listen(PORT, () => {
     // eslint-disable-next-line no-console
