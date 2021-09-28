@@ -66,17 +66,7 @@ const startServer = () => {
 
   console.log("Proxy", proxyConfig)
 
-
-  var apiKey = ""
-
-  fs.readFile('/apigw/sporenstreks/x-nav-apiKey', 'utf8', function (err,data) {
-    if (err) {
-      console.log("Klarte ikke lese apikey")
-      return console.log(err);
-    }
-    apiKey = data
-    console.log("Fant apikey", apiKey)
-  });
+  var apiKey = fs.readFileSync('/apigw/sporenstreks/x-nav-apiKey')
 
   console.log("apiKey", apiKey)
 
