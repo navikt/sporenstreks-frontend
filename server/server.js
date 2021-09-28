@@ -26,10 +26,10 @@ const startServer = () => {
 
   const proxyConfig = {
     changeOrigin: true,
-    target: 'http://www.google.no',
-    // pathRewrite: {
-    //   '^/api': 'api'
-    // },
+    target: process.env.API_GATEWAY || 'http://www.vg.no',
+    pathRewrite: {
+      '^/nettrefusjon/api': 'api'
+    },
     // xfwd: true,
     headers: {
       'x-nav-apiKey': apiKey
