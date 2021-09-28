@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const proxy = require('http-proxy-middleware');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const fs = require('fs')
 
 const BASE_PATH = '/nettrefusjon';
@@ -44,28 +44,27 @@ const startServer = () => {
     res.status(500).send('500 Error');
   });
 
-  const pathRewrite = {};
-  pathRewrite['^/nettrefusjon/api'] = '/api';
-
   // API_GATEWAY  = "https://api-gw.oera.no"
   // APIGW_HEADER =
   // apiKey       =
 
-  var apiKey = fs.readFileSync('/apigw/sporenstreks/x-nav-apiKey', { encoding: 'utf8', flag: 'r' })
+  var apiKey = fs.readFileSync('/Users/laukvik/apigw/sporenstreks/x-nav-apiKey', { encoding: 'utf8', flag: 'r' })
   console.log("apiKey", apiKey)
 
   const proxyConfig = {
     changeOrigin: true,
     target: process.env.API_GATEWAY || 'http://localhost:8080',
-    pathRewrite,
+    pathRewrite: {
+      '^/nettrefusjon/api': 'api'
+    },
     xfwd: true,
     headers: {
-      'x-nav-apiKey': "sporenstreks-frontend:" + apiKey
+      'x-nav-apiKey': apiKey
     }
   };
 
   console.log("proxyConfig", proxyConfig)
-  app.use("/api", proxy(proxyConfig));
+  app.use("/api", createProxyMiddleware(proxyConfig));
 
   app.listen(PORT, () => {
     // eslint-disable-next-line no-console
