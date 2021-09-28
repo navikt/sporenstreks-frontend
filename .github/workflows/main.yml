@@ -83,8 +83,7 @@ jobs:
         env:
           TEAM: helsearbeidsgiver
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: dev-gcp
-          RESOURCE: naiserator.yaml
-          VARS: nais/dev-gcp.json
+          CLUSTER: dev-sbs
+          RESOURCE: deploy/dev.yaml
           REF: ${{ env.COMMIT }}
           IMAGE: ${{ env.IMAGE }}
