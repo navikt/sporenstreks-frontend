@@ -55,7 +55,7 @@ const startServer = () => {
     changeOrigin: true,
     target: process.env.API_GATEWAY || 'http://localhost:8080',
     pathRewrite: {
-      '^/nettrefusjon/api': 'api'
+      '^/api': 'api'
     },
     xfwd: true,
     headers: {
