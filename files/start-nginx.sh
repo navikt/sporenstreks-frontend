@@ -18,12 +18,19 @@ then
 fi
 
 # Setting default environment variables
-#export APP_DIR="/app"
-#export APP_PATH_PREFIX="/nettrefusjon"
-#export APP_PORT="8080"
-#export API_GW_API_KEY="${API_GW_API_KEY:-dummykey}"
+export APP_DIR="/app"
+export APP_PATH_PREFIX="/nettrefusjon"
+export APP_PORT="8080"
+export API_GW_API_KEY="${API_GW_API_KEY:-dummykey}"
 export API_GATEWAY="${API_GATEWAY:-http://localhost:8080}"
-#export RESOLVER=$(cat /etc/resolv.conf | grep -v '^#' | grep -m 1 nameserver | awk '{print $2}') # Picking the first nameserver.
+export RESOLVER=$(cat /etc/resolv.conf | grep -v '^#' | grep -m 1 nameserver | awk '{print $2}') # Picking the first nameserver.
+
+echo "API Gateway='${API_GATEWAY}'"
+echo "API Gateway key='${API_GW_API_KEY}'"
+echo "RESOLVER='${RESOLVER}'"
+echo "APP_DIR='${APP_DIR}'"
+echo "APP_PATH_PREFIX='${APP_PATH_PREFIX}'"
+echo "APP_PORT='${APP_PORT}'"
 
 
 #echo -e "Startup:" ${APP_PATH_PREFIX} \n"
