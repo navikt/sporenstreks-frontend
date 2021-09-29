@@ -26,9 +26,9 @@ gzip_types
     image/svg+xml;
 
 server {
-    listen "${APP_PORT}";
+    listen 8080;
     root "/usr/share/nginx/html";
-    server_name  _;
+    server_name  arbeidsgiver-nettrefusjon.dev.nav.no;
 
     access_log /dev/stdout;
     error_log /dev/stdout info;
