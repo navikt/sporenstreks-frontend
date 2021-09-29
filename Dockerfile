@@ -1,13 +1,19 @@
-FROM navikt/node-express:14-alpine
+FROM openresty/openresty:alpine-fat
 
-WORKDIR /var
+# User env var is needed for luarocks to not complain.
+ENV APP_DIR="/app" \
+	APP_PATH_PREFIX="/nettrefusjon" \
+	USER="root"
 
-COPY build/ build/
-COPY server/ server/
+# Copying over the config-files.
+COPY files/default-config.nginx /etc/nginx/conf.d/app.conf.template
+COPY files/start-nginx.sh       /usr/sbin/start-nginx
+RUN chmod u+x /usr/sbin/start-nginx
+RUN mkdir -p /nginx
+COPY build /app
 
-WORKDIR /var/server
+EXPOSE 443
 
-RUN npm install
+WORKDIR ${APP_DIR}
 
-EXPOSE 8080
-ENTRYPOINT ["node", "server.js"]
+CMD ["start-nginx"]
