@@ -7,7 +7,7 @@ COPY files/default-config.nginx /etc/nginx/conf.d/app.conf.template
 COPY files/start-nginx.sh       /usr/sbin/start-nginx
 
 # RUN mkdir -p /nginx
-COPY build /usr/share/nginx/html/
+COPY build /app
 
 EXPOSE 8080
 

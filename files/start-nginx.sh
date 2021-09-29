@@ -32,12 +32,12 @@ export API_GATEWAY="${API_GATEWAY:-http://localhost:8080}"
 envsubst '$API_GW_API_KEY $APP_DIR $APP_PORT $APP_PATH_PREFIX $API_GATEWAY $RESOLVER' < /etc/nginx/conf.d/app.conf.template > /etc/nginx/conf.d/default.conf
 
 # find all env start with APP_
-export SUBS=$(echo $(env | cut -d= -f1 | grep "^APP_" | sed -e 's/^/\$/'))
+#export SUBS=$(echo $(env | cut -d= -f1 | grep "^APP_" | sed -e 's/^/\$/'))
 
 # replace above envs
 #echo "Startup inject envs: " ${SUBS}
 #for f in `find /${APP_DIR} -regex ".*\.\(js\|css\|html\|json\|map\)"`; do envsubst "$SUBS" < $f > $f.tmp; mv $f.tmp $f; done
-for f in `find /nginx -regex ".*\.nginx"`; do envsubst "$SUBS" < $f > $f.tmp; mv $f.tmp $f; done
+#for f in `find /nginx -regex ".*\.nginx"`; do envsubst "$SUBS" < $f > $f.tmp; mv $f.tmp $f; done
 nginx -g "daemon off;" &
 pid=$!
 wait "$pid"
