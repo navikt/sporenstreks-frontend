@@ -1,6 +1,6 @@
 server {
   listen       8080;
-  server_name  _;
+  server_name  localhost;
 
   access_log /dev/stdout;
   error_log /dev/stdout info;
