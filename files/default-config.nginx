@@ -2,7 +2,7 @@ error_log /dev/stdout;
 charset utf-8;
 client_body_buffer_size 10M; # Default er satt veldig lavt. Får problemer med enkelte dokument queries.
 proxy_buffering off;
-resolver "${RESOLVER}" ipv6=off;
+# resolver "${RESOLVER}" ipv6=off;
 resolver_timeout 3s;
 tcp_nodelay off; ## No need to bleed constant updates. Send the all shebang in one fell swoop.
 tcp_nopush off;
@@ -26,8 +26,8 @@ gzip_types
     image/svg+xml;
 
 server {
-    listen "${APP_PORT}";
-    root "${APP_DIR}";
+    listen "8080";
+    root "/app/";
     server_name  _;
 
     access_log /dev/stdout;
@@ -35,7 +35,7 @@ server {
 
 
     # Set some varable for usage in OpenResty modules.
-    set $app_path_prefix            "${APP_PATH_PREFIX}";
+    set $app_path_prefix            "/nettrefusjon";
     set $apigw_api_key              "${API_GW_API_KEY}";
     set $apigw_url                  "${API_GATEWAY}";
 
@@ -74,7 +74,7 @@ server {
     }
 
     location /nettrefusjon/static/ {
-        alias "${APP_DIR}/static/";
+        alias "/app/static/";
     }
 
     # Any route that doesn't have a file extension (e.g. /devices)
