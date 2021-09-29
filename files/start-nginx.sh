@@ -18,17 +18,12 @@ then
 fi
 
 # Setting default environment variables
-export APP_CALLBACK_PATH="${APP_CALLBACK_PATH:-/callback}"
 export APP_DIR="${APP_DIR:-/app}"
-export APP_HOSTNAME="${HOSTNAME:-localhost}"
-export APP_NAME="${APP_NAME:-devimg}"
-export APP_PATH_PREFIX="${APP_PATH_PREFIX:-/app-prefix}"
+export APP_PATH_PREFIX="/nettrefusjon"
 export APP_PORT="${APP_PORT:-443}"
 export API_GW_API_KEY="${API_GW_API_KEY:-dummykey}"
 export API_GATEWAY="${API_GATEWAY:-http://localhost:8080}"
 export APP_VERSION="${APP_VERSION:-localhost}"
-export REDIS_HOST="${REDIS_HOST:-0.0.0.0}"
-export REDIS_PORT="${REDIS_PORT:-6379}"
 export RESOLVER=$(cat /etc/resolv.conf | grep -v '^#' | grep -m 1 nameserver | awk '{print $2}') # Picking the first nameserver.
 export SESSION_STORAGE="${SESSION_STORAGE:-redis}"
 
