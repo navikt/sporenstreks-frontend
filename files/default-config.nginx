@@ -27,7 +27,7 @@ gzip_types
 
 server {
     listen "${APP_PORT}";
-    root "${APP_DIR}";
+    root "/usr/share/nginx/html";
     server_name  _;
 
     access_log /dev/stdout;
