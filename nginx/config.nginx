@@ -35,8 +35,8 @@ server {
   }
 
   location /nettrefusjon/api/ {
-    proxy_set_header "x-nav-apiKey" "${APIGW_API_KEY}";
-    proxy_pass "${API_GATEWAY}/api/";
+    proxy_set_header "x-nav-apiKey" "${GATEWAY_KEY}";
+    proxy_pass "${GATEWAY_URL}/api/";
   }
 
 

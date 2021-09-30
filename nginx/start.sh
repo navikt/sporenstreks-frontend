@@ -15,17 +15,17 @@ set -e
 
 
 echo "### API Gateway ###"
-export APIGW_API_KEY="emptyApiKey"
+export GATEWAY_KEY="emptyApiKey"
 #if test -d /apigw/sporenstreks;
 #then
 #  export APIGW_API_KEY=$(cat /apigw/sporenstreks/x-nav-apiKey)
 #fi
 # API_GATEWAY må komme inn som env variabel
-export API_GATEWAY="${API_GATEWAY:-http://localhost}"
+export GATEWAY_URL="http://localhost"
 
 
 echo "### Nginx - replacing variables in config file and creates default.conf ###"
-envsubst '$APIGW_API_KEY  $API_GATEWAY' < /etc/nginx/conf.d/sporenstreks.conf.template > /etc/nginx/conf.d/default.conf
+envsubst '$GATEWAY_KEY  $GATEWAY_URL ' < /etc/nginx/conf.d/sporenstreks.conf.template > /etc/nginx/conf.d/default.conf
 
 
 echo "### Nginx - displaying the config to use ###"
