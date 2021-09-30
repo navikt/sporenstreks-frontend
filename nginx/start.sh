@@ -25,7 +25,7 @@ export GATEWAY_URL="http://localhost/"
 
 
 echo "### Nginx - replacing variables in config file and creates default.conf ###"
-envsubst '$GATEWAY_KEY  $GATEWAY_URL ' < /etc/nginx/conf.d/sporenstreks.conf.template > /etc/nginx/conf.d/default.conf
+envsubst '$GATEWAY_KEY  $GATEWAY_URL ' < /etc/nginx/conf.d/config.nginx > /etc/nginx/conf.d/default.conf
 
 
 echo "### Nginx - displaying the config to use ###"
