@@ -4,7 +4,7 @@ ENV NGINX_ENVSUBST_OUTPUT_DIR /tmp
 
 COPY nginx-conf-overwrite.conf /etc/nginx/conf.d/default.conf
 
-# COPY build /usr/share/nginx/html
+COPY build /usr/share/nginx/html
 COPY nginx.conf.template /etc/nginx/templates/default.conf.template
 
 COPY 01-set-gateway-vars.sh /docker-entrypoint.d/
