@@ -1,8 +1,8 @@
-FROM nginxinc/nginx-unprivileged:1.21.3-alpine
+FROM nginxinc/nginx-unprivileged
 
-ADD nginx/config.nginx /etc/nginx/conf.d/config.nginx
-ADD nginx/start.sh       /start.sh
+ENV NGINX_ENVSUBST_OUTPUT_DIR /tmp
 
-COPY build /etc/nginx/html
-EXPOSE 8080
-CMD sh /start.sh
+COPY nginx-conf-overwrite.conf /etc/nginx/conf.d/default.conf
+
+# COPY build /usr/share/nginx/html
+COPY nginx.conf.template /etc/nginx/templates/default.conf.template
