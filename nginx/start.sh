@@ -21,7 +21,7 @@ export GATEWAY_KEY="emptyApiKey"
 #  export APIGW_API_KEY=$(cat /apigw/sporenstreks/x-nav-apiKey)
 #fi
 # API_GATEWAY må komme inn som env variabel
-export GATEWAY_URL="http://localhost"
+export GATEWAY_URL="http://localhost/"
 
 
 echo "### Nginx - replacing variables in config file and creates default.conf ###"
