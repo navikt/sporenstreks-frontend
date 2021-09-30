@@ -34,10 +34,6 @@ server {
     expires -1;
   }
 
-  location /nettrefusjon/api/ {
-    proxy_set_header "x-nav-apiKey" "${GATEWAY_KEY}";
-    proxy_pass "${GATEWAY_URL}/api/";
-  }
 
 
   location /nettrefusjon/static/ {
