@@ -1,7 +1,6 @@
 FROM nginxinc/nginx-unprivileged:1.21.3-alpine
 
-#ADD nginx/config.nginx /etc/nginx/conf.d/app.conf.template
-ADD nginx/config.nginx /etc/nginx/conf.d/default.conf
+ADD nginx/config.nginx /etc/nginx/conf.d/sporenstreks.conf.template
 ADD nginx/start.sh       /start.sh
 
 COPY build /etc/nginx/html
