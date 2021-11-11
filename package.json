@@ -133,10 +133,5 @@
   "snyk": true,
   "prettier": {
     "printWidth": 120
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged  --config .prettierrc.json --pattern '**/*.*(ts|tsx|js)'"
-    }
   }
 }
