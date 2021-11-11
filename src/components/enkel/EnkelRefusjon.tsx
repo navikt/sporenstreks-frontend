@@ -10,20 +10,20 @@ interface EnkelRefusjonProps {
 
 const EnkelRefusjon = (props: EnkelRefusjonProps) => {
   const {
-    errors,
+    formState: { errors },
     setValue,
     getValues,
     setError,
-    clearError
+    clearErrors
   } = useFormContext();
   const componentId = 'refusjon_' + props.index;
   const handleChange = (refusjon?: number) => {
     setValue(componentId, refusjon);
     const errorMessage = validateRefusjon(refusjon);
     if (errorMessage) {
-      setError(componentId, errorMessage);
+      setError(componentId, { type: 'manual', message: errorMessage });
     } else {
-      clearError([componentId, 'backend']);
+      clearErrors([componentId, 'backend']);
     }
   };
   return (

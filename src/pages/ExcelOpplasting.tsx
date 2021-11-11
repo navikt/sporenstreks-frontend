@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'nav-frontend-tabell-style';
-import { FormContext, useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import {
   Feilmelding,
@@ -166,7 +166,7 @@ const ExcelOpplasting = () => {
       <Row className='send-soknad'>
         <Column>
           <Panel>
-            <FormContext {...methods}>
+            <FormProvider {...methods}>
               <form onSubmit={handleSubmit}>
                 <KnappMedVarsel
                   disabled={!(erklæringAkseptert && file !== undefined)}
@@ -187,7 +187,7 @@ const ExcelOpplasting = () => {
                   </Vis>
                 </Vis>
               </form>
-            </FormContext>
+            </FormProvider>
           </Panel>
         </Column>
       </Row>

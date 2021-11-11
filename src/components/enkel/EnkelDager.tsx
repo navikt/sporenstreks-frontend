@@ -7,14 +7,19 @@ interface EnkelDagerProps {
 }
 
 const EnkelDager = (props: EnkelDagerProps) => {
-  const { errors, setError, clearError, getValues } = useFormContext();
+  const {
+    formState: { errors },
+    setError,
+    clearErrors,
+    getValues
+  } = useFormContext();
   const componentId = 'dager_' + props.index;
   const onChange = (dager?: number) => {
     if (!dager) {
-      setError(componentId, 'Antall dager må fylles ut');
+      setError(componentId, { message: 'Antall dager må fylles ut' });
       return false;
     } else {
-      clearError([componentId, 'backend']);
+      clearErrors([componentId, 'backend']);
       return true;
     }
   };
