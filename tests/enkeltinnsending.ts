@@ -52,7 +52,10 @@ const cookieMock = RequestMock()
   .onRequestTo(innsendingAPI)
   .respond({ referansenummer: '10' }, 200, mockHeaders);
 
-fixture`Enkeltinnsending`
+fixture`Enkeltinnsending`.clientScripts([
+  { module: 'mockdate' },
+  { content: "MockDate.set('2021-06-22')" }
+])
   .page`http://localhost:3000/nettrefusjon/bulk/?bedrift=810007842&TestCafe=running`
   .requestHooks(cookieMock)
   .beforeEach(async () => {

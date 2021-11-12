@@ -26,7 +26,11 @@ interface EnkelPeriodeProps {
 }
 
 const EnkelPeriode = (props: EnkelPeriodeProps) => {
-  const { errors, setError, clearError } = useFormContext();
+  const {
+    formState: { errors },
+    setError,
+    clearErrors
+  } = useFormContext();
   const [fom, setFom] = useState<Date>();
   const [tom, setTom] = useState<Date>();
   const perId = 'periode_' + props.index;
@@ -34,9 +38,9 @@ const EnkelPeriode = (props: EnkelPeriodeProps) => {
   const handleClose = (selectedDates: Array<Date>) => {
     const errorMessage = validatePeriod(selectedDates[0], selectedDates[1]);
     if (errorMessage) {
-      setError(perId, errorMessage);
+      setError(perId, { type: errorMessage, message: errorMessage });
     } else {
-      clearError([perId, 'backend']);
+      clearErrors([perId, 'backend']);
     }
     setFom(selectedDates[0]);
     setTom(selectedDates[1]);

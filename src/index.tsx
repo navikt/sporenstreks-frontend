@@ -3,7 +3,8 @@ import 'react-app-polyfill/stable';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import * as Sentry from '@sentry/browser';
+import * as Sentry from '@sentry/react';
+import { Integrations } from '@sentry/tracing';
 import App from './App';
 import './index.css';
 import Modal from 'react-modal';
@@ -14,7 +15,9 @@ Modal.setAppElement('#root');
 if (env.environmentMode !== EnvironmentType.LOCAL) {
   Sentry.init({
     dsn: 'https://3769b2c742c840f085ca72d93f49bb0e@sentry.gc.nav.no/39',
-    environment: EnvironmentType[env.environmentMode]
+    environment: EnvironmentType[env.environmentMode],
+    integrations: [new Integrations.BrowserTracing()],
+    tracesSampleRate: 0.5
   });
 }
 

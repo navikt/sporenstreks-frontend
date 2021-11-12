@@ -58,7 +58,7 @@ class Environment {
       case EnvironmentType.TESTCAFE:
         return 'http://localhost:3000';
       default:
-        return 'http://localhost:8080';
+        return 'http://localhost:3000';
     }
   }
 

@@ -3,7 +3,7 @@
     "target": "es2016",
     "module": "esnext",
     "allowJs": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "declaration": true,
     "noEmit": true,
     "strict": false,

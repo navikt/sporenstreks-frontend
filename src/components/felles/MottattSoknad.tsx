@@ -18,20 +18,20 @@ export const MottattSoknad = ({ nySoknadLink }: MottattSoknadProps) => (
       </Panel>
       <Panel>
         <Normaltekst>
-          <span>En kvittering er sendt til meldingsboksen deres i </span>
+          En kvittering er sendt til meldingsboksen deres i{' '}
           <Lenke href='https://www.altinn.no'>Altinn</Lenke>.
         </Normaltekst>
       </Panel>
       <Panel>
         <Normaltekst>
-          <span>
-            Trenger du å kontakte oss, er det tilstrekkelig å oppgi
-            fødselsnummeret til den ansatte.
-          </span>
+          Trenger du å kontakte oss, er det tilstrekkelig å oppgi
+          fødselsnummeret til den ansatte.
+        </Normaltekst>
+        <Normaltekst>
           <Lenke href='https://www.nav.no/no/bedrift/tjenester-og-skjemaer/aa-registeret-og-a-meldingen/relatert-informasjon/bankkontonummer-refusjoner-fra-nav-til-arbeidsgiver'>
             Har du registrert kontonummer hos NAV?
-          </Lenke>
-          <span> Hvis ikke må du gjøre det snarest.</span>
+          </Lenke>{' '}
+          Hvis ikke må du gjøre det snarest.
         </Normaltekst>
       </Panel>
       <Panel>

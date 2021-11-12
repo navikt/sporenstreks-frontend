@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import 'nav-frontend-tabell-style';
 import { FnrInput } from 'nav-frontend-skjema';
-import { FormContext, useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { Knapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
 import { Feilmelding, Normaltekst, Undertittel } from 'nav-frontend-typografi';
@@ -106,7 +106,10 @@ const Sykepenger = () => {
             } else if (response.status === 422) {
               response.json().then((data) => {
                 data.violations.forEach((violation) => {
-                  methods.setError('backend', violation.message);
+                  methods.setError('backend', {
+                    type: violation.message,
+                    message: violation.message
+                  });
                 });
                 data.violations.map((violation) => ({
                   errorType: violation.validationType,
@@ -115,7 +118,10 @@ const Sykepenger = () => {
               });
             } else {
               // todo: error 400
-              methods.setError('backend', 'Server feil, prøv igjen senere');
+              methods.setError('backend', {
+                type: 'Server feil, prøv igjen senere',
+                message: 'Server feil, prøv igjen senere'
+              });
             }
           }
         })
@@ -124,7 +130,10 @@ const Sykepenger = () => {
           reject(err);
         });
     }).catch(() => {
-      methods.setError('backend', 'Server feil, prøv igjen senere');
+      methods.setError('backend', {
+        type: 'Server feil, prøv igjen senere',
+        message: 'Server feil, prøv igjen senere'
+      });
     });
   };
 
@@ -139,13 +148,14 @@ const Sykepenger = () => {
     } else if (notValid) {
       msg = 'Fødselsnummer er ugyldig';
     }
+
     if (msg !== '') {
       setFnrClassName(fnrErrorState.hasError);
-      methods.setError('fnr', msg);
+      methods.setError('fnr', { type: msg, message: msg });
       return false;
     } else {
       setFnrClassName(fnrErrorState.noError);
-      methods.clearError(['fnr', 'backend']);
+      methods.clearErrors(['fnr', 'backend']);
       return true;
     }
   };
@@ -178,7 +188,7 @@ const Sykepenger = () => {
       <InnloggetSide>
         <CoronaTopptekst />
         <Skillelinje />
-        <FormContext {...methods}>
+        <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(setForm)} ref={refRefusjonsform}>
             <Row>
               <Column>
@@ -220,9 +230,10 @@ const Sykepenger = () => {
                     aria-live='assertive'
                     className={'skjemaelement__feilmelding fnr ' + fnrClassName}
                   >
-                    <Vis hvis={methods.errors['fnr']}>
+                    <Vis hvis={methods.formState.errors['fnr']}>
                       <Feilmelding>
-                        {methods.errors['fnr'] && methods.errors['fnr'].type}
+                        {methods.formState.errors['fnr'] &&
+                          methods.formState.errors['fnr'].type}
                       </Feilmelding>
                     </Vis>
                   </Normaltekst>
@@ -239,7 +250,7 @@ const Sykepenger = () => {
               </div>
             </Container>
 
-            <FeilOppsummering errors={methods.errors} />
+            <FeilOppsummering errors={methods.formState.errors} />
             <Skillelinje />
             <Row>
               <Column>
@@ -263,7 +274,7 @@ const Sykepenger = () => {
               </Column>
             </Row>
           </form>
-        </FormContext>
+        </FormProvider>
       </InnloggetSide>
     </>
   );
@@ -286,26 +297,41 @@ function validateValuesAreSet(
         break;
       case 'periode':
         if (!formAsJson[element]) {
-          methods.setError(element, 'Periode må fylles ut');
+          methods.setError(element, {
+            type: 'Periode må fylles ut',
+            message: 'Periode må fylles ut'
+          });
           harFeil = true;
         } else if (formAsJson[element].indexOf('til') === -1) {
-          methods.setError(element, 'Sluttdato må fylles ut');
+          methods.setError(element, {
+            type: 'Sluttdato må fylles ut',
+            message: 'Sluttdato må fylles ut'
+          });
           harFeil = true;
         }
         break;
       case 'dager':
         if (!formAsJson[element] || formAsJson[element] === '-1') {
-          methods.setError(element, 'Antall dager må fylles ut');
+          methods.setError(element, {
+            type: 'Antall dager må fylles ut',
+            message: 'Antall dager må fylles ut'
+          });
           harFeil = true;
         }
         break;
       case 'refusjon':
         if (!formAsJson[element]) {
-          methods.setError(element, 'Beløp må fylles ut');
+          methods.setError(element, {
+            type: 'Beløp må fylles ut',
+            message: 'Beløp må fylles ut'
+          });
           harFeil = true;
         }
         if (formAsJson[element] < 0) {
-          methods.setError(element, 'Beløp må være større enn 0');
+          methods.setError(element, {
+            type: 'Beløp må være større enn 0',
+            message: 'Beløp må være større enn 0'
+          });
           harFeil = true;
         }
         break;
