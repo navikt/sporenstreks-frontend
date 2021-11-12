@@ -16,7 +16,10 @@ const EnkelDager = (props: EnkelDagerProps) => {
   const componentId = 'dager_' + props.index;
   const onChange = (dager?: number) => {
     if (!dager) {
-      setError(componentId, { message: 'Antall dager må fylles ut' });
+      setError(componentId, {
+        type: 'Antall dager må fylles ut',
+        message: 'Antall dager må fylles ut'
+      });
       return false;
     } else {
       clearErrors([componentId, 'backend']);

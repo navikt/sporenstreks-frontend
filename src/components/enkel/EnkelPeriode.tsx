@@ -38,7 +38,7 @@ const EnkelPeriode = (props: EnkelPeriodeProps) => {
   const handleClose = (selectedDates: Array<Date>) => {
     const errorMessage = validatePeriod(selectedDates[0], selectedDates[1]);
     if (errorMessage) {
-      setError(perId, { message: errorMessage });
+      setError(perId, { type: errorMessage, message: errorMessage });
     } else {
       clearErrors([perId, 'backend']);
     }

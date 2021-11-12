@@ -21,7 +21,7 @@ const EnkelRefusjon = (props: EnkelRefusjonProps) => {
     setValue(componentId, refusjon);
     const errorMessage = validateRefusjon(refusjon);
     if (errorMessage) {
-      setError(componentId, { type: 'manual', message: errorMessage });
+      setError(componentId, { type: errorMessage, message: errorMessage });
     } else {
       clearErrors([componentId, 'backend']);
     }

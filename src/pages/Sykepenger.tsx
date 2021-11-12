@@ -303,7 +303,10 @@ function validateValuesAreSet(
           });
           harFeil = true;
         } else if (formAsJson[element].indexOf('til') === -1) {
-          methods.setError(element, 'Sluttdato må fylles ut');
+          methods.setError(element, {
+            type: 'Sluttdato må fylles ut',
+            message: 'Sluttdato må fylles ut'
+          });
           harFeil = true;
         }
         break;
