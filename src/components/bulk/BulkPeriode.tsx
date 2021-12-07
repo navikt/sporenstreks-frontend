@@ -8,6 +8,7 @@ import { HjelpetekstPeriode } from '../periode/HjelpetekstPeriode';
 import { validatePerioder } from './validatePerioder';
 import { AnsattID } from './Ansatt';
 import { useBulk } from '../../context/BulkContext';
+import { disabledDates } from '../periode/PeriodeValidator';
 
 const BulkPeriode = (props: AnsattID) => {
   const { ansatte, setAnsatte } = useBulk();
@@ -65,7 +66,8 @@ const BulkPeriode = (props: AnsattID) => {
           allowInput: true,
           clickOpens: true,
           formatDate: formatDatoer,
-          onClose: (selectedDates) => handleClose(selectedDates)
+          onClose: (selectedDates) => handleClose(selectedDates),
+          disable: disabledDates
         }}
       />
       <SkjemaelementFeilmelding>{a?.periodeError}</SkjemaelementFeilmelding>

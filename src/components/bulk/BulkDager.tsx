@@ -4,8 +4,13 @@ import { HjelpetekstDager } from '../dager/HjelpetekstDager';
 import validateDager from '../dager/validateDager';
 import { AnsattID } from './Ansatt';
 import { useBulk } from '../../context/BulkContext';
+import antallRefusjonsdager from '../dager/antallRefusjonsdager';
 
-export const BulkDager = (props: AnsattID) => {
+interface BulkDagerInterface extends AnsattID {
+  startdato: Date;
+}
+
+export const BulkDager = (props: BulkDagerInterface) => {
   const { ansatte, setAnsatte } = useBulk();
   const aktuellAnsatt = ansatte.find((ansatt) => ansatt.id === props.id);
   const handleChange = (evt) => {
@@ -17,7 +22,10 @@ export const BulkDager = (props: AnsattID) => {
     }
     setAnsatte([...ansatte]);
   };
-  const optionArr = Array.from(Array(14).keys());
+
+  const refusjonsdager = antallRefusjonsdager(props.startdato);
+
+  const optionArr = Array.from(Array(refusjonsdager + 1).keys());
   return (
     <Select
       id={'dager_' + props.id}
