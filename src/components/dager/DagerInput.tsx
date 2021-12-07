@@ -9,6 +9,7 @@ interface DagerInputProps {
   antallDagerMedRefusjon?: number;
   handleChange: any;
   id?: number | string;
+  startdato: Date;
 }
 
 export const DagerInput = ({
@@ -18,7 +19,7 @@ export const DagerInput = ({
   id
 }: DagerInputProps) => {
   const [lokalFeil, setLokalFeil] = useState<string | undefined>();
-  const optionArr = Array.from(Array(15).keys());
+  const optionArr = Array.from(Array(14).keys());
 
   const handleDagerBlur = (evt) => {
     const feilmelding = validateDager(evt.target.value);
@@ -50,8 +51,8 @@ export const DagerInput = ({
       selected={antallDagerMedRefusjon}
     >
       {optionArr.map((optionValue) => (
-        <option key={optionValue} value={optionValue - 1}>
-          {optionValue ? optionValue - 1 : undefined}
+        <option key={optionValue} value={optionValue}>
+          {optionValue ? optionValue : '-'}
         </option>
       ))}
     </Select>
