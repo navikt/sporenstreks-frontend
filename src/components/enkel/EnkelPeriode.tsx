@@ -5,7 +5,7 @@ import { Label, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
 import { HjelpetekstPeriode } from '../periode/HjelpetekstPeriode';
 import Flatpickr from 'react-flatpickr';
 import { Norwegian } from 'flatpickr/dist/l10n/no.js';
-import { Maximum } from '../periode/PeriodeValidator';
+import { disabledDates, Maximum } from '../periode/PeriodeValidator';
 
 export const formatDate = (value?: Date): string => {
   return value ? dayjs(value).format('DD.MM.YYYY') : '';
@@ -23,6 +23,7 @@ interface EnkelPeriodeProps {
   index: number;
   min?: Date;
   max?: Date;
+  onClose: (selectedDate: Date) => void;
 }
 
 const EnkelPeriode = (props: EnkelPeriodeProps) => {
@@ -44,6 +45,7 @@ const EnkelPeriode = (props: EnkelPeriodeProps) => {
     }
     setFom(selectedDates[0]);
     setTom(selectedDates[1]);
+    props.onClose(selectedDates[0]);
   };
 
   const formatDatoer = () => {
@@ -73,7 +75,8 @@ const EnkelPeriode = (props: EnkelPeriodeProps) => {
           allowInput: true,
           clickOpens: true,
           formatDate: formatDatoer,
-          onClose: (selectedDates) => handleClose(selectedDates)
+          onClose: (selectedDates) => handleClose(selectedDates),
+          disable: disabledDates
         }}
       />
       {errors[perId] && (

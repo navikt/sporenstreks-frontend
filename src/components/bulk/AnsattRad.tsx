@@ -11,6 +11,7 @@ import Slettknapp from './Slettknapp';
 import { Column, Row } from 'nav-frontend-grid';
 import RadNr from './RadNr';
 import { useBulk } from '../../context/BulkContext';
+import dayjs from 'dayjs';
 
 export const AnsattRad = ({ id }: AnsattID) => {
   const { ansatte, setAnsatte, setFeil } = useBulk();
@@ -61,7 +62,7 @@ export const AnsattRad = ({ id }: AnsattID) => {
         <BulkPeriode id={a?.id} />
       </Column>
       <Column md='2' xs='12'>
-        <BulkDager id={a?.id} />
+        <BulkDager id={a?.id} startdato={dayjs(a.fom).toDate()} />
       </Column>
       <Column md='2' xs='12'>
         <BulkRefusjon id={a?.id} />

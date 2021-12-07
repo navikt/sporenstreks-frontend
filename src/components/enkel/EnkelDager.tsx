@@ -4,6 +4,7 @@ import DagerInput from '../dager/DagerInput';
 
 interface EnkelDagerProps {
   index: number;
+  startdato: Date;
 }
 
 const EnkelDager = (props: EnkelDagerProps) => {
@@ -32,6 +33,7 @@ const EnkelDager = (props: EnkelDagerProps) => {
       feilmelding={errors[componentId] && errors[componentId].type}
       antallDagerMedRefusjon={getValues(componentId)}
       handleChange={onChange}
+      startdato={props.startdato}
     />
   );
 };
