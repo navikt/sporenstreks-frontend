@@ -3,22 +3,26 @@ import { Select } from 'nav-frontend-skjema';
 import validateDager from './validateDager';
 import { HjelpetekstDager } from './HjelpetekstDager';
 import { v4 as uuidv4 } from 'uuid';
+import antallRefusjonsdager from './antallRefusjonsdager';
 
 interface DagerInputProps {
   feilmelding?: string;
   antallDagerMedRefusjon?: number;
   handleChange: any;
   id?: number | string;
+  startdato: Date;
 }
 
 export const DagerInput = ({
   feilmelding,
   antallDagerMedRefusjon,
   handleChange,
-  id
+  id,
+  startdato
 }: DagerInputProps) => {
   const [lokalFeil, setLokalFeil] = useState<string | undefined>();
-  const optionArr = Array.from(Array(15).keys());
+  const valgbareDager = antallRefusjonsdager(startdato);
+  const optionArr = Array.from(Array(valgbareDager + 1).keys());
 
   const handleDagerBlur = (evt) => {
     const feilmelding = validateDager(evt.target.value);
@@ -50,8 +54,8 @@ export const DagerInput = ({
       selected={antallDagerMedRefusjon}
     >
       {optionArr.map((optionValue) => (
-        <option key={optionValue} value={optionValue - 1}>
-          {optionValue ? optionValue - 1 : undefined}
+        <option key={optionValue} value={optionValue}>
+          {optionValue ? optionValue : '-'}
         </option>
       ))}
     </Select>

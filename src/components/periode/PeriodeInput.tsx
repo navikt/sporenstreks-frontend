@@ -4,7 +4,7 @@ import { HjelpetekstPeriode } from './HjelpetekstPeriode';
 import Flatpickr from 'react-flatpickr';
 import { Norwegian } from 'flatpickr/dist/l10n/no.js';
 import { PeriodeFormatter } from './PeriodeFormatter';
-import { Feilmelding, Maximum } from './PeriodeValidator';
+import { disabledDates, Feilmelding, Maximum } from './PeriodeValidator';
 import { PeriodeConverter } from './PeriodeConverter';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -64,7 +64,8 @@ export const PeriodeInput = ({
           locale: Norwegian,
           allowInput: true,
           clickOpens: true,
-          onClose: (selectedDates) => handleClose(selectedDates)
+          onClose: (selectedDates) => handleClose(selectedDates),
+          disable: disabledDates
         }}
       />
       {feilmeldingState && (
