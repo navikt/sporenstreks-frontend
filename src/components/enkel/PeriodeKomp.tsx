@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Vis from '../felles/Vis';
 import EnkelPeriode from './EnkelPeriode';
 import EnkelDager from './EnkelDager';
@@ -15,13 +15,24 @@ interface PeriodeKompProps {
 }
 
 const PeriodeKomp = (props: PeriodeKompProps) => {
+  const [startDate, setStartDate] = useState<Date>(new Date());
+
+  const onDateColosed = (selectedDate: Date) => {
+    setStartDate(selectedDate);
+  };
+
   return (
     <Row className='periode'>
       <Column md='5' xs='12'>
-        <EnkelPeriode index={props.index} min={props.min} max={props.max} />
+        <EnkelPeriode
+          index={props.index}
+          min={props.min}
+          max={props.max}
+          onClose={onDateColosed}
+        />
       </Column>
       <Column md='3' xs='12'>
-        <EnkelDager index={props.index} />
+        <EnkelDager index={props.index} startdato={startDate} />
       </Column>
       <Column md='3' xs='12'>
         <EnkelRefusjon index={props.index} />
