@@ -3,6 +3,7 @@ import { Select } from 'nav-frontend-skjema';
 import validateDager from './validateDager';
 import { HjelpetekstDager } from './HjelpetekstDager';
 import { v4 as uuidv4 } from 'uuid';
+import antallRefusjonsdager from './antallRefusjonsdager';
 
 interface DagerInputProps {
   feilmelding?: string;
@@ -16,10 +17,12 @@ export const DagerInput = ({
   feilmelding,
   antallDagerMedRefusjon,
   handleChange,
-  id
+  id,
+  startdato
 }: DagerInputProps) => {
   const [lokalFeil, setLokalFeil] = useState<string | undefined>();
-  const optionArr = Array.from(Array(14).keys());
+  const valgbareDager = antallRefusjonsdager(startdato);
+  const optionArr = Array.from(Array(valgbareDager + 1).keys());
 
   const handleDagerBlur = (evt) => {
     const feilmelding = validateDager(evt.target.value);
