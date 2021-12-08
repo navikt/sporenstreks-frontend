@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import 'nav-frontend-tabell-style';
-import { FnrInput } from 'nav-frontend-skjema';
+import { FnrInput, Feiloppsummering } from 'nav-frontend-skjema';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Knapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
@@ -20,7 +20,7 @@ import formToJSON from '../components/enkel/formToJSON';
 import convertSkjemaToRefusjonsKrav from '../components/enkel/convertSkjemaToRefusjonsKrav';
 import env from '../components/felles/environment';
 import InternLenke from '../components/felles/InternLenke';
-import FeilOppsummering from '../components/excel/FeilOppsummering';
+// import FeilOppsummering from '../components/excel/FeilOppsummering';
 import { Erklaring } from '../components/felles/Erklaring';
 import Vis from '../components/felles/Vis';
 import { fnrErrorState, useEnkelSkjema } from '../context/EnkelContext';
@@ -160,6 +160,20 @@ const Sykepenger = () => {
     }
   };
 
+  const errors = methods.formState.errors ?? {};
+  const feilmeldingKeys = errors ? Object.keys(errors) : [];
+  const feilmeldinger = feilmeldingKeys
+    ? feilmeldingKeys.map((feil) => {
+        return {
+          skjemaelementId: feil,
+          feilmelding: methods.formState.errors[feil].message
+        };
+      })
+    : [];
+
+  const feilmeldingerTittel =
+    'Det er ' + feilmeldinger.length + ' feil i skjemaet';
+
   return (
     <>
       <ModalWrapper
@@ -249,8 +263,12 @@ const Sykepenger = () => {
                 <Perioder />
               </div>
             </Container>
-
-            <FeilOppsummering errors={methods.formState.errors} />
+            {feilmeldinger.length > 0 && (
+              <Feiloppsummering
+                feil={feilmeldinger}
+                tittel={feilmeldingerTittel}
+              />
+            )}
             <Skillelinje />
             <Row>
               <Column>
@@ -298,14 +316,8 @@ function validateValuesAreSet(
       case 'periode':
         if (!formAsJson[element]) {
           methods.setError(element, {
-            type: 'Periode må fylles ut',
-            message: 'Periode må fylles ut'
-          });
-          harFeil = true;
-        } else if (formAsJson[element].indexOf('til') === -1) {
-          methods.setError(element, {
-            type: 'Sluttdato må fylles ut',
-            message: 'Sluttdato må fylles ut'
+            type: 'Dato må fylles ut',
+            message: 'Dato må fylles ut'
           });
           harFeil = true;
         }
