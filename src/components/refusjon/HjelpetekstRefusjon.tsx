@@ -173,7 +173,7 @@ const HjelpetekstRefusjon = () => {
             <li>
               Frida har første fraværsdag 20. mars. Hun jobber mandag-fredag og
               får ikke utbetalt lønn for helgedager. Arbeidsgiverperioden går
-              til og med 4. april. Trekk fra helgedager og de tfe første dagene
+              til og med 4. april. Trekk fra helgedager og de tre første dagene
               i arbeidsgiverperioden = åtte dager som det kan kreves refusjon
               for.
             </li>
