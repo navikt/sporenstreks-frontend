@@ -13,7 +13,7 @@ export const Minimum = (now?: Date): Date => {
 export const disabledDates = [
   {
     from: '01.10.2021',
-    to: '30.11.2021'
+    to: '20.11.2021'
   }
 ];
 
