@@ -5,7 +5,7 @@ import { Label, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
 import { HjelpetekstPeriode } from '../periode/HjelpetekstPeriode';
 import Flatpickr from 'react-flatpickr';
 import { Norwegian } from 'flatpickr/dist/l10n/no.js';
-import { disabledDates, Maximum } from '../periode/PeriodeValidator';
+import { disabledDates, maxDate, minDate } from '../periode/PeriodeValidator';
 import { Column, Row } from 'nav-frontend-grid';
 
 export const formatDate = (value?: Date): string => {
@@ -73,7 +73,8 @@ const EnkelPeriode = (props: EnkelPeriodeProps) => {
             placeholder='dd.mm.yyyy'
             className={'skjemaelement__input '}
             options={{
-              maxDate: Maximum(),
+              minDate: minDate(),
+              maxDate: maxDate(),
               enableTime: false,
               dateFormat: 'd.m.Y',
               altInput: true,
@@ -102,7 +103,8 @@ const EnkelPeriode = (props: EnkelPeriodeProps) => {
             placeholder='dd.mm.yyyy'
             className={'skjemaelement__input '}
             options={{
-              maxDate: Maximum(),
+              minDate: minDate(),
+              maxDate: maxDate(),
               enableTime: false,
               dateFormat: 'd.m.Y',
               altInput: true,

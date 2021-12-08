@@ -1,8 +1,10 @@
 import dayjs from 'dayjs';
 
-export const Maximum = (now?: Date): Date => {
+export const maxDate = (now?: Date): Date => {
   return dayjs(now ? now : new Date()).toDate();
 };
+
+export const minDate = () => new Date(2021, 8, 1);
 
 export const Minimum = (now?: Date): Date => {
   return dayjs(now ? now : new Date()).toDate();
@@ -23,7 +25,7 @@ export const isValidTom = (tom?: Date): boolean => {
   if (!tom) {
     return false;
   }
-  return tom.getTime() < Maximum().getTime();
+  return tom.getTime() < maxDate().getTime();
 };
 
 export const Feilmelding = (required: boolean, fom?: Date, tom?: Date) => {
