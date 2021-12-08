@@ -60,8 +60,11 @@ const InnloggetSide = (props: SideProps) => {
           <Container className={'innloggetside__innhold'}>
             <Panel>
               <AlertStripeAdvarsel className='avvikling-alert'>
-                Denne ordningen er nå under avvikling og gjelder bare sykefravær
-                som starter før 1. oktober 2021.
+                Denne ordningen gjelder bare sykefravær som starter etter 1.
+                desember 2021. Det er også mulig å søke for sykefravær som
+                startet før 1. oktober i dette skjemaet. For sykefravær før 1.
+                oktober gjelder følgende regler, og kan bare søkes frem til 31.
+                desember.
               </AlertStripeAdvarsel>
             </Panel>
             {props.children}

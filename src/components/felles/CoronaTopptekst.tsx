@@ -10,11 +10,12 @@ export const CoronaTopptekst = () => {
       <Column>
         <Panel>
           <Ingress>
-            Når sykefraværet handler om korona, dekker NAV sykepenger fra dag 4
+            Når sykefraværet handler om korona, dekker NAV sykepenger fra dag 6
             i de 16 dagene arbeidsgiveren vanligvis skal betale. Den ansatte må
             være smittet, mistenkt smittet eller i pålagt karantene. Ordningen
-            gjelder fra 16.mars 2020. Dersom arbeidsgiverperioden startet før
-            16.mars, refunderes ikke dagene før denne datoen.&nbsp;
+            gjelder fra 1. desember 2021. Dersom arbeidsgiverperioden startet
+            før 1. desember, refunderes ikke dagene før denne datoen. Frem til
+            1. oktober 2021 gjelder fortsatt regel om refusjon fra dag 4.&nbsp;
             <Lenke href='https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/nyheter/refusjon-av-sykepenger-ved-koronavirus--hva-er-status'>
               Se mer informasjon om refusjonsordningen.
             </Lenke>
