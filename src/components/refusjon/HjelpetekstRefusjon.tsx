@@ -144,10 +144,10 @@ const HjelpetekstRefusjon = () => {
           <ol>
             <li>
               Avklar antall dager det kan kreves refusjon for. Ta kun med dager
-              det skulle vært utbetalt lønn for, fra og med dag 4 i
+              det skulle vært utbetalt lønn for, fra og med dag 6 i
               arbeidsgiverperioden. Helger og helligdager kan tas med hvis de er
               en del av den faste arbeidstiden. Krev så refusjon fra og med dag
-              4, men maksimalt 13 dager til sammen. Dager før 16. mars får du
+              6, men maksimalt 11 dager til sammen. Dager før 1. desember får du
               ikke refusjon for.
             </li>
             <li>
@@ -174,7 +174,8 @@ const HjelpetekstRefusjon = () => {
               Frida har første fraværsdag 20. mars. Hun jobber mandag-fredag og
               får ikke utbetalt lønn for helgedager. Arbeidsgiverperioden går
               til og med 4. april. Trekk fra helgedager og de tre første dagene
-              i arbeidsgiverperioden = 10 dager som det kan kreves refusjon for.
+              i arbeidsgiverperioden = åtte dager som det kan kreves refusjon
+              for.
             </li>
             <li>
               Finn gjennomsnittet av Fridas bruttolønn i desember, januar og
@@ -187,15 +188,15 @@ const HjelpetekstRefusjon = () => {
             </li>
             <li>
               Reduser beløpet til 6G. Siden Frida tjener mer enn 6G så må
-              årslønnen reduseres til 6*G = 608 106 kroner.
+              årslønnen reduseres til 6*G = 638 394 kroner.
             </li>
             <li>
               Del på 260 (antallet arbeidsdager Frida jobber i året) =
-              dagsatsen. Fridas dagsats blir da 608 106 kr / 260 = 2338,87
+              dagsatsen. Fridas dagsats blir da 638 394 kr / 260 = 2455.36
             </li>
             <li>
-              Gang dagsatsen med 10. Maksimalt refusjonsbeløp for Frida for de
-              ti dagene blir da 23 388,70 kroner
+              Gang dagsatsen med 8. Maksimalt refusjonsbeløp for Frida for de
+              åtte dagene blir da 19 642,88 kroner
             </li>
           </ol>
           <button
