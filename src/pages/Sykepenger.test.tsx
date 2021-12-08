@@ -205,7 +205,7 @@ describe('Sykepenger', () => {
     });
 
     expect(screen.queryAllByText(/Fødselsnummer må fylles ut/).length).toBe(2);
-    expect(screen.queryAllByText(/Periode må fylles ut/).length).toBe(2);
+    expect(screen.queryAllByText(/Dato må fylles ut/).length).toBe(4);
     expect(screen.queryAllByText(/Antall dager må fylles ut/).length).toBe(2);
     expect(screen.queryAllByText(/Beløp må fylles ut/).length).toBe(2);
   });

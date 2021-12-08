@@ -1,4 +1,11 @@
+import dayjs from 'dayjs';
 import { Periode, RefusjonsKrav } from '../../data/types/sporenstreksTypes';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(customParseFormat);
+
+const formaterDato = (noDato: string): string =>
+  dayjs(noDato, 'DD.MM.YYYY').format('YYYY-MM-DD');
 
 const convertSkjemaToRefusjonsKrav = (
   data,
@@ -9,8 +16,8 @@ const convertSkjemaToRefusjonsKrav = (
   let perioder: Periode[] = [];
   for (let i = 0; i < antallPerioder; i++) {
     const periode: Periode = {
-      fom: data['periode_' + i + '_fom'],
-      tom: data['periode_' + i + '_tom'],
+      fom: formaterDato(data['periode_' + i + '_fom']),
+      tom: formaterDato(data['periode_' + i + '_tom']),
       antallDagerMedRefusjon: data['dager_' + i].replace(/ /g, ''),
       beloep: data['refusjon_' + i]
         .replace(/ /g, '')
