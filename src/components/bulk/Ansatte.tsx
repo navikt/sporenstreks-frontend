@@ -73,7 +73,7 @@ const Ansatte: React.FC = () => {
     setHarTrykketSubmitMinstEnGang(true);
   };
 
-  let valideringsfeil = ByggValideringsFeil(ansatte);
+  // let valideringsfeil = ByggValideringsFeil(ansatte);
   // setFeil(valideringsfeil);
 
   return (
@@ -175,11 +175,11 @@ const Ansatte: React.FC = () => {
               onClick={handleBekreftKlikk}
               erklæringAkseptert={erklæringAkseptert}
             />
-            <Advarsler
+            {/* <Advarsler
               erklæringAkseptert={erklæringAkseptert}
               harFeil={feil.length > 0}
               visFeil={harTrykketSubmitMinstEnGang}
-            />
+            /> */}
           </Panel>
         </Column>
       </Row>
