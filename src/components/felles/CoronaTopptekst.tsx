@@ -16,7 +16,10 @@ export const CoronaTopptekst = () => {
             gjelder fra 1. desember 2021. Dersom arbeidsgiverperioden startet
             før 1. desember, refunderes ikke dagene før denne datoen. Frem til
             1. oktober 2021 gjelder fortsatt regel om refusjon fra dag 4.&nbsp;
-            <Lenke href='https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/nyheter/refusjon-av-sykepenger-ved-koronavirus--hva-er-status'>
+            <Lenke
+              href='https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/nyheter/refusjon-av-sykepenger-ved-koronavirus--hva-er-status'
+              target='_blank'
+            >
               Se mer informasjon om refusjonsordningen.
             </Lenke>
           </Ingress>
