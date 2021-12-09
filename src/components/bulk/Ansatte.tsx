@@ -175,11 +175,11 @@ const Ansatte: React.FC = () => {
               onClick={handleBekreftKlikk}
               erklæringAkseptert={erklæringAkseptert}
             />
-            {/* <Advarsler
+            <Advarsler
               erklæringAkseptert={erklæringAkseptert}
-              harFeil={feil.length > 0}
+              harFeil={false}
               visFeil={harTrykketSubmitMinstEnGang}
-            /> */}
+            />
           </Panel>
         </Column>
       </Row>

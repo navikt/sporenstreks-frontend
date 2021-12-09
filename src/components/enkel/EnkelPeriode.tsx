@@ -55,6 +55,9 @@ const EnkelPeriode = (props: EnkelPeriodeProps) => {
     }
   };
 
+  const perId1ErrorClass = errors[perId1] ? 'dato-har-feil' : '';
+  const perId2ErrorClass = errors[perId2] ? 'dato-har-feil' : '';
+
   return (
     <div className={'skjemaelement'}>
       <Row>
@@ -66,7 +69,7 @@ const EnkelPeriode = (props: EnkelPeriodeProps) => {
         </Label>
       </Row>
       <Row>
-        <Column md='5' xs='12'>
+        <Column md='5' xs='12' className={perId1ErrorClass}>
           <Flatpickr
             id={perId1}
             name={perId1}
@@ -96,7 +99,7 @@ const EnkelPeriode = (props: EnkelPeriodeProps) => {
         <Column md='2' xs='12' className='enkeltperiode-til-tekst'>
           til
         </Column>
-        <Column md='5' xs='12'>
+        <Column md='5' xs='12' className={perId2ErrorClass}>
           <Flatpickr
             id={perId2}
             name={perId2}
