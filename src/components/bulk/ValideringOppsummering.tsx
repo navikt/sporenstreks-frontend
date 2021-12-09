@@ -2,11 +2,10 @@ import { Feiloppsummering } from 'nav-frontend-skjema';
 import React from 'react';
 import { useBulk } from '../../context/BulkContext';
 import { ValideringsFeil } from './ValideringsFeil';
-import { Ansatt } from './Ansatt';
 
 export const ValideringOppsummering = () => {
   // const { feil, ansatte } = useBulk();
-  const { ansatte, setFeil } = useBulk();
+  const { ansatte } = useBulk();
   let feil: ValideringsFeil[] = [];
   // eslint-disable-next-line
   console.log('ansatte', ansatte);

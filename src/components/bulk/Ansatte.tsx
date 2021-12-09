@@ -28,7 +28,7 @@ import { Linker } from '../../pages/Linker';
 
 const Ansatte: React.FC = () => {
   const { arbeidsgiverId } = useArbeidsgiver();
-  const { ansatte, setAnsatte, feil, setFeil, setLoadingStatus } = useBulk();
+  const { ansatte, setAnsatte, setFeil, setLoadingStatus } = useBulk();
   const { setTokenExpired } = useAppStore();
   const history: History = useHistory();
   const [erklæringAkseptert, setErklæringAkseptert] = useState<boolean>(false);
