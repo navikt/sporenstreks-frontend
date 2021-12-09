@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import dayjs from 'dayjs';
 import Flatpickr from 'react-flatpickr';
 import { Norwegian } from 'flatpickr/dist/l10n/no.js';
@@ -18,12 +18,13 @@ const BulkPeriode = (props: AnsattID) => {
   const ansatt: Ansatt = ansatte.find(
     (aktuellAnsatt) => aktuellAnsatt.id === props.id
   );
-  let errorClass = '';
 
   const handleCloseFom = (selectedDate: Date) => {
+    // eslint-disable-next-line
+    console.log('handleCloseFom', selectedDate);
     if (ansatt) {
       ansatt.fom = dayjs(selectedDate).format('YYYY-MM-DD');
-      ansatt.periodeError = validateDato(selectedDate);
+      ansatt.fomError = validateDato(selectedDate);
     }
     setAnsatte([...ansatte]);
   };
@@ -31,21 +32,20 @@ const BulkPeriode = (props: AnsattID) => {
   const handleCloseTom = (selectedDate: Date) => {
     if (ansatt) {
       ansatt.tom = dayjs(selectedDate).format('YYYY-MM-DD');
-      ansatt.periodeError = validateDato(selectedDate);
+      ansatt.tomError = validateDato(selectedDate);
     }
     setAnsatte([...ansatte]);
   };
 
-  if (ansatt?.periodeError) {
-    errorClass = 'dato-har-feil';
-  }
+  const fomErrorClass = ansatt?.fomError ? 'dato-har-feil' : '';
+  const tomErrorClass = ansatt?.tomError ? 'dato-har-feil' : '';
 
   const formatDate = (value?: Date): string => {
     return value ? dayjs(value).format('DD.MM.YYYY') : '';
   };
 
   return (
-    <div className={`skjemaelement ${errorClass}`}>
+    <div className={'skjemaelement'}>
       <Row>
         <Label htmlFor={perId1}>
           <div style={{ display: 'flex' }}>
@@ -55,12 +55,12 @@ const BulkPeriode = (props: AnsattID) => {
         </Label>
       </Row>
       <Row>
-        <Column md='5' xs='12'>
+        <Column md='5' xs='12' className={fomErrorClass}>
           <Flatpickr
             id={perId1}
             name={perId1}
             placeholder='dd.mm.yyyy'
-            className={'skjemaelement__input periode'}
+            className='skjemaelement__input periode'
             options={{
               minDate: minDate(),
               maxDate: maxDate(),
@@ -77,18 +77,18 @@ const BulkPeriode = (props: AnsattID) => {
             }}
           />
           <SkjemaelementFeilmelding>
-            {ansatt?.periodeError}
+            {ansatt?.fomError}
           </SkjemaelementFeilmelding>
         </Column>
         <Column md='2' xs='12' className='enkeltperiode-til-tekst'>
           til
         </Column>
-        <Column md='5' xs='12'>
+        <Column md='5' xs='12' className={tomErrorClass}>
           <Flatpickr
             id={perId2}
             name={perId2}
             placeholder='dd.mm.yyyy'
-            className={'skjemaelement__input periode'}
+            className='skjemaelement__input periode'
             options={{
               minDate: minDate(),
               maxDate: maxDate(),
@@ -105,7 +105,7 @@ const BulkPeriode = (props: AnsattID) => {
             }}
           />
           <SkjemaelementFeilmelding>
-            {ansatt?.periodeError}
+            {ansatt?.tomError}
           </SkjemaelementFeilmelding>
         </Column>
       </Row>

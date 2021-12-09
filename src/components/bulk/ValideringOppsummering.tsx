@@ -7,5 +7,8 @@ export const ValideringOppsummering = () => {
   if (feil.length === 0) {
     return <></>;
   }
+  // eslint-disable-next-line
+  console.log(feil);
+
   return <Feiloppsummering tittel='Det er feil i skjemaet' feil={feil} />;
 };

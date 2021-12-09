@@ -11,6 +11,8 @@ export interface Ansatt extends AnsattID {
   beloepError?: string;
   refusjonError?: string;
   periodeError?: string;
+  fomError?: string;
+  tomError?: string;
   dagerError?: string;
   fom: string;
   tom: string;
