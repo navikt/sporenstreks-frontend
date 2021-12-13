@@ -20,7 +20,6 @@ import formToJSON from '../components/enkel/formToJSON';
 import convertSkjemaToRefusjonsKrav from '../components/enkel/convertSkjemaToRefusjonsKrav';
 import env from '../components/felles/environment';
 import InternLenke from '../components/felles/InternLenke';
-// import FeilOppsummering from '../components/excel/FeilOppsummering';
 import { Erklaring } from '../components/felles/Erklaring';
 import Vis from '../components/felles/Vis';
 import { fnrErrorState, useEnkelSkjema } from '../context/EnkelContext';
