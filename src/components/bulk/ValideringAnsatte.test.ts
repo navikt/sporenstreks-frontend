@@ -41,11 +41,13 @@ describe('ValideringAnsatte', () => {
         fnr: TestFnr.GyldigeFraDolly.TestPerson1,
         fnrError: undefined,
         fom: '',
+        fomError: 'Det må være en gyldig dato',
         id: 123,
         oppdatert: 1,
         periodeError: 'Perioden må ha 2 gyldige datoer',
         status: 0,
-        tom: ''
+        tom: '',
+        tomError: 'Det må være en gyldig dato'
       },
       {
         antallDagerMedRefusjon: 2,
@@ -55,11 +57,13 @@ describe('ValideringAnsatte', () => {
         fnr: TestFnr.GyldigeFraDolly.TestPerson2,
         fnrError: undefined,
         fom: '',
+        fomError: 'Det må være en gyldig dato',
         id: 123,
         oppdatert: 1,
         periodeError: 'Perioden må ha 2 gyldige datoer',
         status: 0,
-        tom: ''
+        tom: '',
+        tomError: 'Det må være en gyldig dato'
       }
     ];
 

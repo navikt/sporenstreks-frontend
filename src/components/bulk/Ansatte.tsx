@@ -28,7 +28,7 @@ import { Linker } from '../../pages/Linker';
 
 const Ansatte: React.FC = () => {
   const { arbeidsgiverId } = useArbeidsgiver();
-  const { ansatte, setAnsatte, feil, setFeil, setLoadingStatus } = useBulk();
+  const { ansatte, setAnsatte, setFeil, setLoadingStatus } = useBulk();
   const { setTokenExpired } = useAppStore();
   const history: History = useHistory();
   const [erklæringAkseptert, setErklæringAkseptert] = useState<boolean>(false);
@@ -72,6 +72,9 @@ const Ansatte: React.FC = () => {
     evt.preventDefault();
     setHarTrykketSubmitMinstEnGang(true);
   };
+
+  // let valideringsfeil = ByggValideringsFeil(ansatte);
+  // setFeil(valideringsfeil);
 
   return (
     <div className='ansatte'>
@@ -174,7 +177,7 @@ const Ansatte: React.FC = () => {
             />
             <Advarsler
               erklæringAkseptert={erklæringAkseptert}
-              harFeil={feil.length > 0}
+              harFeil={false}
               visFeil={harTrykketSubmitMinstEnGang}
             />
           </Panel>

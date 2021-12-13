@@ -55,6 +55,10 @@ const cookieMock = RequestMock()
 fixture`Bulkinnsending`
   .page`http://localhost:3000/nettrefusjon/bulk/?bedrift=810007842&TestCafe=running`
   .requestHooks(cookieMock)
+  .clientScripts([
+    { module: 'mockdate' },
+    { content: "MockDate.set('2021-12-24')" }
+  ])
   .beforeEach(async () => {
     await waitForReact();
   });
@@ -71,13 +75,13 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .expect(Selector('html').textContent)
     .contains('Fødselsnummer må fylles ut')
     .expect(Selector('html').textContent)
-    .contains('Perioden må ha 2 gyldige datoer')
+    .contains('Det må være en gyldig dato')
     .expect(Selector('html').textContent)
     .contains('Feltet må fylles ut')
     .expect(Selector('html').textContent)
-    .contains('Beløp må fylles ut')
-    .expect(Selector('html').textContent)
-    .contains('Du må rette feilene før du kan sende inn skjema');
+    .contains('Beløp må fylles ut');
+  // .expect(Selector('html').textContent)
+  // .contains('Du må rette feilene før du kan sende inn skjema');
 
   const fnr = ReactSelector('FnrInput').find('.skjemaelement__input-fodselsnr');
 
@@ -117,20 +121,24 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .expect(Selector('html').textContent)
     .notContains('Feltet må fylles ut');
 
-  const fraDato = ReactSelector('BulkPeriode');
+  // const fraDato = ReactSelector('Datovelger');
+  const fraDato = Selector('.velger_fom');
   const valgtFraDato = Selector(
     '.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(3)'
   );
+  const tilDato = ReactSelector('Datovelger').nth(1);
   const valgtTilDato = Selector(
     '.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(13)'
   );
 
   await t
+    // .debug()
+    .click(tilDato)
+    .click(valgtTilDato)
     .click(fraDato)
     .click(valgtFraDato)
-    .click(valgtTilDato)
     .expect(Selector('html').textContent)
-    .notContains('Perioden må ha 2 gyldige datoer');
+    .notContains('Det må være en gyldig dato');
 
   await t
     .click(ReactSelector('Hovedknapp'))

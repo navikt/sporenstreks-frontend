@@ -52,7 +52,7 @@ const Perioder = (props: PerioderProps) => {
 
   const leggTilPeriode = (e: any) => {
     e.preventDefault();
-    lokal.push(lokal[lokal.length - 1] + 1);
+    lokal.push(lokal.length + 1);
     setLokal(lokal);
     oppdaterPerioder();
   };

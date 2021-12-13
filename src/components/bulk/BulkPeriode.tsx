@@ -1,76 +1,77 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import Flatpickr from 'react-flatpickr';
-import { Norwegian } from 'flatpickr/dist/l10n/no.js';
 import './BulkPeriode.less';
 import { Label, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
 import { HjelpetekstPeriode } from '../periode/HjelpetekstPeriode';
-import { validatePerioder } from './validatePerioder';
-import { AnsattID } from './Ansatt';
+import { Ansatt, AnsattID } from './Ansatt';
 import { useBulk } from '../../context/BulkContext';
-import { disabledDates } from '../periode/PeriodeValidator';
+import { Column, Row } from 'nav-frontend-grid';
+import validateDato from './validateDato';
+import Datovelger from './Datovelger';
 
 const BulkPeriode = (props: AnsattID) => {
+  const perId1 = 'periode_' + props.id + '_fom';
   const { ansatte, setAnsatte } = useBulk();
-  const a = ansatte.find((a) => a.id === props.id);
-  let errorClass = '';
-  const handleClose = (selectedDates) => {
-    if (a) {
-      a.fom = dayjs(selectedDates[0]).format('YYYY-MM-DD');
-      a.tom = dayjs(selectedDates[1]).format('YYYY-MM-DD');
-      a.periodeError = validatePerioder(a.fom, a.tom);
+  const ansatt: Ansatt = ansatte.find(
+    (aktuellAnsatt) => aktuellAnsatt.id === props.id
+  );
+
+  const handleCloseFom = (selectedDate: Date) => {
+    if (ansatt) {
+      ansatt.fom = dayjs(selectedDate).format('YYYY-MM-DD');
+      ansatt.fomError = validateDato(selectedDate);
     }
     setAnsatte([...ansatte]);
   };
-  let min = dayjs('1970-01-01').toDate();
-  let max = dayjs(new Date()).add(1, 'year').toDate();
 
-  if (a?.periodeError) {
-    errorClass = 'dato-har-feil';
-  }
-  const formatDato = (str) => {
-    if (!str) {
-      return '';
+  const handleCloseTom = (selectedDate: Date) => {
+    if (ansatt) {
+      ansatt.tom = dayjs(selectedDate).format('YYYY-MM-DD');
+      ansatt.tomError = validateDato(selectedDate);
     }
-    return dayjs(str).format('DD.MM.YYYY');
+    setAnsatte([...ansatte]);
   };
-  const formatDatoer = () => {
-    if (!(a?.fom && a?.tom)) {
-      return '';
-    }
-    return formatDato(a?.fom) + ' til ' + formatDato(a?.tom);
-  };
+
+  const fomErrorClass = ansatt?.fomError ? 'dato-har-feil' : '';
+  const tomErrorClass = ansatt?.tomError ? 'dato-har-feil' : '';
+
   return (
-    <div className={`skjemaelement ${errorClass}`}>
-      <Label htmlFor={'periode'}>
-        <div style={{ display: 'flex' }}>
-          Hvilken periode var den ansatte borte?
-          <HjelpetekstPeriode />
-        </div>
-      </Label>
-      <Flatpickr
-        id='periode'
-        placeholder='dd.mm.yyyy til dd.mm.yyyy'
-        className={'skjemaelement__input periode'}
-        value={[a?.fom, a?.tom]}
-        options={{
-          minDate: min,
-          maxDate: max,
-          mode: 'range',
-          enableTime: false,
-          defaultDate: [a?.fom, a?.tom],
-          dateFormat: 'd.m.Y',
-          altInput: true,
-          altFormat: 'd.m.Y',
-          locale: Norwegian,
-          allowInput: true,
-          clickOpens: true,
-          formatDate: formatDatoer,
-          onClose: (selectedDates) => handleClose(selectedDates),
-          disable: disabledDates
-        }}
-      />
-      <SkjemaelementFeilmelding>{a?.periodeError}</SkjemaelementFeilmelding>
+    <div className={'skjemaelement'}>
+      <Row>
+        <Label htmlFor={perId1}>
+          <div style={{ display: 'flex' }}>
+            Hvilken periode var den ansatte borte?
+            <HjelpetekstPeriode />
+          </div>
+        </Label>
+      </Row>
+      <Row>
+        <Column md='5' xs='12' className={fomErrorClass}>
+          <Datovelger
+            id={props.id}
+            handleClose={handleCloseFom}
+            fomtom='fom'
+            defaultValue={ansatt.fom}
+          />
+          <SkjemaelementFeilmelding>
+            {ansatt?.fomError}
+          </SkjemaelementFeilmelding>
+        </Column>
+        <Column md='2' xs='12' className='enkeltperiode-til-tekst'>
+          til
+        </Column>
+        <Column md='5' xs='12' className={tomErrorClass}>
+          <Datovelger
+            id={props.id}
+            handleClose={handleCloseTom}
+            fomtom='tom'
+            defaultValue={ansatt.tom}
+          />
+          <SkjemaelementFeilmelding>
+            {ansatt?.tomError}
+          </SkjemaelementFeilmelding>
+        </Column>
+      </Row>
     </div>
   );
 };

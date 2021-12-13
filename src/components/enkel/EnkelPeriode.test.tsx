@@ -33,24 +33,22 @@ describe('EnkelPeriode', () => {
   });
 
   it('should validate period correctly', () => {
-    expect(
-      validatePeriod(new Date(2020, 11, 1), new Date(2020, 11, 24))
-    ).toEqual('');
+    expect(validatePeriod(new Date(2020, 11, 1))).toEqual('');
   });
 
-  it('should validate period correctly when fom is undefined', () => {
-    expect(validatePeriod(undefined, new Date(2020, 11, 24))).toEqual(
-      'Perioden må ha to gyldige datoer'
-    );
-  });
+  // it('should validate period correctly when fom is undefined', () => {
+  //   expect(validatePeriod(undefined, new Date(2020, 11, 24))).toEqual(
+  //     'Perioden må ha to gyldige datoer'
+  //   );
+  // });
 
-  it('should validate period correctly when tom is undefined', () => {
-    expect(validatePeriod(new Date(2020, 11, 24), undefined)).toEqual(
-      'Perioden må ha to gyldige datoer'
-    );
-  });
+  // it('should validate period correctly when tom is undefined', () => {
+  //   expect(validatePeriod(new Date(2020, 11, 24), undefined)).toEqual(
+  //     'Perioden må ha to gyldige datoer'
+  //   );
+  // });
 
   it('should validate period correctly when undefined', () => {
-    expect(validatePeriod()).toEqual('Perioden må ha to gyldige datoer');
+    expect(validatePeriod()).toEqual('Feltet må ha gyldig dato');
   });
 });

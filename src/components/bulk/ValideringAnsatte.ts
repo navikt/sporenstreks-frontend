@@ -3,11 +3,15 @@ import { validatePerioder } from './validatePerioder';
 import validateDager from '../dager/validateDager';
 import validateRefusjon from '../refusjon/validateRefusjon';
 import { Ansatt } from './Ansatt';
+import { validateDato } from './validateDato';
+import dayjs from 'dayjs';
 
 export const valideringAnsatte = (ansatte: Ansatt[]) => {
   ansatte.forEach((a) => {
     a.fnrError = validateAnsatteFnr(ansatte, a);
     a.periodeError = validatePerioder(a.fom, a.tom);
+    a.fomError = validateDato(dayjs(a.fom, 'YYYY-MM-DD').toDate());
+    a.tomError = validateDato(dayjs(a.tom, 'YYYY-MM-DD').toDate());
     a.dagerError = validateDager(a.antallDagerMedRefusjon);
     a.beloepError = validateRefusjon(a.beloep, a.antallDagerMedRefusjon);
   });

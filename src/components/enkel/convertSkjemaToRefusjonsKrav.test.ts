@@ -1,11 +1,11 @@
 import convertSkjemaToRefusjonsKrav from './convertSkjemaToRefusjonsKrav';
 
 describe('convertSkjemaToRefusjonsKrav', () => {
-  it('mapData', () => {});
   it('returns refusjonskrav given form data.', () => {
     const input = {
       fnr: '211124-28795',
-      periode_0: '13.04.2020 til 30.12.2020',
+      periode_0_fom: '13.04.2020',
+      periode_0_tom: '30.12.2020',
       '': '',
       dager_0: '3',
       refusjon_0: '333,00'

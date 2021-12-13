@@ -15,7 +15,7 @@ describe('ByggValideringsFeil', () => {
       },
       {
         fnr: '1234',
-        periodeError: 'periode has error',
+        fomError: 'periode has error',
         fom: 'fom',
         tom: 'tom',
         id: 234,
@@ -39,6 +39,15 @@ describe('ByggValideringsFeil', () => {
         id: 456,
         status: SkjemaStatus.AVVENTER,
         oppdatert: 1
+      },
+      {
+        fnr: '1234',
+        tomError: 'tom has error',
+        fom: 'fom',
+        tom: 'tom',
+        id: 789,
+        status: SkjemaStatus.AVVENTER,
+        oppdatert: 1
       }
     ];
 
@@ -58,6 +67,10 @@ describe('ByggValideringsFeil', () => {
       {
         feilmelding: 'Det er en feil i rad nr 4',
         skjemaelementId: 'fnr_456'
+      },
+      {
+        feilmelding: 'Det er en feil i rad nr 5',
+        skjemaelementId: 'fnr_789'
       }
     ];
 
