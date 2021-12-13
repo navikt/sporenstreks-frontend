@@ -3,8 +3,6 @@ import { Ansatt } from './Ansatt';
 
 export const ByggValideringsFeil = (ansatte: Ansatt[]) => {
   let feil: ValideringsFeil[] = [];
-  // eslint-disable-next-line
-  console.log('ansatte', ansatte);
 
   ansatte.forEach((a, index) => {
     if (

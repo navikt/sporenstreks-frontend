@@ -6,3 +6,5 @@ export const validateDato = (dateToValidate: Date): string | undefined => {
   }
   return undefined;
 };
+
+export default validateDato;

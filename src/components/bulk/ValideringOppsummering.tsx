@@ -4,11 +4,8 @@ import { useBulk } from '../../context/BulkContext';
 import { ValideringsFeil } from './ValideringsFeil';
 
 export const ValideringOppsummering = () => {
-  // const { feil, ansatte } = useBulk();
   const { ansatte } = useBulk();
   let feil: ValideringsFeil[] = [];
-  // eslint-disable-next-line
-  console.log('ansatte', ansatte);
 
   ansatte.forEach((a, index) => {
     if (
@@ -24,8 +21,6 @@ export const ValideringOppsummering = () => {
       });
     }
   });
-
-  // setFeil(feil);
 
   if (feil.length === 0) {
     return <></>;

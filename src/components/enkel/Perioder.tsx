@@ -57,9 +57,6 @@ const Perioder = (props: PerioderProps) => {
     oppdaterPerioder();
   };
 
-  // eslint-disable-next-line
-  console.log(lokal);
-
   return (
     <>
       <div className='periodeliste' ref={periodeliste}>
