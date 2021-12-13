@@ -35,7 +35,7 @@
     ]
   },
   "dependencies": {
-    "@navikt/bedriftsmeny": "^3.4.0",
+    "@navikt/bedriftsmeny": "^3.5.2",
     "@navikt/fnrvalidator": "^1.1.4",
     "@sentry/react": "^6.15.0",
     "@sentry/tracing": "^6.15.0",
