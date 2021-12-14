@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import useForceUpdate from 'use-force-update';
 import PeriodeKomp from './PeriodeKomp';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
@@ -7,6 +7,7 @@ import { Row, Column } from 'nav-frontend-grid';
 import { HjelpetekstDager } from '../dager/HjelpetekstDager';
 import { HjelpetekstPeriode } from '../periode/HjelpetekstPeriode';
 import HjelpetekstRefusjon from '../refusjon/HjelpetekstRefusjon';
+import dayjs from 'dayjs';
 
 interface PerioderProps {
   min?: Date;
@@ -15,51 +16,31 @@ interface PerioderProps {
 
 const Perioder = (props: PerioderProps) => {
   const [lokal, setLokal] = useState<number[]>([0]);
-  const periodeliste = useRef<HTMLDivElement>(null);
   const forceUpdate = useForceUpdate();
-
-  useEffect(() => {
-    const periods: number[] = [];
-    setLokal(periods.length > 0 ? periods : lokal);
-    lagIdForPerioder();
-    // eslint-disable-next-line
-  }, [periodeliste]);
-
-  const lagIdForPerioder = () => {
-    const periods = periodeliste.current!.querySelectorAll('.periode');
-    periods.forEach((value, key) => {
-      const input = value.querySelector('.input--xl[type=text]');
-      if (input) {
-        input!.setAttribute('id', 't_' + key);
-        input!.setAttribute('autoComplete', 'off');
-      }
-    });
-  };
 
   const oppdaterPerioder = () => {
     forceUpdate();
-    setTimeout(() => {
-      lagIdForPerioder();
-    }, 10);
   };
 
   const slettPeriode = (e: any, idx: number) => {
     e.preventDefault();
-    lokal.splice(idx, 1);
-    setLokal(lokal.map((val, idx) => idx));
+    const elementIndex = lokal.findIndex((element) => element === idx);
+    lokal.splice(elementIndex, 1);
+    setLokal(lokal);
     oppdaterPerioder();
   };
 
   const leggTilPeriode = (e: any) => {
     e.preventDefault();
-    lokal.push(lokal.length + 1);
+    const fairlyRandom: number = Number('' + dayjs().valueOf() + Math.random());
+    lokal.push(fairlyRandom);
     setLokal(lokal);
     oppdaterPerioder();
   };
 
   return (
     <>
-      <div className='periodeliste' ref={periodeliste}>
+      <div className='periodeliste'>
         <Row className='periode periodeliste--overskrift'>
           <Column md='5' xs='12'>
             <Element tag='label'>
@@ -85,7 +66,7 @@ const Perioder = (props: PerioderProps) => {
             <PeriodeKomp
               index={idx}
               numOfRows={lokal.length}
-              slettPeriode={slettPeriode}
+              slettPeriode={(env) => slettPeriode(env, idx)}
               min={props.min}
               max={props.max}
               key={idx}

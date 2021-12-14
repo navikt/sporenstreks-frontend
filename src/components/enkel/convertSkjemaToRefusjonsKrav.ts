@@ -8,18 +8,27 @@ const formaterDato = (noDato: string): string =>
   dayjs(noDato, 'DD.MM.YYYY').format('YYYY-MM-DD');
 
 const convertSkjemaToRefusjonsKrav = (
-  data,
+  data: any,
   identityNumberInput: string,
   arbeidsgiverId: string
 ): RefusjonsKrav => {
+  debugger;
   const antallPerioder = (Object.keys(data).length - 2) / 4;
+  const nokkelData = Object.keys(data).filter((element) =>
+    element.startsWith('dager_')
+  );
+  const nokler = nokkelData.map((element) => {
+    const nokkelArray = element.split('_');
+    return nokkelArray[1];
+  });
+
   let perioder: Periode[] = [];
   for (let i = 0; i < antallPerioder; i++) {
     const periode: Periode = {
-      fom: formaterDato(data['periode_' + i + '_fom']),
-      tom: formaterDato(data['periode_' + i + '_tom']),
-      antallDagerMedRefusjon: data['dager_' + i].replace(/ /g, ''),
-      beloep: data['refusjon_' + i]
+      fom: formaterDato(data['periode_' + nokler[i] + '_fom']),
+      tom: formaterDato(data['periode_' + nokler[i] + '_tom']),
+      antallDagerMedRefusjon: data['dager_' + nokler[i]].replace(/ /g, ''),
+      beloep: data['refusjon_' + nokler[i]]
         .replace(/ /g, '')
         .replace(/\s/g, '')
         .replace(',', '.')
