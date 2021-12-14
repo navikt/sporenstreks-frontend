@@ -1,12 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import dayjs from 'dayjs';
 import { Label, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
 import { HjelpetekstPeriode } from '../periode/HjelpetekstPeriode';
-import Flatpickr from 'react-flatpickr';
-import { Norwegian } from 'flatpickr/dist/l10n/no.js';
-import { disabledDates, maxDate, minDate } from '../periode/PeriodeValidator';
 import { Column, Row } from 'nav-frontend-grid';
+import Datovelger from '../bulk/Datovelger';
 
 export const formatDate = (value?: Date): string => {
   return value ? dayjs(value).format('DD.MM.YYYY') : '';
@@ -36,6 +34,9 @@ const EnkelPeriode = (props: EnkelPeriodeProps) => {
   const perId1 = 'periode_' + props.index + '_fom';
   const perId2 = 'periode_' + props.index + '_tom';
 
+  const [fom, setFom] = useState<string>('');
+  const [tom, setTom] = useState<string>('');
+
   const handleCloseFom = (selectedDate: Date) => {
     const errorMessage = validatePeriod(selectedDate);
     if (errorMessage) {
@@ -43,6 +44,7 @@ const EnkelPeriode = (props: EnkelPeriodeProps) => {
     } else {
       clearErrors([perId1, 'backend']);
     }
+    setFom(dayjs(selectedDate).format('YYYY-MM-DD'));
     props.onClose(selectedDate);
   };
 
@@ -53,6 +55,7 @@ const EnkelPeriode = (props: EnkelPeriodeProps) => {
     } else {
       clearErrors([perId2, 'backend']);
     }
+    setTom(dayjs(selectedDate).format('YYYY-MM-DD'));
   };
 
   const perId1ErrorClass = errors[perId1] ? 'dato-har-feil' : '';
@@ -70,25 +73,11 @@ const EnkelPeriode = (props: EnkelPeriodeProps) => {
       </Row>
       <Row>
         <Column md='5' xs='12' className={perId1ErrorClass}>
-          <Flatpickr
-            id={perId1}
-            name={perId1}
-            placeholder='dd.mm.yyyy'
-            className={'skjemaelement__input '}
-            options={{
-              minDate: minDate(),
-              maxDate: maxDate(),
-              enableTime: false,
-              dateFormat: 'd.m.Y',
-              altInput: true,
-              altFormat: 'd.m.Y',
-              locale: Norwegian,
-              allowInput: true,
-              clickOpens: true,
-              formatDate: formatDate,
-              onClose: (selectedDate) => handleCloseFom(selectedDate),
-              disable: disabledDates
-            }}
+          <Datovelger
+            id={props.index}
+            handleClose={handleCloseFom}
+            fomtom='fom'
+            defaultValue={fom}
           />
           {errors[perId1] && (
             <SkjemaelementFeilmelding>
@@ -100,26 +89,13 @@ const EnkelPeriode = (props: EnkelPeriodeProps) => {
           til
         </Column>
         <Column md='5' xs='12' className={perId2ErrorClass}>
-          <Flatpickr
-            id={perId2}
-            name={perId2}
-            placeholder='dd.mm.yyyy'
-            className={'skjemaelement__input '}
-            options={{
-              minDate: minDate(),
-              maxDate: maxDate(),
-              enableTime: false,
-              dateFormat: 'd.m.Y',
-              altInput: true,
-              altFormat: 'd.m.Y',
-              locale: Norwegian,
-              allowInput: true,
-              clickOpens: true,
-              formatDate: formatDate,
-              onClose: (selectedDate) => handleCloseTom(selectedDate),
-              disable: disabledDates
-            }}
+          <Datovelger
+            id={props.index}
+            handleClose={handleCloseTom}
+            fomtom='tom'
+            defaultValue={tom}
           />
+
           {errors[perId1] && (
             <SkjemaelementFeilmelding>
               {errors[perId1] && errors[perId1].type}

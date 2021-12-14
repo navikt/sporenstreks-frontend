@@ -12,7 +12,6 @@ const convertSkjemaToRefusjonsKrav = (
   identityNumberInput: string,
   arbeidsgiverId: string
 ): RefusjonsKrav => {
-  debugger;
   const antallPerioder = (Object.keys(data).length - 2) / 4;
   const nokkelData = Object.keys(data).filter((element) =>
     element.startsWith('dager_')

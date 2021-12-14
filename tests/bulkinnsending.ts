@@ -121,22 +121,16 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .expect(Selector('html').textContent)
     .notContains('Feltet må fylles ut');
 
-  // const fraDato = ReactSelector('Datovelger');
-  const fraDato = Selector('.velger_fom');
-  const valgtFraDato = Selector(
-    '.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(3)'
-  );
+  const fraDato = ReactSelector('Datovelger').nth(0);
   const tilDato = ReactSelector('Datovelger').nth(1);
-  const valgtTilDato = Selector(
-    '.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(13)'
-  );
 
   await t
     // .debug()
     .click(tilDato)
-    .click(valgtTilDato)
+    .typeText(tilDato, '01.12.2021')
     .click(fraDato)
-    .click(valgtFraDato)
+    .typeText(fraDato, '13.12.2021')
+    .pressKey('tab')
     .expect(Selector('html').textContent)
     .notContains('Det må være en gyldig dato');
 

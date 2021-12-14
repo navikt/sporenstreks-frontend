@@ -6,16 +6,16 @@ export const maxDate = (now?: Date): Date => {
 
 export const minDate = () => new Date(2021, 8, 1);
 
-export const Minimum = (now?: Date): Date => {
-  return dayjs(now ? now : new Date()).toDate();
+export const Minimum = (now?: Date): String => {
+  return dayjs(now ? now : new Date()).toISOString();
 };
 
-// Datoformat: 'd.m.Y'
+// Datoformat: 'YYYY-MM-DD'
 // Inkluderer start og sluttdatoen
 export const disabledDates = [
   {
-    from: '01.10.2021',
-    to: '20.11.2021'
+    from: '2021-10-01',
+    to: '2021-11-20'
   }
 ];
 

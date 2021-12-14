@@ -10,7 +10,6 @@ import { Column, Container, Row } from 'nav-frontend-grid';
 import './InnloggetSide.less';
 import Lenke from 'nav-frontend-lenker';
 import { useArbeidsgiver } from '../context/ArbeidsgiverContext';
-import Panel from 'nav-frontend-paneler';
 
 interface SideProps {
   children: React.ReactNode;

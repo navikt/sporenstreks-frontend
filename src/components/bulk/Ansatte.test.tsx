@@ -60,8 +60,8 @@ describe('Ansatte', () => {
     {
       id: 'ghi789',
       fnr: TestFnr.GyldigeFraDolly.TestPerson3,
-      fom: '2020-04-28',
-      tom: '2020-04-29',
+      fom: '2021-04-28',
+      tom: '2021-04-29',
       antallDagerMedRefusjon: 2,
       beloep: 400,
       status: SkjemaStatus.NY,
@@ -124,59 +124,65 @@ describe('Ansatte', () => {
     expect(screen.getByText('Beløp:'));
   });
 
-  // it('viser antall rader', () => {
-  //   render(
-  //     <AppStoreProvider tokenExpired={false}>
-  //       <ArbeidsgiverProvider
-  //         arbeidsgivere={mockArbeidsgiverValues}
-  //         status={Status.Successfully}
-  //       >
-  //         <MemoryRouter initialEntries={['/']}>
-  //           <BulkProvider ansatte={ansatte} feil={feil}>
-  //             <Ansatte />
-  //           </BulkProvider>
-  //         </MemoryRouter>
-  //       </ArbeidsgiverProvider>
-  //     </AppStoreProvider>
-  //   );
-  //   // fnr
-  //   expect(screen.getAllByPlaceholderText('11 siffer')[0].value).toEqual(
-  //     TestFnr.GyldigeFraDolly.TestPerson1
-  //   );
-  //   expect(screen.getAllByPlaceholderText('11 siffer')[1].value).toEqual(
-  //     TestFnr.GyldigeFraDolly.TestPerson2
-  //   );
-  //   expect(screen.getAllByPlaceholderText('11 siffer')[2].value).toEqual(
-  //     TestFnr.GyldigeFraDolly.TestPerson3
-  //   );
+  it('viser antall rader', () => {
+    render(
+      <AppStoreProvider tokenExpired={false}>
+        <ArbeidsgiverProvider
+          arbeidsgivere={mockArbeidsgiverValues}
+          status={Status.Successfully}
+        >
+          <MemoryRouter initialEntries={['/']}>
+            <BulkProvider ansatte={ansatte} feil={feil}>
+              <Ansatte />
+            </BulkProvider>
+          </MemoryRouter>
+        </ArbeidsgiverProvider>
+      </AppStoreProvider>
+    );
+    // fnr
+    expect(screen.getAllByPlaceholderText('11 siffer')[0].value).toEqual(
+      TestFnr.GyldigeFraDolly.TestPerson1
+    );
+    expect(screen.getAllByPlaceholderText('11 siffer')[1].value).toEqual(
+      TestFnr.GyldigeFraDolly.TestPerson2
+    );
+    expect(screen.getAllByPlaceholderText('11 siffer')[2].value).toEqual(
+      TestFnr.GyldigeFraDolly.TestPerson3
+    );
 
-  //   // periode
-  //   expect(
-  //     screen.getAllByPlaceholderText('dd.mm.yyyy')[0].value
-  //   ).toEqual('11.04.2020');
-  //   expect(
-  //     screen.getAllByPlaceholderText('dd.mm.yyyy')[1].value
-  //   ).toEqual('11.04.2020');
-  //   expect(
-  //     screen.getAllByPlaceholderText('dd.mm.yyyy')[2].value
-  //   ).toEqual('20.04.2020');
-  //   expect(
-  //     screen.getAllByPlaceholderText('dd.mm.yyyy')[3].value
-  //   ).toEqual('11.04.2020 til 20.04.2020');
+    // periode
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[0].value).toEqual(
+      '11.12.2021'
+    );
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[1].value).toEqual(
+      '20.12.2021'
+    );
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[2].value).toEqual(
+      '25.04.2021'
+    );
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[3].value).toEqual(
+      '27.04.2021'
+    );
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[4].value).toEqual(
+      '28.04.2021'
+    );
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[5].value).toEqual(
+      '29.04.2021'
+    );
 
-  //   // dager
-  //   expect(screen.getAllByRole('combobox')[0].value).toEqual('4');
-  //   expect(screen.getAllByRole('combobox')[1].value).toEqual('1');
-  //   expect(screen.getAllByRole('combobox')[2].value).toEqual('2');
+    // dager
+    expect(screen.getAllByRole('combobox')[0].value).toEqual('4');
+    expect(screen.getAllByRole('combobox')[1].value).toEqual('1');
+    expect(screen.getAllByRole('combobox')[2].value).toEqual('2');
 
-  //   // refusjon
-  //   expect(screen.getAllByPlaceholderText('Kroner')[0].value).toEqual('3250');
-  //   expect(screen.getAllByPlaceholderText('Kroner')[1].value).toEqual('1999');
-  //   expect(screen.getAllByPlaceholderText('Kroner')[2].value).toEqual('400');
+    // refusjon
+    expect(screen.getAllByPlaceholderText('Kroner')[0].value).toEqual('3250');
+    expect(screen.getAllByPlaceholderText('Kroner')[1].value).toEqual('1999');
+    expect(screen.getAllByPlaceholderText('Kroner')[2].value).toEqual('400');
 
-  //   // slett knapp
-  //   expect(screen.getAllByRole('link', { name: 'Slett' }).length).toEqual(3);
-  // });
+    // slett knapp
+    expect(screen.getAllByRole('link', { name: 'Slett' }).length).toEqual(3);
+  });
 
   // it('viser feil', () => {
   //   render(

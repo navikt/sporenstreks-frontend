@@ -76,14 +76,14 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .click(ReactSelector('BekreftCheckboksPanel').find('input'))
     .click(Selector('.knapp--hoved'))
     .expect(
-      ReactSelector('FeilOppsummering').withText('Fødselsnummer må fylles ut')
+      ReactSelector('Feiloppsummering').withText('Fødselsnummer må fylles ut')
         .visible
     )
     .ok()
     .expect(Selector('html').textContent)
     .contains('Fødselsnummer må fylles ut')
     .expect(Selector('html').textContent)
-    .contains('Periode må fylles ut')
+    .contains('Dato må fylles ut')
     .expect(Selector('html').textContent)
     .contains('Antall dager må fylles ut')
     .expect(Selector('html').textContent)
@@ -94,7 +94,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   await t
     .typeText(fnr, '260')
     .expect(
-      ReactSelector('FeilOppsummering').withText(
+      ReactSelector('Feiloppsummering').withText(
         'Fødselsnummer må ha 11 siffer'
       ).visible
     )
@@ -128,20 +128,17 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .expect(Selector('html').textContent)
     .notContains('Feltet må fylles ut');
 
-  const fraDato = ReactSelector('EnkelPeriode');
-  const valgtFraDato = Selector(
-    '.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(3)'
-  );
-  const valgtTilDato = Selector(
-    '.flatpickr-calendar.open .dayContainer .flatpickr-day:nth-child(13)'
-  );
+  const fraDato = ReactSelector('Datovelger').nth(0);
+  const tilDato = ReactSelector('Datovelger').nth(1);
 
   await t
     .click(fraDato)
-    .click(valgtFraDato)
-    .click(valgtTilDato)
+    .typeText(tilDato, '01.12.2021')
+    .click(fraDato)
+    .typeText(fraDato, '13.12.2021')
+    .pressKey('tab')
     .expect(Selector('html').textContent)
-    .notContains('Perioden må ha 2 gyldige datoer');
+    .notContains('Dato må fylles ut');
 
   await t
     .click(Selector('.knapp--hoved'))
