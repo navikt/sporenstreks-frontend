@@ -14,8 +14,7 @@ export const CoronaTopptekst = () => {
             i de 16 dagene arbeidsgiveren vanligvis skal betale. Den ansatte må
             være smittet, mistenkt smittet eller i pålagt karantene. Ordningen
             gjelder fra 1. desember 2021. Dersom arbeidsgiverperioden startet
-            før 1. desember, refunderes ikke dagene før denne datoen. Frem til
-            1. oktober 2021 gjelder fortsatt regel om refusjon fra dag 4.&nbsp;
+            før 1. desember, refunderes ikke dagene før denne datoen.&nbsp;
             <Lenke
               href='https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/nyheter/refusjon-av-sykepenger-ved-koronavirus--hva-er-status'
               target='_blank'

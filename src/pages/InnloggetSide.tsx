@@ -58,20 +58,6 @@ const InnloggetSide = (props: SideProps) => {
             </Row>
           </Container>
           <Container className={'innloggetside__innhold'}>
-            <Panel>
-              <AlertStripeAdvarsel className='avvikling-alert'>
-                Denne ordningen gjelder sykefravær som starter etter 1. desember
-                2021. Det er også mulig å søke for sykefravær som startet før 1.
-                oktober i dette skjemaet.{' '}
-                <Lenke
-                  href='https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/nyheter/refusjon-av-sykepenger-ved-koronavirus--hva-er-status'
-                  target='_blank'
-                >
-                  For sykefravær før 1. oktober gjelder følgende regler,
-                </Lenke>{' '}
-                og kan bare søkes frem til 31. desember.
-              </AlertStripeAdvarsel>
-            </Panel>
             {props.children}
           </Container>
         </>
