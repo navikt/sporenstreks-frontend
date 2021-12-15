@@ -145,10 +145,13 @@ const HjelpetekstRefusjon = () => {
             <li>
               Avklar antall dager det kan kreves refusjon for. Ta kun med dager
               det skulle vært utbetalt lønn for, fra og med dag 6 i
-              arbeidsgiverperioden. Helger og helligdager kan tas med hvis de er
-              en del av den faste arbeidstiden. Krev så refusjon fra og med dag
-              6, men maksimalt 11 dager til sammen. Dager før 1. desember får du
-              ikke refusjon for.
+              arbeidsgiverperioden.
+            </li>
+            <li>
+              Krev så refusjon fra og med dag 6, men maksimalt 11 dager til
+              sammen. Helger og helligdager kan tas med hvis de er en del av den
+              faste arbeidstiden. Dager før 1. desember får du ikke refusjon
+              for.
             </li>
             <li>
               Beregn månedsinntekten slik det ellers gjøres for &nbsp;
@@ -178,8 +181,13 @@ const HjelpetekstRefusjon = () => {
               for.
             </li>
             <li>
-              Finn gjennomsnittet av Fridas bruttolønn i desember, januar og
-              februar. I dette eksempelet har Frida en snittlønn på 55 000
+              Tell deretter antall ukedager uten å ta med helgedager fra 25.
+              januar frem til 4. februar = 9 dager som det kan kreves refusjon
+              for.
+            </li>
+            <li>
+              Finn gjennomsnittet av Fridas bruttolønn i oktober, november og
+              desember. I dette eksempelet har Frida en snittlønn på 55 000
               kroner de aktuelle månedene.
             </li>
             <li>
@@ -195,8 +203,8 @@ const HjelpetekstRefusjon = () => {
               dagsatsen. Fridas dagsats blir da 638 394 kr / 260 = 2455.36
             </li>
             <li>
-              Gang dagsatsen med 8. Maksimalt refusjonsbeløp for Frida for de
-              åtte dagene blir da 19 642,88 kroner
+              Gang dagsatsen med 9 dager. Maksimalt refusjonsbeløp for Frida for
+              de ni dagene blir da 22 098,24 kroner
             </li>
           </ol>
           <button
