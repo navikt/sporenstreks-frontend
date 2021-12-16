@@ -245,8 +245,10 @@ const Sykepenger = () => {
                   >
                     <Vis hvis={methods.formState.errors['fnr']}>
                       <Feilmelding>
-                        {methods.formState.errors['fnr'] &&
-                          methods.formState.errors['fnr'].type}
+                        {(methods.formState.errors['fnr'] &&
+                          methods.formState.errors['fnr'].type) ||
+                          (methods.formState.errors['periode'] &&
+                            methods.formState.errors['periode'].type)}
                       </Feilmelding>
                     </Vis>
                   </Normaltekst>

@@ -27,7 +27,7 @@ export const BulkFnr = ({ id }: AnsattID) => {
       onValidate={() => {
         // This is intentional
       }}
-      feil={aktuellAnsatt?.fnrError}
+      feil={aktuellAnsatt?.fnrError || aktuellAnsatt?.periodeError}
     />
   );
 };
