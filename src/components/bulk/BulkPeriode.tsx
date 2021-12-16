@@ -8,6 +8,7 @@ import { useBulk } from '../../context/BulkContext';
 import { Column, Row } from 'nav-frontend-grid';
 import validateDato from './validateDato';
 import Datovelger from './Datovelger';
+import validateDatoRekkefolge from './validateDatoRekkefolge';
 
 const BulkPeriode = (props: AnsattID) => {
   const perId1 = 'periode_' + props.id + '_fom';
@@ -18,16 +19,34 @@ const BulkPeriode = (props: AnsattID) => {
 
   const handleCloseFom = (selectedDate: Date) => {
     if (ansatt) {
-      ansatt.fom = dayjs(selectedDate).format('YYYY-MM-DD');
+      if (dayjs(selectedDate).isValid()) {
+        ansatt.fom = dayjs(selectedDate).format('YYYY-MM-DD');
+      }
       ansatt.fomError = validateDato(selectedDate);
+
+      if (!ansatt.fomError && ansatt.tom) {
+        ansatt.fomError = validateDatoRekkefolge(
+          dayjs(ansatt.tom).toDate(),
+          dayjs(selectedDate).toDate()
+        );
+      }
     }
     setAnsatte([...ansatte]);
   };
 
   const handleCloseTom = (selectedDate: Date) => {
     if (ansatt) {
-      ansatt.tom = dayjs(selectedDate).format('YYYY-MM-DD');
+      if (dayjs(selectedDate).isValid()) {
+        ansatt.tom = dayjs(selectedDate).format('YYYY-MM-DD');
+      }
       ansatt.tomError = validateDato(selectedDate);
+
+      if (!ansatt.tomError && ansatt.fom) {
+        ansatt.tomError = validateDatoRekkefolge(
+          dayjs(ansatt.fom).toDate(),
+          dayjs(selectedDate).toDate()
+        );
+      }
     }
     setAnsatte([...ansatte]);
   };

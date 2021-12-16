@@ -73,9 +73,6 @@ const Ansatte: React.FC = () => {
     setHarTrykketSubmitMinstEnGang(true);
   };
 
-  // let valideringsfeil = ByggValideringsFeil(ansatte);
-  // setFeil(valideringsfeil);
-
   return (
     <div className='ansatte'>
       <Skillelinje />

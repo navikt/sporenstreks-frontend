@@ -1,9 +1,23 @@
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
 import React from 'react';
 import EnkelPeriode, {
   formatDate,
   formatPeriod,
   validatePeriod
 } from './EnkelPeriode';
+
+jest.mock('react-hook-form', () => ({
+  ...jest.requireActual('react-hook-form'), // eslint-disable-line
+  useFormContext: () => ({
+    handleSubmit: () => jest.fn(),
+    getValues: () => jest.fn(),
+    setError: () => jest.fn(),
+    clearErrors: () => jest.fn(),
+    formState: { errors: {} }
+  })
+}));
 
 describe('EnkelPeriode', () => {
   it('should format a single date correctly', () => {
@@ -36,19 +50,17 @@ describe('EnkelPeriode', () => {
     expect(validatePeriod(new Date(2020, 11, 1))).toEqual('');
   });
 
-  // it('should validate period correctly when fom is undefined', () => {
-  //   expect(validatePeriod(undefined, new Date(2020, 11, 24))).toEqual(
-  //     'Perioden må ha to gyldige datoer'
-  //   );
-  // });
-
-  // it('should validate period correctly when tom is undefined', () => {
-  //   expect(validatePeriod(new Date(2020, 11, 24), undefined)).toEqual(
-  //     'Perioden må ha to gyldige datoer'
-  //   );
-  // });
-
   it('should validate period correctly when undefined', () => {
     expect(validatePeriod()).toEqual('Feltet må ha gyldig dato');
+  });
+
+  it('should have no a11y violations', async () => {
+    const mockCloseCallback = jest.fn();
+    const { container } = render(
+      <EnkelPeriode onClose={mockCloseCallback} index={1} />
+    );
+    const results = await axe(container);
+
+    expect(results).toHaveNoViolations();
   });
 });

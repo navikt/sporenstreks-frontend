@@ -10,7 +10,8 @@ export const ByggValideringsFeil = (ansatte: Ansatt[]) => {
       a.fomError ||
       a.tomError ||
       a.dagerError ||
-      a.beloepError
+      a.beloepError ||
+      a.periodeError
     ) {
       feil.push({
         skjemaelementId: 'fnr_' + a.id,

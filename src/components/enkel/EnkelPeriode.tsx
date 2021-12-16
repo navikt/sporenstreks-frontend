@@ -5,6 +5,7 @@ import { Label, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
 import { HjelpetekstPeriode } from '../periode/HjelpetekstPeriode';
 import { Column, Row } from 'nav-frontend-grid';
 import Datovelger from '../bulk/Datovelger';
+import validateDatoRekkefolge from '../bulk/validateDatoRekkefolge';
 
 export const formatDate = (value?: Date): string => {
   return value ? dayjs(value).format('DD.MM.YYYY') : '';
@@ -38,24 +39,44 @@ const EnkelPeriode = (props: EnkelPeriodeProps) => {
   const [tom, setTom] = useState<string>('');
 
   const handleCloseFom = (selectedDate: Date) => {
-    const errorMessage = validatePeriod(selectedDate);
+    let errorMessage = validatePeriod(selectedDate);
+
+    if (!errorMessage && tom) {
+      errorMessage = validateDatoRekkefolge(
+        dayjs(selectedDate).toDate(),
+        dayjs(tom).toDate()
+      );
+    }
+
     if (errorMessage) {
       setError(perId1, { type: errorMessage, message: errorMessage });
     } else {
       clearErrors([perId1, 'backend']);
     }
-    setFom(dayjs(selectedDate).format('YYYY-MM-DD'));
+    if (dayjs(selectedDate).isValid()) {
+      setFom(dayjs(selectedDate).format('YYYY-MM-DD'));
+    }
     props.onClose(selectedDate);
   };
 
   const handleCloseTom = (selectedDate: Date) => {
-    const errorMessage = validatePeriod(selectedDate);
+    let errorMessage = validatePeriod(selectedDate);
+
+    if (!errorMessage && fom) {
+      errorMessage = validateDatoRekkefolge(
+        dayjs(fom).toDate(),
+        dayjs(selectedDate).toDate()
+      );
+    }
+
     if (errorMessage) {
       setError(perId2, { type: errorMessage, message: errorMessage });
     } else {
       clearErrors([perId2, 'backend']);
     }
-    setTom(dayjs(selectedDate).format('YYYY-MM-DD'));
+    if (dayjs(selectedDate).isValid()) {
+      setTom(dayjs(selectedDate).format('YYYY-MM-DD'));
+    }
   };
 
   const perId1ErrorClass = errors[perId1] ? 'dato-har-feil' : '';
