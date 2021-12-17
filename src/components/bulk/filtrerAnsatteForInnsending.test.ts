@@ -1,5 +1,5 @@
+import { Ansatt } from './Ansatt';
 import filtrerAnsatteForInnsending from './filtrerAnsatteForInnsending';
-import { Ansatt } from '../../data/types/sporenstreksTypes';
 import { SykepengerData } from './SykepengerData';
 
 describe('filtrerAnsatteForInnsending', () => {

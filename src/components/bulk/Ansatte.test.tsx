@@ -143,60 +143,60 @@ describe('Ansatte', () => {
       </AppStoreProvider>
     );
     // fnr
-    expect(screen.getAllByPlaceholderText('11 siffer')[0]).toHaveAttribute(
+    expect(screen.getAllByPlaceholderText('11 siffer')[0]).toHaveProperty(
       'value',
       TestFnr.GyldigeFraDolly.TestPerson1
     );
-    expect(screen.getAllByPlaceholderText('11 siffer')[1]).toHaveAttribute(
+    expect(screen.getAllByPlaceholderText('11 siffer')[1]).toHaveProperty(
       'value',
       TestFnr.GyldigeFraDolly.TestPerson2
     );
-    expect(screen.getAllByPlaceholderText('11 siffer')[2]).toHaveAttribute(
+    expect(screen.getAllByPlaceholderText('11 siffer')[2]).toHaveProperty(
       'value',
       TestFnr.GyldigeFraDolly.TestPerson3
     );
 
     // periode
-    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[0]).toHaveAttribute(
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[0]).toHaveProperty(
       'value',
       '11.12.2021'
     );
-    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[1]).toHaveAttribute(
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[1]).toHaveProperty(
       'value',
       '20.12.2021'
     );
-    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[2]).toHaveAttribute(
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[2]).toHaveProperty(
       'value',
       '25.04.2021'
     );
-    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[3]).toHaveAttribute(
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[3]).toHaveProperty(
       'value',
       '27.04.2021'
     );
-    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[4]).toHaveAttribute(
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[4]).toHaveProperty(
       'value',
       '28.04.2021'
     );
-    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[5]).toHaveAttribute(
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[5]).toHaveProperty(
       'value',
       '29.04.2021'
     );
 
     // dager
-    expect(screen.getAllByRole('combobox')[0]).toHaveAttribute('value', '4');
-    expect(screen.getAllByRole('combobox')[1]).toHaveAttribute('value', '1');
-    expect(screen.getAllByRole('combobox')[2]).toHaveAttribute('value', '2');
+    expect(screen.getAllByRole('combobox')[0]).toHaveProperty('value', '4');
+    expect(screen.getAllByRole('combobox')[1]).toHaveProperty('value', '1');
+    expect(screen.getAllByRole('combobox')[2]).toHaveProperty('value', '2');
 
     // refusjon
-    expect(screen.getAllByPlaceholderText('Kroner')[0]).toHaveAttribute(
+    expect(screen.getAllByPlaceholderText('Kroner')[0]).toHaveProperty(
       'value',
       '3250'
     );
-    expect(screen.getAllByPlaceholderText('Kroner')[1]).toHaveAttribute(
+    expect(screen.getAllByPlaceholderText('Kroner')[1]).toHaveProperty(
       'value',
       '1999'
     );
-    expect(screen.getAllByPlaceholderText('Kroner')[2]).toHaveAttribute(
+    expect(screen.getAllByPlaceholderText('Kroner')[2]).toHaveProperty(
       'value',
       '400'
     );
@@ -260,7 +260,7 @@ describe('Ansatte', () => {
     );
     expect(
       screen.getByRole('checkbox', { name: 'Vi erklærer:' })
-    ).toHaveAttribute('checked', false);
+    ).toHaveProperty('checked', false);
   });
 
   it('viser bekreft knapp', () => {
@@ -430,6 +430,7 @@ describe('Ansatte', () => {
     ];
 
     jest.spyOn(global, 'fetch').mockImplementation(() =>
+      // @ts-ignore
       Promise.resolve({
         status: 200,
         json: () => Promise.resolve(backendResponce)
@@ -483,6 +484,7 @@ describe('Ansatte', () => {
     ];
 
     jest.spyOn(global, 'fetch').mockImplementation(() =>
+      // @ts-ignore
       Promise.resolve({
         status: 200,
         json: () => Promise.resolve(backendResponce)
@@ -520,6 +522,7 @@ describe('Ansatte', () => {
 
   it('skal vise at du har blitt logget av ved 401', async () => {
     jest.spyOn(global, 'fetch').mockImplementation(() =>
+      // @ts-ignore
       Promise.resolve({
         status: 401,
         json: () => {}

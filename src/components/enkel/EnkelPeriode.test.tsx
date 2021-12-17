@@ -9,7 +9,7 @@ import EnkelPeriode, {
 } from './EnkelPeriode';
 
 jest.mock('react-hook-form', () => ({
-  ...jest.requireActual('react-hook-form'), // eslint-disable-line
+  ...(jest.requireActual('react-hook-form') as object), // eslint-disable-line
   useFormContext: () => ({
     handleSubmit: () => jest.fn(),
     getValues: () => jest.fn(),

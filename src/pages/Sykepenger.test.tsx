@@ -226,13 +226,13 @@ describe('Sykepenger', () => {
     expect(
       screen.getByRole('link', {
         name: 'skjema for å sende inn flere ansatte samtidig'
-      }).href
-    ).toEqual('http://localhost/bulk/');
+      })
+    ).toHaveAttribute('href', '/bulk/');
     expect(
       screen.getAllByRole('link', { name: 'benytte Excel-opplasting.' }).length
     ).toEqual(2);
     expect(
-      screen.getAllByRole('link', { name: 'benytte Excel-opplasting.' })[0].href
-    ).toEqual('http://localhost/excel/');
+      screen.getAllByRole('link', { name: 'benytte Excel-opplasting.' })[0]
+    ).toHaveAttribute('href', '/excel/');
   });
 });

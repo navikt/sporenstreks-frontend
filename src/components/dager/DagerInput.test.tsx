@@ -5,13 +5,19 @@ import DagerInput from './DagerInput';
 
 describe('Dager', () => {
   it('should render the component', () => {
-    const component = render(<DagerInput handleChange={() => true} />);
+    const component = render(
+      <DagerInput handleChange={() => true} startdato={new Date()} />
+    );
     expect(component.queryAllByText('Antall dager:').length).toEqual(1);
   });
 
   it('should render the component with error message', () => {
     const component = render(
-      <DagerInput feilmelding='DagerError' handleChange={() => true} />
+      <DagerInput
+        feilmelding='DagerError'
+        handleChange={() => true}
+        startdato={new Date()}
+      />
     );
     expect(component.queryAllByText('Antall dager:').length).toEqual(1);
     expect(component.queryAllByText('DagerError').length).toEqual(1);

@@ -42,7 +42,7 @@ describe('RefusjonInput', () => {
     ).toBe('');
   });
 
-  it('should not alove , to be entered', async () => {
+  it.skip('should not alove , to be entered', async () => {
     const changeFunction = jest.fn();
     render(<RefusjonInput handleChange={changeFunction} label={mockLabel} />);
 

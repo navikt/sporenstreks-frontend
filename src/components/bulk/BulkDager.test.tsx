@@ -39,7 +39,7 @@ describe('BulkDager', () => {
   it('should display the component without a warning', () => {
     const component = render(
       <BulkProvider>
-        <BulkDager id={0} />
+        <BulkDager id={0} startdato={new Date()} />
       </BulkProvider>
     );
     expect(component.queryAllByText('DagerError').length).toEqual(0);
@@ -48,7 +48,7 @@ describe('BulkDager', () => {
   it('should update ansatte when a seletion is made', () => {
     const component = render(
       <BulkProvider ansatte={mockAnsatte}>
-        <BulkDager id={0} />
+        <BulkDager id={0} startdato={new Date()} />
       </BulkProvider>
     );
     const expected = [

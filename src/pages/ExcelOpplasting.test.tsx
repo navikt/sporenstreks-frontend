@@ -311,15 +311,13 @@ describe('ExcelOpplasting', () => {
       </AppStoreProvider>
     );
     expect(
-      // @ts-ignore
-      screen.getByRole('link', { name: 'skal du bruke et eget skjema' }).href
-    ).toEqual('http://localhost/enkel/');
+      screen.getByRole('link', { name: 'skal du bruke et eget skjema' })
+    ).toHaveAttribute('href', '/enkel/');
     expect(
       screen.getByRole('link', {
         name: 'eget skjema for å søke om refusjonskrav for flere ansatte'
-        // @ts-ignore
-      }).href
-    ).toEqual('http://localhost/bulk/');
+      })
+    ).toHaveAttribute('href', '/bulk/');
   });
 
   it('show download link for template bulk krav', async () => {
@@ -336,11 +334,16 @@ describe('ExcelOpplasting', () => {
       </AppStoreProvider>
     );
     expect(
-      // @ts-ignore
       screen.getByRole('link', {
+<<<<<<< HEAD
         name: 'Last ned malen for nye refusjonskrav her,'
       }).href
     ).toEqual('http://localhost:8080/api/v1/bulk/template');
+=======
+        name: 'Last ned malen for nye refusjonskrav her'
+      })
+    ).toHaveAttribute('href', 'http://localhost:8080/api/v1/bulk/template');
+>>>>>>> 5ff6e86 (Fiksing av feil i tester)
   });
 
   it('show download link for template tariff oppdatering av krav', async () => {
@@ -360,7 +363,7 @@ describe('ExcelOpplasting', () => {
       // @ts-ignore
       screen.getByRole('link', {
         name: 'endring av tidligere innsendt krav brukes denne malen.'
-      }).href
-    ).toEqual('http://localhost:8080/api/v1/bulk/tariff-template');
+      })
+    ).toHaveAttribute('href', 'http://localhost:8080/api/v1/bulk/tariff-template');
   });
 });
