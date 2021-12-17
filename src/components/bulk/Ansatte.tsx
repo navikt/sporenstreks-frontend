@@ -15,7 +15,7 @@ import Advarsler from './Advarsler';
 import { Column, Row, Container } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import Skillelinje from '../felles/Skillelinje';
-import { Normaltekst, Undertittel, Element } from 'nav-frontend-typografi';
+import { Normaltekst, Element, Systemtittel } from 'nav-frontend-typografi';
 import LoggetUtAdvarsel from '../login/LoggetUtAdvarsel';
 import InternLenke from '../felles/InternLenke';
 import { HjelpetekstPeriode } from '../periode/HjelpetekstPeriode';
@@ -78,58 +78,65 @@ const Ansatte: React.FC = () => {
       <Skillelinje />
 
       <form onSubmit={handleSubmit} data-testid='bulk-form'>
-        <Container>
-          <Undertittel className='sykepenger--undertittel'>
-            Oppgi ansatte, arbeidsgiverperiode og beløp
-          </Undertittel>
-          <Normaltekst>
-            Har du ansatte som har vært borte i to eller flere
-            ikke-sammenhengende perioder
-            <InternLenke to={Linker.Enkel}>
-              {' '}
-              skal du bruke et eget skjema som du finner her.
-            </InternLenke>
-          </Normaltekst>
-          <Normaltekst>
-            Har dere svært mange ansatte kan det om ønskelig{' '}
-            <InternLenke to={Linker.Excel}>
-              benyttes Excel-opplasting.
-            </InternLenke>
-          </Normaltekst>
-        </Container>
-        <div>
-          <Row className='AnsattRad-overskrift'>
-            <Column md='1' xs='12'>
-              <Element tag='label' className='AnsattRad-overskrift--element'>
-                Nr.
-              </Element>
-            </Column>
-            <Column md='2' xs='12'>
-              <Element tag='label' className='AnsattRad-overskrift--element'>
-                Fødselsnummer:
-              </Element>
-            </Column>
-            <Column md='4' xs='12'>
-              <Element tag='label' className='AnsattRad-overskrift--element'>
-                Hvilken periode var den ansatte borte?
-                <HjelpetekstPeriode />
-              </Element>
-            </Column>
-            <Column md='2' xs='12'>
-              <Element tag='label' className='AnsattRad-overskrift--element'>
-                Antall dager:
-                <HjelpetekstDager />
-              </Element>
-            </Column>
-            <Column md='2' xs='12'>
-              <Element tag='label' className='AnsattRad-overskrift--element'>
-                Beløp:
-                <HjelpetekstRefusjon />
-              </Element>
-            </Column>
-            <Column md='1' xs='12'></Column>
-          </Row>
-        </div>
+        <Row>
+          <Column>
+            <Panel>
+              <Systemtittel className='sykepenger--undertittel'>
+                Oppgi ansatte, arbeidsgiverperiode og beløp
+              </Systemtittel>
+              <Normaltekst>
+                Har du ansatte som har vært borte i to eller flere
+                ikke-sammenhengende perioder
+                <InternLenke to={Linker.Enkel}>
+                  {' '}
+                  skal du bruke et eget skjema som du finner her.
+                </InternLenke>
+              </Normaltekst>
+              <Normaltekst>
+                Hvis dere har mange ansatte kan dere{' '}
+                <InternLenke to={Linker.Excel}>
+                  benytte Excel-opplasting.
+                </InternLenke>{' '}
+                Hvis dere vil endre tidliger innsendte krav pga. tariffendring
+                må dere{' '}
+                <InternLenke to={Linker.Excel}>
+                  benytte Excel-opplasting.
+                </InternLenke>{' '}
+              </Normaltekst>
+            </Panel>
+          </Column>
+        </Row>
+        <Row className='AnsattRad-overskrift'>
+          <Column md='1' xs='12'>
+            <Element tag='label' className='AnsattRad-overskrift--element'>
+              Nr.
+            </Element>
+          </Column>
+          <Column md='2' xs='12'>
+            <Element tag='label' className='AnsattRad-overskrift--element'>
+              Fødselsnummer:
+            </Element>
+          </Column>
+          <Column md='4' xs='12'>
+            <Element tag='label' className='AnsattRad-overskrift--element'>
+              Hvilken periode var den ansatte borte?
+              <HjelpetekstPeriode />
+            </Element>
+          </Column>
+          <Column md='2' xs='12'>
+            <Element tag='label' className='AnsattRad-overskrift--element'>
+              Antall dager:
+              <HjelpetekstDager />
+            </Element>
+          </Column>
+          <Column md='2' xs='12'>
+            <Element tag='label' className='AnsattRad-overskrift--element'>
+              Beløp:
+              <HjelpetekstRefusjon />
+            </Element>
+          </Column>
+          <Column md='1' xs='12'></Column>
+        </Row>
 
         {ansatte.map((ansatt) => (
           <AnsattRad id={ansatt.id} key={ansatt.id} />

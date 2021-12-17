@@ -229,7 +229,10 @@ describe('Sykepenger', () => {
       }).href
     ).toEqual('http://localhost/bulk/');
     expect(
-      screen.getByRole('link', { name: 'excel-opplasting av kravet.' }).href
+      screen.getAllByRole('link', { name: 'benytte Excel-opplasting.' }).length
+    ).toEqual(2);
+    expect(
+      screen.getAllByRole('link', { name: 'benytte Excel-opplasting.' })[0].href
     ).toEqual('http://localhost/excel/');
   });
 });

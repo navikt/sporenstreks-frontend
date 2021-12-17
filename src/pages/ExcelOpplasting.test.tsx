@@ -322,7 +322,7 @@ describe('ExcelOpplasting', () => {
     ).toEqual('http://localhost/bulk/');
   });
 
-  it('show download link for template', async () => {
+  it('show download link for template bulk krav', async () => {
     render(
       <AppStoreProvider tokenExpired={false}>
         <ArbeidsgiverProvider
@@ -337,7 +337,30 @@ describe('ExcelOpplasting', () => {
     );
     expect(
       // @ts-ignore
-      screen.getByRole('link', { name: 'Last ned malen her' }).href
+      screen.getByRole('link', {
+        name: 'Last ned malen for nye refusjonskrav her'
+      }).href
+    ).toEqual('http://localhost:8080/api/v1/bulk/template');
+  });
+
+  it('show download link for template tariff oppdatering av krav', async () => {
+    render(
+      <AppStoreProvider tokenExpired={false}>
+        <ArbeidsgiverProvider
+          arbeidsgivere={mockArbeidsgiverValues}
+          status={Status.Successfully}
+        >
+          <MemoryRouter>
+            <ExcelOpplasting />
+          </MemoryRouter>
+        </ArbeidsgiverProvider>
+      </AppStoreProvider>
+    );
+    expect(
+      // @ts-ignore
+      screen.getByRole('link', {
+        name: 'endring av tidligere innsendt krav brukes denne malen.'
+      }).href
     ).toEqual('http://localhost:8080/api/v1/bulk/template');
   });
 });

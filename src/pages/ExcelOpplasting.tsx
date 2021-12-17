@@ -5,7 +5,9 @@ import { useHistory } from 'react-router-dom';
 import {
   Feilmelding,
   Innholdstittel,
-  Normaltekst
+  Normaltekst,
+  Systemtittel,
+  Undertittel
 } from 'nav-frontend-typografi';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { History } from 'history';
@@ -85,11 +87,9 @@ const ExcelOpplasting = () => {
       <Row>
         <Column>
           <Panel>
-            <Innholdstittel>
+            <Systemtittel className='sykepenger--undertittel'>
               Last ned Excel-malen, fyll ut og last opp.
-            </Innholdstittel>
-          </Panel>
-          <Panel>
+            </Systemtittel>
             <Normaltekst>
               Har du ansatte som har vært borte i to eller flere
               ikke-sammenhengende perioder
@@ -105,6 +105,7 @@ const ExcelOpplasting = () => {
             </Normaltekst>
           </Panel>
           <Panel>
+            <Undertittel>Nye refusjonskrav</Undertittel>
             <Normaltekst>
               <img
                 src={excellogo}
@@ -113,12 +114,30 @@ const ExcelOpplasting = () => {
                 alt='Excel-symbol'
               />
               <Lenke href={env.downloadUrl + '/api/v1/bulk/template'}>
-                Last ned malen her
+                Last ned malen for nye refusjonskrav her
               </Lenke>
               , og fyll ut. Det er ikke mulig å benytte ditt eget
               excel-dokument, alt må fylles ut i denne malen før du laster opp.
               NB, det kan maks legges inn 5000 linjer per excel-doc. Om det ikke
               er tilstrekkelig, må dere gjøre dette i flere omganger.
+            </Normaltekst>
+          </Panel>
+          <Panel>
+            <Undertittel>Endring av tidligere innsendte krav</Undertittel>
+            <Normaltekst>
+              <img
+                src={excellogo}
+                width='35'
+                className='excelopplasting__excellogo'
+                alt='Excel-symbol'
+              />
+              Gjelder det
+              <Lenke href={env.downloadUrl + '/api/v1/bulk/template'}>
+                endring av tidligere innsendt krav brukes denne malen.
+              </Lenke>
+              Dette gjelder kun for tariddendring. NB, det kan maks legges inn
+              5000 linjer per excel-doc. Om det ikke er tilstrekkelig, må dere
+              gjøre dette i flere omganger.
             </Normaltekst>
           </Panel>
         </Column>

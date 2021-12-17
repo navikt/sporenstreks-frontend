@@ -133,9 +133,9 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
 
   await t
     .click(fraDato)
-    .typeText(tilDato, '01.12.2021')
-    .click(fraDato)
-    .typeText(fraDato, '13.12.2021')
+    .typeText(fraDato, '01.12.2021')
+    .click(tilDato)
+    .typeText(tilDato, '13.12.2021')
     .pressKey('tab')
     .expect(Selector('html').textContent)
     .notContains('Dato må fylles ut');

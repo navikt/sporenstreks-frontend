@@ -4,7 +4,12 @@ import { FnrInput, Feiloppsummering } from 'nav-frontend-skjema';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Knapp } from 'nav-frontend-knapper';
 import { useHistory } from 'react-router-dom';
-import { Feilmelding, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import {
+  Feilmelding,
+  Normaltekst,
+  Systemtittel,
+  Undertittel
+} from 'nav-frontend-typografi';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import fnrvalidator from '@navikt/fnrvalidator';
 import { History } from 'history';
@@ -206,9 +211,9 @@ const Sykepenger = () => {
             <Row>
               <Column>
                 <Panel>
-                  <Undertittel className='sykepenger--undertittel'>
+                  <Systemtittel className='sykepenger--undertittel'>
                     Hvilken arbeidstaker gjelder søknaden?
-                  </Undertittel>
+                  </Systemtittel>
 
                   <Normaltekst>
                     Vi har også et eget{' '}
@@ -216,16 +221,25 @@ const Sykepenger = () => {
                       {' '}
                       skjema for å sende inn flere ansatte samtidig{' '}
                     </InternLenke>
-                    (kun enkeltperioder per ansatt), og for dere som har mer enn
-                    50 ansatte å rapportere inn har vi mulighet for{' '}
-                    <InternLenke to={Linker.Excel}>
-                      {' '}
-                      excel-opplasting av kravet.
-                    </InternLenke>
+                    (kun enkeltperioder per ansatt).
                   </Normaltekst>
-
-                  <div>&nbsp;</div>
-
+                  <Normaltekst>
+                    Hvis dere har mange ansatte kan dere{' '}
+                    <InternLenke to={Linker.Excel}>
+                      benytte Excel-opplasting.
+                    </InternLenke>{' '}
+                    Hvis dere vil endre tidliger innsendte krav pga.
+                    tariffendring må dere{' '}
+                    <InternLenke to={Linker.Excel}>
+                      benytte Excel-opplasting.
+                    </InternLenke>{' '}
+                  </Normaltekst>
+                </Panel>
+              </Column>
+            </Row>
+            <Row>
+              <Column>
+                <Panel>
                   <FnrInput
                     id='fnr'
                     name='fnr'
@@ -235,6 +249,7 @@ const Sykepenger = () => {
                     placeholder='11 siffer'
                     onChange={(e) => handleFnrChange(e.target.value)}
                     onValidate={() => {}}
+                    className='skjemaelement__fnr-input-posisjon'
                   />
 
                   <Normaltekst
