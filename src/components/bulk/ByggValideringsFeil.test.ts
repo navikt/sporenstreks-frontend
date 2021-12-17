@@ -1,5 +1,6 @@
 import ByggValideringsFeil from './ByggValideringsFeil';
-import { Ansatt, SkjemaStatus } from '../../data/types/sporenstreksTypes';
+import { SkjemaStatus } from '../../data/types/sporenstreksTypes';
+import { Ansatt } from './Ansatt';
 
 describe('ByggValideringsFeil', () => {
   it('should ', () => {

@@ -30,7 +30,7 @@ describe('BulkDager', () => {
   it('should display the component with a warning', () => {
     const component = render(
       <BulkProvider ansatte={mockAnsatte}>
-        <BulkDager id={1} />
+        <BulkDager id={1} startdato={new Date()} />
       </BulkProvider>
     );
     expect(component.queryAllByText('DagerError').length).toEqual(1);

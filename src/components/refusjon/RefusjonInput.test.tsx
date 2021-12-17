@@ -42,13 +42,13 @@ describe('RefusjonInput', () => {
     ).toBe('');
   });
 
-  it('should not alove , to be entered', () => {
+  it('should not alove , to be entered', async () => {
     const changeFunction = jest.fn();
     render(<RefusjonInput handleChange={changeFunction} label={mockLabel} />);
 
     const inputField = screen.getByPlaceholderText('Kroner');
 
-    userEvent.type(inputField, '101,1{esc}');
+    await userEvent.type(inputField, '101,1{esc}', { delay: 10 });
 
     expect(inputField).toHaveValue('1011');
 

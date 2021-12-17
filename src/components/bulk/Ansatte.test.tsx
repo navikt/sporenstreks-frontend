@@ -19,7 +19,7 @@ import MockDate from 'mockdate';
 const mockHistoryPush = jest.fn();
 
 jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
+  ...(jest.requireActual('react-router-dom') as object),
   useHistory: () => ({
     push: mockHistoryPush
   })
@@ -95,14 +95,14 @@ describe('Ansatte', () => {
     expect(
       screen.getByRole('link', {
         name: 'skal du bruke et eget skjema som du finner her.'
-      }).href
-    ).toEqual('http://localhost/enkel/');
+      })
+    ).toHaveAttribute('href', '/enkel/');
     expect(
       screen.getAllByRole('link', { name: 'benytte Excel-opplasting.' }).length
     ).toEqual(2);
     expect(
-      screen.getAllByRole('link', { name: 'benytte Excel-opplasting.' })[0].href
-    ).toEqual('http://localhost/excel/');
+      screen.getAllByRole('link', { name: 'benytte Excel-opplasting.' })[0]
+    ).toHaveAttribute('href', '/excel/');
   });
 
   it('viser headings', () => {
@@ -143,45 +143,63 @@ describe('Ansatte', () => {
       </AppStoreProvider>
     );
     // fnr
-    expect(screen.getAllByPlaceholderText('11 siffer')[0].value).toEqual(
+    expect(screen.getAllByPlaceholderText('11 siffer')[0]).toHaveAttribute(
+      'value',
       TestFnr.GyldigeFraDolly.TestPerson1
     );
-    expect(screen.getAllByPlaceholderText('11 siffer')[1].value).toEqual(
+    expect(screen.getAllByPlaceholderText('11 siffer')[1]).toHaveAttribute(
+      'value',
       TestFnr.GyldigeFraDolly.TestPerson2
     );
-    expect(screen.getAllByPlaceholderText('11 siffer')[2].value).toEqual(
+    expect(screen.getAllByPlaceholderText('11 siffer')[2]).toHaveAttribute(
+      'value',
       TestFnr.GyldigeFraDolly.TestPerson3
     );
 
     // periode
-    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[0].value).toEqual(
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[0]).toHaveAttribute(
+      'value',
       '11.12.2021'
     );
-    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[1].value).toEqual(
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[1]).toHaveAttribute(
+      'value',
       '20.12.2021'
     );
-    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[2].value).toEqual(
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[2]).toHaveAttribute(
+      'value',
       '25.04.2021'
     );
-    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[3].value).toEqual(
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[3]).toHaveAttribute(
+      'value',
       '27.04.2021'
     );
-    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[4].value).toEqual(
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[4]).toHaveAttribute(
+      'value',
       '28.04.2021'
     );
-    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[5].value).toEqual(
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[5]).toHaveAttribute(
+      'value',
       '29.04.2021'
     );
 
     // dager
-    expect(screen.getAllByRole('combobox')[0].value).toEqual('4');
-    expect(screen.getAllByRole('combobox')[1].value).toEqual('1');
-    expect(screen.getAllByRole('combobox')[2].value).toEqual('2');
+    expect(screen.getAllByRole('combobox')[0]).toHaveAttribute('value', '4');
+    expect(screen.getAllByRole('combobox')[1]).toHaveAttribute('value', '1');
+    expect(screen.getAllByRole('combobox')[2]).toHaveAttribute('value', '2');
 
     // refusjon
-    expect(screen.getAllByPlaceholderText('Kroner')[0].value).toEqual('3250');
-    expect(screen.getAllByPlaceholderText('Kroner')[1].value).toEqual('1999');
-    expect(screen.getAllByPlaceholderText('Kroner')[2].value).toEqual('400');
+    expect(screen.getAllByPlaceholderText('Kroner')[0]).toHaveAttribute(
+      'value',
+      '3250'
+    );
+    expect(screen.getAllByPlaceholderText('Kroner')[1]).toHaveAttribute(
+      'value',
+      '1999'
+    );
+    expect(screen.getAllByPlaceholderText('Kroner')[2]).toHaveAttribute(
+      'value',
+      '400'
+    );
 
     // slett knapp
     expect(screen.getAllByRole('link', { name: 'Slett' }).length).toEqual(3);
@@ -241,8 +259,8 @@ describe('Ansatte', () => {
       </AppStoreProvider>
     );
     expect(
-      screen.getByRole('checkbox', { name: 'Vi erklærer:' }).checked
-    ).toEqual(false);
+      screen.getByRole('checkbox', { name: 'Vi erklærer:' })
+    ).toHaveAttribute('checked', false);
   });
 
   it('viser bekreft knapp', () => {
