@@ -12,7 +12,7 @@ import { History } from 'history';
 import { useHistory } from 'react-router-dom';
 import { byggAnsatt, Ansatt } from './Ansatt';
 import Advarsler from './Advarsler';
-import { Column, Row, Container } from 'nav-frontend-grid';
+import { Column, Row } from 'nav-frontend-grid';
 import Panel from 'nav-frontend-paneler';
 import Skillelinje from '../felles/Skillelinje';
 import { Normaltekst, Element, Systemtittel } from 'nav-frontend-typografi';

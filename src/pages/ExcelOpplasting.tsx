@@ -4,7 +4,6 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import {
   Feilmelding,
-  Innholdstittel,
   Normaltekst,
   Systemtittel,
   Undertittel
