@@ -361,6 +361,6 @@ describe('ExcelOpplasting', () => {
       screen.getByRole('link', {
         name: 'endring av tidligere innsendt krav brukes denne malen.'
       }).href
-    ).toEqual('http://localhost:8080/api/v1/bulk/template');
+    ).toEqual('http://localhost:8080/api/v1/bulk/tariff-template');
   });
 });

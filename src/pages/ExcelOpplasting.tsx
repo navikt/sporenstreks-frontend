@@ -131,7 +131,7 @@ const ExcelOpplasting = () => {
                 alt='Excel-symbol'
               />
               Gjelder det
-              <Lenke href={env.downloadUrl + '/api/v1/bulk/template'}>
+              <Lenke href={env.downloadUrl + '/api/v1/bulk/tariff-template'}>
                 endring av tidligere innsendt krav brukes denne malen.
               </Lenke>
               Dette gjelder kun for tariddendring. NB, det kan maks legges inn
