@@ -22,7 +22,6 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react-hooks",
         "@typescript-eslint",
         "react"
     ],
