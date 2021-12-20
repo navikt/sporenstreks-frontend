@@ -7,39 +7,33 @@ const mockLabel = <span>label</span>;
 
 describe('RefusjonInput', () => {
   it('should display error', () => {
-    const rendered = render(
+    render(
       <RefusjonInput
         feilmelding='DummyFeilmelding'
         handleChange={{}}
         label={mockLabel}
       />
     );
-    expect(rendered.queryByText(/DummyFeilmelding/)).toBeTruthy();
+    expect(screen.getByText(/DummyFeilmelding/)).toBeInTheDocument();
   });
 
   it('should not display error', () => {
-    const rendered = render(
-      <RefusjonInput handleChange={{}} label={mockLabel} />
-    );
-    expect(rendered.queryByText(/DummyFeilmelding/)).toBeFalsy;
+    render(<RefusjonInput handleChange={{}} label={mockLabel} />);
+    expect(screen.getByText(/DummyFeilmelding/)).not.toBeInTheDocument;
   });
 
   it('should display initial value. English format because of lacking support in node...', () => {
-    const rendered = render(
-      <RefusjonInput beloep={1233} handleChange={{}} label={mockLabel} />
+    render(<RefusjonInput beloep={1233} handleChange={{}} label={mockLabel} />);
+    expect(screen.queryByPlaceholderText('Kroner')?.getAttribute('value')).toBe(
+      '1233'
     );
-    expect(
-      rendered.queryByPlaceholderText('Kroner')?.getAttribute('value')
-    ).toBe('1233');
   });
 
   it('should display empty when initial value not set', () => {
-    const rendered = render(
-      <RefusjonInput handleChange={{}} label={mockLabel} />
+    render(<RefusjonInput handleChange={{}} label={mockLabel} />);
+    expect(screen.queryByPlaceholderText('Kroner')?.getAttribute('value')).toBe(
+      ''
     );
-    expect(
-      rendered.queryByPlaceholderText('Kroner')?.getAttribute('value')
-    ).toBe('');
   });
 
   it.skip('should not alove , to be entered', () => {

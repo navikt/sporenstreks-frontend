@@ -5,9 +5,13 @@
         "node": true
     },
     "extends": [
+        "eslint:recommended",
         "plugin:react/recommended",
         "plugin:jsx-a11y/recommended",
-        "plugin:@typescript-eslint/recommended"
+        // "plugin:@typescript-eslint/recommended",
+        "plugin:react-hooks/recommended",
+        "plugin:jest/recommended"
+        // "plugin:testing-library/react"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -22,8 +26,7 @@
         "sourceType": "module"
     },
     "plugins": [
-        "@typescript-eslint",
-        "react"
+        "@typescript-eslint"
     ],
     "rules": {
         "no-console": "error",
@@ -44,6 +47,7 @@
         }],
         "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
         "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
+        "@typescript-eslint/ban-ts-comment": "warn",
         "object-curly-spacing":  ["warn", "always"],
         "no-duplicate-imports": "error",
         "quotes": ["warn", "single"],

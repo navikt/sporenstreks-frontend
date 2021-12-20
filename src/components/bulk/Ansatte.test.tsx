@@ -120,11 +120,13 @@ describe('Ansatte', () => {
         </ArbeidsgiverProvider>
       </AppStoreProvider>
     );
-    expect(screen.getByText('Nr.'));
-    expect(screen.getByText('Fødselsnummer:'));
-    expect(screen.getByText('Hvilken periode var den ansatte borte?'));
-    expect(screen.getByText('Antall dager:'));
-    expect(screen.getByText('Beløp:'));
+    expect(screen.getByText('Nr.')).toBeInTheDocument();
+    expect(screen.getByText('Fødselsnummer:')).toBeInTheDocument();
+    expect(
+      screen.getByText('Hvilken periode var den ansatte borte?')
+    ).toBeInTheDocument();
+    expect(screen.getByText('Antall dager:')).toBeInTheDocument();
+    expect(screen.getByText('Beløp:')).toBeInTheDocument();
   });
 
   it('viser antall rader', () => {
@@ -205,25 +207,25 @@ describe('Ansatte', () => {
     expect(screen.getAllByRole('link', { name: 'Slett' }).length).toEqual(3);
   });
 
-  // it('viser feil', () => {
-  //   render(
-  //     <AppStoreProvider tokenExpired={false}>
-  //       <ArbeidsgiverProvider
-  //         arbeidsgivere={mockArbeidsgiverValues}
-  //         status={Status.Successfully}
-  //       >
-  //         <MemoryRouter initialEntries={['/']}>
-  //           <BulkProvider ansatte={ansatte} feil={feil}>
-  //             <Ansatte />
-  //           </BulkProvider>
-  //         </MemoryRouter>
-  //       </ArbeidsgiverProvider>
-  //     </AppStoreProvider>
-  //   );
-  //   // expect(screen.getByText('Det er feil i skjemaet'));
-  //   expect(screen.getByText(/Feilmelding1/));
-  //   expect(screen.getByText(/Feilmelding2/));
-  // });
+  it.skip('viser feil', () => {
+    render(
+      <AppStoreProvider tokenExpired={false}>
+        <ArbeidsgiverProvider
+          arbeidsgivere={mockArbeidsgiverValues}
+          status={Status.Successfully}
+        >
+          <MemoryRouter initialEntries={['/']}>
+            <BulkProvider ansatte={ansatte} feil={feil}>
+              <Ansatte />
+            </BulkProvider>
+          </MemoryRouter>
+        </ArbeidsgiverProvider>
+      </AppStoreProvider>
+    );
+    // expect(screen.getByText('Det er feil i skjemaet'));
+    expect(screen.getByText(/Feilmelding1/));
+    expect(screen.getByText(/Feilmelding2/));
+  });
 
   it('viser leggtil knapp', () => {
     render(
@@ -380,7 +382,7 @@ describe('Ansatte', () => {
   });
 
   it('skjer ingenting om man gjør en submit på formen', () => {
-    let { asFragment } = render(
+    const { asFragment } = render(
       <AppStoreProvider tokenExpired={false}>
         <ArbeidsgiverProvider
           arbeidsgivere={mockArbeidsgiverValues}
@@ -562,9 +564,7 @@ describe('Ansatte', () => {
     );
   });
 
-  // TODO: Håndtere error 500
-  // it('skal vise at feilmelding ved error 500', async () => {  })
+  it.skip('skal vise at feilmelding ved error 500', async () => {});
 
-  // TODO: Håndtere timeout
-  // it('skal vise at feilmelding ved timeout fra server', async () => {  })
+  it.skip('skal vise at feilmelding ved timeout fra server', async () => {});
 });

@@ -254,7 +254,7 @@ export enum Languages {
 }
 
 export const translationsToJson = (lan: Languages): {} => {
-  let translatedKeys = {};
+  const translatedKeys = {};
   Object.keys(allTranslations).forEach(
     (e) => (translatedKeys[e] = allTranslations[e][lan])
   );

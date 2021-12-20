@@ -7,7 +7,7 @@ export default (
 ): Promise<tabellFeil[]> => {
   setTokenExpired(false);
   const formData = (file) => {
-    let formData = new FormData();
+    const formData = new FormData();
     if (file) {
       // @ts-ignore
       formData.append(file.name, file);
@@ -38,7 +38,7 @@ export default (
       }
       case 422: {
         return response.json().then((data) => {
-          let f: tabellFeil[] = data.problemDetails.map((violation) => ({
+          const f: tabellFeil[] = data.problemDetails.map((violation) => ({
             indeks: violation.row,
             kolonne: violation.column,
             melding: violation.message
