@@ -174,11 +174,10 @@ const HjelpetekstRefusjon = () => {
           <Undertittel>Eksempel:</Undertittel>
           <ol>
             <li>
-              Frida har første fraværsdag 20. mars. Hun jobber mandag-fredag og
-              får ikke utbetalt lønn for helgedager. Arbeidsgiverperioden går
-              til og med 4. april. Trekk fra helgedager og de fem første dagene
-              i arbeidsgiverperioden = åtte dager som det kan kreves refusjon
-              for.
+              Frida har første fraværsdag 20. januar. Hun jobber mandag-fredag
+              og får ikke utbetalt lønn for helgedager. Arbeidsgiverperioden går
+              til og med 4. februar. Start å telle på den sjette i
+              arbeidsgiverperioden, altså 25. januar.
             </li>
             <li>
               Tell deretter antall ukedager uten å ta med helgedager fra 25.
