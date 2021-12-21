@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, act, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route } from 'react-router-dom';
 import ExcelOpplasting from './ExcelOpplasting';
 import userEvent from '@testing-library/user-event';
@@ -123,7 +123,7 @@ describe('ExcelOpplasting', () => {
     await waitFor(() => jsonPromise);
 
     // bruker blir sendt til kvitteringside
-    expect(screen.getByText('Søknaden er mottatt.'));
+    expect(screen.getByText('Søknaden er mottatt.')).toBeInTheDocument();
   });
 
   it('displays errors when uploaded file is not accepted', async () => {

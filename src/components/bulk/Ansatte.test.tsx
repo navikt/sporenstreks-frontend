@@ -223,8 +223,8 @@ describe('Ansatte', () => {
       </AppStoreProvider>
     );
     // expect(screen.getByText('Det er feil i skjemaet'));
-    expect(screen.getByText(/Feilmelding1/));
-    expect(screen.getByText(/Feilmelding2/));
+    expect(screen.getByText(/Feilmelding1/)).toBeInTheDocument();
+    expect(screen.getByText(/Feilmelding2/)).toBeInTheDocument();
   });
 
   it('viser leggtil knapp', () => {
@@ -242,7 +242,9 @@ describe('Ansatte', () => {
         </ArbeidsgiverProvider>
       </AppStoreProvider>
     );
-    expect(screen.getByRole('link', { name: '+ Legg til enda en ansatt' }));
+    expect(
+      screen.getByRole('link', { name: '+ Legg til enda en ansatt' })
+    ).toBeInTheDocument();
   });
 
   it('viser erklæring', () => {
@@ -302,7 +304,7 @@ describe('Ansatte', () => {
       screen.getByText(
         'Du er blitt logget ut, følg instruksjonene for ikke å miste data'
       )
-    );
+    ).toBeInTheDocument();
   });
 
   it('viser IKKE logget ut advarsel', () => {

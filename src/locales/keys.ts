@@ -253,7 +253,7 @@ export enum Languages {
   en = 'en'
 }
 
-export const translationsToJson = (lan: Languages): {} => {
+export const translationsToJson = (lan: Languages): Record<string, unknown> => {
   const translatedKeys = {};
   Object.keys(allTranslations).forEach(
     (e) => (translatedKeys[e] = allTranslations[e][lan])

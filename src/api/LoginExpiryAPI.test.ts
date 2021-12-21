@@ -19,7 +19,6 @@ describe('loginExpiryAPI', () => {
     mock = FetchMock.configure({
       middleware: spy.middleware
     });
-    expect(spy.size()).toBe(0);
   });
 
   afterEach(() => {
