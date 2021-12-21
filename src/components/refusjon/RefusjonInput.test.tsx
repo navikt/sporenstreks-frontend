@@ -19,7 +19,7 @@ describe('RefusjonInput', () => {
 
   it('should not display error', () => {
     render(<RefusjonInput handleChange={{}} label={mockLabel} />);
-    expect(screen.getByText(/DummyFeilmelding/)).not.toBeInTheDocument;
+    expect(screen.queryByText(/DummyFeilmelding/)).not.toBeInTheDocument;
   });
 
   it('should display initial value. English format because of lacking support in node...', () => {

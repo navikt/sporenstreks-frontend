@@ -25,7 +25,7 @@ export const RefusjonInput = ({
       handleChange();
       return true;
     }
-    console.log('taster', evt.keyCode);
+
     const allowed = evt.key >= 0 && evt.key <= 9;
     if (!allowed) {
       evt.preventDefault();

@@ -96,9 +96,9 @@ describe('Sykepenger', () => {
 
     const submitBtn = screen.getByText('Send søknad om refusjon');
 
-    // await act(async () => {
-    fireEvent.submit(submitBtn);
-    // });
+    await act(async () => {
+      fireEvent.submit(submitBtn);
+    });
 
     expect(screen.queryAllByText('Fødselsnummer må fylles ut').length).toBe(2);
   });

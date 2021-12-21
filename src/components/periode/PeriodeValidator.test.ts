@@ -1,4 +1,3 @@
-import React from 'react';
 import { Feilmelding, isValidFom, isValidTom } from './PeriodeValidator';
 import dayjs from 'dayjs';
 

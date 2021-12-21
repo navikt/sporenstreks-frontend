@@ -14,6 +14,6 @@ describe('Vis', () => {
   it('should show the text when hvis is true', () => {
     render(<Vis hvis={true}>Do you see mee</Vis>);
 
-    expect(screen.queryByText(/Do you see mee/)).toBeTruthy();
+    expect(screen.getByText(/Do you see mee/)).toBeTruthy();
   });
 });
