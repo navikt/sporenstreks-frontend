@@ -2,13 +2,13 @@ import React, { createContext, useContext, useState } from 'react';
 
 interface AppStore {
   tokenExpired: boolean;
-  setTokenExpired;
+  setTokenExpired: (expired: boolean) => void;
 }
 
 export const buildAppStoreContext = () =>
   ({
     tokenExpired: false,
-    setTokenExpired: function (expired: boolean) {} // eslint-disable-line @typescript-eslint/no-unused-vars
+    setTokenExpired: (expired: boolean) => expired
   } as AppStore);
 
 const AppStoreContext = createContext(buildAppStoreContext());

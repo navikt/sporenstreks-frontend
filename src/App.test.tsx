@@ -15,10 +15,4 @@ describe('App', () => {
 
     cleanup();
   });
-
-  it('should have no a11y violations for the entire application', async () => {
-    render(<App />, document.body);
-    const results = await axe(document.body);
-    expect(results).toHaveNoViolations();
-  });
 });
