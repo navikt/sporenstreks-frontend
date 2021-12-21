@@ -338,7 +338,7 @@ describe('ExcelOpplasting', () => {
     expect(
       // @ts-ignore
       screen.getByRole('link', {
-        name: 'Last ned malen for nye refusjonskrav her'
+        name: 'Last ned malen for nye refusjonskrav her,'
       }).href
     ).toEqual('http://localhost:8080/api/v1/bulk/template');
   });
