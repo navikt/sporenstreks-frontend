@@ -40,8 +40,8 @@ function berikAnsatte(Ansatte: Ansatt[], data: BackendStatus[]): Ansatt[] {
             break;
 
           case 'perioder':
-            kopiAnsatte[idx].periodeError = errConcat(
-              kopiAnsatte[idx].periodeError,
+            kopiAnsatte[idx].fomError = errConcat(
+              kopiAnsatte[idx].fomError,
               validationError.message
             );
             break;

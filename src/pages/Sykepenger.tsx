@@ -258,12 +258,10 @@ const Sykepenger = () => {
                     aria-live='assertive'
                     className={'skjemaelement__feilmelding fnr ' + fnrClassName}
                   >
-                    <Vis hvis={methods.formState.errors['fnr']}>
+                    <Vis hvis={!!methods.formState.errors['fnr']}>
                       <Feilmelding>
-                        {(methods.formState.errors['fnr'] &&
-                          methods.formState.errors['fnr'].type) ||
-                          (methods.formState.errors['periode'] &&
-                            methods.formState.errors['periode'].type)}
+                        {methods.formState.errors['fnr'] &&
+                          methods.formState.errors['fnr'].type}
                       </Feilmelding>
                     </Vis>
                   </Normaltekst>

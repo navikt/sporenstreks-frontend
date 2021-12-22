@@ -1,9 +1,9 @@
 import berikAnsatte from './berikAnsatte';
 import {
   BackendStatus,
-  Ansatt,
   BackendResponseState
 } from '../../data/types/sporenstreksTypes';
+import { Ansatt } from './Ansatt';
 
 describe('berikAnsatte', () => {
   it('should add validation errors', () => {
@@ -151,6 +151,12 @@ describe('berikAnsatte', () => {
             message: 'Validation generic periode error',
             propertyPath: 'perioder',
             invalidValue: 'fom'
+          },
+          {
+            validationType: 'type',
+            message: 'Another validation generic periode error',
+            propertyPath: 'perioder',
+            invalidValue: 'fom'
           }
         ],
         genericMessage: null,
@@ -184,10 +190,11 @@ describe('berikAnsatte', () => {
       {
         fnr: '2',
         fom: 'fom',
+        fomError:
+          'Validation generic periode error. Another validation generic periode error.',
         id: 2,
         oppdatert: 2,
-        periodeError:
-          'Validation periode error. Validation generic periode error.',
+        periodeError: 'Validation periode error.',
         status: 3,
         tom: 'tom'
       },
@@ -462,7 +469,7 @@ describe('berikAnsatte', () => {
         fom: 'fom',
         id: 1,
         oppdatert: 1,
-        periodeError:
+        fomError:
           'Personen må ha et aktivt arbeidsforhold i virksomheten som er valgt. Det kan ikke kreves refusjon for de 5 første dagene i arbeidsgiverperioden.',
         status: 3,
         tom: 'tom'
