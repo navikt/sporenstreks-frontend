@@ -113,12 +113,12 @@ const ExcelOpplasting = () => {
                 alt='Excel-symbol'
               />
               <Lenke href={env.downloadUrl + '/api/v1/bulk/template'}>
-                Last ned malen for nye refusjonskrav her
-              </Lenke>
-              , og fyll ut. Det er ikke mulig å benytte ditt eget
-              excel-dokument, alt må fylles ut i denne malen før du laster opp.
-              NB, det kan maks legges inn 5000 linjer per excel-doc. Om det ikke
-              er tilstrekkelig, må dere gjøre dette i flere omganger.
+                Last ned malen for nye refusjonskrav her,
+              </Lenke>{' '}
+              og fyll ut. Det er ikke mulig å benytte ditt eget excel-dokument,
+              alt må fylles ut i denne malen før du laster opp. NB, det kan maks
+              legges inn 5000 linjer per excel-doc. Om det ikke er
+              tilstrekkelig, må dere gjøre dette i flere omganger.
             </Normaltekst>
           </Panel>
           <Panel>
@@ -130,11 +130,11 @@ const ExcelOpplasting = () => {
                 className='excelopplasting__excellogo'
                 alt='Excel-symbol'
               />
-              Gjelder det
+              Gjelder det{' '}
               <Lenke href={env.downloadUrl + '/api/v1/bulk/tariff-template'}>
                 endring av tidligere innsendt krav brukes denne malen.
-              </Lenke>
-              Dette gjelder kun for tariddendring. NB, det kan maks legges inn
+              </Lenke>{' '}
+              Dette gjelder kun for tariffendring. NB, det kan maks legges inn
               5000 linjer per excel-doc. Om det ikke er tilstrekkelig, må dere
               gjøre dette i flere omganger.
             </Normaltekst>
