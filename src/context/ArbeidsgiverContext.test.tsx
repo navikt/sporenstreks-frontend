@@ -22,7 +22,10 @@ describe('ArbeidsgiverContext', () => {
   it('should show spinner immediately', async () => {
     await act(async () => {
       render(
-        <ArbeidsgiverProvider arbeidsgivere={[]} status={Status.NotStarted}>
+        <ArbeidsgiverProvider
+          defaultArbeidsgivere={[]}
+          defaultStatus={Status.NotStarted}
+        >
           Barn
         </ArbeidsgiverProvider>,
         container
@@ -35,7 +38,7 @@ describe('ArbeidsgiverContext', () => {
   it('should show spinner when loading', async () => {
     await act(async () => {
       render(
-        <ArbeidsgiverProvider status={Status.Started}>
+        <ArbeidsgiverProvider defaultStatus={Status.Started}>
           Barn
         </ArbeidsgiverProvider>,
         container
@@ -48,7 +51,9 @@ describe('ArbeidsgiverContext', () => {
   it('should show error message', async () => {
     await act(async () => {
       render(
-        <ArbeidsgiverProvider status={Status.Error}>Barn</ArbeidsgiverProvider>,
+        <ArbeidsgiverProvider defaultStatus={Status.Error}>
+          Barn
+        </ArbeidsgiverProvider>,
         container
       );
     });
@@ -59,7 +64,7 @@ describe('ArbeidsgiverContext', () => {
   it('should show error message when unknown error occured', async () => {
     await act(async () => {
       render(
-        <ArbeidsgiverProvider status={Status.Unknown}>
+        <ArbeidsgiverProvider defaultStatus={Status.Unknown}>
           Barn
         </ArbeidsgiverProvider>,
         container
@@ -72,7 +77,7 @@ describe('ArbeidsgiverContext', () => {
   it('should show when request timedout', async () => {
     await act(async () => {
       render(
-        <ArbeidsgiverProvider status={Status.Timeout}>
+        <ArbeidsgiverProvider defaultStatus={Status.Timeout}>
           Barn
         </ArbeidsgiverProvider>,
         container
@@ -84,7 +89,7 @@ describe('ArbeidsgiverContext', () => {
 
   it('should show children when successful', async () => {
     render(
-      <ArbeidsgiverProvider status={Status.Successfully}>
+      <ArbeidsgiverProvider defaultStatus={Status.Successfully}>
         Barn
       </ArbeidsgiverProvider>,
       container
@@ -95,7 +100,7 @@ describe('ArbeidsgiverContext', () => {
   it('should redirect to login page when unauthorized', async () => {
     render(
       <MemoryRouter initialEntries={['/']}>
-        <ArbeidsgiverProvider status={Status.Unauthorized}>
+        <ArbeidsgiverProvider defaultStatus={Status.Unauthorized}>
           Barn
         </ArbeidsgiverProvider>
       </MemoryRouter>,

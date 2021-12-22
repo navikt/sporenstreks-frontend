@@ -86,10 +86,10 @@ describe('ExcelOpplasting', () => {
     );
 
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/excel']}>
             <Route path='/excel'>
@@ -138,10 +138,10 @@ describe('ExcelOpplasting', () => {
     );
 
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter>
             <ExcelOpplasting />
@@ -188,10 +188,10 @@ describe('ExcelOpplasting', () => {
     );
 
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter>
             <ExcelOpplasting />
@@ -227,10 +227,10 @@ describe('ExcelOpplasting', () => {
 
   it('disables submit when Erklæring is unchecked', () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter>
             <ExcelOpplasting />
@@ -256,17 +256,17 @@ describe('ExcelOpplasting', () => {
   });
 
   it('does not accept file upload over 250kB', () => {
-    const mockBigFile = ({
+    const mockBigFile = {
       size: 260000,
       fileName: 'tooLarge.xlsx',
       type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    } as unknown) as File;
+    } as unknown as File;
 
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter>
             <ExcelOpplasting />
@@ -295,10 +295,10 @@ describe('ExcelOpplasting', () => {
 
   it('show links to the other forms', async () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter>
             <ExcelOpplasting />
@@ -318,10 +318,10 @@ describe('ExcelOpplasting', () => {
 
   it('show download link for template bulk krav', async () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter>
             <ExcelOpplasting />
@@ -331,23 +331,17 @@ describe('ExcelOpplasting', () => {
     );
     expect(
       screen.getByRole('link', {
-<<<<<<< HEAD
         name: 'Last ned malen for nye refusjonskrav her,'
-      }).href
-    ).toEqual('http://localhost:8080/api/v1/bulk/template');
-=======
-        name: 'Last ned malen for nye refusjonskrav her'
       })
     ).toHaveAttribute('href', 'http://localhost:8080/api/v1/bulk/template');
->>>>>>> 5ff6e86 (Fiksing av feil i tester)
   });
 
   it('show download link for template tariff oppdatering av krav', async () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter>
             <ExcelOpplasting />

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { FC, createContext, useContext, useState } from 'react';
 
 interface AppStore {
   tokenExpired: boolean;
@@ -14,19 +14,21 @@ export const buildAppStoreContext = () =>
 const AppStoreContext = createContext(buildAppStoreContext());
 
 interface AppStoreContextProviderProps {
-  children: any;
-  tokenExpired?: boolean;
+  defaultTokenExpired?: boolean;
 }
 
 export const useAppStore = () => useContext(AppStoreContext);
 
-const AppStoreProvider = (props: AppStoreContextProviderProps) => {
+const AppStoreProvider: FC<AppStoreContextProviderProps> = ({
+  defaultTokenExpired,
+  children
+}) => {
   const [tokenExpired, setTokenExpired] = useState<boolean>(
-    props.tokenExpired || false
+    defaultTokenExpired || false
   );
   return (
     <AppStoreContext.Provider value={{ tokenExpired, setTokenExpired }}>
-      {props.children}
+      {children}
     </AppStoreContext.Provider>
   );
 };

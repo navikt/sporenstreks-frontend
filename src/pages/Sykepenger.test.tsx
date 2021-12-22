@@ -42,7 +42,10 @@ describe('Sykepenger', () => {
   it('should show warning when arbeidsgiver contains no data', () => {
     const history = createMemoryHistory();
     render(
-      <ArbeidsgiverProvider arbeidsgivere={[]} status={Status.Successfully}>
+      <ArbeidsgiverProvider
+        defaultArbeidsgivere={[]}
+        defaultStatus={Status.Successfully}
+      >
         <EnkelProvider>
           <Router history={history}>
             <Sykepenger />
@@ -62,8 +65,8 @@ describe('Sykepenger', () => {
     const history = createMemoryHistory();
     render(
       <ArbeidsgiverProvider
-        arbeidsgivere={arbeidsgivere}
-        status={Status.Successfully}
+        defaultArbeidsgivere={arbeidsgivere}
+        defaultStatus={Status.Successfully}
       >
         <Router history={history}>
           <Sykepenger />
@@ -85,8 +88,8 @@ describe('Sykepenger', () => {
     const history = createMemoryHistory();
     render(
       <ArbeidsgiverProvider
-        arbeidsgivere={arbeidsgivere}
-        status={Status.Successfully}
+        defaultArbeidsgivere={arbeidsgivere}
+        defaultStatus={Status.Successfully}
       >
         <Router history={history}>
           <Sykepenger />
@@ -107,8 +110,8 @@ describe('Sykepenger', () => {
     const history = createMemoryHistory();
     render(
       <ArbeidsgiverProvider
-        arbeidsgivere={arbeidsgivere}
-        status={Status.Successfully}
+        defaultArbeidsgivere={arbeidsgivere}
+        defaultStatus={Status.Successfully}
       >
         <EnkelProvider>
           <Router history={history}>
@@ -133,8 +136,8 @@ describe('Sykepenger', () => {
     const history = createMemoryHistory();
     render(
       <ArbeidsgiverProvider
-        arbeidsgivere={arbeidsgivere}
-        status={Status.Successfully}
+        defaultArbeidsgivere={arbeidsgivere}
+        defaultStatus={Status.Successfully}
       >
         <EnkelProvider>
           <Router history={history}>
@@ -160,8 +163,8 @@ describe('Sykepenger', () => {
 
     render(
       <ArbeidsgiverProvider
-        arbeidsgivere={arbeidsgivere}
-        status={Status.Successfully}
+        defaultArbeidsgivere={arbeidsgivere}
+        defaultStatus={Status.Successfully}
       >
         <Router history={history}>
           <Sykepenger />
@@ -185,8 +188,8 @@ describe('Sykepenger', () => {
 
     render(
       <ArbeidsgiverProvider
-        arbeidsgivere={arbeidsgivere}
-        status={Status.Successfully}
+        defaultArbeidsgivere={arbeidsgivere}
+        defaultStatus={Status.Successfully}
       >
         <Router history={history}>
           <Sykepenger />
@@ -214,8 +217,8 @@ describe('Sykepenger', () => {
     const history = createMemoryHistory();
     render(
       <ArbeidsgiverProvider
-        arbeidsgivere={arbeidsgivere}
-        status={Status.Successfully}
+        defaultArbeidsgivere={arbeidsgivere}
+        defaultStatus={Status.Successfully}
       >
         <Router history={history}>
           <Sykepenger />

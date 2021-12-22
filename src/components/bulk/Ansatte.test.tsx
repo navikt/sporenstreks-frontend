@@ -79,10 +79,10 @@ describe('Ansatte', () => {
 
   it('viser link til Excel og Enkel skjema', () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={feil}>
@@ -107,10 +107,10 @@ describe('Ansatte', () => {
 
   it('viser headings', () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={[]} feil={[]}>
@@ -131,10 +131,10 @@ describe('Ansatte', () => {
 
   it('viser antall rader', () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={feil}>
@@ -209,10 +209,10 @@ describe('Ansatte', () => {
 
   it.skip('viser feil', () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={feil}>
@@ -229,10 +229,10 @@ describe('Ansatte', () => {
 
   it('viser leggtil knapp', () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={feil}>
@@ -249,10 +249,10 @@ describe('Ansatte', () => {
 
   it('viser erklæring', () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={feil}>
@@ -269,10 +269,10 @@ describe('Ansatte', () => {
 
   it('viser bekreft knapp', () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={feil}>
@@ -287,10 +287,10 @@ describe('Ansatte', () => {
 
   it('viser logget ut advarsel', () => {
     render(
-      <AppStoreProvider tokenExpired={true}>
+      <AppStoreProvider defaultTokenExpired={true}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={feil}>
@@ -309,10 +309,10 @@ describe('Ansatte', () => {
 
   it('viser IKKE logget ut advarsel', () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={feil}>
@@ -332,10 +332,10 @@ describe('Ansatte', () => {
 
   it('viser ikke feilmelding om man klikker send inn etter at man har huket av erklæringen', () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={[]}>
@@ -360,10 +360,10 @@ describe('Ansatte', () => {
 
   it('viser feilmelding om man klikker send inn uten å ha sjekket av at man erklærer', () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={[]}>
@@ -385,10 +385,10 @@ describe('Ansatte', () => {
 
   it('skjer ingenting om man gjør en submit på formen', () => {
     const { asFragment } = render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={[]}>
@@ -442,10 +442,10 @@ describe('Ansatte', () => {
     );
 
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={[]}>
@@ -496,10 +496,10 @@ describe('Ansatte', () => {
     );
 
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={[]}>
@@ -534,10 +534,10 @@ describe('Ansatte', () => {
     );
 
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={[]}>

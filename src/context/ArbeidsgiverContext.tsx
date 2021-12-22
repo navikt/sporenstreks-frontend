@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  FC
+} from 'react';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import ArbeidsgiverAPI, { Status } from '../api/ArbeidsgiverAPI';
 import Spinner from 'nav-frontend-spinner';
@@ -42,21 +48,22 @@ export const buildArbeidsgiver = (
 const ArbeidsgiverContext = createContext(buildArbeidsgiverContext('', '', []));
 
 interface ArbeidsgiverContextProviderProps {
-  children: any;
-  status?: number;
-  arbeidsgivere?: Organisasjon[];
+  defaultStatus?: number;
+  defaultArbeidsgivere?: Organisasjon[];
 }
 
 export const useArbeidsgiver = () => useContext(ArbeidsgiverContext);
 
-export const ArbeidsgiverProvider = (
-  props: ArbeidsgiverContextProviderProps
-) => {
+export const ArbeidsgiverProvider: FC<ArbeidsgiverContextProviderProps> = ({
+  defaultStatus,
+  defaultArbeidsgivere,
+  children
+}) => {
   const [status, setStatus] = useState<number>(
-    props.status || Status.NotStarted
+    defaultStatus || Status.NotStarted
   );
   const [arbeidsgivere, setArbeidsgivere] = useState<Organisasjon[]>(
-    props.arbeidsgivere || []
+    defaultArbeidsgivere || []
   );
   const [firma, setFirma] = useState<string>('');
   const [arbeidsgiverId, setArbeidsgiverId] = useState<string>('');
@@ -109,7 +116,7 @@ export const ArbeidsgiverProvider = (
         setArbeidsgiverId
       }}
     >
-      {props.children}
+      {children}
     </ArbeidsgiverContext.Provider>
   );
 };
