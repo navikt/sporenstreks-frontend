@@ -43,7 +43,6 @@ const ExcelOpplasting = () => {
   const handleSubmit = async (e: React.FormEvent): Promise<any> => {
     e.preventDefault();
     if (file) {
-      // @ts-ignore
       const responsFeil = await innsendingExcelFil(file, setTokenExpired);
       if (responsFeil.length === 0) {
         setFeil([]);

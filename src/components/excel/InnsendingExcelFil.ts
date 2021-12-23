@@ -9,7 +9,6 @@ export default (
   const formData = (file) => {
     const formData = new FormData();
     if (file) {
-      // @ts-ignore
       formData.append(file.name, file);
     }
     return formData;
