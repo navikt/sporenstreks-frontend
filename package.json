@@ -16,7 +16,7 @@
     "snyk-protect": "snyk protect",
     "pretty-please": "pretty-quick --staged --config .prettierrc.json",
     "pretty-commit": "pretty-quick --staged  --config .prettierrc.json --pattern '**/*.*(ts|tsx|js)'",
-    "test:int": "testcafe firefox --hostname localhost tests/ --skip-js-errors --dev",
+    "test:int": "testcafe chrome --hostname localhost tests/ --skip-js-errors --dev",
     "prepare": "husky install"
   },
   "browserslist": {

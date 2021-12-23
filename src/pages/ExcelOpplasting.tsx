@@ -13,7 +13,7 @@ import { History } from 'history';
 import Vis from '../components/felles/Vis';
 import env from '../components/felles/environment';
 import Lenke from 'nav-frontend-lenker';
-import excellogo from '../img/excel-logo.png';
+import excellogo from './../img/excel-logo.png';
 import innsendingExcelFil from '../components/excel/InnsendingExcelFil';
 import { Erklaring } from '../components/felles/Erklaring';
 import { FeilTabell, tabellFeil } from '../components/excel/FeilTabell';
