@@ -222,7 +222,6 @@ describe('Ansatte', () => {
         </ArbeidsgiverProvider>
       </AppStoreProvider>
     );
-    // expect(screen.getByText('Det er feil i skjemaet'));
     expect(screen.getByText(/Feilmelding1/)).toBeInTheDocument();
     expect(screen.getByText(/Feilmelding2/)).toBeInTheDocument();
   });
@@ -565,8 +564,4 @@ describe('Ansatte', () => {
       )
     );
   });
-
-  it.skip('skal vise at feilmelding ved error 500', async () => {});
-
-  it.skip('skal vise at feilmelding ved timeout fra server', async () => {});
 });
