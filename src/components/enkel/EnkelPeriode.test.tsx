@@ -1,7 +1,6 @@
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import React from 'react';
-import * as ReactHookForm from 'react-hook-form';
 import EnkelPeriode, {
   formatDate,
   formatPeriod,
@@ -9,7 +8,7 @@ import EnkelPeriode, {
 } from './EnkelPeriode';
 
 jest.mock('react-hook-form', () => ({
-  ...(jest.requireActual('react-hook-form') as any),
+  ...(jest.requireActual('react-hook-form') as object),
   useFormContext: () => ({
     handleSubmit: () => jest.fn(),
     getValues: () => jest.fn(),
