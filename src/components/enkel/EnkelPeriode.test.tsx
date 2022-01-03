@@ -9,7 +9,7 @@ import EnkelPeriode, {
 } from './EnkelPeriode';
 
 jest.mock('react-hook-form', () => ({
-  ...(jest.requireActual('react-hook-form') as typeof ReactHookForm),
+  ...(jest.requireActual('react-hook-form') as any),
   useFormContext: () => ({
     handleSubmit: () => jest.fn(),
     getValues: () => jest.fn(),
