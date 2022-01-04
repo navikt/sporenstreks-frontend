@@ -26,8 +26,8 @@ const BulkPeriode = (props: AnsattID) => {
 
       if (!ansatt.fomError && ansatt.tom) {
         ansatt.fomError = validateDatoRekkefolge(
-          dayjs(ansatt.tom).toDate(),
-          dayjs(selectedDate).toDate()
+          dayjs(selectedDate).toDate(),
+          dayjs(ansatt.tom).toDate()
         );
       }
     }

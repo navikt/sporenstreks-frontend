@@ -9,6 +9,7 @@ import { Status } from '../api/ArbeidsgiverAPI';
 import { act } from 'react-dom/test-utils';
 import EnkelProvider from '../context/EnkelContext';
 import { TestFnr } from '../components/fnr/TestFnr';
+import userEvent from '@testing-library/user-event';
 
 const arbeidsgivere = [
   {
@@ -40,8 +41,11 @@ const arbeidsgivere = [
 describe('Sykepenger', () => {
   it('should show warning when arbeidsgiver contains no data', () => {
     const history = createMemoryHistory();
-    const rendered = render(
-      <ArbeidsgiverProvider arbeidsgivere={[]} status={Status.Successfully}>
+    render(
+      <ArbeidsgiverProvider
+        defaultArbeidsgivere={[]}
+        defaultStatus={Status.Successfully}
+      >
         <EnkelProvider>
           <Router history={history}>
             <Sykepenger />
@@ -51,7 +55,7 @@ describe('Sykepenger', () => {
     );
 
     expect(
-      rendered.getByText(
+      screen.getByText(
         'Du har ikke rettigheter til å søke om refusjon for noen bedrifter'
       )
     ).toBeTruthy();
@@ -59,10 +63,10 @@ describe('Sykepenger', () => {
 
   it('should show infotext when arbeidsgiver has data', () => {
     const history = createMemoryHistory();
-    const rendered = render(
+    render(
       <ArbeidsgiverProvider
-        arbeidsgivere={arbeidsgivere}
-        status={Status.Successfully}
+        defaultArbeidsgivere={arbeidsgivere}
+        defaultStatus={Status.Successfully}
       >
         <Router history={history}>
           <Sykepenger />
@@ -71,7 +75,7 @@ describe('Sykepenger', () => {
     );
 
     expect(
-      rendered.getByText(
+      screen.getByText(
         'Når sykefraværet handler om korona, dekker NAV sykepenger fra dag 6 i de 16 dagene arbeidsgiveren ' +
           'vanligvis skal betale. Den ansatte må være smittet, mistenkt smittet eller i pålagt karantene. Ordningen ' +
           'gjelder fra 1. desember 2021. Dersom arbeidsgiverperioden startet før 1. desember, refunderes ikke dagene ' +
@@ -82,10 +86,10 @@ describe('Sykepenger', () => {
 
   it('gives warning on missing fødselsnummer', async () => {
     const history = createMemoryHistory();
-    const rendered = render(
+    render(
       <ArbeidsgiverProvider
-        arbeidsgivere={arbeidsgivere}
-        status={Status.Successfully}
+        defaultArbeidsgivere={arbeidsgivere}
+        defaultStatus={Status.Successfully}
       >
         <Router history={history}>
           <Sykepenger />
@@ -99,17 +103,15 @@ describe('Sykepenger', () => {
       fireEvent.submit(submitBtn);
     });
 
-    expect(rendered.queryAllByText('Fødselsnummer må fylles ut').length).toBe(
-      2
-    );
+    expect(screen.queryAllByText('Fødselsnummer må fylles ut').length).toBe(2);
   });
 
   it('gives warning on short fødselsnummer', () => {
     const history = createMemoryHistory();
-    const rendered = render(
+    render(
       <ArbeidsgiverProvider
-        arbeidsgivere={arbeidsgivere}
-        status={Status.Successfully}
+        defaultArbeidsgivere={arbeidsgivere}
+        defaultStatus={Status.Successfully}
       >
         <EnkelProvider>
           <Router history={history}>
@@ -119,23 +121,23 @@ describe('Sykepenger', () => {
       </ArbeidsgiverProvider>
     );
 
-    const inputNode = rendered.getByLabelText('Fødselsnummer til arbeidstaker');
+    const inputNode = screen.getByLabelText('Fødselsnummer til arbeidstaker');
 
     fireEvent.change(inputNode, { target: { value: '11' } });
 
     fireEvent(inputNode, new FocusEvent('blur'));
 
-    expect(
-      rendered.queryAllByText('Fødselsnummer må ha 11 siffer').length
-    ).toBe(2);
+    expect(screen.queryAllByText('Fødselsnummer må ha 11 siffer').length).toBe(
+      2
+    );
   });
 
   it('gives warning on invalid fødselsnummer', () => {
     const history = createMemoryHistory();
-    const rendered = render(
+    render(
       <ArbeidsgiverProvider
-        arbeidsgivere={arbeidsgivere}
-        status={Status.Successfully}
+        defaultArbeidsgivere={arbeidsgivere}
+        defaultStatus={Status.Successfully}
       >
         <EnkelProvider>
           <Router history={history}>
@@ -145,7 +147,7 @@ describe('Sykepenger', () => {
       </ArbeidsgiverProvider>
     );
 
-    const inputNode = rendered.getByLabelText('Fødselsnummer til arbeidstaker');
+    const inputNode = screen.getByLabelText('Fødselsnummer til arbeidstaker');
 
     fireEvent.change(inputNode, {
       target: { value: TestFnr.Ugyldige.UgyldigKontrollSiffer }
@@ -153,16 +155,16 @@ describe('Sykepenger', () => {
 
     fireEvent.blur(inputNode);
 
-    expect(rendered.queryAllByText('Fødselsnummer er ugyldig').length).toBe(2);
+    expect(screen.queryAllByText('Fødselsnummer er ugyldig').length).toBe(2);
   });
 
-  it('gives warning on invalid fødselsnummer', () => {
+  it('gives np warning on valid fødselsnummer', () => {
     const history = createMemoryHistory();
 
-    const rendered = render(
+    render(
       <ArbeidsgiverProvider
-        arbeidsgivere={arbeidsgivere}
-        status={Status.Successfully}
+        defaultArbeidsgivere={arbeidsgivere}
+        defaultStatus={Status.Successfully}
       >
         <Router history={history}>
           <Sykepenger />
@@ -170,7 +172,7 @@ describe('Sykepenger', () => {
       </ArbeidsgiverProvider>
     );
 
-    const inputNode = rendered.getByLabelText('Fødselsnummer til arbeidstaker');
+    const inputNode = screen.getByLabelText('Fødselsnummer til arbeidstaker');
 
     fireEvent.change(inputNode, {
       target: { value: TestFnr.GyldigeFraDolly.TestPerson1 }
@@ -178,7 +180,7 @@ describe('Sykepenger', () => {
 
     fireEvent.blur(inputNode);
 
-    expect(rendered.queryAllByText('Fødselsnummer er ugyldig').length).toBe(0);
+    expect(screen.queryAllByText('Fødselsnummer er ugyldig').length).toBe(0);
   });
 
   it('should not submit when data is missing, but in stead give error', async () => {
@@ -186,8 +188,8 @@ describe('Sykepenger', () => {
 
     render(
       <ArbeidsgiverProvider
-        arbeidsgivere={arbeidsgivere}
-        status={Status.Successfully}
+        defaultArbeidsgivere={arbeidsgivere}
+        defaultStatus={Status.Successfully}
       >
         <Router history={history}>
           <Sykepenger />
@@ -197,7 +199,7 @@ describe('Sykepenger', () => {
 
     const erklarerCheck = screen.getByText('Vi erklærer:');
 
-    fireEvent.click(erklarerCheck);
+    userEvent.click(erklarerCheck);
 
     const submitButton = screen.getByText('Send søknad om refusjon');
 
@@ -215,8 +217,8 @@ describe('Sykepenger', () => {
     const history = createMemoryHistory();
     render(
       <ArbeidsgiverProvider
-        arbeidsgivere={arbeidsgivere}
-        status={Status.Successfully}
+        defaultArbeidsgivere={arbeidsgivere}
+        defaultStatus={Status.Successfully}
       >
         <Router history={history}>
           <Sykepenger />
@@ -226,13 +228,13 @@ describe('Sykepenger', () => {
     expect(
       screen.getByRole('link', {
         name: 'skjema for å sende inn flere ansatte samtidig'
-      }).href
-    ).toEqual('http://localhost/bulk/');
+      })
+    ).toHaveAttribute('href', '/bulk/');
     expect(
       screen.getAllByRole('link', { name: 'benytte Excel-opplasting.' }).length
     ).toEqual(2);
     expect(
-      screen.getAllByRole('link', { name: 'benytte Excel-opplasting.' })[0].href
-    ).toEqual('http://localhost/excel/');
+      screen.getAllByRole('link', { name: 'benytte Excel-opplasting.' })[0]
+    ).toHaveAttribute('href', '/excel/');
   });
 });

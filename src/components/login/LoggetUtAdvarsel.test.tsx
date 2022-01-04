@@ -8,7 +8,7 @@ import AppStoreProvider from '../../context/AppStoreContext';
 describe('LoggetUtAdvarsel', () => {
   it('should not display anything if the token is valid', () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <LoggetUtAdvarsel />
       </AppStoreProvider>
     );
@@ -22,7 +22,7 @@ describe('LoggetUtAdvarsel', () => {
 
   it('should display the modal if the token is invalid', () => {
     render(
-      <AppStoreProvider tokenExpired={true}>
+      <AppStoreProvider defaultTokenExpired={true}>
         <LoggetUtAdvarsel />
       </AppStoreProvider>
     );
@@ -36,7 +36,7 @@ describe('LoggetUtAdvarsel', () => {
 
   it('should display the modal if the token is invalid and close it when close is clicked', () => {
     render(
-      <AppStoreProvider tokenExpired={true}>
+      <AppStoreProvider defaultTokenExpired={true}>
         <LoggetUtAdvarsel />
       </AppStoreProvider>
     );

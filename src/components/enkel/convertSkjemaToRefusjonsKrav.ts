@@ -21,7 +21,7 @@ const convertSkjemaToRefusjonsKrav = (
     return nokkelArray[1];
   });
 
-  let perioder: Periode[] = [];
+  const perioder: Periode[] = [];
   for (let i = 0; i < antallPerioder; i++) {
     const periode: Periode = {
       fom: formaterDato(data['periode_' + nokler[i] + '_fom']),

@@ -1,8 +1,24 @@
 import ArbeidsgiverAPI, { Status } from './ArbeidsgiverAPI';
+import FetchMock, { SpyMiddleware } from 'yet-another-fetch-mock';
 
 describe('ArbeidsgiverAPI', () => {
+  let mock: FetchMock;
+  let spy: SpyMiddleware;
+
   afterAll(() => {
     jest.useRealTimers();
+  });
+
+  beforeEach(() => {
+    spy = new SpyMiddleware();
+    mock = FetchMock.configure({
+      middleware: spy.middleware
+    });
+    expect(spy.size()).toBe(0);
+  });
+
+  afterEach(() => {
+    mock.restore();
   });
 
   const ARBEIDSGIVERE = [
@@ -40,7 +56,11 @@ describe('ArbeidsgiverAPI', () => {
       status: 200,
       json: () => Promise.resolve(ARBEIDSGIVERE)
     });
-    jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockArbeidsgivere);
+    // @ts-ignore
+    jest.spyOn(window, 'fetch').mockImplementationOnce(() => {
+      return mockArbeidsgivere;
+    });
+
     const result = await ArbeidsgiverAPI.GetArbeidsgivere();
     expect(result.status).toEqual(200);
     expect(result.organisasjoner.length).toEqual(3);
@@ -60,6 +80,7 @@ describe('ArbeidsgiverAPI', () => {
           ARBEIDSGIVERE
         })
     });
+    // @ts-ignore
     jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockArbeidsgivere);
     expect(await ArbeidsgiverAPI.GetArbeidsgivere()).toStrictEqual({
       status: 401,
@@ -72,6 +93,7 @@ describe('ArbeidsgiverAPI', () => {
       status: 500,
       json: () => Promise.resolve({})
     });
+    // @ts-ignore
     jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockError);
     expect(await ArbeidsgiverAPI.GetArbeidsgivere()).toStrictEqual({
       status: 500,
@@ -84,6 +106,7 @@ describe('ArbeidsgiverAPI', () => {
       status: 401,
       json: () => Promise.resolve({})
     });
+    // @ts-ignore
     jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockToken);
     expect(await ArbeidsgiverAPI.GetArbeidsgivere()).toStrictEqual({
       status: 401,
@@ -94,6 +117,7 @@ describe('ArbeidsgiverAPI', () => {
   it('skal håndtere timeout', async () => {
     jest.useFakeTimers();
     const mockTimeout = new Promise(() => {});
+    // @ts-ignore
     jest.spyOn(window, 'fetch').mockImplementationOnce(() => mockTimeout);
     const verdi = ArbeidsgiverAPI.GetArbeidsgivere();
     jest.advanceTimersByTime(10000);

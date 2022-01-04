@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import BulkDager from './BulkDager';
 import { BulkProvider } from '../../context/BulkContext';
@@ -27,28 +27,28 @@ const mockAnsatte: Ansatt[] = [
 ];
 
 describe('BulkDager', () => {
-  it('should display the component with a warning', () => {
-    const component = render(
+  it('should display the screen with a warning', () => {
+    render(
       <BulkProvider ansatte={mockAnsatte}>
-        <BulkDager id={1} />
+        <BulkDager id={1} startdato={new Date()} />
       </BulkProvider>
     );
-    expect(component.queryAllByText('DagerError').length).toEqual(1);
+    expect(screen.queryAllByText('DagerError').length).toEqual(1);
   });
 
-  it('should display the component without a warning', () => {
-    const component = render(
+  it('should display the screen without a warning', () => {
+    render(
       <BulkProvider>
-        <BulkDager id={0} />
+        <BulkDager id={0} startdato={new Date()} />
       </BulkProvider>
     );
-    expect(component.queryAllByText('DagerError').length).toEqual(0);
+    expect(screen.queryAllByText('DagerError').length).toEqual(0);
   });
 
   it('should update ansatte when a seletion is made', () => {
-    const component = render(
+    render(
       <BulkProvider ansatte={mockAnsatte}>
-        <BulkDager id={0} />
+        <BulkDager id={0} startdato={new Date()} />
       </BulkProvider>
     );
     const expected = [
@@ -73,7 +73,7 @@ describe('BulkDager', () => {
       }
     ];
 
-    const selectBox = component.getByRole('combobox');
+    const selectBox = screen.getByRole('combobox');
 
     fireEvent.change(selectBox, { target: { value: '5' } });
     expect(mockAnsatte).toEqual(expected);

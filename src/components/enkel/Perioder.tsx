@@ -32,7 +32,7 @@ const Perioder = (props: PerioderProps) => {
 
   const leggTilPeriode = (e: any) => {
     e.preventDefault();
-    const fairlyRandom: number = Number('' + dayjs().valueOf() + Math.random());
+    const fairlyRandom = Number('' + dayjs().valueOf() + Math.random());
     lokal.push(fairlyRandom);
     setLokal(lokal);
     oppdaterPerioder();

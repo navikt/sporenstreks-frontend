@@ -1,5 +1,4 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import React from 'react';
 import EnkelPeriode, {
@@ -9,7 +8,7 @@ import EnkelPeriode, {
 } from './EnkelPeriode';
 
 jest.mock('react-hook-form', () => ({
-  ...jest.requireActual('react-hook-form'), // eslint-disable-line
+  ...(jest.requireActual('react-hook-form') as object),
   useFormContext: () => ({
     handleSubmit: () => jest.fn(),
     getValues: () => jest.fn(),
