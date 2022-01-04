@@ -6,7 +6,7 @@ export const maxDate = (now?: Date): Date => {
 
 export const minDate = () => new Date(2021, 11, 1);
 
-export const Minimum = (now?: Date): String => {
+export const Minimum = (now?: Date): string => {
   return dayjs(now ? now : new Date()).toISOString();
 };
 

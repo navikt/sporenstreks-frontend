@@ -1,14 +1,22 @@
 import React, { createContext, useContext, useState } from 'react';
 import GetLoginExpiry from '../api/LoginExpiryAPI';
 
+interface LoginExpiryValues {
+  timeoutAdvarselHarBlittVist: boolean;
+  loginExpiry: Date | undefined;
+  setTimeoutAdvarselHarBlittVist: (harBlittVist: boolean) => void;
+}
+
 export const buildLoginExpiryContext = (
   timeoutAdvarselHarBlittVist: boolean,
-  loginExpiry?: Date
-) => ({
-  loginExpiry,
-  timeoutAdvarselHarBlittVist,
-  setTimeoutAdvarselHarBlittVist: function (harBlittVist: boolean) {} // eslint-disable-line @typescript-eslint/no-unused-vars
-});
+  loginExpiry?: Date,
+  setTimeoutAdvarselHarBlittVist?: (harBlittVist: boolean) => void
+) =>
+  ({
+    loginExpiry,
+    timeoutAdvarselHarBlittVist,
+    setTimeoutAdvarselHarBlittVist
+  } as LoginExpiryValues);
 
 const LoginExpiryContext = createContext(buildLoginExpiryContext(false));
 
@@ -20,10 +28,8 @@ export const useLoginExpiry = () => useContext(LoginExpiryContext);
 
 const LoginExpiryProvider = (props: LoginExpiryContextProviderProps) => {
   const [status, setStatus] = useState<number>(0);
-  const [
-    timeoutAdvarselHarBlittVist,
-    setTimeoutAdvarselHarBlittVist
-  ] = useState<boolean>(false);
+  const [timeoutAdvarselHarBlittVist, setTimeoutAdvarselHarBlittVist] =
+    useState<boolean>(false);
   const [loginExpiry, setLoginExpiry] = useState<Date>();
   if (status === 0) {
     GetLoginExpiry().then((res) => {
