@@ -25,6 +25,7 @@ export const RefusjonInput = ({
       handleChange();
       return true;
     }
+
     const allowed = evt.key >= 0 && evt.key <= 9;
     if (!allowed) {
       evt.preventDefault();
@@ -41,7 +42,7 @@ export const RefusjonInput = ({
         id={id}
         name={id}
         feil={feilmelding}
-        value={beloep}
+        defaultValue={beloep}
         autoComplete='off'
         bredde='S'
         label={label}

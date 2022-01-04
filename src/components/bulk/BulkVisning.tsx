@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface BulkVisning {
+interface BulkVisningInterface {
   children: React.ReactNode;
   label: string;
 }
@@ -8,7 +8,7 @@ interface BulkVisning {
 export const BulkVisning = ({
   children,
   label
-}: BulkVisning): React.ReactElement => {
+}: BulkVisningInterface): React.ReactElement => {
   return (
     <div className='skjemaelement'>
       <span className='skjemaelement__label'>

@@ -5,7 +5,7 @@ import { ValideringsFeil } from './ValideringsFeil';
 
 export const ValideringOppsummering = () => {
   const { ansatte } = useBulk();
-  let feil: ValideringsFeil[] = [];
+  const feil: ValideringsFeil[] = [];
 
   ansatte.forEach((a, index) => {
     if (

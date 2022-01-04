@@ -2,7 +2,7 @@ import { ValideringsFeil } from './ValideringsFeil';
 import { Ansatt } from './Ansatt';
 
 export const ByggValideringsFeil = (ansatte: Ansatt[]) => {
-  let feil: ValideringsFeil[] = [];
+  const feil: ValideringsFeil[] = [];
 
   ansatte.forEach((a, index) => {
     if (

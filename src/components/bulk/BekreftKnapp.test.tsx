@@ -71,7 +71,10 @@ describe('BekreftKnapp', () => {
     const erklæringAkseptert = false;
 
     render(
-      <ArbeidsgiverProvider status={Status.Successfully} arbeidsgivere={[]}>
+      <ArbeidsgiverProvider
+        defaultStatus={Status.Successfully}
+        defaultArbeidsgivere={[]}
+      >
         <BulkProvider ansatte={mockAnsatteOK}>
           <BekreftKnapp
             onSubmit={mockOnSubmmit}
@@ -99,7 +102,10 @@ describe('BekreftKnapp', () => {
     const erklæringAkseptert = true;
 
     render(
-      <ArbeidsgiverProvider status={Status.Successfully} arbeidsgivere={[]}>
+      <ArbeidsgiverProvider
+        defaultStatus={Status.Successfully}
+        defaultArbeidsgivere={[]}
+      >
         <BulkProvider ansatte={mockAnsatteOK}>
           <BekreftKnapp
             onSubmit={mockOnSubmmit}
@@ -126,7 +132,10 @@ describe('BekreftKnapp', () => {
     const mockFeil = [];
 
     render(
-      <ArbeidsgiverProvider status={Status.Successfully} arbeidsgivere={[]}>
+      <ArbeidsgiverProvider
+        defaultStatus={Status.Successfully}
+        defaultArbeidsgivere={[]}
+      >
         <BulkProvider ansatte={mockAnsatteOK} feil={mockFeil}>
           <BekreftKnapp
             onSubmit={mockOnSubmmit}
@@ -161,7 +170,10 @@ describe('BekreftKnapp', () => {
     const erklæringAkseptert = true;
 
     render(
-      <ArbeidsgiverProvider status={Status.Successfully} arbeidsgivere={[]}>
+      <ArbeidsgiverProvider
+        defaultStatus={Status.Successfully}
+        defaultArbeidsgivere={[]}
+      >
         <BulkProvider ansatte={mockAnsatteOK}>
           <BekreftKnapp
             onSubmit={mockOnSubmmit}
@@ -207,7 +219,10 @@ describe('BekreftKnapp', () => {
     ];
 
     render(
-      <ArbeidsgiverProvider status={Status.Successfully} arbeidsgivere={[]}>
+      <ArbeidsgiverProvider
+        defaultStatus={Status.Successfully}
+        defaultArbeidsgivere={[]}
+      >
         <BulkProvider ansatte={mockAnsatteNotOK} feil={expected}>
           <BekreftKnapp
             onSubmit={mockOnSubmmit}
@@ -237,7 +252,10 @@ describe('BekreftKnapp', () => {
     const erklæringAkseptert = true;
 
     const { container } = render(
-      <ArbeidsgiverProvider status={Status.Successfully} arbeidsgivere={[]}>
+      <ArbeidsgiverProvider
+        defaultStatus={Status.Successfully}
+        defaultArbeidsgivere={[]}
+      >
         <BulkProvider ansatte={mockAnsatteOK}>
           <BekreftKnapp
             onSubmit={mockOnSubmmit}

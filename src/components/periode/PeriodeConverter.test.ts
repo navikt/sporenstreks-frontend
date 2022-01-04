@@ -1,4 +1,3 @@
-import React from 'react';
 import { PeriodeConverter } from './PeriodeConverter';
 
 describe('PeriodeConverter', () => {
