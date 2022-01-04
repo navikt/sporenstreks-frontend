@@ -24,7 +24,7 @@ export interface Ansatt extends AnsattID {
 }
 
 export const byggAnsatt = (): Ansatt => {
-  let a = {} as Ansatt;
+  const a = {} as Ansatt;
   a.id = uuidv4();
   a.fnr = '';
   a.fom = '';

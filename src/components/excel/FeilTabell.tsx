@@ -21,7 +21,7 @@ export const FeilTabell = ({
   handleSetVisAlleFeil
 }: feilTabellProps) => {
   const gruppertFeil = feil.reduce(function (gruppert, feil) {
-    let feilGruppering = gruppert.find((el) => {
+    const feilGruppering = gruppert.find((el) => {
       return el.kolonne === feil.kolonne && el.melding === feil.melding;
     });
     if (feilGruppering) {

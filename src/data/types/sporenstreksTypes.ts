@@ -43,7 +43,7 @@ export interface BackendValidation {
   validationType: string;
   message: string;
   propertyPath: string;
-  invalidValue: string | number;
+  invalidValue: string | number | object;
 }
 
 export enum ErrorType {

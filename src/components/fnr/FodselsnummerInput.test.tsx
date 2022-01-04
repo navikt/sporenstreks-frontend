@@ -7,47 +7,43 @@ import { act } from 'react-dom/test-utils';
 import { TestFnr } from './TestFnr';
 
 describe('FodselsnummerInput', () => {
-  it('should render the component', () => {
-    const component = render(<FodselsnummerInput handleChange={() => true} />);
-    expect(component.queryAllByText('Fødselsnummer').length).toEqual(1);
+  it('should render the screen', () => {
+    render(<FodselsnummerInput handleChange={() => true} />);
+    expect(screen.queryAllByText('Fødselsnummer').length).toEqual(1);
   });
 
-  it('should render the component with error message', () => {
-    const component = render(
+  it('should render the screen with error message', () => {
+    render(
       <FodselsnummerInput
         feilmelding={'Feilmelding'}
         handleChange={() => true}
       />
     );
-    expect(component.queryAllByText('Fødselsnummer').length).toEqual(1);
-    expect(component.queryAllByText('Feilmelding').length).toEqual(1);
+    expect(screen.queryAllByText('Fødselsnummer').length).toEqual(1);
+    expect(screen.queryAllByText('Feilmelding').length).toEqual(1);
   });
 
-  it('should render the component with error message', () => {
+  it('should render the screen with error message', () => {
     const mockCallback = jest.fn();
-    const component = render(
-      <FodselsnummerInput handleChange={mockCallback} />
-    );
+    render(<FodselsnummerInput handleChange={mockCallback} />);
 
-    const inputField = component.getByLabelText(/Fødselsnummer/);
+    const inputField = screen.getByLabelText(/Fødselsnummer/);
 
     fireEvent.change(inputField, { target: { value: '5' } });
     fireEvent.blur(inputField, { target: { value: '5' } });
 
     expect(mockCallback).toHaveBeenCalledWith('5');
-    expect(component.getByText('Fødselsnummer')).toBeInTheDocument();
+    expect(screen.getByText('Fødselsnummer')).toBeInTheDocument();
     expect(
-      component.getByText('Fødselsnummer må ha 11 siffer')
+      screen.getByText('Fødselsnummer må ha 11 siffer')
     ).toBeInTheDocument();
   });
 
-  it('should render the component with invalid fødselsnummer', () => {
+  it('should render the screen with invalid fødselsnummer', () => {
     const mockCallback = jest.fn();
-    const component = render(
-      <FodselsnummerInput handleChange={mockCallback} />
-    );
+    render(<FodselsnummerInput handleChange={mockCallback} />);
 
-    const inputField = component.getByLabelText(/Fødselsnummer/);
+    const inputField = screen.getByLabelText(/Fødselsnummer/);
     fireEvent.change(inputField, {
       target: { value: TestFnr.Ugyldige.UgyldigKontrollSiffer }
     });
@@ -58,8 +54,8 @@ describe('FodselsnummerInput', () => {
     expect(mockCallback).toHaveBeenCalledWith(
       TestFnr.Ugyldige.UgyldigKontrollSiffer
     );
-    expect(component.getByText('Fødselsnummer')).toBeInTheDocument();
-    expect(component.getByText('Fødselsnummer er ugyldig')).toBeInTheDocument();
+    expect(screen.getByText('Fødselsnummer')).toBeInTheDocument();
+    expect(screen.getByText('Fødselsnummer er ugyldig')).toBeInTheDocument();
   });
 
   it('should render an inputfield with the correct id', () => {
