@@ -62,7 +62,7 @@ const Sykepenger = () => {
     const form = refRefusjonsform.current ?? e.target;
     const formAsJson = Object(formToJSON(form.elements));
 
-    let harFeil = validateValuesAreSet(formAsJson, validateFnr, methods);
+    const harFeil = validateValuesAreSet(formAsJson, validateFnr, methods);
 
     setFormData(formAsJson);
     if (!harFeil) {
@@ -248,7 +248,7 @@ const Sykepenger = () => {
                     value={identityNumberInput}
                     placeholder='11 siffer'
                     onChange={(e) => handleFnrChange(e.target.value)}
-                    onValidate={() => {}}
+                    onValidate={() => undefined}
                     className='skjemaelement__fnr-input-posisjon'
                   />
 

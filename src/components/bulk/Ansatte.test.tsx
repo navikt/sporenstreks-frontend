@@ -19,7 +19,7 @@ import MockDate from 'mockdate';
 const mockHistoryPush = jest.fn();
 
 jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
+  ...(jest.requireActual('react-router-dom') as object),
   useHistory: () => ({
     push: mockHistoryPush
   })
@@ -79,10 +79,10 @@ describe('Ansatte', () => {
 
   it('viser link til Excel og Enkel skjema', () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={feil}>
@@ -95,22 +95,22 @@ describe('Ansatte', () => {
     expect(
       screen.getByRole('link', {
         name: 'skal du bruke et eget skjema som du finner her.'
-      }).href
-    ).toEqual('http://localhost/enkel/');
+      })
+    ).toHaveAttribute('href', '/enkel/');
     expect(
       screen.getAllByRole('link', { name: 'benytte Excel-opplasting.' }).length
     ).toEqual(2);
     expect(
-      screen.getAllByRole('link', { name: 'benytte Excel-opplasting.' })[0].href
-    ).toEqual('http://localhost/excel/');
+      screen.getAllByRole('link', { name: 'benytte Excel-opplasting.' })[0]
+    ).toHaveAttribute('href', '/excel/');
   });
 
   it('viser headings', () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={[]} feil={[]}>
@@ -120,19 +120,21 @@ describe('Ansatte', () => {
         </ArbeidsgiverProvider>
       </AppStoreProvider>
     );
-    expect(screen.getByText('Nr.'));
-    expect(screen.getByText('Fødselsnummer:'));
-    expect(screen.getByText('Hvilken periode var den ansatte borte?'));
-    expect(screen.getByText('Antall dager:'));
-    expect(screen.getByText('Beløp:'));
+    expect(screen.getByText('Nr.')).toBeInTheDocument();
+    expect(screen.getByText('Fødselsnummer:')).toBeInTheDocument();
+    expect(
+      screen.getByText('Hvilken periode var den ansatte borte?')
+    ).toBeInTheDocument();
+    expect(screen.getByText('Antall dager:')).toBeInTheDocument();
+    expect(screen.getByText('Beløp:')).toBeInTheDocument();
   });
 
   it('viser antall rader', () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={feil}>
@@ -143,76 +145,74 @@ describe('Ansatte', () => {
       </AppStoreProvider>
     );
     // fnr
-    expect(screen.getAllByPlaceholderText('11 siffer')[0].value).toEqual(
+    expect(screen.getAllByPlaceholderText('11 siffer')[0]).toHaveProperty(
+      'value',
       TestFnr.GyldigeFraDolly.TestPerson1
     );
-    expect(screen.getAllByPlaceholderText('11 siffer')[1].value).toEqual(
+    expect(screen.getAllByPlaceholderText('11 siffer')[1]).toHaveProperty(
+      'value',
       TestFnr.GyldigeFraDolly.TestPerson2
     );
-    expect(screen.getAllByPlaceholderText('11 siffer')[2].value).toEqual(
+    expect(screen.getAllByPlaceholderText('11 siffer')[2]).toHaveProperty(
+      'value',
       TestFnr.GyldigeFraDolly.TestPerson3
     );
 
     // periode
-    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[0].value).toEqual(
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[0]).toHaveProperty(
+      'value',
       '11.12.2021'
     );
-    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[1].value).toEqual(
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[1]).toHaveProperty(
+      'value',
       '20.12.2021'
     );
-    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[2].value).toEqual(
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[2]).toHaveProperty(
+      'value',
       '25.04.2021'
     );
-    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[3].value).toEqual(
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[3]).toHaveProperty(
+      'value',
       '27.04.2021'
     );
-    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[4].value).toEqual(
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[4]).toHaveProperty(
+      'value',
       '28.04.2021'
     );
-    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[5].value).toEqual(
+    expect(screen.getAllByPlaceholderText('dd.mm.yyyy')[5]).toHaveProperty(
+      'value',
       '29.04.2021'
     );
 
     // dager
-    expect(screen.getAllByRole('combobox')[0].value).toEqual('4');
-    expect(screen.getAllByRole('combobox')[1].value).toEqual('1');
-    expect(screen.getAllByRole('combobox')[2].value).toEqual('2');
+    expect(screen.getAllByRole('combobox')[0]).toHaveProperty('value', '4');
+    expect(screen.getAllByRole('combobox')[1]).toHaveProperty('value', '1');
+    expect(screen.getAllByRole('combobox')[2]).toHaveProperty('value', '2');
 
     // refusjon
-    expect(screen.getAllByPlaceholderText('Kroner')[0].value).toEqual('3250');
-    expect(screen.getAllByPlaceholderText('Kroner')[1].value).toEqual('1999');
-    expect(screen.getAllByPlaceholderText('Kroner')[2].value).toEqual('400');
+    expect(screen.getAllByPlaceholderText('Kroner')[0]).toHaveProperty(
+      'value',
+      '3250'
+    );
+    expect(screen.getAllByPlaceholderText('Kroner')[1]).toHaveProperty(
+      'value',
+      '1999'
+    );
+    expect(screen.getAllByPlaceholderText('Kroner')[2]).toHaveProperty(
+      'value',
+      '400'
+    );
 
     // slett knapp
     expect(screen.getAllByRole('link', { name: 'Slett' }).length).toEqual(3);
   });
 
-  // it('viser feil', () => {
-  //   render(
-  //     <AppStoreProvider tokenExpired={false}>
-  //       <ArbeidsgiverProvider
-  //         arbeidsgivere={mockArbeidsgiverValues}
-  //         status={Status.Successfully}
-  //       >
-  //         <MemoryRouter initialEntries={['/']}>
-  //           <BulkProvider ansatte={ansatte} feil={feil}>
-  //             <Ansatte />
-  //           </BulkProvider>
-  //         </MemoryRouter>
-  //       </ArbeidsgiverProvider>
-  //     </AppStoreProvider>
-  //   );
-  //   // expect(screen.getByText('Det er feil i skjemaet'));
-  //   expect(screen.getByText(/Feilmelding1/));
-  //   expect(screen.getByText(/Feilmelding2/));
-  // });
-
-  it('viser leggtil knapp', () => {
+  it.skip('viser feil', () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={feil}>
@@ -222,15 +222,16 @@ describe('Ansatte', () => {
         </ArbeidsgiverProvider>
       </AppStoreProvider>
     );
-    expect(screen.getByRole('link', { name: '+ Legg til enda en ansatt' }));
+    expect(screen.getByText(/Feilmelding1/)).toBeInTheDocument();
+    expect(screen.getByText(/Feilmelding2/)).toBeInTheDocument();
   });
 
-  it('viser erklæring', () => {
+  it('viser leggtil knapp', () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={feil}>
@@ -241,16 +242,36 @@ describe('Ansatte', () => {
       </AppStoreProvider>
     );
     expect(
-      screen.getByRole('checkbox', { name: 'Vi erklærer:' }).checked
-    ).toEqual(false);
+      screen.getByRole('link', { name: '+ Legg til enda en ansatt' })
+    ).toBeInTheDocument();
+  });
+
+  it('viser erklæring', () => {
+    render(
+      <AppStoreProvider defaultTokenExpired={false}>
+        <ArbeidsgiverProvider
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
+        >
+          <MemoryRouter initialEntries={['/']}>
+            <BulkProvider ansatte={ansatte} feil={feil}>
+              <Ansatte />
+            </BulkProvider>
+          </MemoryRouter>
+        </ArbeidsgiverProvider>
+      </AppStoreProvider>
+    );
+    expect(
+      screen.getByRole('checkbox', { name: 'Vi erklærer:' })
+    ).toHaveProperty('checked', false);
   });
 
   it('viser bekreft knapp', () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={feil}>
@@ -265,10 +286,10 @@ describe('Ansatte', () => {
 
   it('viser logget ut advarsel', () => {
     render(
-      <AppStoreProvider tokenExpired={true}>
+      <AppStoreProvider defaultTokenExpired={true}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={feil}>
@@ -282,15 +303,15 @@ describe('Ansatte', () => {
       screen.getByText(
         'Du er blitt logget ut, følg instruksjonene for ikke å miste data'
       )
-    );
+    ).toBeInTheDocument();
   });
 
   it('viser IKKE logget ut advarsel', () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={feil}>
@@ -310,10 +331,10 @@ describe('Ansatte', () => {
 
   it('viser ikke feilmelding om man klikker send inn etter at man har huket av erklæringen', () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={[]}>
@@ -338,10 +359,10 @@ describe('Ansatte', () => {
 
   it('viser feilmelding om man klikker send inn uten å ha sjekket av at man erklærer', () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={[]}>
@@ -362,11 +383,11 @@ describe('Ansatte', () => {
   });
 
   it('skjer ingenting om man gjør en submit på formen', () => {
-    let { asFragment } = render(
-      <AppStoreProvider tokenExpired={false}>
+    const { asFragment } = render(
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={[]}>
@@ -412,6 +433,7 @@ describe('Ansatte', () => {
     ];
 
     jest.spyOn(global, 'fetch').mockImplementation(() =>
+      // @ts-ignore
       Promise.resolve({
         status: 200,
         json: () => Promise.resolve(backendResponce)
@@ -419,10 +441,10 @@ describe('Ansatte', () => {
     );
 
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={[]}>
@@ -465,6 +487,7 @@ describe('Ansatte', () => {
     ];
 
     jest.spyOn(global, 'fetch').mockImplementation(() =>
+      // @ts-ignore
       Promise.resolve({
         status: 200,
         json: () => Promise.resolve(backendResponce)
@@ -472,10 +495,10 @@ describe('Ansatte', () => {
     );
 
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={[]}>
@@ -502,6 +525,7 @@ describe('Ansatte', () => {
 
   it('skal vise at du har blitt logget av ved 401', async () => {
     jest.spyOn(global, 'fetch').mockImplementation(() =>
+      // @ts-ignore
       Promise.resolve({
         status: 401,
         json: () => {}
@@ -509,10 +533,10 @@ describe('Ansatte', () => {
     );
 
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/']}>
             <BulkProvider ansatte={ansatte} feil={[]}>
@@ -540,10 +564,4 @@ describe('Ansatte', () => {
       )
     );
   });
-
-  // TODO: Håndtere error 500
-  // it('skal vise at feilmelding ved error 500', async () => {  })
-
-  // TODO: Håndtere timeout
-  // it('skal vise at feilmelding ved timeout fra server', async () => {  })
 });

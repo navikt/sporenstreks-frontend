@@ -1,10 +1,4 @@
-import React from 'react';
-import {
-  Maximum,
-  Feilmelding,
-  isValidFom,
-  isValidTom
-} from './PeriodeValidator';
+import { Feilmelding, isValidFom, isValidTom } from './PeriodeValidator';
 import dayjs from 'dayjs';
 
 describe('PeriodeValidator', () => {

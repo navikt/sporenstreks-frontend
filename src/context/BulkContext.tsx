@@ -2,24 +2,24 @@ import React, { createContext, useContext, useState } from 'react';
 import { Ansatt, byggAnsatt } from '../components/bulk/Ansatt';
 import { ValideringsFeil } from '../components/bulk/ValideringsFeil';
 
-interface BulkContext {
+interface BulkContextValues {
   ansatte: Ansatt[];
-  setAnsatte;
+  setAnsatte: (ansatte: Ansatt[]) => void;
   feil: ValideringsFeil[];
-  setFeil;
+  setFeil: (feil: ValideringsFeil[]) => void;
   loadingStatus: number;
-  setLoadingStatus;
+  setLoadingStatus: (status: number) => void;
 }
 
 export const buildBulkContext = () =>
   ({
     ansatte: [],
-    setAnsatte: function (ansatte: Ansatt[]) {}, // eslint-disable-line @typescript-eslint/no-unused-vars
+    setAnsatte: (ansatte: Ansatt[]) => ansatte,
     feil: [],
-    setFeil: function (feil: ValideringsFeil[]) {}, // eslint-disable-line @typescript-eslint/no-unused-vars
+    setFeil: (feil: ValideringsFeil[]) => feil,
     loadingStatus: -1,
-    setLoadingStatus: function (status) {} // eslint-disable-line @typescript-eslint/no-unused-vars
-  } as BulkContext);
+    setLoadingStatus: (status: number) => status
+  } as BulkContextValues);
 
 const BulkContext = createContext(buildBulkContext());
 

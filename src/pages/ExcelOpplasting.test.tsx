@@ -1,6 +1,5 @@
-import '@testing-library/jest-dom';
 import React from 'react';
-import { render, screen, act } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route } from 'react-router-dom';
 import ExcelOpplasting from './ExcelOpplasting';
 import userEvent from '@testing-library/user-event';
@@ -86,11 +85,11 @@ describe('ExcelOpplasting', () => {
       })
     );
 
-    const view = render(
-      <AppStoreProvider tokenExpired={false}>
+    render(
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter initialEntries={['/excel']}>
             <Route path='/excel'>
@@ -104,13 +103,13 @@ describe('ExcelOpplasting', () => {
       </AppStoreProvider>
     );
 
-    const uploadButton = view.getByLabelText(/Last opp utfylt Excel-mal/);
+    const uploadButton = screen.getByLabelText(/Last opp utfylt Excel-mal/);
 
     userEvent.upload(uploadButton, mockFile);
 
     expect(screen.getByLabelText(/fil.xlsx/)).toBeInTheDocument();
 
-    userEvent.click(view.getByRole('checkbox'));
+    userEvent.click(screen.getByRole('checkbox'));
 
     // bruker får sendt inn skjema når erklæring er avhuket
     expect(
@@ -121,11 +120,10 @@ describe('ExcelOpplasting', () => {
       screen.getByRole('button', { name: 'Send søknad om refusjon' })
     );
 
-    // @ts-ignore
-    await act(() => jsonPromise);
+    await waitFor(() => jsonPromise);
 
     // bruker blir sendt til kvitteringside
-    expect(screen.getByText('Søknaden er mottatt.'));
+    expect(screen.getByText('Søknaden er mottatt.')).toBeInTheDocument();
   });
 
   it('displays errors when uploaded file is not accepted', async () => {
@@ -139,11 +137,11 @@ describe('ExcelOpplasting', () => {
       })
     );
 
-    const view = render(
-      <AppStoreProvider tokenExpired={false}>
+    render(
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter>
             <ExcelOpplasting />
@@ -151,14 +149,14 @@ describe('ExcelOpplasting', () => {
         </ArbeidsgiverProvider>
       </AppStoreProvider>
     );
-    const uploadButton = view.getByLabelText(/Last opp utfylt Excel-mal/);
+    const uploadButton = screen.getByLabelText(/Last opp utfylt Excel-mal/);
     userEvent.upload(uploadButton, mockFile);
 
     // bruker får lastet opp .xlsx-fil
     expect(screen.getByLabelText('fil.xlsx')).toBeInTheDocument();
 
     // bruker får sendt inn skjema når erklæring er avhuket
-    userEvent.click(view.getByRole('checkbox'));
+    userEvent.click(screen.getByRole('checkbox'));
 
     expect(
       screen.getByRole('button', { name: 'Send søknad om refusjon' })
@@ -168,8 +166,7 @@ describe('ExcelOpplasting', () => {
       screen.getByRole('button', { name: 'Send søknad om refusjon' })
     );
 
-    // @ts-ignore
-    await act(() => jsonPromise);
+    await waitFor(() => jsonPromise);
 
     // bruker får feilmeldinger
     expect(
@@ -190,11 +187,11 @@ describe('ExcelOpplasting', () => {
       })
     );
 
-    const view = render(
-      <AppStoreProvider tokenExpired={false}>
+    render(
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter>
             <ExcelOpplasting />
@@ -202,14 +199,14 @@ describe('ExcelOpplasting', () => {
         </ArbeidsgiverProvider>
       </AppStoreProvider>
     );
-    const uploadButton = view.getByLabelText(/Last opp utfylt Excel-mal/);
+    const uploadButton = screen.getByLabelText(/Last opp utfylt Excel-mal/);
     userEvent.upload(uploadButton, mockFile);
 
     // bruker får lastet opp .xlsx-fil
     expect(screen.getByLabelText('fil.xlsx')).toBeInTheDocument();
 
     // bruker får sendt inn skjema når erklæring er avhuket
-    userEvent.click(view.getByRole('checkbox'));
+    userEvent.click(screen.getByRole('checkbox'));
 
     expect(
       screen.getByRole('button', { name: 'Send søknad om refusjon' })
@@ -219,8 +216,7 @@ describe('ExcelOpplasting', () => {
       screen.getByRole('button', { name: 'Send søknad om refusjon' })
     );
 
-    // @ts-ignore
-    await act(() => jsonPromise);
+    await waitFor(() => jsonPromise);
 
     expect(
       screen.getByText(
@@ -230,11 +226,11 @@ describe('ExcelOpplasting', () => {
   });
 
   it('disables submit when Erklæring is unchecked', () => {
-    const view = render(
-      <AppStoreProvider tokenExpired={false}>
+    render(
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter>
             <ExcelOpplasting />
@@ -242,7 +238,7 @@ describe('ExcelOpplasting', () => {
         </ArbeidsgiverProvider>
       </AppStoreProvider>
     );
-    const uploadButton = view.getByLabelText(/Last opp utfylt Excel-mal/);
+    const uploadButton = screen.getByLabelText(/Last opp utfylt Excel-mal/);
 
     userEvent.upload(uploadButton, mockFile);
 
@@ -260,17 +256,17 @@ describe('ExcelOpplasting', () => {
   });
 
   it('does not accept file upload over 250kB', () => {
-    const mockBigFile = ({
+    const mockBigFile = {
       size: 260000,
       fileName: 'tooLarge.xlsx',
       type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    } as unknown) as File;
+    } as unknown as File;
 
-    const view = render(
-      <AppStoreProvider tokenExpired={false}>
+    render(
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter>
             <ExcelOpplasting />
@@ -278,31 +274,31 @@ describe('ExcelOpplasting', () => {
         </ArbeidsgiverProvider>
       </AppStoreProvider>
     );
-    const uploadButton = view.getByLabelText(/Last opp utfylt Excel-mal/);
+    const uploadButton = screen.getByLabelText(/Last opp utfylt Excel-mal/);
 
     userEvent.upload(uploadButton, mockBigFile);
 
     //opplastingsknappen får samme navn som fil hvis den er lastet opp
-    expect(view.queryByText('fil.xlsx')).not.toBeInTheDocument();
+    expect(screen.queryByText('fil.xlsx')).not.toBeInTheDocument();
 
     //feilmeldinger skal vises dersom opplasting gikk galt
 
     expect(
-      view.getByText(
+      screen.getByText(
         /Følgende feil i dokumentet må utbedres før du laster det opp på nytt/
       )
     ).toBeInTheDocument();
     expect(
-      view.getByText('Du kan ikke laste opp filer større enn 250 kB.')
+      screen.getByText('Du kan ikke laste opp filer større enn 250 kB.')
     ).toBeInTheDocument();
   });
 
   it('show links to the other forms', async () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter>
             <ExcelOpplasting />
@@ -311,23 +307,21 @@ describe('ExcelOpplasting', () => {
       </AppStoreProvider>
     );
     expect(
-      // @ts-ignore
-      screen.getByRole('link', { name: 'skal du bruke et eget skjema' }).href
-    ).toEqual('http://localhost/enkel/');
+      screen.getByRole('link', { name: 'skal du bruke et eget skjema' })
+    ).toHaveAttribute('href', '/enkel/');
     expect(
       screen.getByRole('link', {
         name: 'eget skjema for å søke om refusjonskrav for flere ansatte'
-        // @ts-ignore
-      }).href
-    ).toEqual('http://localhost/bulk/');
+      })
+    ).toHaveAttribute('href', '/bulk/');
   });
 
   it('show download link for template bulk krav', async () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter>
             <ExcelOpplasting />
@@ -336,19 +330,18 @@ describe('ExcelOpplasting', () => {
       </AppStoreProvider>
     );
     expect(
-      // @ts-ignore
       screen.getByRole('link', {
         name: 'Last ned malen for nye refusjonskrav her,'
-      }).href
-    ).toEqual('http://localhost:8080/api/v1/bulk/template');
+      })
+    ).toHaveAttribute('href', 'http://localhost:8080/api/v1/bulk/template');
   });
 
   it('show download link for template tariff oppdatering av krav', async () => {
     render(
-      <AppStoreProvider tokenExpired={false}>
+      <AppStoreProvider defaultTokenExpired={false}>
         <ArbeidsgiverProvider
-          arbeidsgivere={mockArbeidsgiverValues}
-          status={Status.Successfully}
+          defaultArbeidsgivere={mockArbeidsgiverValues}
+          defaultStatus={Status.Successfully}
         >
           <MemoryRouter>
             <ExcelOpplasting />
@@ -360,7 +353,10 @@ describe('ExcelOpplasting', () => {
       // @ts-ignore
       screen.getByRole('link', {
         name: 'endring av tidligere innsendt krav brukes denne malen.'
-      }).href
-    ).toEqual('http://localhost:8080/api/v1/bulk/tariff-template');
+      })
+    ).toHaveAttribute(
+      'href',
+      'http://localhost:8080/api/v1/bulk/tariff-template'
+    );
   });
 });

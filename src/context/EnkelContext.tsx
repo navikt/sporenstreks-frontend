@@ -5,7 +5,7 @@ export const fnrErrorState = {
   noError: 'tom'
 };
 
-interface EnkelContext {
+interface EnkelContextVerdier {
   referanseNummer: string;
   setReferanseNummer;
   identityNumberInput: string;
@@ -23,18 +23,18 @@ interface EnkelContext {
 export const buildEnkelContext = () =>
   ({
     referanseNummer: '',
-    setReferanseNummer: function (nr) {}, // eslint-disable-line @typescript-eslint/no-unused-vars
+    setReferanseNummer: (nr: string) => nr,
     identityNumberInput: '',
-    setIdentityNumberInput: function (nr) {}, // eslint-disable-line @typescript-eslint/no-unused-vars
+    setIdentityNumberInput: (nr: string) => nr,
     erklæringAkseptert: false,
-    setErklæringAkseptert: function (akseptert) {}, // eslint-disable-line @typescript-eslint/no-unused-vars
+    setErklæringAkseptert: (akseptert: boolean) => akseptert,
     sendSkjemaOpen: false,
-    setSendSkjemaOpen: function (skjemaOpen) {}, // eslint-disable-line @typescript-eslint/no-unused-vars
+    setSendSkjemaOpen: (skjemaOpen: boolean) => skjemaOpen,
     formData: {},
-    setFormData: function (formData) {}, // eslint-disable-line @typescript-eslint/no-unused-vars
+    setFormData: (formData) => formData,
     fnrClassName: fnrErrorState.noError,
-    setFnrClassName: function (fnrClassName) {} // eslint-disable-line @typescript-eslint/no-unused-vars
-  } as EnkelContext);
+    setFnrClassName: (fnrClassName: string) => fnrClassName
+  } as EnkelContextVerdier);
 
 const EnkelContext = createContext(buildEnkelContext());
 
