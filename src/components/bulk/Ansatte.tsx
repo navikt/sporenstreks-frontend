@@ -32,10 +32,8 @@ const Ansatte: React.FC = () => {
   const { setTokenExpired } = useAppStore();
   const history: History = useHistory();
   const [erklæringAkseptert, setErklæringAkseptert] = useState<boolean>(false);
-  const [
-    harTrykketSubmitMinstEnGang,
-    setHarTrykketSubmitMinstEnGang
-  ] = useState<boolean>(false);
+  const [harTrykketSubmitMinstEnGang, setHarTrykketSubmitMinstEnGang] =
+    useState<boolean>(false);
   const handleBekreftSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     let localTokenExpired = false;
@@ -97,8 +95,8 @@ const Ansatte: React.FC = () => {
                 <InternLenke to={Linker.Excel}>
                   benytte Excel-opplasting.
                 </InternLenke>{' '}
-                Hvis dere vil endre tidliger innsendte krav pga. tariffendring
-                må dere{' '}
+                Hvis dere vil endre tidliger innsendte krav pga. f.eks.
+                tariffendring må dere{' '}
                 <InternLenke to={Linker.Excel}>
                   benytte Excel-opplasting.
                 </InternLenke>{' '}
