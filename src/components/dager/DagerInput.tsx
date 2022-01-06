@@ -23,6 +23,7 @@ export const DagerInput = ({
   const [lokalFeil, setLokalFeil] = useState<string | undefined>();
   const valgbareDager = antallRefusjonsdager(startdato);
   const optionArr = Array.from(Array(valgbareDager + 1).keys());
+  optionArr.unshift(-1);
 
   const handleDagerBlur = (evt) => {
     const feilmelding = validateDager(evt.target.value);
@@ -55,7 +56,7 @@ export const DagerInput = ({
     >
       {optionArr.map((optionValue) => (
         <option key={optionValue} value={optionValue}>
-          {optionValue ? optionValue : '-'}
+          {optionValue !== -1 ? optionValue : '-'}
         </option>
       ))}
     </Select>

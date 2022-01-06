@@ -15,7 +15,7 @@ export const BulkDager = (props: BulkDagerInterface) => {
   const aktuellAnsatt = ansatte.find((ansatt) => ansatt.id === props.id);
   const handleChange = (evt) => {
     if (aktuellAnsatt) {
-      aktuellAnsatt.antallDagerMedRefusjon = parseInt(evt.target.selectedIndex);
+      aktuellAnsatt.antallDagerMedRefusjon = parseInt(evt.target.value);
       aktuellAnsatt.dagerError = validateDager(
         aktuellAnsatt.antallDagerMedRefusjon
       );
@@ -26,6 +26,7 @@ export const BulkDager = (props: BulkDagerInterface) => {
   const refusjonsdager = antallRefusjonsdager(props.startdato);
 
   const optionArr = Array.from(Array(refusjonsdager + 1).keys());
+
   return (
     <Select
       id={'dager_' + props.id}
