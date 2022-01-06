@@ -337,7 +337,7 @@ function validateValuesAreSet(
         }
         break;
       case 'dager':
-        if (!formAsJson[element] || formAsJson[element] === '0') {
+        if (!formAsJson[element] || Number(formAsJson[element]) < 0) {
           methods.setError(element, {
             type: 'Antall dager må fylles ut',
             message: 'Antall dager må fylles ut'

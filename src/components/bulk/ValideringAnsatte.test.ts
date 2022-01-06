@@ -104,25 +104,29 @@ describe('ValideringAnsatte', () => {
         fnr: TestFnr.GyldigeFraDolly.TestPerson1,
         fnrError: undefined,
         fom: '2020-01-01',
+        fomError: undefined,
         id: 123,
         oppdatert: 1,
         periodeError: undefined,
         status: 0,
-        tom: '2020-02-02'
+        tom: '2020-02-02',
+        tomError: undefined
       },
       {
         antallDagerMedRefusjon: -1,
         beloep: 123,
         beloepError: undefined,
-        dagerError: 'Dager må være 0 eller høyere',
+        dagerError: 'Dager må være høyere enn 0',
         fnr: TestFnr.GyldigeFraDolly.TestPerson2,
         fnrError: undefined,
         fom: '2020-03-03',
+        fomError: undefined,
         id: 123,
         oppdatert: 1,
         periodeError: undefined,
         status: 0,
-        tom: '2020-04-04'
+        tom: '2020-04-04',
+        tomError: undefined
       }
     ];
 
@@ -267,15 +271,17 @@ describe('ValideringAnsatte', () => {
         antallDagerMedRefusjon: 0,
         beloep: 666,
         beloepError: 'Beløpet må være 0 når antall dager med refusjon er 0',
-        dagerError: undefined,
+        dagerError: 'Dager må være høyere enn 0',
         fnr: TestFnr.GyldigeFraDolly.TestPerson2,
         fnrError: undefined,
         fom: '2020-03-03',
+        fomError: undefined,
         id: 123,
         oppdatert: 1,
         periodeError: undefined,
         status: 0,
-        tom: '2020-04-04'
+        tom: '2020-04-04',
+        tomError: undefined
       }
     ];
 

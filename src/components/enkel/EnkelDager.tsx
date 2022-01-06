@@ -16,7 +16,7 @@ const EnkelDager = (props: EnkelDagerProps) => {
   } = useFormContext();
   const componentId = 'dager_' + props.index;
   const onChange = (dager?: number) => {
-    if (!dager) {
+    if (dager < 0) {
       setError(componentId, {
         type: 'Antall dager må fylles ut',
         message: 'Antall dager må fylles ut'
