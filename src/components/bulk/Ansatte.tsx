@@ -95,7 +95,7 @@ const Ansatte: React.FC = () => {
                 <InternLenke to={Linker.Excel}>
                   benytte Excel-opplasting.
                 </InternLenke>{' '}
-                Hvis dere vil endre tidliger innsendte krav pga. f.eks.
+                Hvis dere vil endre tidligere innsendte krav pga. f.eks.
                 tariffendring må dere{' '}
                 <InternLenke to={Linker.Excel}>
                   benytte Excel-opplasting.
