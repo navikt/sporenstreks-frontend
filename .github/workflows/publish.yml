@@ -79,15 +79,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
       - uses: actions/download-artifact@v2
         with:
           name: sporenstreks-frontend-artifact
           path: build
-      - run: |
-          git config --global user.email "helsearbeidsgiver@nav.no"
-          git config --global user.name "HelseArbeidsgiver"
-          npm version ${{ github.event.release.tag_name }}
-          git push origin HEAD:main
       - uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
