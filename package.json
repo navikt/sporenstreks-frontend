@@ -3,6 +3,7 @@
   "version": "0.1.19",
   "private": true,
   "proxy": "http://localhost:8080",
+  "homepage": "/nettrefusjon/",
   "scripts": {
     "start:js": "react-scripts start --development",
     "build:js": "react-scripts build",
