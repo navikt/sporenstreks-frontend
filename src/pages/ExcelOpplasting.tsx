@@ -103,7 +103,9 @@ const ExcelOpplasting = () => {
             </Normaltekst>
           </Panel>
           <Panel>
-            <Undertittel>Nye refusjonskrav</Undertittel>
+            <Undertittel>
+              Nye refusjonskrav for perioder etter 1. desember 2021
+            </Undertittel>
             <Normaltekst>
               <img
                 src={excellogo}
@@ -114,28 +116,33 @@ const ExcelOpplasting = () => {
               <Lenke href={env.downloadUrl + '/api/v1/bulk/template'}>
                 Last ned malen for nye refusjonskrav her,
               </Lenke>{' '}
-              og fyll ut. Det er ikke mulig å benytte ditt eget excel-dokument,
+              og fyll ut. Det er ikke mulig å benytte ditt eget Excel-dokument,
               alt må fylles ut i denne malen før du laster opp. NB, det kan maks
-              legges inn 5000 linjer per excel-doc. Om det ikke er
-              tilstrekkelig, må dere gjøre dette i flere omganger.
+              legges inn 5000 linjer per Excel-fil. Om det ikke er
+              tilstrekkelig, må dere gjøre dette i flere omganger. Dette skjema
+              gjelder også endring av tidligere innsendt krav for perioder etter
+              1 desember 2021.
             </Normaltekst>
           </Panel>
           <Panel>
-            <Undertittel>Endring av tidligere innsendte krav</Undertittel>
+            <Undertittel>
+              Endring av tidligere innsendte krav for perioder før 1. oktober
+              2021
+            </Undertittel>
+            <img
+              src={excellogo}
+              width='35'
+              className='excelopplasting__excellogo'
+              alt='Excel-symbol'
+            />
             <Normaltekst>
-              <img
-                src={excellogo}
-                width='35'
-                className='excelopplasting__excellogo'
-                alt='Excel-symbol'
-              />
               Gjelder det{' '}
               <Lenke href={env.downloadUrl + '/api/v1/bulk/tariff-template'}>
                 endring av tidligere innsendt krav brukes denne malen.
               </Lenke>{' '}
-              Dette gjelder kun for tariffendring. NB, det kan maks legges inn
-              5000 linjer per excel-doc. Om det ikke er tilstrekkelig, må dere
-              gjøre dette i flere omganger.
+              Dette gjelder for tariffendring eller hvis tidligere innsendt krav
+              er feil. NB, det kan maks legges inn 5000 linjer per Excel-fil. Om
+              det ikke er tilstrekkelig, må dere gjøre dette i flere omganger.
             </Normaltekst>
           </Panel>
         </Column>

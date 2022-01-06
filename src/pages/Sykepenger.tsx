@@ -228,7 +228,7 @@ const Sykepenger = () => {
                     <InternLenke to={Linker.Excel}>
                       benytte Excel-opplasting.
                     </InternLenke>{' '}
-                    Hvis dere vil endre tidliger innsendte krav pga.
+                    Hvis dere vil endre tidliger innsendte krav pga. f.eks.
                     tariffendring må dere{' '}
                     <InternLenke to={Linker.Excel}>
                       benytte Excel-opplasting.
