@@ -121,7 +121,7 @@ const ExcelOpplasting = () => {
               legges inn 5000 linjer per Excel-fil. Om det ikke er
               tilstrekkelig, må dere gjøre dette i flere omganger. Dette skjema
               gjelder også endring av tidligere innsendt krav for perioder etter
-              1 desember 2021.
+              1. desember 2021.
             </Normaltekst>
           </Panel>
           <Panel>
