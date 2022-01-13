@@ -67,7 +67,7 @@ describe('ArbeidsgiverAPI', () => {
     expect(result.organisasjoner[0].Name).toEqual('STADLANDET OG SINGSÅS');
     expect(result.organisasjoner[0].OrganizationForm).toEqual('AS');
     expect(result.organisasjoner[0].OrganizationNumber).toEqual('911366940');
-    expect(result.organisasjoner[0].ParentOrganizationNumber).toEqual(null);
+    expect(result.organisasjoner[0].ParentOrganizationNumber).toEqual('');
     expect(result.organisasjoner[0].Status).toEqual('Active');
     expect(result.organisasjoner[0].Type).toEqual('Enterprise');
   });
