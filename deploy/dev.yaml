@@ -34,10 +34,13 @@ spec:
       cpu: 400m
       memory: 256Mi
   vault:
-    enabled: true
-    paths:
-      - kvPath: apikey/apigw/dev/sporenstreks/sporenstreks-frontend_q1
-        mountPath: /apigw/sporenstreks
+    enabled: false
+  accessPolicy:
+    outbound:
+      external:
+        - host: api-gw-q1.oera.no
+  envFrom:
+    - sporenstreks-frontend-api-gw-key
   env:
     - name: API_GATEWAY
       value: https://api-gw-q1.oera.no/sporenstreks
