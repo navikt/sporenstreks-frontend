@@ -39,7 +39,7 @@ spec:
       external:
         - host: api-gw.oera.no
   envFrom:
-    - sporenstreks-frontend-api-gw-key
+    - secret: sporenstreks-frontend-api-gw-key
   env:
     - name: API_GATEWAY
       value: https://api-gw.oera.no/sporenstreks
