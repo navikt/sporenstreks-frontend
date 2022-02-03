@@ -39,7 +39,7 @@ const cookieMock = RequestMock()
   .respond('"2025-08-02T10:51:34.000+00:00"', 200, headereJson)
   .onRequestTo(cookiePlease)
   .respond(
-    "<script>window.location.href='http://localhost:3000/nettrefusjon/bulk/?bedrift=810007842?loggedIn=true';</script>",
+    "<script>window.location.href='http://localhost:3000/nettrefusjon/bulk/?bedrift=810007842&loggedIn=true&TestCafe=running';</script>",
     200,
     headereText
   )
@@ -54,7 +54,7 @@ const cookieMock = RequestMock()
 
 fixture`Enkeltinnsending`.clientScripts([
   { module: 'mockdate' },
-  { content: "MockDate.set('2021-06-22')" }
+  { content: "MockDate.set('2022-01-22')" }
 ])
   .page`http://localhost:3000/nettrefusjon/bulk/?bedrift=810007842&TestCafe=running`
   .requestHooks(cookieMock)
@@ -115,7 +115,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
 
   const belop = ReactSelector('EnkelRefusjon');
   await t
-    .typeText(belop, '5000')
+    .typeText(belop, '500000')
     .expect(Selector('html').textContent)
     .notContains('Beløp må fylles ut');
 
@@ -126,7 +126,8 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .click(velgDager)
     .click(velgDagerOption.withText('5'))
     .expect(Selector('html').textContent)
-    .notContains('Feltet må fylles ut');
+    .notContains('Feltet må fylles ut')
+    .debug();
 
   const fraDato = ReactSelector('Datovelger').nth(0);
   const tilDato = ReactSelector('Datovelger').nth(1);
