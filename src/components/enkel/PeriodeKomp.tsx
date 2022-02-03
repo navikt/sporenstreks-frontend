@@ -41,11 +41,14 @@ const PeriodeKomp = (props: PeriodeKompProps) => {
     setRefusjon(refusjonsBelop);
   };
 
-  const muligMaksimalRefusjon = (grunnbelop: number, dager: number): number => {
-    const aarsbelop = grunnbelop * 6;
+  const muligMaksimalRefusjon = (
+    refusjonGrunnbelop: number,
+    refusjonDager: number
+  ): number => {
+    const aarsbelop = refusjonGrunnbelop * 6;
     const dagsbelop = aarsbelop / 260;
 
-    return dagsbelop * dager;
+    return dagsbelop * refusjonDager;
   };
 
   return (

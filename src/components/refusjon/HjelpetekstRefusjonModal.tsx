@@ -4,7 +4,7 @@ import { Undertittel } from 'nav-frontend-typografi';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import React from 'react';
 
-interface HjelpeteksRefusjonsModalInterface {
+interface HjelpetekstRefusjonModalInterface {
   isOpen: boolean;
   onClose: any;
 }
@@ -93,10 +93,10 @@ const VeilederIkon = (
   </svg>
 );
 
-export default function HjelpeteksRefusjonsModal({
+export default function HjelpetekstRefusjonModal({
   isOpen,
   onClose
-}: HjelpeteksRefusjonsModalInterface) {
+}: HjelpetekstRefusjonModalInterface) {
   return (
     <ModalWrapper
       isOpen={isOpen}
