@@ -5,6 +5,7 @@ import DagerInput from '../dager/DagerInput';
 interface EnkelDagerProps {
   index: number;
   startdato: Date;
+  onChange?: (dager: number) => void;
 }
 
 const EnkelDager = (props: EnkelDagerProps) => {
@@ -24,6 +25,10 @@ const EnkelDager = (props: EnkelDagerProps) => {
       return false;
     } else {
       clearErrors([componentId, 'backend']);
+
+      if (props.onChange) {
+        props.onChange(dager);
+      }
       return true;
     }
   };

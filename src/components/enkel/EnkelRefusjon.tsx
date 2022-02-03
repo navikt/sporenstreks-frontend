@@ -6,6 +6,7 @@ import validateRefusjon from '../refusjon/validateRefusjon';
 
 interface EnkelRefusjonProps {
   index: number;
+  onChange?: (belop: number) => void;
 }
 
 const EnkelRefusjon = (props: EnkelRefusjonProps) => {
@@ -17,6 +18,7 @@ const EnkelRefusjon = (props: EnkelRefusjonProps) => {
     clearErrors
   } = useFormContext();
   const componentId = 'refusjon_' + props.index;
+
   const handleChange = (refusjon?: number) => {
     setValue(componentId, refusjon);
     const errorMessage = validateRefusjon(refusjon);
@@ -24,6 +26,9 @@ const EnkelRefusjon = (props: EnkelRefusjonProps) => {
       setError(componentId, { type: errorMessage, message: errorMessage });
     } else {
       clearErrors([componentId, 'backend']);
+    }
+    if (props.onChange) {
+      props.onChange(refusjon);
     }
   };
   return (
