@@ -5,7 +5,7 @@ on:
     types: [published]
 
 env:
-  IMAGE: ghcr.io/${{ github.repository }}/sporenstreks-frontend:${{ github.sha }}
+  IMAGE: ghcr.io/${{ github.repository }}/${{ github.event.repository.name }}:${{ github.sha }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -73,7 +73,7 @@ jobs:
           docker push ${{ env.IMAGE }}
 
   Deploy:
-    name: Deploy
+    name: Deploy to prod-gcp
     needs: [Docker]
     runs-on: ubuntu-latest
     steps:
@@ -88,6 +88,6 @@ jobs:
       - uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: prod-sbs
+          CLUSTER: prod-gcp
           RESOURCE: deploy/prod.yaml
           TEAM: helsearbeidsgiver

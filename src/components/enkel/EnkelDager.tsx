@@ -17,7 +17,6 @@ const EnkelDager = (props: EnkelDagerProps) => {
   } = useFormContext();
   const componentId = 'dager_' + props.index;
   const onChange = (dager: ChangeEvent<HTMLSelectElement>) => {
-    debugger; // eslint-disable-line
     if (0 > Number(dager.currentTarget.value)) {
       setError(componentId, {
         type: 'Antall dager må fylles ut',

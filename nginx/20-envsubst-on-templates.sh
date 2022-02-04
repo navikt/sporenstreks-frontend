@@ -2,13 +2,7 @@
 
 set -e
 
-export GATEWAY_KEY="noGatewayKey"
-
-if test -d /apigw/sporenstreks;
-then
-  export GATEWAY_KEY=$(cat /apigw/sporenstreks/x-nav-apiKey)
-fi
-
+export GATEWAY_KEY=${X_NAV_APIKEY:-noGatewayKey}
 export API_GATEWAY="${API_GATEWAY:-http://localhost:8080}"
 
 ME=$(basename $0)
