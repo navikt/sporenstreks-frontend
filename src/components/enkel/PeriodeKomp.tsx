@@ -10,6 +10,7 @@ import dayjs from 'dayjs';
 import AlertStripe from 'nav-frontend-alertstriper';
 import HjelpeteksRefusjonsModal from '../refusjon/HjelpetekstRefusjonModal';
 import './PeriodeKomp.scss';
+import muligMaksimalRefusjon from '../felles/muligMaksimalRefusjon';
 
 interface PeriodeKompProps {
   index: number;
@@ -39,16 +40,6 @@ const PeriodeKomp = (props: PeriodeKompProps) => {
 
   const onRefusjonChange = (refusjonsBelop: number) => {
     setRefusjon(refusjonsBelop);
-  };
-
-  const muligMaksimalRefusjon = (
-    refusjonGrunnbelop: number,
-    refusjonDager: number
-  ): number => {
-    const aarsbelop = refusjonGrunnbelop * 6;
-    const dagsbelop = aarsbelop / 260;
-
-    return dagsbelop * refusjonDager;
   };
 
   const beregnetMaksimalRefusjon = muligMaksimalRefusjon(grunnbelop, dager);

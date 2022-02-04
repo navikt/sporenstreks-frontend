@@ -16,6 +16,7 @@ import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import AlertStripe from 'nav-frontend-alertstriper';
 import HjelpeteksRefusjonsModal from '../refusjon/HjelpetekstRefusjonModal';
 import './AnsattRad.scss';
+import muligMaksimalRefusjon from '../felles/muligMaksimalRefusjon';
 
 export const AnsattRad = ({ id }: AnsattID) => {
   const { ansatte, setAnsatte, setFeil } = useBulk();
@@ -38,16 +39,6 @@ export const AnsattRad = ({ id }: AnsattID) => {
   };
 
   const a = ansatte.find((ansatt) => ansatt.id === id) || byggAnsatt();
-
-  const muligMaksimalRefusjon = (
-    refusjonGrunnbelop: number,
-    refusjonDager: number
-  ): number => {
-    const aarsbelop = refusjonGrunnbelop * 6;
-    const dagsbelop = aarsbelop / 260;
-
-    return dagsbelop * refusjonDager;
-  };
 
   const beregnetMaksimalRefusjon = muligMaksimalRefusjon(
     grunnbelop,
