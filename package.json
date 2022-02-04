@@ -129,8 +129,5 @@
     "ts-jest": "^27.1.2",
     "yet-another-fetch-mock": "^4.1.0"
   },
-  "snyk": true,
-  "prettier": {
-    "printWidth": 120
-  }
+  "snyk": true
 }

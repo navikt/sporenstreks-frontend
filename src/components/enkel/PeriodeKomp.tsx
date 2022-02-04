@@ -9,6 +9,7 @@ import getGrunnbeloep from '../../api/grunnbelop/getGrunnbeloep';
 import dayjs from 'dayjs';
 import AlertStripe from 'nav-frontend-alertstriper';
 import HjelpeteksRefusjonsModal from '../refusjon/HjelpetekstRefusjonModal';
+import './PeriodeKomp.scss';
 
 interface PeriodeKompProps {
   index: number;
@@ -20,7 +21,7 @@ interface PeriodeKompProps {
 
 const PeriodeKomp = (props: PeriodeKompProps) => {
   const [startDate, setStartDate] = useState<Date>(new Date());
-  const [grunnbelop, setGrunnbelop] = useState<number>();
+  const [grunnbelop, setGrunnbelop] = useState<number>(0);
   const [refusjon, setRefusjon] = useState<number>();
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [dager, setDager] = useState<number>(0);
@@ -29,7 +30,6 @@ const PeriodeKomp = (props: PeriodeKompProps) => {
     setStartDate(selectedDate);
     getGrunnbeloep(dayjs(selectedDate).format('YYYY-MM-DD')).then(
       (grunnbelopRespons) => {
-        console.log(grunnbelopRespons); // eslint-disable-line
         if (grunnbelopRespons.grunnbeloep) {
           setGrunnbelop(grunnbelopRespons.grunnbeloep.grunnbeloep);
         }
@@ -51,6 +51,8 @@ const PeriodeKomp = (props: PeriodeKompProps) => {
     return dagsbelop * refusjonDager;
   };
 
+  const beregnetMaksimalRefusjon = muligMaksimalRefusjon(grunnbelop, dager);
+
   return (
     <>
       <Row className='periode'>
@@ -69,28 +71,30 @@ const PeriodeKomp = (props: PeriodeKompProps) => {
             onChange={setDager}
           />
         </Column>
-        <Column md='3' xs='12'>
+        <Column md='2' xs='12'>
           <EnkelRefusjon index={props.index} onChange={onRefusjonChange} />
         </Column>
-        <Column md='1' xs='12'>
+        <Column md='2' xs='12'>
           <Vis hvis={props.numOfRows > 1}>
             <Slettknapp onClick={(e) => props.slettPeriode(e, props.index)} />
           </Vis>
         </Column>
       </Row>
-      {refusjon > muligMaksimalRefusjon(grunnbelop, dager) && (
+      {refusjon > beregnetMaksimalRefusjon && beregnetMaksimalRefusjon > 0 && (
         <>
           <Row>
-            <AlertStripe type='info'>
-              Refusjonsbeløpet er høyere enn normal 6G-grense basert på 260
-              arbeidsdager per år (5 arbeidsdager i uken).{' '}
-              <button className='Lenke' onClick={() => setModalOpen(true)}>
-                Se hvordan du beregner korrekt beløp her.
-              </button>{' '}
-              Hvis arbeidstakeren får utbetalt lønn for mindre enn 260 dager kan
-              refusjonsbeløpet likevel være korrekt. Du kan sende inn søknaden
-              uansett.
-            </AlertStripe>
+            <Column md='10' xs='12'>
+              <AlertStripe type='info' className='padded-alert'>
+                Refusjonsbeløpet er høyere enn normal 6G-grense basert på 260
+                arbeidsdager per år (5 arbeidsdager i uken).{' '}
+                <button className='lenke' onClick={() => setModalOpen(true)}>
+                  Se hvordan du beregner korrekt beløp her.
+                </button>{' '}
+                Hvis arbeidstakeren får utbetalt lønn for mindre enn 260 dager
+                kan refusjonsbeløpet likevel være korrekt. Du kan sende inn
+                søknaden uansett.
+              </AlertStripe>
+            </Column>
           </Row>
           <HjelpeteksRefusjonsModal
             isOpen={modalOpen}

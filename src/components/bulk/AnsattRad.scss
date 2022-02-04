@@ -1,0 +1,19 @@
+.padded-alert {
+    margin: 1rem 0.5rem;
+}
+
+.alertstripe.padded-alert .alertstripe__tekst {
+    max-width: 100%;
+}
+
+.alertstripe.padded-alert .lenke {
+    border: transparent;
+    color: #0067c5;
+}
+
+.alertstripe.padded-alert .lenke:active,
+.alertstripe.padded-alert .lenke:focus {
+    border: transparent;
+    color: white;   
+    text-decoration: underline;
+}

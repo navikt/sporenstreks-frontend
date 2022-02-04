@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { useFormContext } from 'react-hook-form';
 import DagerInput from '../dager/DagerInput';
 
@@ -16,8 +16,9 @@ const EnkelDager = (props: EnkelDagerProps) => {
     getValues
   } = useFormContext();
   const componentId = 'dager_' + props.index;
-  const onChange = (dager?: number) => {
-    if (dager < 0) {
+  const onChange = (dager: ChangeEvent<HTMLSelectElement>) => {
+    debugger; // eslint-disable-line
+    if (0 > Number(dager.currentTarget.value)) {
       setError(componentId, {
         type: 'Antall dager må fylles ut',
         message: 'Antall dager må fylles ut'
@@ -27,7 +28,7 @@ const EnkelDager = (props: EnkelDagerProps) => {
       clearErrors([componentId, 'backend']);
 
       if (props.onChange) {
-        props.onChange(dager);
+        props.onChange(Number(dager.currentTarget.value));
       }
       return true;
     }
