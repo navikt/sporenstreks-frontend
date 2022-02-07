@@ -10,7 +10,11 @@ import validateDato from './validateDato';
 import Datovelger from './Datovelger';
 import validateDatoRekkefolge from './validateDatoRekkefolge';
 
-const BulkPeriode = (props: AnsattID) => {
+interface BulkPeriodeProps extends AnsattID {
+  onClose: (selectedDate: string) => void;
+}
+
+const BulkPeriode = (props: BulkPeriodeProps) => {
   const perId1 = 'periode_' + props.id + '_fom';
   const { ansatte, setAnsatte } = useBulk();
   const ansatt: Ansatt = ansatte.find(
@@ -31,6 +35,7 @@ const BulkPeriode = (props: AnsattID) => {
         );
       }
     }
+    props.onClose(ansatt.fom);
     setAnsatte([...ansatte]);
   };
 
