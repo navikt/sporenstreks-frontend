@@ -126,8 +126,7 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
     .click(velgDager)
     .click(velgDagerOption.withText('5'))
     .expect(Selector('html').textContent)
-    .notContains('Feltet må fylles ut')
-    .debug();
+    .notContains('Feltet må fylles ut');
 
   const fraDato = ReactSelector('Datovelger').nth(0);
   const tilDato = ReactSelector('Datovelger').nth(1);
