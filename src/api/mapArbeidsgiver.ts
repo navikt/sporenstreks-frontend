@@ -5,16 +5,15 @@ export const mapArbeidsgiver = (
   backendData: BackendOrganisasjon[]
 ): Organisasjon[] =>
   backendData.map(
-    (backendOrganisasjon) =>
-      ({
-        Name: backendOrganisasjon.name,
-        Type: backendOrganisasjon.type,
-        OrganizationNumber: backendOrganisasjon.organizationNumber,
-        OrganizationForm: backendOrganisasjon.organizationForm,
-        Status: backendOrganisasjon.status,
-        ParentOrganizationNumber:
-          backendOrganisasjon.parentOrganizationNumber || ''
-      } as Organisasjon)
+    (backendOrganisasjon): Organisasjon => ({
+      Name: backendOrganisasjon.name,
+      Type: backendOrganisasjon.type,
+      OrganizationNumber: backendOrganisasjon.organizationNumber,
+      OrganizationForm: backendOrganisasjon.organizationForm,
+      Status: backendOrganisasjon.status,
+      ParentOrganizationNumber:
+        backendOrganisasjon.parentOrganizationNumber || ''
+    })
   );
 
 export default mapArbeidsgiver;
