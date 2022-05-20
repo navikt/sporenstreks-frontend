@@ -32,7 +32,7 @@ jobs:
           node-version: '16.x'
       - run: npm ci --no-build
       - run: npm test
-      - run: node run-sonar.js
+
 
   Eslint:
     runs-on: ubuntu-latest
