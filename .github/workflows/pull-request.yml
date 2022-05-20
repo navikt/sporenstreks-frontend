@@ -27,12 +27,6 @@ jobs:
           node-version: '16.x'
       - run: npm ci --no-build
       - run: npm test
-
-  SonarCloud:
-    name: SonarCloud
-    needs: [Kodekvalitet]
-    runs-on: ubuntu-latest
-    steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
