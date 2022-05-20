@@ -40,7 +40,7 @@
     "@sentry/react": "^6.19.7",
     "@sentry/tracing": "^6.19.7",
     "classnames": "^2.3.1",
-    "constate": "^3.3.0",
+    "constate": "^3.3.2",
     "dayjs": "^1.10.8",
     "i18next": "^21.8.3",
     "lodash.throttle": "^4.1.1",
