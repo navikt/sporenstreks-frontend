@@ -60,7 +60,7 @@ jobs:
         uses: snyk/actions/node@master
 
   Docker:
-    needs: [Bygg,Eslint,Kodekvalitet,SonarCloud,Snyk]
+    needs: [Bygg,Eslint,Kodekvalitet,Snyk]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
