@@ -26,6 +26,13 @@ const response500 = {
   instance:
     'urn:sporenstreks:uventent-feil:1f447140-6d6c-403c-bbc5-7e0f400bc684'
 };
+const response401 = [
+  {
+    indeks: -1,
+    melding: 'Du har blitt logget ut. Vennligst prøv på nytt etter innlogging.'
+  }
+];
+
 const response422 = {
   problemDetails: [
     {
@@ -118,13 +125,20 @@ describe('InnsendingExcelFil', () => {
 
     const setTokenExpired = jest.fn();
 
-    expect(await InnsendingExcelFil(file, setTokenExpired)).toEqual([
-      {
-        indeks: -1,
-        melding:
-          'Du har blitt logget ut. Vennligst prøv på nytt etter innlogging.'
-      }
-    ]);
+    expect(await InnsendingExcelFil(file, setTokenExpired)).toEqual(
+      response401
+    );
+    expect(setTokenExpired).toHaveBeenCalledTimes(2);
+    expect(setTokenExpired).toHaveBeenLastCalledWith(true);
+  });
+
+  it('returns an empty list when given 401 OK', async () => {
+    mock.post(mockUrl, (req, res, ctx) => res(ctx.status(401)));
+    const setTokenExpired = jest.fn();
+
+    expect(await InnsendingExcelFil(file, setTokenExpired)).toEqual(
+      response401
+    );
     expect(setTokenExpired).toHaveBeenCalledTimes(2);
     expect(setTokenExpired).toHaveBeenLastCalledWith(true);
   });
