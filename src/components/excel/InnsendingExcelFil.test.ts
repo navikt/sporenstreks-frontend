@@ -180,4 +180,19 @@ describe('InnsendingExcelFil', () => {
     ]);
     expect(setTokenExpired).toHaveBeenCalledTimes(1);
   });
+
+  it('returns tabellFeil list when given 667', async () => {
+    mock.post(mockUrl, (req, res, ctx) =>
+      res(ctx.status(667), ctx.json(response422))
+    );
+
+    const expected = response422.problemDetails;
+
+    const result = await InnsendingExcelFil(file, jest.fn());
+
+    expect(result).toHaveLength(1);
+    expect(result).toEqual([
+      { indeks: -1, melding: 'Feil ved innsending av skjema.' }
+    ]);
+  });
 });
