@@ -126,7 +126,7 @@ const ExcelOpplasting = () => {
           </Panel>
           <Panel>
             <Undertittel>
-              Endring av tidligere innsendte krav for perioder før 1. oktober
+              Endring av tidligere innsendte krav for perioder etter 1. desember
               2021
             </Undertittel>
             <img

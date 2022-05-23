@@ -160,20 +160,23 @@ export default function HjelpetekstRefusjonModal({
             de aktuelle månedene.
           </li>
           <li>
-            Gang med 12 = årslønn, for Frida blir dette 55 000 * 12 = 660 000
+            Gang med 12 = årslønn, for Frida blir dette 60 000 * 12 = 720 000
             kroner
           </li>
           <li>
             Reduser beløpet til 6G. Siden Frida tjener mer enn 6G så må
-            årslønnen reduseres til 6*G = 638 394 kroner.
+            årslønnen reduseres til 6*G = 638 394 kroner. (Etter 1. mai 2022
+            gjelder 6*G = 668 862 kroner)
           </li>
           <li>
             Del på 260 (antallet arbeidsdager Frida jobber i året) = dagsatsen.
-            Fridas dagsats blir da 638 394 kr / 260 = 2455.36
+            Fridas dagsats blir da 638 394 kr / 260 = 2455.36 (Etter 1. mai
+            2022: 668 862 kr / 260 = 2572,54)
           </li>
           <li>
             Gang dagsatsen med 9 dager. Maksimalt refusjonsbeløp for Frida for
-            de ni dagene blir da 22 098,24 kroner
+            de ni dagene blir da 22 098,24 kroner. (Etter 1. mai 2022: 23152,91
+            kr)
           </li>
         </ol>
         <button
