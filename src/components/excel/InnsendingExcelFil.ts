@@ -56,8 +56,7 @@ export default (
         }
       }
     })
-    .catch((error) => {
-      console.error(error);
+    .catch(() => {
       return [{ melding: 'Feil ved innsending av skjema.', indeks: -1 }];
     });
 };
