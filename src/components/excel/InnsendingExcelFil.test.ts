@@ -65,6 +65,16 @@ const response422 = {
   instance: 'about:blank'
 };
 
+const response422tom = {
+  problemDetails: [],
+  message: 'En eller flere rader/kolonner har feil.',
+  type: 'urn:sporenstreks:excel-error',
+  title: 'Det var en eller flere feil med excelarket',
+  status: 422,
+  detail: 'En eller flere rader/kolonner har feil.',
+  instance: 'about:blank'
+};
+
 describe('InnsendingExcelFil', () => {
   let mock: FetchMock;
   let spy: SpyMiddleware;
@@ -108,6 +118,24 @@ describe('InnsendingExcelFil', () => {
       });
   });
 
+  it('returns tabellFeil list when given 422 and empty error list', async () => {
+    mock.post(mockUrl, (req, res, ctx) =>
+      res(ctx.status(422), ctx.json(response422tom))
+    );
+
+    const result = await InnsendingExcelFil(file, jest.fn());
+
+    expect(result).toHaveLength(1);
+
+    result
+      .sort((x, y) => x.indeks - y.indeks)
+      .forEach((f, index) => {
+        expect(f.indeks).toBe(-1);
+        expect(f.kolonne).toBe(undefined);
+        expect(f.melding).toBe('En eller flere rader/kolonner har feil.');
+      });
+  });
+
   it('returns a generic error message when given 5xx error', async () => {
     mock.post(mockUrl, (req, res, ctx) =>
       res(ctx.status(500), ctx.json(response500))
@@ -141,5 +169,15 @@ describe('InnsendingExcelFil', () => {
     );
     expect(setTokenExpired).toHaveBeenCalledTimes(2);
     expect(setTokenExpired).toHaveBeenLastCalledWith(true);
+  });
+
+  it('returns an error when all goes wrong', async () => {
+    mock.post(mockUrl, (req, res, ctx) => Promise.reject('Feil'));
+    const setTokenExpired = jest.fn();
+
+    expect(await InnsendingExcelFil(file, setTokenExpired)).toEqual([
+      { indeks: -1, melding: 'Feil ved innsending av skjema.' }
+    ]);
+    expect(setTokenExpired).toHaveBeenCalledTimes(1);
   });
 });
