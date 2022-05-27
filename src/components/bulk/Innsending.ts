@@ -48,8 +48,7 @@ export default (
         ansatt.status = SkjemaStatus.ERRORBACKEND;
         return ansatt;
       });
-      // todo: error 400
-      //methods.setError('backend', 'Feil ved innsending av skjema');
+
       return feilData;
     }
   });
