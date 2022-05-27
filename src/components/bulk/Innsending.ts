@@ -33,7 +33,7 @@ export default (
     if (response.status === 401) {
       setTokenExpired(true);
       return validerteAnsatte;
-    } else if (response.status === 200) {
+    } else if (response.status === 200 || response.status === 201) {
       return response
         .json()
         .then((data) =>
