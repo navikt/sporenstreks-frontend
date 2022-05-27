@@ -4,6 +4,7 @@ import filtrerAnsatteForInnsending from './filtrerAnsatteForInnsending';
 import mergeAnsattlister from './mergeAnsattlister';
 import berikAnsatte from './berikAnsatte';
 import { Ansatt } from './Ansatt';
+import { SkjemaStatus } from '../../data/types/sporenstreksTypes';
 
 export default (
   arbeidsgiverId: string,
@@ -43,9 +44,12 @@ export default (
           )
         );
     } else {
-      // todo: error 400
-      //methods.setError('backend', 'Feil ved innsending av skjema');
-      return validerteAnsatte;
+      const feilData: Ansatt[] = validerteAnsatte.map((ansatt) => {
+        ansatt.status = SkjemaStatus.ERRORBACKEND;
+        return ansatt;
+      });
+
+      return feilData;
     }
   });
 };
