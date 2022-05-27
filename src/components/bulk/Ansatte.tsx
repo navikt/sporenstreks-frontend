@@ -58,6 +58,7 @@ const Ansatte: React.FC = () => {
       valideringsfeil = [];
     }
 
+    console.log('Valideringsfeil', valideringsfeil); // eslint-disable-line
     setFeil(valideringsfeil);
     if (valideringsfeil.length === 0 && localTokenExpired === false) {
       history.push(Linker.BulkKvittering);
