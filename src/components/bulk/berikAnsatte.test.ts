@@ -297,7 +297,7 @@ describe('berikAnsatte', () => {
         fom: 'fom',
         id: 2,
         oppdatert: 2,
-        status: 4,
+        status: SkjemaStatus.GENERIC_ERROR_BACKEND,
         tom: 'tom'
       },
       {
@@ -398,7 +398,7 @@ describe('berikAnsatte', () => {
         fom: 'fom',
         id: 2,
         oppdatert: 2,
-        status: 4,
+        status: SkjemaStatus.GENERIC_ERROR_BACKEND,
         tom: 'tom'
       },
       {
@@ -523,7 +523,7 @@ describe('berikAnsatte', () => {
         fom: 'fom',
         id: 1,
         oppdatert: 1,
-        status: SkjemaStatus.ERRORBACKEND,
+        status: SkjemaStatus.GENERIC_ERROR_BACKEND,
         tom: 'tom'
       },
       {

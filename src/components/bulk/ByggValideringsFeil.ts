@@ -26,6 +26,14 @@ export const ByggValideringsFeil = (ansatte: Ansatt[]): ValideringsFeil[] => {
         feilmelding: 'Det har oppstått en feil ved innsending av skjema'
       });
     }
+
+    if (a.status === SkjemaStatus.GENERIC_ERROR_BACKEND) {
+      feil.push({
+        skjemaelementId: 'fnr_' + a.id,
+        feilmelding:
+          'Det har oppstått en feil ved innsending av rad ' + (index + 1)
+      });
+    }
   });
 
   return feil;

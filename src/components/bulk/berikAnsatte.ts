@@ -20,7 +20,7 @@ function berikAnsatte(Ansatte: Ansatt[], data: BackendStatus[]): Ansatt[] {
     }
 
     if (recievedLine.status === BackendResponseState.GENERIC_ERROR) {
-      kopiAnsatte[idx].status = SkjemaStatus.ERRORBACKEND;
+      kopiAnsatte[idx].status = SkjemaStatus.GENERIC_ERROR_BACKEND;
     }
 
     if (recievedLine.status === BackendResponseState.VALIDATION_ERRORS) {
