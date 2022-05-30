@@ -23,7 +23,8 @@ export enum SkjemaStatus {
   'AVVENTER',
   'GODKJENT',
   'VALIDERINGSFEIL',
-  'ERRORBACKEND'
+  'ERRORBACKEND',
+  'GENERIC_ERROR_BACKEND'
 }
 
 export enum BackendResponseState {

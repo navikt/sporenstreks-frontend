@@ -125,7 +125,6 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   const tilDato = ReactSelector('Datovelger').nth(1);
 
   await t
-    // .debug()
     .click(tilDato)
     .typeText(tilDato, '13.12.2021')
     .click(fraDato)
