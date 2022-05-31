@@ -1,7 +1,8 @@
 import berikAnsatte from './berikAnsatte';
 import {
   BackendStatus,
-  BackendResponseState
+  BackendResponseState,
+  SkjemaStatus
 } from '../../data/types/sporenstreksTypes';
 import { Ansatt } from './Ansatt';
 
@@ -296,7 +297,7 @@ describe('berikAnsatte', () => {
         fom: 'fom',
         id: 2,
         oppdatert: 2,
-        status: 4,
+        status: SkjemaStatus.GENERIC_ERROR_BACKEND,
         tom: 'tom'
       },
       {
@@ -397,7 +398,7 @@ describe('berikAnsatte', () => {
         fom: 'fom',
         id: 2,
         oppdatert: 2,
-        status: 4,
+        status: SkjemaStatus.GENERIC_ERROR_BACKEND,
         tom: 'tom'
       },
       {
@@ -472,6 +473,73 @@ describe('berikAnsatte', () => {
         fomError:
           'Personen må ha et aktivt arbeidsforhold i virksomheten som er valgt. Det kan ikke kreves refusjon for de 5 første dagene i arbeidsgiverperioden.',
         status: 3,
+        tom: 'tom'
+      }
+    ];
+
+    expect(berikAnsatte(ansatte, backendResponce)).toEqual(expected);
+  });
+
+  it('should set the status for virksomhetsnummer', () => {
+    const ansatte: Ansatt[] = [
+      {
+        id: 1,
+        fnr: '1',
+        fom: 'fom',
+        tom: 'tom',
+        status: 1,
+        oppdatert: 1
+      },
+      {
+        id: 2,
+        fnr: '2',
+        fom: 'fom',
+        tom: 'tom',
+        status: 2,
+        oppdatert: 2
+      },
+      {
+        id: 3,
+        fnr: '3',
+        fom: 'fom',
+        tom: 'tom',
+        status: 3,
+        oppdatert: 3
+      }
+    ];
+
+    const backendResponce: BackendStatus[] = [
+      {
+        status: BackendResponseState.GENERIC_ERROR,
+        validationErrors: null,
+        genericMessage: null,
+        referenceNumber: null
+      }
+    ];
+
+    const expected: Ansatt[] = [
+      {
+        fnr: '1',
+        fom: 'fom',
+        id: 1,
+        oppdatert: 1,
+        status: SkjemaStatus.GENERIC_ERROR_BACKEND,
+        tom: 'tom'
+      },
+      {
+        fnr: '2',
+        fom: 'fom',
+        id: 2,
+        oppdatert: 2,
+        status: SkjemaStatus.GODKJENT,
+        tom: 'tom'
+      },
+      {
+        fnr: '3',
+        fom: 'fom',
+        id: 3,
+        oppdatert: 3,
+        status: SkjemaStatus.VALIDERINGSFEIL,
         tom: 'tom'
       }
     ];

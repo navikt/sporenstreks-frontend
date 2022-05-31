@@ -4,6 +4,7 @@ import filtrerAnsatteForInnsending from './filtrerAnsatteForInnsending';
 import mergeAnsattlister from './mergeAnsattlister';
 import berikAnsatte from './berikAnsatte';
 import { Ansatt } from './Ansatt';
+import { SkjemaStatus } from '../../data/types/sporenstreksTypes';
 
 export default (
   arbeidsgiverId: string,
@@ -33,7 +34,7 @@ export default (
     if (response.status === 401) {
       setTokenExpired(true);
       return validerteAnsatte;
-    } else if (response.status === 200) {
+    } else if (response.status === 200 || response.status === 201) {
       return response
         .json()
         .then((data) =>
@@ -43,9 +44,12 @@ export default (
           )
         );
     } else {
-      // todo: error 400
-      //methods.setError('backend', 'Feil ved innsending av skjema');
-      return validerteAnsatte;
+      const feilData: Ansatt[] = validerteAnsatte.map((ansatt) => {
+        ansatt.status = SkjemaStatus.ERRORBACKEND;
+        return ansatt;
+      });
+
+      return feilData;
     }
   });
 };

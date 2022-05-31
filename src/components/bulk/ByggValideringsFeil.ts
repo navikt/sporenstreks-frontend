@@ -1,7 +1,8 @@
 import { ValideringsFeil } from './ValideringsFeil';
 import { Ansatt } from './Ansatt';
+import { SkjemaStatus } from '../../data/types/sporenstreksTypes';
 
-export const ByggValideringsFeil = (ansatte: Ansatt[]) => {
+export const ByggValideringsFeil = (ansatte: Ansatt[]): ValideringsFeil[] => {
   const feil: ValideringsFeil[] = [];
 
   ansatte.forEach((a, index) => {
@@ -18,7 +19,24 @@ export const ByggValideringsFeil = (ansatte: Ansatt[]) => {
         feilmelding: 'Det er en feil i rad nr ' + (index + 1)
       });
     }
+
+    if (a.status === SkjemaStatus.ERRORBACKEND) {
+      feil.push({
+        skjemaelementId: 'fnr_' + a.id,
+        feilmelding: 'Det har oppstått en feil ved innsending av skjema'
+      });
+    }
+
+    if (a.status === SkjemaStatus.GENERIC_ERROR_BACKEND) {
+      feil.push({
+        skjemaelementId: 'fnr_' + a.id,
+        feilmelding: `Det har oppstått en feil ved innsending av rad ${
+          index + 1
+        }`
+      });
+    }
   });
+
   return feil;
 };
 

@@ -50,7 +50,7 @@ const cookieMock = RequestMock()
   .onRequestTo(grunnBeloep)
   .respond(grunnBeloepVerdier, 200, mockHeaders)
   .onRequestTo(innsendingAPI)
-  .respond(null, 201, mockHeaders);
+  .respond([{ status: 'OK', referenceNumber: '10' }], 201, mockHeaders);
 
 fixture`Bulkinnsending`
   .page`http://localhost:3000/nettrefusjon/bulk/?bedrift=810007842&TestCafe=running`
@@ -125,11 +125,10 @@ test('Klikk submit uten data, fjern feilmeldinger en etter en og send inn', asyn
   const tilDato = ReactSelector('Datovelger').nth(1);
 
   await t
-    // .debug()
     .click(tilDato)
-    .typeText(tilDato, '01.12.2021')
+    .typeText(tilDato, '13.12.2021')
     .click(fraDato)
-    .typeText(fraDato, '13.12.2021')
+    .typeText(fraDato, '01.12.2021')
     .pressKey('tab')
     .expect(Selector('html').textContent)
     .notContains('Det må være en gyldig dato');

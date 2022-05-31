@@ -49,6 +49,22 @@ describe('ByggValideringsFeil', () => {
         id: 789,
         status: SkjemaStatus.AVVENTER,
         oppdatert: 1
+      },
+      {
+        fnr: '1234',
+        fom: 'fom',
+        tom: 'tom',
+        id: 999,
+        status: SkjemaStatus.ERRORBACKEND,
+        oppdatert: 1
+      },
+      {
+        fnr: '1234',
+        fom: 'fom',
+        tom: 'tom',
+        id: 998,
+        status: SkjemaStatus.GENERIC_ERROR_BACKEND,
+        oppdatert: 1
       }
     ];
 
@@ -72,6 +88,14 @@ describe('ByggValideringsFeil', () => {
       {
         feilmelding: 'Det er en feil i rad nr 5',
         skjemaelementId: 'fnr_789'
+      },
+      {
+        feilmelding: 'Det har oppstått en feil ved innsending av skjema',
+        skjemaelementId: 'fnr_999'
+      },
+      {
+        feilmelding: 'Det har oppstått en feil ved innsending av rad 7',
+        skjemaelementId: 'fnr_998'
       }
     ];
 
