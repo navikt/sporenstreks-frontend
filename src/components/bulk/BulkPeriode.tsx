@@ -9,6 +9,7 @@ import { Column, Row } from 'nav-frontend-grid';
 import validateDato from './validateDato';
 import Datovelger from './Datovelger';
 import validateDatoRekkefolge from './validateDatoRekkefolge';
+import { finalMaxDate } from '../periode/PeriodeValidator';
 
 interface BulkPeriodeProps extends AnsattID {
   onClose: (selectedDate: string) => void;
@@ -76,6 +77,7 @@ const BulkPeriode = (props: BulkPeriodeProps) => {
             handleClose={handleCloseFom}
             fomtom='fom'
             defaultValue={ansatt.fom}
+            maximumDate={finalMaxDate}
           />
           <SkjemaelementFeilmelding>
             {ansatt?.fomError}

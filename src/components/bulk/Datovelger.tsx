@@ -9,16 +9,18 @@ interface DatovelgerProps {
   handleClose: any;
   fomtom: string;
   defaultValue: string;
+  maximumDate?: (now?: Date) => Date;
 }
 
 export default function Datovelger({
   id,
   handleClose,
   fomtom,
-  defaultValue
+  defaultValue,
+  maximumDate
 }: DatovelgerProps) {
   const perId2 = 'periode_' + id + '_' + fomtom;
-
+  const maxedDate = maximumDate ? maximumDate : maxDate;
   return (
     <Datepicker
       locale={'nb'}
@@ -36,7 +38,7 @@ export default function Datovelger({
         weekendsNotSelectable: false,
         invalidDateRanges: disabledDates,
         minDate: dayjs(minDate()).format('YYYY-MM-DD'),
-        maxDate: dayjs(maxDate()).format('YYYY-MM-DD')
+        maxDate: dayjs(maxedDate()).format('YYYY-MM-DD')
       }}
     />
   );

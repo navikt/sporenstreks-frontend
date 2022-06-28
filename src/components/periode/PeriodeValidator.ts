@@ -1,4 +1,7 @@
 import dayjs from 'dayjs';
+import minMax from 'dayjs/plugin/minMax';
+
+dayjs.extend(minMax);
 
 export const maxDate = (now?: Date): Date => {
   return dayjs(now ? now : new Date()).toDate();
@@ -8,6 +11,12 @@ export const minDate = () => new Date(2021, 11, 1);
 
 export const Minimum = (now?: Date): string => {
   return dayjs(now ? now : new Date()).toISOString();
+};
+
+export const finalMaxDate = (now?: Date): Date => {
+  const overridableDate = now ? dayjs(now) : dayjs();
+  const endDate = dayjs.min(overridableDate, dayjs('2022-06-30'));
+  return endDate.toDate();
 };
 
 // Datoformat: 'YYYY-MM-DD'
