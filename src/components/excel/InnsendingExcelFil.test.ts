@@ -26,6 +26,13 @@ const response500 = {
   instance:
     'urn:sporenstreks:uventent-feil:1f447140-6d6c-403c-bbc5-7e0f400bc684'
 };
+const response401 = [
+  {
+    indeks: -1,
+    melding: 'Du har blitt logget ut. Vennligst prøv på nytt etter innlogging.'
+  }
+];
+
 const response422 = {
   problemDetails: [
     {
@@ -50,6 +57,16 @@ const response422 = {
       column: 'Virksomhetsnummer'
     }
   ],
+  message: 'En eller flere rader/kolonner har feil.',
+  type: 'urn:sporenstreks:excel-error',
+  title: 'Det var en eller flere feil med excelarket',
+  status: 422,
+  detail: 'En eller flere rader/kolonner har feil.',
+  instance: 'about:blank'
+};
+
+const response422tom = {
+  problemDetails: [],
   message: 'En eller flere rader/kolonner har feil.',
   type: 'urn:sporenstreks:excel-error',
   title: 'Det var en eller flere feil med excelarket',
@@ -101,6 +118,24 @@ describe('InnsendingExcelFil', () => {
       });
   });
 
+  it('returns tabellFeil list when given 422 and empty error list', async () => {
+    mock.post(mockUrl, (req, res, ctx) =>
+      res(ctx.status(422), ctx.json(response422tom))
+    );
+
+    const result = await InnsendingExcelFil(file, jest.fn());
+
+    expect(result).toHaveLength(1);
+
+    result
+      .sort((x, y) => x.indeks - y.indeks)
+      .forEach((f, index) => {
+        expect(f.indeks).toBe(-1);
+        expect(f.kolonne).toBe(undefined);
+        expect(f.melding).toBe('En eller flere rader/kolonner har feil.');
+      });
+  });
+
   it('returns a generic error message when given 5xx error', async () => {
     mock.post(mockUrl, (req, res, ctx) =>
       res(ctx.status(500), ctx.json(response500))
@@ -118,14 +153,46 @@ describe('InnsendingExcelFil', () => {
 
     const setTokenExpired = jest.fn();
 
-    expect(await InnsendingExcelFil(file, setTokenExpired)).toEqual([
-      {
-        indeks: -1,
-        melding:
-          'Du har blitt logget ut. Vennligst prøv på nytt etter innlogging.'
-      }
-    ]);
+    expect(await InnsendingExcelFil(file, setTokenExpired)).toEqual(
+      response401
+    );
     expect(setTokenExpired).toHaveBeenCalledTimes(2);
     expect(setTokenExpired).toHaveBeenLastCalledWith(true);
+  });
+
+  it('returns an empty list when given 401 OK', async () => {
+    mock.post(mockUrl, (req, res, ctx) => res(ctx.status(401)));
+    const setTokenExpired = jest.fn();
+
+    expect(await InnsendingExcelFil(file, setTokenExpired)).toEqual(
+      response401
+    );
+    expect(setTokenExpired).toHaveBeenCalledTimes(2);
+    expect(setTokenExpired).toHaveBeenLastCalledWith(true);
+  });
+
+  it('returns an error when all goes wrong', async () => {
+    mock.post(mockUrl, (req, res, ctx) => Promise.reject('Feil'));
+    const setTokenExpired = jest.fn();
+
+    expect(await InnsendingExcelFil(file, setTokenExpired)).toEqual([
+      { indeks: -1, melding: 'Feil ved innsending av skjema.' }
+    ]);
+    expect(setTokenExpired).toHaveBeenCalledTimes(1);
+  });
+
+  it('returns tabellFeil list when given 667', async () => {
+    mock.post(mockUrl, (req, res, ctx) =>
+      res(ctx.status(667), ctx.json(response422))
+    );
+
+    const expected = response422.problemDetails;
+
+    const result = await InnsendingExcelFil(file, jest.fn());
+
+    expect(result).toHaveLength(1);
+    expect(result).toEqual([
+      { indeks: -1, melding: 'Feil ved innsending av skjema.' }
+    ]);
   });
 });
